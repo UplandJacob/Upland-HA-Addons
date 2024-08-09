@@ -1,4 +1,4 @@
-name: Publish Docker Image
+name: Publish Home Assistant Add-ons
 
 on:
   push:
@@ -6,26 +6,30 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        addon: [twingate] # all add-ons
+        architecture: [amd64, armv7, aarch64] # all architectures
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-    - name: Log in to GitHub Container Registry
-      uses: docker/login-action@v2
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.HA_GITHUB_TOKEN }}
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.HA_GITHUB_TOKEN }}
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: ghcr.io/${{ github.repository }}:latest
+      - name: Build and push Docker images
+        run: |
+          docker buildx build --platform linux/${{ matrix.architecture }} \
+            --push \
+            -t ghcr.io/${{ github.repository }}/${{ matrix.addon }}:latest \
+            ./addons/${{ matrix.addon }}
