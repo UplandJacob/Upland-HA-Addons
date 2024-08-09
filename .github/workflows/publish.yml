@@ -41,5 +41,5 @@ jobs:
           docker buildx build --platform linux/${{ matrix.architecture }} \
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --push \
-            -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}:latest \
+            -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.architecture }}:latest \
             ./${{ matrix.addon }}
