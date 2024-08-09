@@ -1,5 +1,5 @@
 ARG BUILD_FROM
-FROM $BUILD_
+FROM $BUILD_FROM
 
 COPY install.sh /
 RUN chmod a+x /install.sh
