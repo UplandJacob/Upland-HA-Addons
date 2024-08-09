@@ -29,9 +29,8 @@ jobs:
 
       - name: Set lowercase repository and owner names
         run: |
-          echo "REPO_NAME_LC=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
-          echo "OWNER_NAME_LC=${{ github.repository_owner,, }}" >> $GITHUB_ENV
-
+          echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "OWNER_NAME_LC=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Build and push Docker images
         run: |
