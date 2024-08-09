@@ -1,0 +1,36 @@
+name: Twingate
+version: 0.0.1
+slug: twingate
+description: Twingate VPN from Home Assistant.
+url: https://github.com/uplandjacob/upland-ha-addons/tree/main/twingate
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+startup: once
+boot: manual
+init: false
+image: ghcr.io/uplandjacob/ha-twingate{arch}
+hassio_api: true
+hassio_role: manager
+map:
+  - config
+options:
+  twingate_options:
+    network: ''
+    access_token: ''
+    refresh_token: ''
+    custom_dns_server: ''
+    allow_local_connection: false
+    local_connection_logs: main
+  
+schema:
+  twingate_options:
+    network: match([a-z]+)
+    access_token: match([a-zA-Z\._]+)
+    refresh_token: match([a-zA-Z\._]+)
+    custom_dns_server: password
+    allow_local_connection: bool
+    local_connection_logs: bool
