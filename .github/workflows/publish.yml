@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         addon: [twingate] # all add-ons
-        architecture: [amd64, armv7, aarch64] # all architectures
+        architecture: [armv7, aarch64, amd64, i386] # all architectures
 
     steps:
       - name: Checkout repository
@@ -27,9 +27,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.HA_GITHUB_TOKEN }}
 
+      - name: Set lowercase repository and owner names
+        run: |
+          echo "REPO_NAME_LC=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+          echo "OWNER_NAME_LC=${{ github.repository_owner,, }}" >> $GITHUB_ENV
+
+
       - name: Build and push Docker images
         run: |
           docker buildx build --platform linux/${{ matrix.architecture }} \
             --push \
-            -t ghcr.io/${{ github.repository }}/${{ matrix.addon }}:latest \
+            -t ghcr.io/${{ env.OWNER_NAME_LC }}/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}:latest \
             ./addons/${{ matrix.addon }}
