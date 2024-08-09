@@ -12,7 +12,7 @@ arch:
 startup: once
 boot: manual
 init: false
-image: ghcr.io/uplandjacob/ha-twingate{arch}
+image: ghcr.io/uplandjacob/ha-twingate-{arch}
 hassio_api: true
 hassio_role: manager
 map:
