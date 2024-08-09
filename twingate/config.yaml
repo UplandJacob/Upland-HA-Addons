@@ -4,7 +4,6 @@ slug: twingate
 description: Twingate VPN from Home Assistant.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/twingate
 arch:
-  - armhf
   - armv7
   - aarch64
   - amd64
