@@ -36,6 +36,11 @@ jobs:
           BUILD_FROM=$(yq e ".build_from.${{ matrix.architecture }}" ./${{ matrix.addon }}/build.yaml)
           echo "BUILD_FROM=${BUILD_FROM}" >> $GITHUB_ENV
 
+      - name: Set VERSION variable
+        run: |
+          VERSION=$(yq e ".version" ./${{ matrix.addon }}/config.yaml)
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
       - name: Build and push Docker images
         run: |
           docker buildx build --platform linux/${{ matrix.architecture }} \
