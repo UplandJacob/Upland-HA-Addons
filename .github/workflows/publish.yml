@@ -38,4 +38,4 @@ jobs:
           docker buildx build --platform linux/${{ matrix.architecture }} \
             --push \
             -t ghcr.io/${{ env.OWNER_NAME_LC }}/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}:latest \
-            ./addons/${{ matrix.addon }}
+            ./${{ matrix.addon }}
