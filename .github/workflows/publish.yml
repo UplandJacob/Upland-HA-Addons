@@ -30,11 +30,10 @@ jobs:
       - name: Set lowercase repository and owner names
         run: |
           echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo "OWNER_NAME_LC=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Build and push Docker images
         run: |
           docker buildx build --platform linux/${{ matrix.architecture }} \
             --push \
-            -t ghcr.io/${{ env.OWNER_NAME_LC }}/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}:latest \
+            -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}:latest \
             ./${{ matrix.addon }}
