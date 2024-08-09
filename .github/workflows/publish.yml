@@ -31,9 +31,15 @@ jobs:
         run: |
           echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
+      - name: Set BUILD_FROM variable
+        run: |
+          BUILD_FROM=$(yq e ".build_from.${{ matrix.architecture }}" build.yaml)
+          echo "BUILD_FROM=${BUILD_FROM}" >> $GITHUB_ENV
+
       - name: Build and push Docker images
         run: |
           docker buildx build --platform linux/${{ matrix.architecture }} \
+            --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --push \
             -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}:latest \
             ./${{ matrix.addon }}
