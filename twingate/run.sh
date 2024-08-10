@@ -1,6 +1,6 @@
 #!/usr/bin/env bashio
 
-CONFIG_PATH=/config.yaml
+CONFIG_PATH=/data/options.json
 
 NETWORK=$(bashio::config 'options.network')
 ACCESS_TOKEN=$(bashio::config 'options.access_token')
