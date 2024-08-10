@@ -5,9 +5,9 @@ ACCESS_TOKEN=$(bashio::config 'access_token')
 REFRESH_TOKEN=$(bashio::config 'refresh_token')
 
 echo "info entered:"
-echo "network: $NETWORK"
-echo "access_token: $ACCESS_TOKEN"
-echo "refresh_token: $REFRESH_TOKEN"
+echo "network: ${NETWORK}"
+echo "access_token: ${ACCESS_TOKEN}"
+echo "refresh_token: ${REFRESH_TOKEN}"
 
 
 curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
