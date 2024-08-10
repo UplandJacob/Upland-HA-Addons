@@ -28,7 +28,7 @@ echo ""
 
 
 #curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
-sudo /twingate-install.sh \
+sudo /twingate-install.sh -f \
   TWINGATE_ACCESS_TOKEN="${ACCESS_TOKEN}" \
   TWINGATE_REFRESH_TOKEN="${REFRESH_TOKEN}" \
   TWINGATE_LOG_ANALYTICS="v2" \
