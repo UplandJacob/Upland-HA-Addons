@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'twingate'
 
 jobs:
   build-and-push:
@@ -24,6 +26,7 @@ jobs:
         run: |
           echo "Changed folders: ${{ github.event.head_commit.modified }}"
           echo "::set-output name=changed_folders::${{ github.event.head_commit.modified }}"
+          echo "${{ github.event.head_commit.modified }}"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
