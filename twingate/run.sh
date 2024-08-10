@@ -18,7 +18,7 @@ echo -e "local_connection_logs: ${LOGS}${NC}"
 
 
 #curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
-sudo service twingate start \
+sudo twingate-install.sh \
   TWINGATE_ACCESS_TOKEN="${ACCESS_TOKEN}" \
   TWINGATE_REFRESH_TOKEN="${REFRESH_TOKEN}" \
   TWINGATE_LOG_ANALYTICS="v2" \
