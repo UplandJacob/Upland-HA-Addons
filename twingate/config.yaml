@@ -29,6 +29,6 @@ schema:
   network: match([a-z]+)
   access_token: match([a-zA-Z\._]+)
   refresh_token: match([a-zA-Z\._]+)
-  custom_dns_server: str
-  allow_local_connection: bool
-  local_connection_logs: bool
+  custom_dns_server: str?
+  allow_local_connection: bool?
+  local_connection_logs: bool?
