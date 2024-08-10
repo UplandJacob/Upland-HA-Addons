@@ -59,5 +59,5 @@ if [ -n "${TWINGATE_ACCESS_TOKEN}" ] && [ -n "${TWINGATE_REFRESH_TOKEN}" ]; then
     fi
     chmod 0600 "$CONFIG"
     #systemctl enable --now twingate-connector
-    twingate-connector
+    #twingate-connector
 fi
