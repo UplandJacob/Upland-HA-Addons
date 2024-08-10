@@ -19,6 +19,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Get changed folders
+        id: get_changed_folders
+        run: |
+          echo "Changed folders: ${{ github.event.head_commit.modified }}"
+          echo "::set-output name=changed_folders::${{ github.event.head_commit.modified }}"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
@@ -29,21 +35,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.HA_GITHUB_TOKEN }}
 
+
       - name: Set lowercase repository and owner names
         run: |
           echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-
-      - name: Set BUILD_FROM and PLATFORM variables
+      - name: Set BUILD_FROM, PLATFORM, and VERSION variables
         run: |
           BUILD_FROM=$(yq e ".build_from.${{ matrix.architecture }}" ./${{ matrix.addon }}/build.yaml)
           PLATFORM=$(yq e ".platform.${{ matrix.architecture }}" ./${{ matrix.addon }}/build.yaml)
+          VERSION=$(yq e ".version" ./${{ matrix.addon }}/config.yaml)
           echo "BUILD_FROM=${BUILD_FROM}" >> $GITHUB_ENV
           echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
-
-      - name: Set VERSION variable
-        run: |
-          VERSION=$(yq e ".version" ./${{ matrix.addon }}/config.yaml)
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+      
 
       - name: Build and push Docker images
         run: |
