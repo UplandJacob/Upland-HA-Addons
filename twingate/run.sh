@@ -33,3 +33,7 @@ sudo /twingate-install.sh \
   TWINGATE_NETWORK="${NETWORK}" \
   TWINGATE_LABEL_DEPLOYED_BY="linux" bash
 
+cat /etc/twingate/connector.conf
+
+sudo twingate-connector
+
