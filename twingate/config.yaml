@@ -18,19 +18,17 @@ hassio_role: manager
 map:
   - config
 options:
-  twingate_options:
-    network: ''
-    access_token: ''
-    refresh_token: ''
-    custom_dns_server: ''
-    allow_local_connection: false
-    local_connection_logs: false
+  network: ''
+  access_token: ''
+  refresh_token: ''
+  custom_dns_server: ''
+  allow_local_connection: false
+  local_connection_logs: false
   
 schema:
-  twingate_options:
-    network: match([a-z]+)
-    access_token: match([a-zA-Z\._]+)
-    refresh_token: match([a-zA-Z\._]+)
-    custom_dns_server: password
-    allow_local_connection: bool
-    local_connection_logs: bool
+  network: match([a-z]+)
+  access_token: match([a-zA-Z\._]+)
+  refresh_token: match([a-zA-Z\._]+)
+  custom_dns_server: str
+  allow_local_connection: bool
+  local_connection_logs: bool
