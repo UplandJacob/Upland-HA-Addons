@@ -31,10 +31,12 @@ jobs:
         run: |
           echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-      - name: Set BUILD_FROM variable
+      - name: Set BUILD_FROM and PLATFORM variables
         run: |
           BUILD_FROM=$(yq e ".build_from.${{ matrix.architecture }}" ./${{ matrix.addon }}/build.yaml)
+          PLATFORM=$(yq e ".platform.${{ matrix.architecture }}" ./${{ matrix.addon }}/build.yaml)
           echo "BUILD_FROM=${BUILD_FROM}" >> $GITHUB_ENV
+          echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
 
       - name: Set VERSION variable
         run: |
@@ -43,7 +45,7 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker buildx build --platform linux/${{ matrix.architecture }} \
+          docker buildx build --platform linux/${{ env.PLATFORM }} \
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --push \
             -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.architecture }}:${{ env.VERSION }} \
