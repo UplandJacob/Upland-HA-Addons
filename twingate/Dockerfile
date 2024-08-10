@@ -2,7 +2,7 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 # Add rootfs
-COPY rootfs/ /
+#COPY rootfs/ /
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
@@ -12,8 +12,9 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && apt-get install -y sudo apt systemctl
 
+COPY twingate-install.sh /twingate-install.sh
 COPY run.sh /run.sh
-RUN chmod a+x /run.sh
+RUN chmod a+x /run.sh /twingate-install.sh
 
 CMD [ "/run.sh" ]
 
