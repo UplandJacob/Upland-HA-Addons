@@ -24,7 +24,7 @@ options:
     refresh_token: ''
     custom_dns_server: ''
     allow_local_connection: false
-    local_connection_logs: main
+    local_connection_logs: false
   
 schema:
   twingate_options:
