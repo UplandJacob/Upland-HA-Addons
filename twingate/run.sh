@@ -2,10 +2,10 @@
 
 CONFIG_PATH=/data/options.json
 
-NETWORK=$(bashio::config 'options.network')
-ACCESS_TOKEN=$(bashio::config 'options.access_token')
-REFRESH_TOKEN=$(bashio::config 'options.refresh_token')
-LOGS=$(bashio::config 'options.local_connection_logs')
+NETWORK=$(bashio::config 'network')
+ACCESS_TOKEN=$(bashio::config 'access_token')
+REFRESH_TOKEN=$(bashio::config 'refresh_token')
+LOGS=$(bashio::config 'local_connection_logs')
 
 echo "info entered:"
 echo "network: ${NETWORK}"
