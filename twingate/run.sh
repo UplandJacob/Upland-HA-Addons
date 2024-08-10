@@ -11,9 +11,9 @@ echo "refresh_token: ${REFRESH_TOKEN}"
 
 
 curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
-  TWINGATE_ACCESS_TOKEN="" \ 
-  TWINGATE_REFRESH_TOKEN="" \ 
+  TWINGATE_ACCESS_TOKEN="${ACCESS_TOKEN}" \
+  TWINGATE_REFRESH_TOKEN="${REFRESH_TOKEN}" \
   TWINGATE_LOG_ANALYTICS="v2" \
-  TWINGATE_NETWORK="feilhouse" \
+  TWINGATE_NETWORK="${NETWORK}" \
   TWINGATE_LABEL_DEPLOYED_BY="linux" bash
 
