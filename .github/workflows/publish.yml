@@ -12,6 +12,8 @@ jobs:
       matrix:
         addon: [twingate] # all add-ons
         architecture: [armv7, aarch64, amd64, i386] # all architectures
+    env:
+      GH_TOKEN: ${{ github.token }}
 
     steps:
       - name: Checkout repository
