@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG_PATH=/data/config.yaml
+CONFIG_PATH=/config.yaml
 
 NETWORK=$(yq '.options.network' $CONFIG_PATH)
 ACCESS_TOKEN=$(yq '.options.access_token' $CONFIG_PATH)
