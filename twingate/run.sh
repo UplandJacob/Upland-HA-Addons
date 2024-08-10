@@ -16,6 +16,7 @@ echo "refresh_token: ${REFRESH_TOKEN}"
 echo "allow_local_connection: ${LOCAL_CONNECTION}"
 echo -e "local_connection_logs: ${LOGS}${NC}"
 
+ps -p 1 -o comm=
 
 #curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
 sudo /twingate-install.sh \
