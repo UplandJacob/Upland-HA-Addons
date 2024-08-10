@@ -9,18 +9,20 @@ LOGS=$(bashio::config 'local_connection_logs')
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-echo "${GREEN}"
+echo -e "${GREEN}"
 
-echo -e "info entered:"
+echo "info entered:"
 echo "network: ${NETWORK}"
 echo "access_token: ${ACCESS_TOKEN}"
 echo "refresh_token: ${REFRESH_TOKEN}"
 echo "allow_local_connection: ${LOCAL_CONNECTION}"
-echo -e "local_connection_logs: ${LOGS}"
+echo "local_connection_logs: ${LOGS}"
+
+echo -e "${NC}"
 
 ps -p 1 -o comm=
 
-echo "${NC}"
+echo ""
 
 
 
