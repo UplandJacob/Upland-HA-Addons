@@ -39,6 +39,7 @@ echo ""
 ls /etc
 echo ""
 ls /etc/twingate
+echo ""
 cat /etc/twingate/connector.conf
 
 echo ""
