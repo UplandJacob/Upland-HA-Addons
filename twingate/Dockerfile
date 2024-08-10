@@ -10,7 +10,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 
-RUN apt-get update && apt-get install -y sudo apt systemctl
+RUN apt-get update && apt-get install -y sudo cat
 
 COPY twingate-install.sh /twingate-install.sh
 COPY run.sh /run.sh
