@@ -9,14 +9,21 @@ LOGS=$(bashio::config 'local_connection_logs')
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}info entered:"
+echo "${GREEN}"
+
+echo -e "info entered:"
 echo "network: ${NETWORK}"
 echo "access_token: ${ACCESS_TOKEN}"
 echo "refresh_token: ${REFRESH_TOKEN}"
 echo "allow_local_connection: ${LOCAL_CONNECTION}"
-echo -e "local_connection_logs: ${LOGS}${NC}"
+echo -e "local_connection_logs: ${LOGS}"
 
 ps -p 1 -o comm=
+
+echo "${NC}"
+
+
+
 
 #curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
 sudo /twingate-install.sh \
