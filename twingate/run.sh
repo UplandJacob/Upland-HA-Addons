@@ -20,7 +20,7 @@ echo "local_connection_logs: ${LOGS}"
 
 echo -e "${NC}"
 
-ps -p 1 -o comm=
+#ps -p 1 -o comm=
 
 echo ""
 
