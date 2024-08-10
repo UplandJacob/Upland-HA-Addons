@@ -1,17 +1,18 @@
 #!/usr/bin/with-contenv bashio
 
-CONFIG_PATH=/data/options.json
-
 NETWORK=$(bashio::config 'network')
 ACCESS_TOKEN=$(bashio::config 'access_token')
 REFRESH_TOKEN=$(bashio::config 'refresh_token')
 LOGS=$(bashio::config 'local_connection_logs')
 
-echo "info entered:"
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+echo "info entered:${RED}"
 echo "network: ${NETWORK}"
 echo "access_token: ${ACCESS_TOKEN}"
 echo "refresh_token: ${REFRESH_TOKEN}"
-echo "log: ${LOGS}"
+echo "log: ${LOGS}${NC}"
 
 
 curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
