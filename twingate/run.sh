@@ -2,10 +2,11 @@
 
 CONFIG_PATH=/data/config.yaml
 
-NETWORK=$(yq e '.options.network' ${CONFIG_PATH})
-ACCESS_TOKEN=$(yq e '.options.access_token' ${CONFIG_PATH})
-REFRESH_TOKEN=$(yq e '.options.refresh_token' ${CONFIG_PATH})
-LOGS=$(yq e '.options.local_connection_logs' ${CONFIG_PATH})
+NETWORK=$(yq e '.options.network' $CONFIG_PATH)
+ACCESS_TOKEN=$(yq e '.options.access_token' $CONFIG_PATH)
+REFRESH_TOKEN=$(yq e '.options.refresh_token' $CONFIG_PATH)
+LOGS=$(yq e '.options.local_connection_logs' $CONFIG_PATH)
+
 
 echo "info entered:"
 echo "network: ${NETWORK}"
