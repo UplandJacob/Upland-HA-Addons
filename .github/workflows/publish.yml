@@ -57,8 +57,3 @@ jobs:
             -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.architecture }}:${{ env.VERSION }} \
             ./${{ matrix.addon }}
 
-      - name: Set package visibility to public
-        run: |
-          gh api -X PATCH /user/packages/container/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.architecture }}/visibility \
-            -f visibility=public \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}"
