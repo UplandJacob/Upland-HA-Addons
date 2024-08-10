@@ -7,3 +7,5 @@ COPY run.sh /
 RUN chmod a+x /install.sh /run.sh
 
 CMD [ "/install.sh" ]
+
+CMD [ "/run.sh" ]
