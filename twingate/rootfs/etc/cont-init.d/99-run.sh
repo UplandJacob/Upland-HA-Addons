@@ -37,19 +37,11 @@ else
     [ -f "$CONFIG" ] && mv "$CONFIG" "$CONFIG.$(date +%s)"
 fi
 
-if command -v apt-get; then
-    echo "deb [trusted=true] https://packages.twingate.com/apt/ /" | tee /etc/apt/sources.list.d/twingate.list
-    apt update -yq
-    apt install -yq twingate-connector
-elif command -v dnf; then
-    dnf install -y 'dnf-command(config-manager)'
-    dnf config-manager --add-repo "https://packages.twingate.com/rpm/"
-    dnf config-manager --save "--setopt=packages.twingate.com_rpm_.gpgcheck=0"
-    dnf install -y twingate-connector
-else
-    echo "$(hostnamectl | grep 'Operating System') not supported"
-    exit_no_changes
-fi
+
+echo "deb [trusted=true] https://packages.twingate.com/apt/ /" | tee /etc/apt/sources.list.d/twingate.list
+apt-get update -yq
+apt-get install -yq twingate-connector
+
 
 if [ -n "${TWINGATE_NETWORK}" ]; then
   echo "TWINGATE_NETWORK=${TWINGATE_NETWORK}" >> "${CONFIG}"
