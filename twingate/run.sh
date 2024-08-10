@@ -1,12 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 
 CONFIG_PATH=/config.yaml
 
-NETWORK=$(yq '.options.network' $CONFIG_PATH)
-ACCESS_TOKEN=$(yq '.options.access_token' $CONFIG_PATH)
-REFRESH_TOKEN=$(yq '.options.refresh_token' $CONFIG_PATH)
-LOGS=$(yq '.options.local_connection_logs' $CONFIG_PATH)
-
+NETWORK=$(bashio::config 'options.network')
+ACCESS_TOKEN=$(bashio::config 'options.access_token')
+REFRESH_TOKEN=$(bashio::config 'options.refresh_token')
+LOGS=$(bashio::config 'options.local_connection_logs')
 
 echo "info entered:"
 echo "network: ${NETWORK}"
