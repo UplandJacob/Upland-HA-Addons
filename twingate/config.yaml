@@ -21,10 +21,7 @@ options:
   network: ''
   access_token: ''
   refresh_token: ''
-  custom_dns_server: ''
-  allow_local_connection: false
-  local_connection_logs: false
-  
+
 schema:
   network: match([a-z]+)
   access_token: match([a-zA-Z\._]+)
