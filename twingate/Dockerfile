@@ -14,6 +14,8 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     sudo curl
 
+#RUN curl -fsSL https://get.pulumi.com | sh
+
 # copy needed files and set executable 
 COPY twingate-install.sh /twingate-install.sh
 COPY run.sh /run.sh
