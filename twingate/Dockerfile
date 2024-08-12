@@ -12,7 +12,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo docker-ce docker-ce-cli containerd.io
+    sudo docker.io docker-ce docker-ce-cli containerd.io
 
 # pulumi
 #RUN apt-get python3-venv python3-pip
