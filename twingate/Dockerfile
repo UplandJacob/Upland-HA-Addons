@@ -15,7 +15,7 @@ RUN apt-get update && \
     sudo 
 
 # pulumi
-RUN apt-get python3-venv python3-pip
+RUN apt-get install python3-venv python3-pip
 RUN curl -fsSL https://get.pulumi.com | sh
 RUN pip install twingate-connector
 RUN pulumi new
