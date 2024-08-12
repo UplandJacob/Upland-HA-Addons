@@ -12,7 +12,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo curl gpg git apt-utils
+    sudo curl git
 
 # pulumi
 #RUN apt-get python3-venv python3-pip
