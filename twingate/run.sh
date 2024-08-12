@@ -24,25 +24,23 @@ echo -e "${NC}"
 
 echo ""
 
+helm upgrade --install twingate-connector twingate/connector -n default \
+  --set connector.network="${NETWORK}" \
+  --set connector.accessToken="${ACCESS_TOKEN}" \
+  --set connector.refreshToken="${REFRESH_TOKEN}"
+
+
 #curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
-sudo /twingate-install.sh -f \
-  TWINGATE_ACCESS_TOKEN="${ACCESS_TOKEN}" \
-  TWINGATE_REFRESH_TOKEN="${REFRESH_TOKEN}" \
-  TWINGATE_LOG_ANALYTICS="v2" \
-  TWINGATE_NETWORK="${NETWORK}" \
-  TWINGATE_LABEL_DEPLOYED_BY="linux" bash
+#sudo /twingate-install.sh -f \
+#  TWINGATE_ACCESS_TOKEN="${ACCESS_TOKEN}" \
+#  TWINGATE_REFRESH_TOKEN="${REFRESH_TOKEN}" \
+#  TWINGATE_LOG_ANALYTICS="v2" \
+#  TWINGATE_NETWORK="${NETWORK}" \
+#  TWINGATE_LABEL_DEPLOYED_BY="linux" bash
 
-echo ""
-ls /etc
-echo ""
-ls /etc/twingate
-echo ""
-cat /etc/twingate/connector.conf
 
 echo ""
 echo ""
-echo ""
-echo ""
 
-sudo twingate-connector
+#sudo twingate-connector
 
