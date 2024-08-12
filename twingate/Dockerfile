@@ -12,7 +12,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo docker.io docker-ce docker-ce-cli containerd.io
+    sudo pulumi-twingate
 
 # pulumi
 #RUN apt-get python3-venv python3-pip
@@ -21,11 +21,6 @@ RUN apt-get update && \
 #RUN pulumi new
 #would require some more
 
-
-# helm
-#RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-#RUN chmod 700 get_helm.sh
-#RUN ./get_helm.sh
 
 #RUN helm repo add twingate https://twingate.github.io/helm-charts
 #RUN helm upgrade --install twingate-connector twingate/connector -n default --set connector.network="test" --set connector.accessToken="" --set connector.refreshToken=""
