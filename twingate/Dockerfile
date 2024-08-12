@@ -22,10 +22,6 @@ RUN apt-get update && \
 #would require some more
 
 
-#RUN helm repo add twingate https://twingate.github.io/helm-charts
-#RUN helm upgrade --install twingate-connector twingate/connector -n default --set connector.network="test" --set connector.accessToken="" --set connector.refreshToken=""
-
-#RUN docker pull twingate/connector:1
 
 # copy needed files and set executable 
 #COPY twingate-install.sh /twingate-install.sh
