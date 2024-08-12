@@ -24,16 +24,16 @@ echo -e "${NC}"
 
 echo ""
 
-docker run -d
-    --sysctl net.ipv4.ping_group_range="0 2147483647"
-    --env TWINGATE_NETWORK="${NETWORK}"
-    --env TWINGATE_ACCESS_TOKEN="${ACCESS_TOKEN}"
-    --env TWINGATE_REFRESH_TOKEN="${REFRESH_TOKEN}"
-    --env TWINGATE_LABEL_HOSTNAME="`hostname`"
-    --env TWINGATE_LABEL_DEPLOYED_BY="docker"
-    --name "twingate-connector"
-    --restart=unless-stopped
-    --pull=always
+docker run -d \
+    --sysctl net.ipv4.ping_group_range="0 2147483647" \
+    --env TWINGATE_NETWORK="${NETWORK}" \
+    --env TWINGATE_ACCESS_TOKEN="${ACCESS_TOKEN}" \
+    --env TWINGATE_REFRESH_TOKEN="${REFRESH_TOKEN}" \
+    --env TWINGATE_LABEL_HOSTNAME="`hostname`" \
+    --env TWINGATE_LABEL_DEPLOYED_BY="docker" \
+    --name "twingate-connector" \
+    --restart=unless-stopped \
+    --pull=always \
     twingate/connector:1
 
 #helm upgrade --install twingate-connector twingate/connector -n default \
