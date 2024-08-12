@@ -12,7 +12,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo curl gpg
+    sudo curl gpg git apt-utils
 
 # pulumi
 #RUN apt-get python3-venv python3-pip
@@ -21,13 +21,8 @@ RUN apt-get update && \
 #RUN pulumi new
 #would require some more
 
-# helm
-#RUN curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-#RUN sudo apt-get install apt-transport-https --yes
-#RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-#RUN sudo apt-get update
-#RUN sudo apt-get install helm
 
+# helm
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 RUN chmod 700 get_helm.sh
 RUN ./get_helm.sh
