@@ -12,14 +12,13 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo 
+    sudo python3-venv python3-pip
 
 # pulumi
-RUN apt-get install python3-venv python3-pip
 RUN curl -fsSL https://get.pulumi.com | sh
 RUN pip install twingate-connector
 RUN pulumi new
-#would require some more
+
 
 
 
