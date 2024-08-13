@@ -16,11 +16,12 @@ RUN apt-get update && \
 
 RUN python3 -m venv /venv
 RUN source /venv/bin/activate
-RUN which python
+RUN python3 --version
+
 
 
 RUN curl -fsSL https://get.pulumi.com | sh
-RUN python pip install twingate-connector
+RUN /venv/bin/python3 pip install twingate-connector
 RUN pulumi new
 
 
