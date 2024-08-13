@@ -12,7 +12,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo python3-venv python3-pip
+    sudo python3 python3-pip
 
 # pulumi
 RUN curl -fsSL https://get.pulumi.com | sh
