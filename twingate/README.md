@@ -31,12 +31,12 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 
 
-[aarch64-badge]: https://img.shields.io/badge/aarch64-yes-green.svg
-[amd64-badge]: https://img.shields.io/badge/amd64-yes-green.svg
-[armhf-badge]: https://img.shields.io/badge/armhf-no-red.svg
+[aarch64-badge]: https://img.shields.io/badge/aarch64-yes-green.svg?style=flat
+[amd64-badge]: https://img.shields.io/badge/amd64-yes-green.svg?style=flat
+[armhf-badge]: https://img.shields.io/badge/armhf-no-red.svg?style=flat
 [armv7-badge]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-badge]: https://img.shields.io/badge/i386-yes-green.svg
-[stage-badge]: https://img.shields.io/badge/Addon%20stage-stable-green.svg
+[stage-badge]: https://img.shields.io/badge/Addon%20stage-not_ready-red.svg
 
 [install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant
 [repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant
