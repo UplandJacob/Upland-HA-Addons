@@ -6,7 +6,7 @@
 
 ![Supports aarch64 Architecture][aarch64-badge]
 ![Supports amd64 Architecture][amd64-badge]
-![NO Supports armhf Architecture][armhf-badge]
+![Supports armhf Architecture][armhf-badge]
 ![Supports armv7 Architecture][armv7-badge]
 ![Supports i386 Architecture][i386-badge]
 
@@ -19,8 +19,8 @@
 Deploy a twingate connector from Home Assistant.
 
 ## Install
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)][repository_url]
-[![Add repository on my Home Assistant][repository-badge]][repository-url]
+[![Add repo][repo-badge]][repository_url]
+[![Add repository on my Home Assistant]][repository-url]
 
 or go to the **Add-on Store -> repositories** and add: https://github.com/UplandJacob/Upland-HA-Addons
 
@@ -44,6 +44,7 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 [install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant
 [repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant
+[repo-badge]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
 
 [install-url]: https://my.home-assistant.io/redirect/supervisor_addon?addon=1f1b42b3_twingate
 [repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/UplandJacob/Upland-HA-Addons
