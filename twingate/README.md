@@ -1,6 +1,9 @@
 # Twingate
 
 ![Addon Stage][stage-badge]
+![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
+
+
 ![Supports aarch64 Architecture][aarch64-badge]
 ![Supports amd64 Architecture][amd64-badge]
 ![NO Supports armhf Architecture][armhf-badge]
@@ -8,14 +11,15 @@
 ![Supports i386 Architecture][i386-badge]
 
 
-[![Install on my Home Assistant][install-badge]][install-url]
+
+
 
 
 ## About
 Deploy a twingate connector from Home Assistant.
 
 ## Install
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](repository_url)
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)][repository_url]
 [![Add repository on my Home Assistant][repository-badge]][repository-url]
 
 or go to the **Add-on Store -> repositories** and add: https://github.com/UplandJacob/Upland-HA-Addons
