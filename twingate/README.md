@@ -31,15 +31,15 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 
 
-[aarch64-badge]: https://img.shields.io/badge/aarch64-yes-green.svg?style=for-the-badge
-[amd64-badge]: https://img.shields.io/badge/amd64-yes-green.svg?style=for-the-badge
-[armhf-badge]: https://img.shields.io/badge/armhf-yes-green.svg?style=for-the-badge
-[armv7-badge]: https://img.shields.io/badge/armv7-yes-green.svg?style=for-the-badge
-[i386-badge]: https://img.shields.io/badge/i386-yes-green.svg?style=for-the-badge
-[stage-badge]: https://img.shields.io/badge/Addon%20stage-stable-green.svg?style=for-the-badge
-[install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant&style=for-the-badge
+[aarch64-badge]: https://img.shields.io/badge/aarch64-yes-green.svg
+[amd64-badge]: https://img.shields.io/badge/amd64-yes-green.svg
+[armhf-badge]: https://img.shields.io/badge/armhf-no-red.svg
+[armv7-badge]: https://img.shields.io/badge/armv7-yes-green.svg
+[i386-badge]: https://img.shields.io/badge/i386-yes-green.svg
+[stage-badge]: https://img.shields.io/badge/Addon%20stage-stable-green.svg
 
-[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant&style=for-the-badge
+[install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant
+[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant
 
-[install-url]: https://my.home-assistant.io/redirect/supervisor_addon?addon=
+[install-url]: https://my.home-assistant.io/redirect/supervisor_addon?addon=1f1b42b3_twingate
 [repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/UplandJacob/Upland-HA-Addons
