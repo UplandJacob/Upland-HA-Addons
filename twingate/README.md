@@ -19,12 +19,12 @@
 Deploy a twingate connector from Home Assistant.
 
 ## Install
-** Add repository **
+**Add repository**
 [![Add repo](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/UplandJacob/Upland-HA-Addons)
 
 or go to the **Add-on Store -> repositories** and add: https://github.com/UplandJacob/Upland-HA-Addons
 
-** Then install: **
+**Then install:**
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=1f1b42b3_twingate)
 
