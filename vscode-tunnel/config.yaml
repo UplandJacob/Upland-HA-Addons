@@ -1,0 +1,22 @@
+---
+name: VSCode Tunnel
+version: 0.0.1
+slug: vscode-tunnel
+description: VSCode Tunnel to have a full experience at vscode.dev.
+url: https://github.com/uplandjacob/upland-ha-addons/tree/main/vscode-tunnel
+arch:
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+boot: manual
+init: false
+image: ghcr.io/uplandjacob/upland-ha-addons-vscode-tunnel-{arch}
+hassio_api: true
+map:
+  - config
+options:
+  test: ''
+
+schema:
+  test: match([a-z]+)
