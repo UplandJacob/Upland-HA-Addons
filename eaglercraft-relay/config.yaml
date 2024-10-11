@@ -1,0 +1,22 @@
+---
+name: Eaglercraft Relay
+version: 0.0.1
+slug: eaglercraft-relay
+description: Relay for Eaglercraft
+url: https://github.com/uplandjacob/upland-ha-addons/tree/main/eagercraft-relay
+arch:
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+boot: manual
+init: false
+image: ghcr.io/uplandjacob/upland-ha-addons-eaglercraft-relay-{arch}
+hassio_api: true
+map:
+  - config
+options:
+  test: ''
+
+schema:
+  test: match([a-z]+)
