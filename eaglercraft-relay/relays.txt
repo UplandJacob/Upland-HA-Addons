@@ -1,0 +1,6 @@
+
+[STUN]
+url=stun:0.0.0.0:3478
+
+[TURN]
+url=turn:0.0.0.0:3478
