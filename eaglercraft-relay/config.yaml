@@ -9,6 +9,7 @@ arch:
   - amd64
 init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-eaglercraft-relay-{arch}
+hassio_api: true
 map:
   - config
 options:
