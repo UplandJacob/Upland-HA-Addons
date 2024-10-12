@@ -121,6 +121,7 @@ jobs:
           VERSION=$(yq e ".version" ./${{ matrix.addon }}/config.yaml)
           echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
           echo "platform may be different that arch. ex armv7 vs arm/v7"
       
 
