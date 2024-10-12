@@ -13,7 +13,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo curl default-jre unzip
+    sudo curl default-jre unzip coturn
 
 RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
@@ -24,5 +24,5 @@ RUN curl --no-progress-meter \
 RUN unzip -n relay.zip
 RUN sudo chmod 777 run.sh
 
-# entrypoint
+# entrypoint from the zip:
 CMD [ "/run.sh" ]
