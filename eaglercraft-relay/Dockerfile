@@ -22,8 +22,6 @@ RUN curl --no-progress-meter \
 
 RUN unzip relay.zip
 
-#more to add
-
 
 # entrypoint
 CMD [ "/run.sh" ]
