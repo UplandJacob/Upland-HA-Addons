@@ -2,7 +2,7 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 COPY start.sh /
-
+COPY relays.txt /
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
