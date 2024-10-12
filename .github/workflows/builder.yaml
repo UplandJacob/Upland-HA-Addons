@@ -111,8 +111,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-#
-
 
       - name: Set BUILD_FROM, PLATFORM, and VERSION variables
         if: steps.check.outputs.build_arch == 'true'
@@ -132,6 +130,9 @@ jobs:
         run: |
           docker buildx build --platform linux/${{ env.PLATFORM }} \
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
+            --build-arg REPO_URL=https://github.com/${{ env.REPO_NAME_LC }} \
+            --build-arg VERSION=${{ env.VERSION }} \
+            --build-arg PLATFORM=${{ env.PLATFORM }} \
             --push \
             -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.arch }}:${{ env.VERSION }} \
             ./${{ matrix.addon }}
