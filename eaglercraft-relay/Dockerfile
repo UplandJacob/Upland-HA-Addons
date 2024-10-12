@@ -4,7 +4,6 @@ FROM ${BUILD_FROM}
 # Add rootfs
 #COPY rootfs/ /
 
-COPY run.sh run.sh
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
