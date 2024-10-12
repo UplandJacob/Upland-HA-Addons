@@ -117,7 +117,7 @@ jobs:
       - name: Set BUILD_FROM, PLATFORM, and VERSION variables
         if: steps.check.outputs.build_arch == 'true'
         run: |
-          PLATFORM=$(yq e ".platform.${{ matrix.architecture }}" ./${{ matrix.addon }}/build.yaml)
+          PLATFORM=$(yq e ".platform.${{ matrix.arch }}" ./${{ matrix.addon }}/build.yaml)
           VERSION=$(yq e ".version" ./${{ matrix.addon }}/config.yaml)
           echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
