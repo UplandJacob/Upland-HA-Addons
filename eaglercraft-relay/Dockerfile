@@ -22,7 +22,7 @@ RUN curl --no-progress-meter \
     -o /relay.zip \
     "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/branch/main/sources/resources/relay_download.zip"
 
-RUN unzip relay.zip
+RUN unzip -n relay.zip
 
 
 # entrypoint
