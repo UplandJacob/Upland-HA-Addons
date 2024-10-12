@@ -22,8 +22,9 @@ RUN curl --no-progress-meter \
 
 RUN unzip -n relay.zip
 RUN sudo chmod 777 run.sh
+RUN sudo chmod 777 start.sh
 
-# entrypoint from the zip:
+# entrypoint
 CMD [ "/start.sh" ]
 
 
