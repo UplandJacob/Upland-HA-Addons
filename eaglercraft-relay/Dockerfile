@@ -22,7 +22,7 @@ RUN curl --no-progress-meter \
     "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/branch/main/sources/resources/relay_download.zip"
 
 RUN unzip -n relay.zip
-
+RUN sudo chmod 777 run.sh
 
 # entrypoint
 CMD [ "/run.sh" ]
