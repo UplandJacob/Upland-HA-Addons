@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bashio
 
-echo:
-echo:
+echo ""
+echo ""
 
 #get config
 RELAY_CONFIG=$(bashio::config 'relayConfig')
@@ -11,14 +11,18 @@ echo -e "[EaglerSPRelay]\nport: 6969\naddress: 0.0.0.0\n$RELAY_CONFIG" > relayCo
 echo "relayConfig.ini:"
 cat relayConfig.ini
 
-echo:
+echo ""
 echo "relays.txt:"
 cat relays.txt
 
-echo:
-echo:
+echo ""
+echo ""
 
 #start turn/stun server
 turnserver --daemon --no-auth -n
+
+echo ""
+echo ""
+
 #start relay
 ./run.sh
