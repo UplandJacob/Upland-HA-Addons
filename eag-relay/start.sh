@@ -21,10 +21,17 @@ echo ""
 echo ""
 
 #start turn/stun server
-turnserver --daemon --no-auth -n
+turnserver --daemon --no-auth -n -V --syslog &
 
 echo ""
 echo ""
 
 #start relay
-./run.sh
+./run.sh &
+
+echo ""
+echo "attaching to syslog..."
+echo ""
+
+sudo tail -f /var/log/syslog
+
