@@ -6,7 +6,9 @@ echo ""
 #get config
 RELAY_CONFIG=$(bashio::config 'relayConfig')
 #set config file
-echo -e "[EaglerSPRelay]\nport: 6969\naddress: 0.0.0.0\n$RELAY_CONFIG" > relayConfig.ini
+
+config=$(echo "$RELAY_CONFIG" | jq -r 'to_entries | .[] | "\(.key): \(.value)"')
+echo -e "[EaglerSPRelay]\nport: 6969\naddress: 0.0.0.0\n$config" > relayConfig.ini
 
 echo "relayConfig.ini:"
 cat relayConfig.ini
