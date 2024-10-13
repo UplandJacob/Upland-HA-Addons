@@ -30,6 +30,7 @@ options:
     world-ratelimit-limit: 32
     world-ratelimit-lockout-limit: 48
     world-ratelimit-lockout-duration: 600
+    origin-whitelist: ""
     real-ip-header-name: X-Real-IP
     enable-real-ip-header: false
     show-local-worlds: true
@@ -52,7 +53,7 @@ schema:
     world-ratelimit-limit: int
     world-ratelimit-lockout-limit: int
     world-ratelimit-lockout-duration: int
-    origin-whitelist: str?
+    origin-whitelist: str
     real-ip-header-name: str
     enable-real-ip-header: bool
     show-local-worlds: bool
