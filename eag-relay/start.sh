@@ -21,7 +21,7 @@ echo ""
 echo ""
 
 #start turn/stun server
-turnserver --daemon --no-auth -n -V --syslog &
+#turnserver --daemon --no-auth -n -V --syslog &
 
 echo ""
 echo ""
@@ -30,8 +30,10 @@ echo ""
 ./run.sh &
 
 echo ""
-echo "attaching to syslog..."
+#echo "attaching to syslog..."
 echo ""
 
-sudo tail -f /var/log/syslog
+turnserver --no-auth -n -V --syslog &
+
+#sudo tail -f /var/log/syslog
 
