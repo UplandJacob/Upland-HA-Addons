@@ -10,12 +10,11 @@ arch:
 init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-eag-relay-{arch}
 hassio_api: true
+startup: application
 map:
   - config
 options:
   relayConfig:
-    address: 0.0.0.0
-    port: 80
     code-length: 5
     code-chars: abcdefghijklmnopqrstuvwxyz0123456789
     code-mix-case: false
@@ -38,8 +37,6 @@ options:
 
 schema:
   relayConfig:
-    address: str
-    port: int
     code-length: int
     code-chars: str
     code-mix-case: bool
@@ -55,15 +52,13 @@ schema:
     world-ratelimit-limit: int
     world-ratelimit-lockout-limit: int
     world-ratelimit-lockout-duration: int
-    origin-whitelist: 
-      type: list
-      default: []
+    origin-whitelist: str?
     real-ip-header-name: str
     enable-real-ip-header: bool
     show-local-worlds: bool
     server-comment: str
     
 ports:
-  "80/tcp": 80
+  "6699/tcp": 6699
 ports_description:
-  "80/tcp": "port for relay traffic"
+  "6699/tcp": "port for relay traffic"
