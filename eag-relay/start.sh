@@ -33,7 +33,7 @@ echo ""
 #echo "attaching to syslog..."
 echo ""
 
-turnserver --no-auth -n -V &
+turnserver --no-auth -n -V
 
 #sudo tail -f /var/log/syslog
 
