@@ -33,7 +33,7 @@ echo ""
 #echo "attaching to syslog..."
 echo ""
 
-turnserver --no-auth -n -v
+turnserver --no-auth -n -v --secret-key-file /ssl/privkey.pem
 
 #sudo tail -f /var/log/syslog
 
