@@ -39,7 +39,7 @@ No idea yet
 [armhf-badge]: https://img.shields.io/badge/armhf-no-red.svg?style=flat
 [armv7-badge]: https://img.shields.io/badge/armv7-no-red.svg
 [i386-badge]: https://img.shields.io/badge/i386-no-red.svg
-[stage-badge]: https://img.shields.io/badge/Addon%20stage-partially_functonal-yellow.svg
+[stage-badge]: https://img.shields.io/badge/Addon%20stage-ready-green.svg
 
 [install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant
 [repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant
