@@ -27,7 +27,7 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 **Then install:**
 
-[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=SOMTHING)
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_eag-relay)
 
 ## Setup
 1. Because most players use client with https, you need some things to make your relay work:
