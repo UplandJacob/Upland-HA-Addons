@@ -36,7 +36,7 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 * A domain (or subdomain) name:
   * You can get a free subdomain at [duckdns.org](https://duckdns.org) (100% free)
   * You may set up the [duckdns addon](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_duckdns) for dynamic DNS (DDNS)
-* Port forwarding: you will meed to port forward port 80 (for Let's Encrypt) and port 443 (for the actual websocket). This is different for every router, so you'll need to look it up yourself.
+* Port forwarding: you will need to port forward port 80 (for Let's Encrypt) and port 443 (for the actual websocket). This is different for every router, so you'll need to look it up yourself.
 * A certificate and proxy:
   * Can be done with any just one addon: [Nginx Proxy Manager](https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_nginxproxymanager)
     * This addon uses Let’s Encrypt to get certificates and an NGINX proxy for converting http (ws) to https (wss)
