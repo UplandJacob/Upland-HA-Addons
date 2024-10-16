@@ -31,7 +31,7 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 ## Setup
 1. Because most players use client with https, you need some things to make your relay work:
-* A domain name:
+* A domain (or subdomain) name:
   * You can get a free subdomain at [duckdns.org](https://duckdns.org) (100% free)
   * You may set up the [duckdns addon](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_duckdns) for dynamic DNS (DDNS)
 * A certificate and proxy:
