@@ -15,6 +15,8 @@
 ## About
 Run and Eaglerctaft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
 
+Includes a [Coturn](https://github.com/coturn/coturn) turn/stun server because the external ones are either garbage or dead.
+
 Eaglercraft created by lax1dude and ayunami2000.
 The Eaglercraft relay files can be found [here](https://git.eaglercraft.rip/eaglercraft/eaglercraft-builds/src/branch/main/Eaglercraft_SharedWorldRelay)
 
