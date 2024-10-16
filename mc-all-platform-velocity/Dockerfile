@@ -70,5 +70,7 @@ RUN curl --no-progress-meter \
 
 RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
+RUN ls
+
 # entrypoint
 CMD [ "/run.sh" ]
