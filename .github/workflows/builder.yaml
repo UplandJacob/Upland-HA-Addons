@@ -122,7 +122,7 @@ jobs:
           echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo "platform may be different that arch. ex armv7 vs arm/v7"
+          echo "platform may be different than arch. ex armv7 vs arm/v7"
       
 
       - name: Build and push Docker images
