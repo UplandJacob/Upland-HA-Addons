@@ -13,7 +13,7 @@
 
 
 ## About
-Run a proxy for a Minecraft Paper server to allow java, bedrock, and eaglercraft(unofficial web browser) clients to join. 
+Run a proxy for a Minecraft Paper server to allow java, bedrock, and Eaglercraft(unofficial web browser) clients to join. 
 
 ## Install
 **Add repository**
@@ -35,8 +35,8 @@ No idea yet
 [aarch64-badge]: https://img.shields.io/badge/aarch64-yes-green.svg?style=flat
 [amd64-badge]: https://img.shields.io/badge/amd64-yes-green.svg?style=flat
 [armhf-badge]: https://img.shields.io/badge/armhf-no-red.svg?style=flat
-[armv7-badge]: https://img.shields.io/badge/armv7-yes-green.svg
-[i386-badge]: https://img.shields.io/badge/i386-yes-green.svg
+[armv7-badge]: https://img.shields.io/badge/armv7-no-red.svg
+[i386-badge]: https://img.shields.io/badge/i386-no-red.svg
 [stage-badge]: https://img.shields.io/badge/Addon%20stage-not_ready-red.svg
 
 [install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant
