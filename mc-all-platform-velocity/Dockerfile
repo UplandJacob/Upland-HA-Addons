@@ -3,6 +3,7 @@ FROM ${BUILD_FROM}
 
 
 COPY run.sh run.sh
+RUN chmod +x run.sh
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
@@ -59,9 +60,6 @@ RUN curl --no-progress-meter \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o plugins/geyser.jar \
     "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity"
-
-
-#more to add
 
 
 # entrypoint
