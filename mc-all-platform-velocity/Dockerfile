@@ -4,6 +4,7 @@ FROM ${BUILD_FROM}
 
 COPY run.sh run.sh
 RUN chmod +x run.sh
+COPY velocity.toml velocity.toml
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
