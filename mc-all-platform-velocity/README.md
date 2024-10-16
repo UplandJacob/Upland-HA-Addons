@@ -1,4 +1,4 @@
-# Minecraft All-Platform Proxy
+# Minecraft All-Platform Velocity Proxy
 
 ![Addon Stage][stage-badge]
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
