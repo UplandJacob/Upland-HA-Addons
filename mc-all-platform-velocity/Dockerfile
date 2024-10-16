@@ -16,13 +16,14 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     yq jq sudo curl default-jre
 
-
+#Velocity
 RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o /velocity.jar \
     "https://api.papermc.io/v2/projects/velocity/versions/3.3.0-SNAPSHOT/builds/436/downloads/velocity-3.3.0-SNAPSHOT-436.jar"
 
+### PLUGINS
 # for Eaglercraft
 RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
