@@ -5,7 +5,7 @@ FROM ${BUILD_FROM}
 COPY run.sh run.sh
 RUN chmod +x run.sh
 COPY velocity.toml velocity.toml
-RUN chmod -R 777 .
+RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 
 # Uses /bin for compatibility purposes
@@ -68,6 +68,7 @@ RUN curl --no-progress-meter \
     -o Floodgate.jar \
     "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity"
 
+RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 # entrypoint
 CMD [ "/run.sh" ]
