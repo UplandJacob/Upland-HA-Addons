@@ -1,8 +1,8 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
-# Add rootfs
-#COPY rootfs/ /
+
+COPY run.sh run.sh
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
@@ -12,7 +12,8 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo 
+    java sudo 
+
 #more to add
 
 
