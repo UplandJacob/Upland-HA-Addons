@@ -1,5 +1,5 @@
 #!/bin/bash
-java -jar Velocity.jar &
+java -jar velocity.jar &
 # Get the process ID (PID) of the last background command
 pid=$!
 
