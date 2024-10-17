@@ -26,7 +26,16 @@ options:
     kick-existing-players: false
     ping-passthrough: "DISABLED"
     enable-player-address-logging: true
-  servers: "# Configure your servers here. Each key represents the server's name, and the value\n# represents the IP address of the server to connect to.\nlobby = '127.0.0.1:30066'\nfactions = '127.0.0.1:30067'\nminigames = '127.0.0.1:30068# In what order we should try servers when a player logs in or is kicked from a server.'\ntry = [\n'lobby'\n]"
+  servers: ""
+
+
+#lobby = '127.0.0.1:30066'
+#factions = '127.0.0.1:30067'
+#minigames = '127.0.0.1:30068
+
+#try = [
+  #'lobby'
+#]
 
 schema:
   rootConfig:
@@ -41,9 +50,13 @@ schema:
     kick-existing-players: bool
     ping-passthrough: match(DISABLED|MODS|DESCRIPTION|ALL)
     enable-player-address-logging: bool
-  servers: str
+  servers: list
 
 ports:
-  "25565/tcp": 25565
+  "25565": 25565
+  "19232": 19132
+  "8081": 8081
 ports_description:
-  "25565/tcp": "external server port"
+  "25565": "java edition port"
+  "19132": "bedrock edition port"
+  "8081": "Eaglercraft port"
