@@ -3,6 +3,7 @@ FROM ${BUILD_FROM}
 
 
 COPY run.sh run.sh
+COPY kickstart.sh kickstart.sh
 RUN chmod +x run.sh
 RUN chmod +x kickstart.sh
 #COPY velocity.toml velocity.toml
