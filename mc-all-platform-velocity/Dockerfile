@@ -4,6 +4,7 @@ FROM ${BUILD_FROM}
 
 COPY run.sh run.sh
 RUN chmod +x run.sh
+RUN chmod +x kickstart.sh
 #COPY velocity.toml velocity.toml
 RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
@@ -71,7 +72,7 @@ RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 RUN ls
 
-RUN ./run.sh
+RUN ./kickstart.sh
 
 # entrypoint
 CMD [ "/run.sh" ]
