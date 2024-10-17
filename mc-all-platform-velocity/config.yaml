@@ -26,7 +26,7 @@ options:
     kick-existing-players: false
     ping-passthrough: "DISABLED"
     enable-player-address-logging: true
-  servers: "# Configure your servers here. Each key represents the server's name, and the value\n# represents the IP address of the server to connect to.\nlobby = '127.0.0.1:30066'\nfactions = '127.0.0.1:30067'\nminigames = '127.0.0.1:30068'"
+  servers: "# Configure your servers here. Each key represents the server's name, and the value\n# represents the IP address of the server to connect to.\nlobby = '127.0.0.1:30066'\nfactions = '127.0.0.1:30067'\nminigames = '127.0.0.1:30068# In what order we should try servers when a player logs in or is kicked from a server.'\ntry = [\n'lobby'\n]"
 
 schema:
   rootConfig:
@@ -41,6 +41,7 @@ schema:
     kick-existing-players: bool
     ping-passthrough: match(DISABLED|MODS|DESCRIPTION|ALL)
     enable-player-address-logging: bool
+  server: str
 
 ports:
   "25565/tcp": 25565
