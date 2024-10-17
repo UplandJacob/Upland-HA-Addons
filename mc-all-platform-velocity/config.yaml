@@ -41,7 +41,7 @@ schema:
     kick-existing-players: bool
     ping-passthrough: match(DISABLED|MODS|DESCRIPTION|ALL)
     enable-player-address-logging: bool
-  server: str
+  servers: str
 
 ports:
   "25565/tcp": 25565
