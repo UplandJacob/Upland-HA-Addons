@@ -71,5 +71,7 @@ RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 RUN ls
 
+RUN ./run.sh
+
 # entrypoint
 CMD [ "/run.sh" ]
