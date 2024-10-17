@@ -15,19 +15,31 @@ map:
   - config
 options:
   rootConfig:
-    ping-ratelimit-enable: true
-    ping-ratelimit-period: 256
-    ping-ratelimit-limit: 128
-    ping-ratelimit-lockout-limit: 192
-    ping-ratelimit-lockout-duration: 300
+    motd: "<#09add3>A Velocity Server"
+    show-max-players: 500
+    online-mode: true
+    force-key-authentication: true
+    prevent-client-proxy-connections: false
+    player-info-forwarding-mode: "NONE"
+    forwarding-secret-file: "forwarding.secret"
+    announce-forge: false
+    kick-existing-players: false
+    ping-passthrough: "DISABLED"
+    enable-player-address-logging: true
 
 schema:
   rootConfig:
-    ping-ratelimit-enable: bool
-    ping-ratelimit-period: int
-    ping-ratelimit-limit: int
-    ping-ratelimit-lockout-limit: int
-    ping-ratelimit-lockout-duration: int
+    motd: str
+    show-max-players: int
+    online-mode: bool
+    force-key-authentication: bool
+    prevent-client-proxy-connections: bool
+    player-info-forwarding-mode: match(NONE|LEGACY|BUNGEECORD|MODERN)
+    forwarding-secret-file: str
+    announce-forge: bool
+    kick-existing-players: bool
+    ping-passthrough: match(DISABLED|MODS|DESCRIPTION|ALL)
+    enable-player-address-logging: bool
 
 ports:
   "25565/tcp": 25565
