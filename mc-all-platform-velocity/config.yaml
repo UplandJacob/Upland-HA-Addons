@@ -1,4 +1,4 @@
----
+
 name: Minecraft All-Platform Velocity Proxy
 version: 0.0.2
 slug: mc-all-platform-velocity
@@ -26,6 +26,7 @@ options:
     kick-existing-players: false
     ping-passthrough: "DISABLED"
     enable-player-address-logging: true
+  servers: "# Configure your servers here. Each key represents the server's name, and the value\n# represents the IP address of the server to connect to.\nlobby = '127.0.0.1:30066'\nfactions = '127.0.0.1:30067'\nminigames = '127.0.0.1:30068'"
 
 schema:
   rootConfig:
