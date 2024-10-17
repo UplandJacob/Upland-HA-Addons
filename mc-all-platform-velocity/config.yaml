@@ -9,8 +9,7 @@ arch:
   - amd64
 init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-mc-all-platform-velocity-{arch}
-hassio_api: true
-startup: application
+
 map:
   - config
 options:
@@ -31,15 +30,6 @@ options:
       address: "someip.local:25565"
   serverAttemptJoinOrder:
     - "lobby"
-
-
-#lobby = '127.0.0.1:30066'
-#factions = '127.0.0.1:30067'
-#minigames = '127.0.0.1:30068
-
-#try = [
-  #'lobby'
-#]
 
 schema:
   rootConfig:
@@ -62,7 +52,7 @@ schema:
 
 ports:
   "25565": 25565
-  "19232": 19132
+  "19132": 19132
   "8081": 8081
 ports_description:
   "25565": "java edition port"
