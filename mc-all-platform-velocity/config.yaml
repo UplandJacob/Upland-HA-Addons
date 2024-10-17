@@ -26,7 +26,11 @@ options:
     kick-existing-players: false
     ping-passthrough: "DISABLED"
     enable-player-address-logging: true
-  servers: ""
+  servers: 
+    - name: "lobby"
+      address: "someip.local:25565"
+  serverAttemptJoinOrder:
+    - "lobby"
 
 
 #lobby = '127.0.0.1:30066'
@@ -50,7 +54,11 @@ schema:
     kick-existing-players: bool
     ping-passthrough: match(DISABLED|MODS|DESCRIPTION|ALL)
     enable-player-address-logging: bool
-  servers: list
+  servers: 
+    - name: str
+      address: str
+  serverAttemptJoinOrder:
+    - str
 
 ports:
   "25565": 25565
