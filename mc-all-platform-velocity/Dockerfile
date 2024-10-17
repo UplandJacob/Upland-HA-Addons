@@ -4,7 +4,7 @@ FROM ${BUILD_FROM}
 
 COPY run.sh run.sh
 RUN chmod +x run.sh
-COPY velocity.toml velocity.toml
+#COPY velocity.toml velocity.toml
 RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 
