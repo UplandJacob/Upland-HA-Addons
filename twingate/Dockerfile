@@ -19,14 +19,11 @@ RUN source /venv/bin/activate
 
 RUN curl -fsSL https://get.pulumi.com | sh
 RUN echo 'export PATH=$PATH:/root/.pulumi/bin' >> ~/.bashrc && source ~/.bashrc
-RUN which pulumi
+
 RUN /venv/bin/python3 -m pip install pulumi-twingate
 RUN pulumi new
 
 
-
-
-# copy needed files and set executable 
 #COPY twingate-install.sh /twingate-install.sh
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
