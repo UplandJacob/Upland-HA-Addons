@@ -17,8 +17,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    yq sudo curl default-jre \
-    && apt-get clean
+    yq curl default-jre 
 
 #Velocity
 RUN curl --no-progress-meter \

@@ -12,7 +12,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    sudo python3-full
+    python3-full
 
 RUN python3 -m venv /venv
 RUN source /venv/bin/activate
