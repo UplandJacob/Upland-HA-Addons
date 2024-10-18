@@ -1,4 +1,4 @@
-From https://docs.papermc.io/velocity/configuration:
+From <https://docs.papermc.io/velocity/configuration>:
 
 # Configuring Velocity
 
@@ -6,21 +6,21 @@ Velocity is designed to be easy to configure and set up. Every Velocity file is 
 
 An up-to-date version of the default configuration can be found on [GitHub](https://github.com/PaperMC/Velocity/blob/dev/3.0.0/proxy/src/main/resources/default-velocity.toml).
 
-## Data types [​](#data-types "Direct link to Data types")
+## Data types
 
 "There are a few "special" data types in the Velocity configuration."
 
-### Chat [​](#chat "Direct link to Chat")
+### Chat
 
 Chat messages may be provided in [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format.
 
 RGB support is available for Minecraft 1.16 and later versions.
 
-### Address [​](#address "Direct link to Address")
+### Address
 
 An address is a pairing of an IP address or hostname, and a port, separated by a colon (`:`). For instance, `127.0.0.1:25577` and `server01.example.com:25565` are valid addresses.
 
-## Root section [​](#root-section "Direct link to Root section")
+## Root section
 
 These settings mostly cover the basic, most essential settings of the proxy.
 
@@ -40,20 +40,20 @@ These settings mostly cover the basic, most essential settings of the proxy.
 | `ping-passthrough` | String | Allows forwarding nothing (the default), the `MODS` (for Forge), the `DESCRIPTION`, or everything (`ALL`) from the `try` list (or forced host server connection order). |
 | `enable-player-address-logging` | Boolean | If disabled (default is true), player IP addresses will be replaced by " " in logs. |
 
-## `servers` section [​](#servers-section "Direct link to servers-section")
+## `servers` section
 
 | Setting Name | Type | Description |
 | --- | --- | --- |
 | A server name | Address | "This makes the proxy aware of a server that it can connect to." |
 | `try` | Array | This specifies what servers Velocity should try to connect to upon player login and when a player is kicked from a server. |
 
-## `forced-hosts` section [​](#forced-hosts-section "Direct link to forced-hosts-section")
+## `forced-hosts` section
 
 | Setting Name | Type | Description |
 | --- | --- | --- |
 | A host name | Hostname | This configures the proxy to create a forced host for the specified hostname. An array of servers to try for the specified hostname is the value. |
 
-## `advanced` section [​](#advanced-section "Direct link to advanced-section")
+## `advanced` section
 
 | Setting name | Type | Description |
 | --- | --- | --- |
@@ -72,7 +72,7 @@ These settings mostly cover the basic, most essential settings of the proxy.
 | `log-player-connections` | Boolean | Enables logging of player connections when connecting to the proxy, switching servers and disconnecting from the proxy. |
 | `accepts-transfers` | Boolean | Determines whether or not the proxy accepts incoming transfers from other servers. If disabled, the proxy will disconnect transferred clients. |
 
-## `query` section [​](#query-section "Direct link to query-section")
+## `query` section
 
 | Setting name | Type | Description |
 | --- | --- | --- |
