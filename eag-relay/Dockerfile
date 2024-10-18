@@ -3,6 +3,7 @@ FROM ${BUILD_FROM}
 
 COPY start.sh /
 COPY relays.txt /
+RUN chmod +x start.sh
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
@@ -21,8 +22,7 @@ RUN curl --no-progress-meter \
     "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/branch/main/sources/resources/relay_download.zip"
 
 RUN unzip -n relay.zip
-RUN sudo chmod 777 run.sh
-RUN sudo chmod 777 start.sh
+RUN chmod +x run.sh
 
 # entrypoint
 CMD [ "/start.sh" ]
