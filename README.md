@@ -10,9 +10,9 @@ A repository for all my Home Assistant addons.
 
 or go to the **Add-on Store -> repositories** and add: https://github.com/UplandJacob/Upland-HA-Addons
 
-## Fully Functional Addons
+## Fully (mostly) Functional Addons
 
-### Eaglercraft Relay
+### Eaglercraft Relay (stun/turn server issue)
 
 Run and Eaglerctaft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
 
