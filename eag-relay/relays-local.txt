@@ -1,6 +1,6 @@
 
 [STUN]
-url=stun:0.0.0.0:3478
+url=stun:stun.duckdns.org:3478
 
 [TURN]
-url=turn:0.0.0.0:3478
+url=turn:turn.duckdns.org:5349
