@@ -4,18 +4,18 @@
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
 
 
-![Supports aarch64 Architecture][aarch64-badge]
-![Supports amd64 Architecture][amd64-badge]
-![Supports armhf Architecture][armhf-badge]
-![Supports armv7 Architecture][armv7-badge]
-![Supports i386 Architecture][i386-badge]
+![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
+![Supports amd64 Architecture](https://img.shields.io/badge/amd64-yes-green.svg?style=flat)
+![Supports armhf Architecture](https://img.shields.io/badge/armhf-no-red.svg?style=flat)
+![Supports armv7 Architecture](https://img.shields.io/badge/armv7-no-red.svg)
+![Supports i386 Architecture](https://img.shields.io/badge/i386-no-red.svg)
 
 
 
 ## About
 Run and Eaglerctaft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
 
-**Hopefully working soon:** a [Coturn](https://github.com/coturn/coturn) turn/stun server because the external ones are either garbage or dead.
+[Coturn](https://github.com/coturn/coturn) turn/stun server required because the external ones are either garbage or dead.
 
 Eaglercraft created by lax1dude and ayunami2000.
 The Eaglercraft relay files can be found [here](https://git.eaglercraft.rip/eaglercraft/eaglercraft-builds/src/branch/main/Eaglercraft_SharedWorldRelay)
@@ -32,7 +32,12 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_eag-relay)
 
 ## Setup
-1. Because most players use client with https, you need some things to make your relay work:
+
+1. Install coturn:
+[![Add repo](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/wrouesnel/addon-coturn)
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=652bc0af_coturn)
+
+2. Because most players use clients with https, you need some things to make your relay work:
   * A domain (or subdomain) name:
     * You can get a subdomain at [duckdns.org](https://duckdns.org) (100% free)
     * You may set up the [duckdns addon](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_duckdns) for dynamic DNS (DDNS) in case your public IP adress changes.
@@ -57,18 +62,6 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
       14. Set the **SSL Certificate** to the one for your subdomain.
       15. You can change anything else in this popup to your liking then click **Save**.
       16. If the addon is running and you did everything right, you should see **online** on the far right.
-2. You can change any of the settings in the **configuration** tab of the addon and start it if you haven’t already.
+3. You can change any of the settings in the **configuration** tab of the addon and start it if you haven’t already.
 
-[aarch64-badge]: https://img.shields.io/badge/aarch64-yes-green.svg?style=flat
-[amd64-badge]: https://img.shields.io/badge/amd64-yes-green.svg?style=flat
-[armhf-badge]: https://img.shields.io/badge/armhf-no-red.svg?style=flat
-[armv7-badge]: https://img.shields.io/badge/armv7-no-red.svg
-[i386-badge]: https://img.shields.io/badge/i386-no-red.svg
-[stage-badge]: https://img.shields.io/badge/Addon%20stage-ready-green.svg
 
-[install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant
-[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant
-[repo-badge]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
-
-[install-url]: https://my.home-assistant.io/redirect/supervisor_addon?addon=1f1b42b3_twingate
-[repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/UplandJacob/Upland-HA-Addons
