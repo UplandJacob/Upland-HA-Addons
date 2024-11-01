@@ -1,6 +1,6 @@
 # Eaglercraft Relay
 
-![Addon Stage][stage-badge]
+![Addon Stage](https://img.shields.io/badge/Addon%20stage-testing-orange.svg)
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
 
 
