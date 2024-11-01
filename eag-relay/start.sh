@@ -5,35 +5,34 @@ echo ""
 
 #get config
 RELAY_CONFIG=$(bashio::config 'relayConfig')
-#set config file
+RELAYS=$(bashio::config 'relays')
 
+#set config file
 config=$(echo "$RELAY_CONFIG" | jq -r 'to_entries | .[] | "\(.key): \(.value)"')
 echo -e "[EaglerSPRelay]\nport: 6699\naddress: 0.0.0.0\n$config" > relayConfig.ini
 
 echo "relayConfig.ini:"
 cat relayConfig.ini
-
 echo ""
+
+#relays=$(echo "$RELAYS" | jq -r 'to_entries | .[] | "\(.key): \(.value)"')
+echo -e "$RELAYS"
+echo -e "$RELAYS" > relays.txt
+
 echo "relays.txt:"
 cat relays.txt
 
 echo ""
 echo ""
 
-#start turn/stun server
-#turnserver --daemon --no-auth -n -V --syslog &
-
 echo ""
 echo ""
 
-#start relay
+#start relay (run.sh file is downloaded with relay)
 ./run.sh &
 
 echo ""
-#echo "attaching to syslog..."
 echo ""
-
-turnserver --no-auth -n --secret-key-file /ssl/privkey.pem
-
-#sudo tail -f /var/log/syslog
+echo ""
+echo ""
 

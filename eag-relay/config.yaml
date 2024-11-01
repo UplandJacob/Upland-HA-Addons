@@ -35,6 +35,12 @@ options:
     show-local-worlds: true
     server-comment: Shared World Relay
 
+  relays: 
+    - type: TURN
+      url: turn:turn.speed.cloudflare.com:50000
+      username: user1234
+      credential: password
+
 schema:
   relayConfig:
     code-length: int
@@ -57,6 +63,12 @@ schema:
     enable-real-ip-header: bool
     show-local-worlds: bool
     server-comment: str
+
+  relays:
+    - type: match(STUN|TURN)
+      url: str
+      username: str?
+      credential: str?
     
 ports:
   "6699/tcp": 6699
