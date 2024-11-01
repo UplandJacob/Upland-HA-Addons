@@ -16,6 +16,7 @@ cat relayConfig.ini
 echo ""
 
 #relays=$(echo "$RELAYS" | jq -r 'to_entries | .[] | "\(.key): \(.value)"')
+echo -e "$RELAYS"
 echo -e "$RELAYS" > relays.txt
 
 echo "relays.txt:"
@@ -24,13 +25,10 @@ cat relays.txt
 echo ""
 echo ""
 
-#start turn/stun server
-#turnserver --daemon --no-auth -n -V --syslog &
-
 echo ""
 echo ""
 
-#start relay
+#start relay (run.sh file is downloaded with relay)
 ./run.sh &
 
 echo ""
