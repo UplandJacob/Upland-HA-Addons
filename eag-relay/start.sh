@@ -16,15 +16,17 @@ cat relayConfig.ini
 echo ""
 
 echo $RELAYS
+relayJSON=$(echo $input | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 "]"}')
+echo $relayJSON
 
-length=$(echo "$RELAYS" | jq '. | length')
+length=$(echo "$relayJSON" | jq '. | length')
 echo "length: $length\n"
 relays=""
 for (( i=0; i<$length; i++ )); do
-  type=$(echo "$RELAYS" | jq -r ".[$i].type")
-  url=$(echo "$RELAYS" | jq -r ".[$i].url")
-  user=$(echo "$RELAYS" | jq -r ".[$i].username // empty")
-  cred=$(echo "$RELAYS" | jq -r ".[$i].credential // empty")
+  type=$(echo "$relayJSON" | jq -r ".[$i].type")
+  url=$(echo "$relayJSON" | jq -r ".[$i].url")
+  user=$(echo "$relayJSON" | jq -r ".[$i].username // empty")
+  cred=$(echo "$relayJSON" | jq -r ".[$i].credential // empty")
 
   relays+="[$type]\nurl=$url\n"
   [ -n "$user" ] && relays+="username=$user\n"
