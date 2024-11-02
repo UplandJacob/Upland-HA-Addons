@@ -16,7 +16,7 @@ cat relayConfig.ini
 echo ""
 
 echo $RELAYS
-relayJSON=$(echo $input | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 "]"}')
+relayJSON=$(echo $RELAYS | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 "]"}')
 echo $relayJSON
 
 length=$(echo "$relayJSON" | jq '. | length')
