@@ -19,7 +19,7 @@ echo $RELAYS
 
 length=$(echo "$RELAYS" | jq '. | length')
 relays=""
-for (( i==0; i<$length; i++ )); do
+for (( i=0; i<$length; i++ )); do
   echo $line
   type=$(echo "$RELAYS" | jq -r ".[$i].type")
   url=$(echo "$RELAYS" | jq -r ".[$i].url")
