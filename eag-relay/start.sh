@@ -18,9 +18,9 @@ echo ""
 echo $RELAYS
 
 length=$(echo "$RELAYS" | jq '. | length')
+echo "length: $length\n"
 relays=""
 for (( i=0; i<$length; i++ )); do
-  echo $line
   type=$(echo "$RELAYS" | jq -r ".[$i].type")
   url=$(echo "$RELAYS" | jq -r ".[$i].url")
   user=$(echo "$RELAYS" | jq -r ".[$i].username // empty")
@@ -29,6 +29,7 @@ for (( i=0; i<$length; i++ )); do
   relays+="[$type]\nurl=$url\n"
   [ -n "$user" ] && relays+="username=$user\n"
   [ -n "$cred" ] && relays+="credential=$cred\n"
+  relays+="\n"
 done
 
 echo -e "$relays" > relays.txt
@@ -43,10 +44,8 @@ echo ""
 echo ""
 
 #start relay (run.sh file is downloaded with relay)
-./run.sh &
+./run.sh 
 
-echo ""
-echo ""
 echo ""
 echo ""
 
