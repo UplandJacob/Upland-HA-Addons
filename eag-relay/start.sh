@@ -16,7 +16,7 @@ cat relayConfig.ini
 echo ""
 
 relays=""
-echo "$input" | jq -c '.[]' | while read line; do
+echo "$RELAYS" | jq -c '.[]' | while read line; do
   type=$(echo $line | jq -r '.type')
   url=$(echo $line | jq -r '.url')
   user=$(echo $line | jq -r '.username // empty')
