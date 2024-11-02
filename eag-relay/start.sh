@@ -15,9 +15,19 @@ echo "relayConfig.ini:"
 cat relayConfig.ini
 echo ""
 
-#relays=$(echo "$RELAYS" | jq -r 'to_entries | .[] | "\(.key): \(.value)"')
-echo -e "$RELAYS"
-echo -e "$RELAYS" > relays.txt
+relays=""
+echo "$input" | jq -c '.[]' | while read line; do
+  type=$(echo $line | jq -r '.type')
+  url=$(echo $line | jq -r '.url')
+  user=$(echo $line | jq -r '.username // empty')
+  cred=$(echo $line | jq -r '.credential // empty')
+
+  relays+="[$type]\nurl=$url\n"
+  [ -n "$user" ] && relays+="username=$user\n"
+  [ -n "$dred" ] && relays+="credential=$dred\n"
+done
+
+echo -e "$relays" > relays.txt
 
 echo "relays.txt:"
 cat relays.txt
