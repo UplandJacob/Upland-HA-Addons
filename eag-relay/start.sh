@@ -16,13 +16,15 @@ cat relayConfig.ini
 echo ""
 
 echo $RELAYS
+
+length=$(echo "$RELAYS" | jq '. | length')
 relays=""
-echo "$RELAYS" | jq -c '.[]' | while read -r line; do
+for (( i==0; i<$length; i++ )); do
   echo $line
-  type=$(echo "$line" | jq -r '.type')
-  url=$(echo "$line" | jq -r '.url')
-  user=$(echo "$line" | jq -r '.username // empty')
-  cred=$(echo "$line" | jq -r '.credential // empty')
+  type=$(echo "$RELAYS" | jq -r ".[$i].type")
+  url=$(echo "$RELAYS" | jq -r ".[$i].url")
+  user=$(echo "$RELAYS" | jq -r ".[$i].username // empty")
+  cred=$(echo "$RELAYS" | jq -r ".[$i].credential // empty")
 
   relays+="[$type]\nurl=$url\n"
   [ -n "$user" ] && relays+="username=$user\n"
