@@ -15,6 +15,7 @@ echo "relayConfig.ini:"
 cat relayConfig.ini
 echo ""
 
+echo $RELAYS
 relays=""
 echo "$RELAYS" | jq -c '.[]' | while read -r line; do
   echo $line
@@ -25,7 +26,7 @@ echo "$RELAYS" | jq -c '.[]' | while read -r line; do
 
   relays+="[$type]\nurl=$url\n"
   [ -n "$user" ] && relays+="username=$user\n"
-  [ -n "$dred" ] && relays+="credential=$dred\n"
+  [ -n "$cred" ] && relays+="credential=$cred\n"
 done
 
 echo -e "$relays" > relays.txt
