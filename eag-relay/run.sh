@@ -1,5 +1,8 @@
 #!/usr/bin/with-contenv bashio
 
+logGreen() {
+  echo -e "\033[32m$1\033[0m"
+}
 
 echo ""
 echo "Eaglercraft 1.5.2 LAN World Relay"
@@ -8,8 +11,8 @@ echo ""
 auto_restart="$1"
 debug_mode="$2"
 
-bashio::log.green "autoRestart: $auto_restart"
-bashio::log.green "debugMode: $debug_mode"
+logGreen "autoRestart: $auto_restart"
+logGreen "debugMode: $debug_mode"
 echo ""
 echo ""
 
