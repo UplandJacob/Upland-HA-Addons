@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bashio
 
 
 echo ""
@@ -7,6 +7,11 @@ echo ""
 
 local auto_restart="$1"
 local debug_mode="$2"
+
+bashio::log.green "autoRestart: $auto_restart"
+bashio::log.green "debugMode: $debug_mode"
+echo ""
+exho ""
 
 start() {
   if [ "$debug_mode" = true ]; then
