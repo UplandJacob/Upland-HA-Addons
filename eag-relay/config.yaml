@@ -41,6 +41,9 @@ options:
       username: user1234
       credential: password
 
+  autoRestart: true
+  debugMode: true
+
 schema:
   relayConfig:
     code-length: int
@@ -69,7 +72,10 @@ schema:
       url: str
       username: str?
       credential: str?
-    
+
+  autoRestart: bool
+  debugMode: bool
+
 ports:
   "6699/tcp": 6699
 ports_description:
