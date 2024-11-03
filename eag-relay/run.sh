@@ -11,7 +11,7 @@ debug_mode="$2"
 bashio::log.green "autoRestart: $auto_restart"
 bashio::log.green "debugMode: $debug_mode"
 echo ""
-exho ""
+echo ""
 
 start() {
   if [ "$debug_mode" = true ]; then
