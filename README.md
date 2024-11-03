@@ -12,7 +12,7 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 ## Fully (mostly) Functional Addons
 
-### Eaglercraft Relay (stun/turn server issue)
+### Eaglercraft Relay
 
 Run and Eaglerctaft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
 
