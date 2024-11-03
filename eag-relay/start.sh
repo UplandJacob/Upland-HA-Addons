@@ -11,16 +11,25 @@ RELAYS=$(bashio::config 'relays')
 config=$(echo "$RELAY_CONFIG" | jq -r 'to_entries | .[] | "\(.key): \(.value)"')
 echo -e "[EaglerSPRelay]\nport: 6699\naddress: 0.0.0.0\n$config" > relayConfig.ini
 
-echo "relayConfig.ini:"
+echo ""
+bashio::log.green "relayConfig.ini:"
 cat relayConfig.ini
 echo ""
 
+
+
+bashio::log.green "relays JSON unformatted:"
 echo $RELAYS
+echo ""
+
 relayJSON=$(echo $RELAYS | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 "]"}')
+
+bashio::log.green "relays JSON formatted:"
 echo $relayJSON
+echo ""
 
 length=$(echo "$relayJSON" | jq '. | length')
-echo "length: $length\n"
+
 relays=""
 for (( i=0; i<$length; i++ )); do
   type=$(echo "$relayJSON" | jq -r ".[$i].type")
@@ -36,18 +45,15 @@ done
 
 echo -e "$relays" > relays.txt
 
-echo "relays.txt:"
+bashio::log.green "relays.txt:"
 cat relays.txt
 
 echo ""
 echo ""
-
-echo ""
+bashio::log.green "Starting Eaglercraft relay..."
 echo ""
 
 #start relay (run.sh file is downloaded with relay)
 ./run.sh 
 
-echo ""
-echo ""
 
