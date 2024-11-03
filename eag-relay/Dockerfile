@@ -2,8 +2,10 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 COPY start.sh /
+COPY run.sh /
 COPY relays.txt /
 RUN chmod +x start.sh
+RUN chmod +x run.sh
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
