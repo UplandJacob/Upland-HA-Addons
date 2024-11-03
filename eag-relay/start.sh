@@ -7,6 +7,10 @@ echo ""
 RELAY_CONFIG=$(bashio::config 'relayConfig')
 RELAYS=$(bashio::config 'relays')
 
+AUTO_RESTART=$(bashio::config 'autoRestart')
+DEBUG_MODE=$(bashio::config 'debugMode')
+
+
 bashio::log.green "relayConfig JSON:"
 echo $RELAY_CONFIG
 echo ""
@@ -56,6 +60,6 @@ bashio::log.green "Starting Eaglercraft relay..."
 echo ""
 
 #start relay (run.sh file is downloaded with relay)
-./run.sh 
+./run.sh $AUTO_RESTART $DEBUG_MODE
 
 
