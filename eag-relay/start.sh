@@ -7,7 +7,10 @@ echo ""
 RELAY_CONFIG=$(bashio::config 'relayConfig')
 RELAYS=$(bashio::config 'relays')
 
-#set config file
+bashio::log.green "relayConfig JSON:"
+echo $RELAY_CONFIG
+echo ""
+
 config=$(echo "$RELAY_CONFIG" | jq -r 'to_entries | .[] | "\(.key): \(.value)"')
 echo -e "[EaglerSPRelay]\nport: 6699\naddress: 0.0.0.0\n$config" > relayConfig.ini
 
@@ -16,8 +19,7 @@ bashio::log.green "relayConfig.ini:"
 cat relayConfig.ini
 echo ""
 
-
-
+echo ""
 bashio::log.green "relays JSON unformatted:"
 echo $RELAYS
 echo ""
