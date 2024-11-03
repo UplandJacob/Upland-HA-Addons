@@ -20,7 +20,7 @@ cat relayConfig.ini
 echo ""
 
 echo ""
-bashio::log.green "relays JSON unformatted:"
+echo -e "\033[32mrelays JSON unformatted:\033[0m"
 echo $RELAYS
 echo ""
 
