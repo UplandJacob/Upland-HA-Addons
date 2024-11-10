@@ -29,6 +29,25 @@ options:
       address: "someip.local:25565"
   serverAttemptJoinOrder:
     - "lobby"
+  forcedHosts:
+    - hostname: "lobby.example.com"
+      servNames: 
+        - "lobby"
+  advanced:
+    compression-threshold: 256
+    compression-level: -1
+    login-ratelimit: 3000
+    connection-timeout: 5000
+    read-timeout: 30000
+    haproxy-protocol: false
+    tcp-fast-open: false
+    bungee-plugin-message-channel: true
+    show-ping-requests: false
+    failover-on-unexpected-server-disconnect: true
+    announce-proxy-commands: true
+    log-command-executions: false
+    log-player-connections: true
+    accepts-transfers: false
 
 schema:
   rootConfig:
@@ -48,6 +67,25 @@ schema:
       address: str
   serverAttemptJoinOrder:
     - str
+  forcedHosts:
+    - hostname: str
+      servNames:
+        - str
+  advanced:
+    compression-threshold: int
+    compression-level: int
+    login-ratelimit: int
+    connection-timeout: int
+    read-timeout: int
+    haproxy-protocol: bool
+    tcp-fast-open: bool
+    bungee-plugin-message-channel: bool
+    show-ping-requests: bool
+    failover-on-unexpected-server-disconnect: bool
+    announce-proxy-commands: bool
+    log-command-executions: bool
+    log-player-connections: bool
+    accepts-transfers: bool
 
 ports:
   "25565": 25565
