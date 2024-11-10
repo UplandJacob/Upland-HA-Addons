@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+CONFIG_PATH=/data/options.json
 
 logGreen() {
   echo -e "\033[32m$1\033[0m"
@@ -8,7 +9,8 @@ echo ""
 #-------- get config ------------
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
-VEL_SERV_ATT_JOIN_ORD=$(bashio::config 'serverAttemptJoinOrder')
+# VEL_SERV_ATT_JOIN_ORD=$(bashio::config 'serverAttemptJoinOrder')
+VEL_SERV_ATT_JOIN_ORD=$(jq --raw-output '.serverAttemptJoinOrder' $CONFIG_PATH)
 echo $VEL_SERV_ATT_JOIN_ORD
 # main section
 vel_root_config=$(echo "$VEL_ROOT_CONFIG" | jq -r 'to_entries | .[] | "\(.key) = \(.value)"')
@@ -27,10 +29,15 @@ for (( i=0; i<$vel_servers_length; i++ )); do
 done
 echo $vel_servers
 
+vel_serv_ord=""
+vel_serv_ord_length=$(echo "$VEL_SERV_ATT_JOIN_ORD" | jq '. | length')
+for (( i=0; i<$vel_serv_ord_length; i++ )); do
+  name=$(echo "$VEL_SERV_ATT_JOIN_ORD" | jq -r ".[$i]")
+  vel_serv_ord+="    \"$name\",\n"
+done
+echo $vel_serv_ord
 
-
-
-echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n" > velocity.toml
+echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
 
