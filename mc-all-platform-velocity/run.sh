@@ -9,11 +9,16 @@ echo ""
 #-------- get config ------------
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
-# VEL_SERV_ATT_JOIN_ORD=$(bashio::config 'serverAttemptJoinOrder')
 VEL_SERV_ATT_JOIN_ORD=$(jq --raw-output '.serverAttemptJoinOrder' $CONFIG_PATH)
 echo $VEL_SERV_ATT_JOIN_ORD
 # main section
-vel_root_config=$(echo "$VEL_ROOT_CONFIG" | jq -r 'to_entries | .[] | "\(.key) = \(.value)"')
+echo ""
+echo $VEL_ROOT_CONFIG
+echo ""
+# vel_root_config=$(echo "$VEL_ROOT_CONFIG" | jq -r 'to_entries | .[] | "\(.key) = \(.value)"')
+vel_root_config=$(echo "$VEL_ROOT_CONFIG" | jq -r 'to_entries | .[] | "\(.key) = \((if .value | type == "string" then "\"\(.value)\"" else .value end))"')
+echo $vel_root_config
+echo ""
 # '[servers]' section
 echo ""
 echo $VEL_SERVERS
