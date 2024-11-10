@@ -5,7 +5,7 @@ java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalV
 pid=$!
 
 
-duration=30
+duration=15
 
 sleep $duration
 kill $pid
