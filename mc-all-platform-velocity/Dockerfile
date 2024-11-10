@@ -41,7 +41,7 @@ RUN cd plugins && curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o ViaVersion.jar \
-    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.0.5/PAPER/ViaVersion-5.0.5.jar"
+    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.1.1/PAPER/ViaVersion-5.1.1.jar"
 
 RUN cd plugins && curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
