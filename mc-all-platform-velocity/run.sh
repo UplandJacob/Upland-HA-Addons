@@ -10,6 +10,9 @@ echo ""
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
 VEL_SERV_ATT_JOIN_ORD=$(jq --raw-output '.serverAttemptJoinOrder' $CONFIG_PATH)
+VEL_FORCED_HOSTS=$(jq --raw-output '.forcedHosts' $CONFIG_PATH)
+VEL_ADVANCED=$(bashio::config 'advanced')
+
 # main section
 echo ""
 logGreen "velocity rootConfig JSON:"
@@ -53,14 +56,22 @@ logGreen "velocity serverAttemptJoinOrder formatted:"
 echo $vel_serv_ord
 echo ""
 
-echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n" > velocity.toml
+# [forced-hosts] section
+logGreen "velocity forcedHosts JSON:"
+echo $VEL_FORCED_HOSTS
+echo ""
+
+
+# [advanced] section
+logGreen "velocity advanced JSON:"
+echo $VEL_ADVANCED
+echo ""
+
+
+
+echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n[forced-hosts]\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
-
-# DEBUG_MODE=$(bashio::config 'debugMode')
-
-
-
 
 
 
