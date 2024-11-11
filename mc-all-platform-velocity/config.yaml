@@ -51,6 +51,55 @@ options:
     log-player-connections: true
     accepts-transfers: false
 
+  eagConfig: 
+    server_name: 'EaglercraftXVelocity Server'
+    server_uuid: ${random_uuid}
+    websocket_connection_timeout: 15000
+    websocket_handshake_timeout: 5000
+    builtin_http_server_timeout: 10000
+    http_websocket_compression_level: 6
+    download_vanilla_skins_to_clients: true
+    valid_skin_download_urls:
+    - 'textures.minecraft.net'
+    uuid_lookup_ratelimit_player: 50
+    uuid_lookup_ratelimit_global: 175
+    skin_download_ratelimit_player: 1000
+    skin_download_ratelimit_global: 30000
+    skin_cache_db_uri: 'jdbc:sqlite:eaglercraft_skins_cache.db'
+    skin_cache_keep_objects_days: 45
+    skin_cache_keep_profiles_days: 7
+    skin_cache_max_objects: 32768
+    skin_cache_max_profiles: 32768
+    skin_cache_antagonists_ratelimit: 15
+    sql_driver_class: 'internal'
+    sql_driver_path: 'internal'
+    eagler_players_vanilla_skin: ''
+    enable_is_eagler_player_property: true
+    disable_voice_chat_on_servers: []
+    disable_fnaw_skins_everywhere: false
+    disable_fnaw_skins_on_servers: []
+    enable_backend_rpc_api: false
+    use_modernized_channel_names: false
+
+  eagAuth: 
+    enable_authentication_system: true
+    use_onboard_eaglerx_system: true
+    auth_db_uri: 'jdbc:sqlite:eaglercraft_auths.db'
+    sql_driver_class: 'internal'
+    sql_driver_path: 'internal'
+    password_prompt_screen_text: 'Enter your password to join:'
+    wrong_password_screen_text: 'Password Incorrect!'
+    not_registered_screen_text: 'You are not registered on this server!'
+    eagler_command_name: 'eagler'
+    use_register_command_text: '&aUse /eagler to set an Eaglercraft password on this account'
+    use_change_command_text: '&bUse /eagler to change your Eaglercraft password'
+    command_success_text: '&bYour eagler password was changed successfully.'
+    last_eagler_login_message: 'Your last Eaglercraft login was on $date from $ip'
+    too_many_registrations_message: '&cThe maximum number of registrations has been reached for your IP address'
+    need_vanilla_to_register_message: '&cYou need to log in with a vanilla account to use this command'
+    override_eagler_to_vanilla_skins: false
+    max_registration_per_ip: -1
+
 schema:
   rootConfig:
     motd: str
@@ -88,6 +137,57 @@ schema:
     log-command-executions: bool
     log-player-connections: bool
     accepts-transfers: bool
+
+  eagConfig: 
+    server_name: str
+    server_uuid: str
+    websocket_connection_timeout: int
+    websocket_handshake_timeout: int
+    builtin_http_server_timeout: int
+    http_websocket_compression_level: int
+    download_vanilla_skins_to_clients: bool
+    valid_skin_download_urls:
+    - str
+    uuid_lookup_ratelimit_player: int
+    uuid_lookup_ratelimit_global: int
+    skin_download_ratelimit_player: int
+    skin_download_ratelimit_global: int
+    skin_cache_db_uri: str
+    skin_cache_keep_objects_days: int
+    skin_cache_keep_profiles_days: int
+    skin_cache_max_objects: int
+    skin_cache_max_profiles: int
+    skin_cache_antagonists_ratelimit: int
+    sql_driver_class: str
+    sql_driver_path: str
+    eagler_players_vanilla_skin: str
+    enable_is_eagler_player_property: bool
+    disable_voice_chat_on_servers:
+      - str
+    disable_fnaw_skins_everywhere: bool
+    disable_fnaw_skins_on_servers:
+      - str
+    enable_backend_rpc_api: bool
+    use_modernized_channel_names: bool
+
+  eagAuth: 
+    enable_authentication_system: bool
+    use_onboard_eaglerx_system: bool
+    auth_db_uri: str
+    sql_driver_class: str
+    sql_driver_path: str
+    password_prompt_screen_text: str
+    wrong_password_screen_text: str
+    not_registered_screen_text: str
+    eagler_command_name: str
+    use_register_command_text: str
+    use_change_command_text: str
+    command_success_text: str
+    last_eagler_login_message: str
+    too_many_registrations_message: str
+    need_vanilla_to_register_message: str
+    override_eagler_to_vanilla_skins: bool
+    max_registration_per_ip: int
 
 ports:
   "25565": 25565
