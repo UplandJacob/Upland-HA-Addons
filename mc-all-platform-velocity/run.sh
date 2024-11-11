@@ -71,6 +71,7 @@ for (( i=0; i<$vel_servers_length; i++ )); do
   for (( j=0; j<$servs_len; j++ )); do
     name=$(echo "$servs" | jq -r ".[$j]")
     vel_forced_hosts+="    \"$name\",\n"
+  done
   vel_forced_hosts+="]\n"
 done
 logGreen "velocity servers formatted:"
