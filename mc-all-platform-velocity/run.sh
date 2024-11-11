@@ -113,13 +113,14 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
       (.value | to_entries | map("\(.key): \(.value)") | join("\n"))
     else
       .value
-    end )" 
+    end
+  )" 
 ')
 logGreen "eagConfig:"
 # echo $eag_config
 echo ""
 # -------   SAVE --------
-echo -e $eag_config > plugins/eaglerxvelocity/settings.yml
+echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
 logGreen "plugins/eaglerxvelocity/settings.yml:"
 cat plugins/eaglerxvelocity/settings.yml
 echo ""
@@ -135,7 +136,7 @@ logGreen "eagAuth:"
 # echo $eag_auth
 echo ""
 # ------  SAVE --------
-echo -e $eag_auth > plugins/eaglerxvelocity/authservice.yml
+echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 echo ""
