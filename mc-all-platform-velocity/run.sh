@@ -43,7 +43,7 @@ done
 logGreen "velocity servers formatted:"
 echo $vel_servers
 echo ""
-# try
+# try ------
 logGreen "velocity serverAttemptJoinOrder JSON array:"
 echo $VEL_SERV_ATT_JOIN_ORD
 echo ""
@@ -66,7 +66,7 @@ vel_forced_hosts_length=$(echo "$VEL_FORCED_HOSTS" | jq '. | length')
 for (( i=0; i<$vel_servers_length; i++ )); do
   host=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].hostname")
   servs=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].servNames")
-  vel_forced_hosts+="$\"$host\" = [\n"
+  vel_forced_hosts+="\"$host\" = [\n"
   servs_len=$(echo "$servs" | jq '. | length')
   for (( j=0; j<$servs_len; j++ )); do
     name=$(echo "$servs" | jq -r ".[$j]")
@@ -74,8 +74,9 @@ for (( i=0; i<$vel_servers_length; i++ )); do
   done
   vel_forced_hosts+="]\n"
 done
-logGreen "velocity servers formatted:"
-echo $vel_servers
+logGreen "velocity forcedHosts formatted:"
+echo $vel_forced_hosts
+echo ""
 
 # [advanced] section --------------
 logGreen "velocity advanced JSON:"
@@ -87,7 +88,7 @@ echo $vel_advanced
 echo ""
 
 
-echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n[forced-hosts]\n$vel_forced_hosts\n[advanced]\n$vel_advanced\n" > velocity.toml
+echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
 
