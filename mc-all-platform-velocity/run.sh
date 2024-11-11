@@ -91,6 +91,47 @@ echo ""
 echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
+echo ""
+echo ""
+
+EAG_CONFIG=$(bashio::config 'eagConfig')
+EAG_AUTH=$(bashio::config 'eagAuth')
+
+eag_config=$(echo "$VEL_ROOT_CONFIG" | jq -r '
+  to_entries | .[] | "\(.key) = \(
+    if .value | type == "string" then
+      "\"\(.value)\""
+    elif .value | type == "array" then 
+      (.value | to_entries | map("- \(.value)") | .[])
+    elif .value | type == "object" then
+      (.value | to_entries | map("\(.key): \(.value)") | .[])
+    else 
+      .value
+    end 
+  )" 
+')
+logGreen "eagConfig:"
+echo $eag_config
+echo ""
+
+echo -e $eag_config > plugins/eaglerxvelocity/settings.yml
+logGreem "plugins/eaglerxvelocity/settings.yml:"
+cat plugins/eaglerxvelocity/settings.yml
+echo ""
+echo ""
+
+
+eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key) = \(( if .value | type == "string" then "\"\(.value)\"" else .value end ))"')
+logGreen "eagAuth:"
+echo $eag_auth
+echo ""
+
+echo -e $eag_auth > plugins/eaglerxvelocity/authservice.yml
+logGreem "plugins/eaglerxvelocity/authservice.yml:"
+cat plugins/eaglerxvelocity/authservice.yml
+echo ""
+echo ""
+
 
 
 
