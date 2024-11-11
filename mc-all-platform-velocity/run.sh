@@ -110,7 +110,7 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
     elif .value | type == "array" then 
       (.value | to_entries | map("  - \(.value)\n") | .[])
     elif .value | type == "object" then
-      (.value | to_entries | map("\  (.key): \(.value)\n") | .[])
+      (.value | to_entries | map("  \(.key): \(.value)\n") | .[])
     else 
       "(.value)\n"
     end 
