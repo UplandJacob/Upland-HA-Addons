@@ -13,7 +13,7 @@ VEL_SERV_ATT_JOIN_ORD=$(jq --raw-output '.serverAttemptJoinOrder' $CONFIG_PATH)
 VEL_FORCED_HOSTS=$(jq --raw-output '.forcedHosts' $CONFIG_PATH)
 VEL_ADVANCED=$(bashio::config 'advanced')
 
-# main section
+# main section --------------
 echo ""
 logGreen "velocity rootConfig JSON:"
 echo $VEL_ROOT_CONFIG
@@ -22,7 +22,8 @@ vel_root_config=$(echo "$VEL_ROOT_CONFIG" | jq -r 'to_entries | .[] | "\(.key) =
 logGreen "velocity rootConfig formatted:"
 echo $vel_root_config
 echo ""
-# '[servers]' section
+
+# '[servers]' section --------------
 echo ""
 logGreen "velocity servers raw:"
 echo $VEL_SERVERS
@@ -42,7 +43,7 @@ done
 logGreen "velocity servers formatted:"
 echo $vel_servers
 echo ""
-
+# try
 logGreen "velocity serverAttemptJoinOrder JSON array:"
 echo $VEL_SERV_ATT_JOIN_ORD
 echo ""
@@ -56,20 +57,36 @@ logGreen "velocity serverAttemptJoinOrder formatted:"
 echo $vel_serv_ord
 echo ""
 
-# [forced-hosts] section
+# [forced-hosts] section --------------
 logGreen "velocity forcedHosts JSON:"
 echo $VEL_FORCED_HOSTS
 echo ""
+vel_forced_hosts=""
+vel_forced_hosts_length=$(echo "$VEL_FORCED_HOSTS" | jq '. | length')
+for (( i=0; i<$vel_servers_length; i++ )); do
+  host=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].hostname")
+  servs=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].servNames")
+  vel_forced_hosts+="$\"$host\" = [\n"
+  servs_len=$(echo "$servs" | jq '. | length')
+  for (( j=0; j<$servs_len; j++ )); do
+    name=$(echo "$servs" | jq -r ".[$j]")
+    vel_forced_hosts+="    \"$name\"\n"
+  vel_forced_hosts+="\n"
+done
+logGreen "velocity servers formatted:"
+echo $vel_servers
 
-
-# [advanced] section
+# [advanced] section --------------
 logGreen "velocity advanced JSON:"
 echo $VEL_ADVANCED
 echo ""
+vel_advanced=$(echo "$VEL_ADVANCED" | jq -r 'to_entries | .[] | "\(.key) = \((if .value | type == "string" then "\"\(.value)\"" else .value end))"')
+logGreen "velocity advanced formatted:"
+echo $vel_advanced
+echo ""
 
 
-
-echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n[forced-hosts]\n" > velocity.toml
+echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n[forced-hosts]\nvel_forced_hosts\n[advanced]\nvel_advanced\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
 
