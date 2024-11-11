@@ -70,8 +70,8 @@ for (( i=0; i<$vel_servers_length; i++ )); do
   servs_len=$(echo "$servs" | jq '. | length')
   for (( j=0; j<$servs_len; j++ )); do
     name=$(echo "$servs" | jq -r ".[$j]")
-    vel_forced_hosts+="    \"$name\"\n"
-  vel_forced_hosts+="\n"
+    vel_forced_hosts+="    \"$name\",\n"
+  vel_forced_hosts+="]\n"
 done
 logGreen "velocity servers formatted:"
 echo $vel_servers
@@ -86,7 +86,7 @@ echo $vel_advanced
 echo ""
 
 
-echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n[forced-hosts]\nvel_forced_hosts\n[advanced]\nvel_advanced\n" > velocity.toml
+echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n[forced-hosts]\n$vel_forced_hosts\n[advanced]\n$vel_advanced\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
 
