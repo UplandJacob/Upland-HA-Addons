@@ -99,8 +99,12 @@ echo ""
 EAG_CONFIG=$(bashio::config 'eagConfig')
 EAG_AUTH=$(bashio::config 'eagAuth')
 # ----- plugins/eaglerxvelocity/settings.yml ---------
+logGreen "eagConfig JSON:"
+echo $EAG_CONFIG
+echo ""
+
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
-  to_entries | .[] | "\(.key) = \(
+  to_entries | .[] | "\(.key): \(
     if .value | type == "string" then
       "\"\(.value)\""
     elif .value | type == "array" then 
@@ -121,8 +125,13 @@ logGreen "plugins/eaglerxvelocity/settings.yml:"
 cat plugins/eaglerxvelocity/settings.yml
 echo ""
 echo ""
+
 # ----- plugins/eaglerxvelocity/authservice.yml -------
-eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key) = \(( if .value | type == "string" then "\"\(.value)\"" else .value end ))"')
+logGreen "eagAuth JSON:"
+echo $EAG_AUTH
+echo ""
+
+eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"" else .value end ))"')
 logGreen "eagAuth:"
 echo $eag_auth
 echo ""
