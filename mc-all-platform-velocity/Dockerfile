@@ -53,7 +53,7 @@ RUN cd plugins && curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o ViaBackwards.jar \
-    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.0.4/PAPER/ViaBackwards-5.0.4.jar"
+    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.1.1/PAPER/ViaBackwards-5.1.1.jar"
 
 # for Bedrock
 RUN cd plugins && curl --no-progress-meter \
