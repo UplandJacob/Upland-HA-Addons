@@ -6,14 +6,14 @@ logGreen() {
 }
 echo ""
 echo ""
-#-------- get config ------------
+#------- get config --------
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
 VEL_SERV_ATT_JOIN_ORD=$(jq --raw-output '.serverAttemptJoinOrder' $CONFIG_PATH)
 VEL_FORCED_HOSTS=$(jq --raw-output '.forcedHosts' $CONFIG_PATH)
 VEL_ADVANCED=$(bashio::config 'advanced')
 
-# main section --------------
+# main section -----------
 echo ""
 logGreen "velocity rootConfig JSON:"
 echo $VEL_ROOT_CONFIG
@@ -87,17 +87,19 @@ logGreen "velocity advanced formatted:"
 echo $vel_advanced
 echo ""
 
-
+# -------    SAVE --------
 echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
 echo ""
 echo ""
 
+# --------------------------------- EAGLERCRAFT ----------------------------------------
+#------- get config --------
 EAG_CONFIG=$(bashio::config 'eagConfig')
 EAG_AUTH=$(bashio::config 'eagAuth')
-
-eag_config=$(echo "$VEL_ROOT_CONFIG" | jq -r '
+# ----- plugins/eaglerxvelocity/settings.yml ---------
+eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key) = \(
     if .value | type == "string" then
       "\"\(.value)\""
@@ -113,19 +115,18 @@ eag_config=$(echo "$VEL_ROOT_CONFIG" | jq -r '
 logGreen "eagConfig:"
 echo $eag_config
 echo ""
-
+# -------   SAVE --------
 echo -e $eag_config > plugins/eaglerxvelocity/settings.yml
-logGreem "plugins/eaglerxvelocity/settings.yml:"
+logGreen "plugins/eaglerxvelocity/settings.yml:"
 cat plugins/eaglerxvelocity/settings.yml
 echo ""
 echo ""
-
-
+# ----- plugins/eaglerxvelocity/authservice.yml -------
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key) = \(( if .value | type == "string" then "\"\(.value)\"" else .value end ))"')
 logGreen "eagAuth:"
 echo $eag_auth
 echo ""
-
+# ------  SAVE --------
 echo -e $eag_auth > plugins/eaglerxvelocity/authservice.yml
 logGreem "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
