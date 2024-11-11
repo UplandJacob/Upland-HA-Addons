@@ -108,9 +108,9 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
     if .value | type == "string" then
       "\"\(.value)\""
     elif .value | type == "array" then
-      (.value | map("- \(.)") | join("\n"))
+      (.value | map("\n  - \(.)") | join("\n"))
     elif .value | type == "object" then
-      (.value | to_entries | map("\(.key): \(.value)") | join("\n"))
+      (.value | to_entries | map("\n  \(.key): \(.value)") | join("\n"))
     else
       .value
     end
@@ -139,8 +139,8 @@ echo ""
 echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
-echo ""
-echo ""
+echo -e "\n"
+echo -e "\n"
 
 
 
