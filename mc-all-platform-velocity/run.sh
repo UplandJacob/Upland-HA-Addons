@@ -106,13 +106,13 @@ echo ""
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key): \(
     if .value | type == "string" then
-      "\"\(.value)\""
+      "\"\(.value)\"\n"
     elif .value | type == "array" then 
-      (.value | to_entries | map("- \(.value)") | .[])
+      (.value | to_entries | map("  - \(.value)\n") | .[])
     elif .value | type == "object" then
-      (.value | to_entries | map("\(.key): \(.value)") | .[])
+      (.value | to_entries | map("\  (.key): \(.value)\n") | .[])
     else 
-      .value
+      .value\n
     end 
   )" 
 ')
@@ -131,7 +131,7 @@ logGreen "eagAuth JSON:"
 echo $EAG_AUTH
 echo ""
 
-eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"" else .value end ))"')
+eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else .value\n end ))"')
 logGreen "eagAuth:"
 echo $eag_auth
 echo ""
