@@ -36,13 +36,11 @@ options:
     enable-real-ip-header: false
     show-local-worlds: true
     server-comment: Shared World Relay
-
   relays: 
     - type: TURN
       url: turn:turn.speed.cloudflare.com:50000
       username: user1234
       credential: password
-
   autoRestart: true
   debugMode: true
 
@@ -68,13 +66,11 @@ schema:
     enable-real-ip-header: bool
     show-local-worlds: bool
     server-comment: str
-
   relays:
     - type: match(STUN|TURN)
       url: str
       username: str?
       credential: str?
-
   autoRestart: bool
   debugMode: bool
 
