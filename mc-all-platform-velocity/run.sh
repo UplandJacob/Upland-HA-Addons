@@ -10,7 +10,6 @@ logLine() {
 getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
-
 logLine
 logLine
 #---------------------- velocity.toml -----------------------
@@ -19,6 +18,7 @@ TEST=$(getConfig 'rootConfig')
 echo -e "$TEST"
 logLine
 logLine
+
 
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
