@@ -120,7 +120,7 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
   )" 
 ')
 logGreen "eagConfig:"
-# echo $eag_config
+echo $eag_config
 logLine
 # -------   SAVE --------
 echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
@@ -136,7 +136,7 @@ logLine
 
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
 logGreen "eagAuth:"
-# echo $eag_auth
+echo $eag_auth
 logLine
 # ------  SAVE --------
 echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
