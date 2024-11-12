@@ -15,6 +15,9 @@ logLine
 logLine
 #---------------------- velocity.toml -----------------------
 #------- get config --------
+TEST=$(getConfig 'rootConfig')
+echo -e "$TEST"
+
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
 VEL_SERV_ATT_JOIN_ORD=$(jq --raw-output '.serverAttemptJoinOrder' $CONFIG_PATH)
