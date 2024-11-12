@@ -13,6 +13,7 @@ getConfig() {
 
 logLine
 logLine
+#---------------------- velocity.toml -----------------------
 #------- get config --------
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
