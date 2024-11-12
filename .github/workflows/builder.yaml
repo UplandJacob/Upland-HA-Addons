@@ -68,6 +68,12 @@ jobs:
         #arch: ["aarch64", "amd64"]
       fail-fast: false
     steps:
+      - name: Dump github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
+   
       - name: Check out repository
         uses: actions/checkout@v4.2.0
 
