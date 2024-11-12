@@ -10,6 +10,7 @@ logLine() {
 getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
+
 logLine
 logLine
 #------- get config --------
