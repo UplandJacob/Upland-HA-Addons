@@ -102,7 +102,7 @@ logLine
 #------- get config --------
 EAG_CONFIG=$(bashio::config 'eagConfig')
 EAG_AUTH=$(bashio::config 'eagAuth')
-# ----- plugins/eaglerxvelocity/settings.yml ---------
+# ----------- plugins/eaglerxvelocity/settings.yml -----------
 logGreen "eagConfig JSON:"
 echo $EAG_CONFIG
 logLine
@@ -130,7 +130,7 @@ cat plugins/eaglerxvelocity/settings.yml
 logLine
 logLine
 
-# ----- plugins/eaglerxvelocity/authservice.yml -------
+# ------------ plugins/eaglerxvelocity/authservice.yml ------------
 logGreen "eagAuth JSON:"
 echo $EAG_AUTH
 logLine
