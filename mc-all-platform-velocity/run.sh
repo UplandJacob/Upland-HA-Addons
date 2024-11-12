@@ -14,7 +14,8 @@ logLine
 logLine
 #---------------------- velocity.toml -----------------------
 #------- get config --------
-TEST=$(getConfig 'rootConfig')
+TEST=$(getConfig '.rootConfig')
+logGreen "TEST: "
 echo -e "$TEST"
 logLine
 logLine
