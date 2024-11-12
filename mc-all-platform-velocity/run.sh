@@ -17,6 +17,8 @@ logLine
 #------- get config --------
 TEST=$(getConfig 'rootConfig')
 echo -e "$TEST"
+logLine
+logLine
 
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
