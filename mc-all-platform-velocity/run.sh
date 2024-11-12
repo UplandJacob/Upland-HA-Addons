@@ -23,27 +23,27 @@ logLine
 
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
-VEL_SERV_ATT_JOIN_ORD=$(jq --raw-output '.serverAttemptJoinOrder' $CONFIG_PATH)
-VEL_FORCED_HOSTS=$(jq --raw-output '.forcedHosts' $CONFIG_PATH)
+VEL_SERV_ATT_JOIN_ORD=$(getConfig '.serverAttemptJoinOrder')
+VEL_FORCED_HOSTS=$(getConfig '.forcedHosts')
 VEL_ADVANCED=$(bashio::config 'advanced')
 
 # main section -----------
 logLine
 logGreen "velocity rootConfig JSON:"
-echo $VEL_ROOT_CONFIG
+echo -e "$VEL_ROOT_CONFIG"
 logLine
 vel_root_config=$(echo "$VEL_ROOT_CONFIG" | jq -r 'to_entries | .[] | "\(.key) = \((if .value | type == "string" then "\"\(.value)\"" else .value end))"')
 logGreen "velocity rootConfig formatted:"
-echo $vel_root_config
-elogLine
+echo -e "$vel_root_config"
+logLine
 # '[servers]' section --------------
 logLine
 logGreen "velocity servers raw:"
-echo $VEL_SERVERS
+echo -e "$VEL_SERVERS"
 logLine
 vel_servers_JSON=$(echo $VEL_SERVERS | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 "]"}')
 logGreen "velocity servers JSON:"
-echo $vel_servers_JSON
+echo -e "$vel_servers_JSON"
 logLine
 vel_servers=""
 vel_servers_length=$(echo "$vel_servers_JSON" | jq '. | length')
@@ -54,7 +54,7 @@ for (( i=0; i<$vel_servers_length; i++ )); do
   vel_servers+="\n"
 done
 logGreen "velocity servers formatted:"
-echo $vel_servers
+echo -e "$vel_servers"
 logLine
 # try ------
 logGreen "velocity serverAttemptJoinOrder JSON array:"
@@ -67,11 +67,11 @@ for (( i=0; i<$vel_serv_ord_length; i++ )); do
   vel_serv_ord+="    \"$name\",\n"
 done
 logGreen "velocity serverAttemptJoinOrder formatted:"
-echo $vel_serv_ord
+echo -e "$vel_serv_ord"
 logLine
 # [forced-hosts] section --------------
 logGreen "velocity forcedHosts JSON:"
-echo $VEL_FORCED_HOSTS
+echo -e "$VEL_FORCED_HOSTS"
 logLine
 vel_forced_hosts=""
 vel_forced_hosts_length=$(echo "$VEL_FORCED_HOSTS" | jq '. | length')
@@ -87,7 +87,7 @@ for (( i=0; i<$vel_servers_length; i++ )); do
   vel_forced_hosts+="]\n"
 done
 logGreen "velocity forcedHosts formatted:"
-echo $vel_forced_hosts
+echo -e "$vel_forced_hosts"
 logLine
 # [advanced] section --------------
 logGreen "velocity advanced JSON:"
@@ -95,7 +95,7 @@ echo $VEL_ADVANCED
 logLine
 vel_advanced=$(echo "$VEL_ADVANCED" | jq -r 'to_entries | .[] | "\(.key) = \((if .value | type == "string" then "\"\(.value)\"" else .value end))"')
 logGreen "velocity advanced formatted:"
-echo $vel_advanced
+echo -e "$vel_advanced"
 logLine
 # -------    SAVE --------
 echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
@@ -110,7 +110,7 @@ EAG_CONFIG=$(bashio::config 'eagConfig')
 EAG_AUTH=$(bashio::config 'eagAuth')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
 logGreen "eagConfig JSON:"
-echo $EAG_CONFIG
+echo -e "$EAG_CONFIG"
 logLine
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key): \(
@@ -126,7 +126,7 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
   )" 
 ')
 logGreen "eagConfig:"
-echo "$eag_config"
+echo -e "$eag_config"
 logLine
 # -------   SAVE --------
 echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
@@ -137,11 +137,11 @@ logLine
 
 # ------------ plugins/eaglerxvelocity/authservice.yml ------------
 logGreen "eagAuth JSON:"
-echo $EAG_AUTH
+echo -e "$EAG_AUTH"
 logLine
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
 logGreen "eagAuth:"
-echo "$eag_auth"
+echo -e "$eag_auth"
 logLine
 # ------  SAVE --------
 echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
