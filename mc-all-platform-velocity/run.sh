@@ -115,7 +115,11 @@ logLine
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key): \(
     if .value | type == "string" then
-      "\"\(.value)\""
+      (if .value | test("^\\$\\{.*\\}$")
+        .value
+      else
+        "\"\(.value)\""
+      end)
     elif .value | type == "array" then
       (.value | map("\n  - \(.)") | join("\n"))
     elif .value | type == "object" then
