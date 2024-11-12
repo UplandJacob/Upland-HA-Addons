@@ -4,8 +4,11 @@ CONFIG_PATH=/data/options.json
 logGreen() {
   echo -e "\033[32m$1\033[0m"
 }
-echo ""
-echo ""
+logLine() {
+  echo -e " \n"
+}
+logLine
+logLine
 #------- get config --------
 VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
 VEL_SERVERS=$(bashio::config 'servers')
@@ -14,24 +17,24 @@ VEL_FORCED_HOSTS=$(jq --raw-output '.forcedHosts' $CONFIG_PATH)
 VEL_ADVANCED=$(bashio::config 'advanced')
 
 # main section -----------
-echo ""
+logLine
 logGreen "velocity rootConfig JSON:"
 echo $VEL_ROOT_CONFIG
-echo ""
+logLine
 vel_root_config=$(echo "$VEL_ROOT_CONFIG" | jq -r 'to_entries | .[] | "\(.key) = \((if .value | type == "string" then "\"\(.value)\"" else .value end))"')
 logGreen "velocity rootConfig formatted:"
 echo $vel_root_config
-echo ""
+elogLine
 
 # '[servers]' section --------------
-echo ""
+logLine
 logGreen "velocity servers raw:"
 echo $VEL_SERVERS
-echo ""
+logLine
 vel_servers_JSON=$(echo $VEL_SERVERS | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 "]"}')
 logGreen "velocity servers JSON:"
 echo $vel_servers_JSON
-echo ""
+logLine
 vel_servers=""
 vel_servers_length=$(echo "$vel_servers_JSON" | jq '. | length')
 for (( i=0; i<$vel_servers_length; i++ )); do
@@ -42,11 +45,11 @@ for (( i=0; i<$vel_servers_length; i++ )); do
 done
 logGreen "velocity servers formatted:"
 echo $vel_servers
-echo ""
+logLine
 # try ------
 logGreen "velocity serverAttemptJoinOrder JSON array:"
 echo $VEL_SERV_ATT_JOIN_ORD
-echo ""
+logLine
 vel_serv_ord=""
 vel_serv_ord_length=$(echo "$VEL_SERV_ATT_JOIN_ORD" | jq '. | length')
 for (( i=0; i<$vel_serv_ord_length; i++ )); do
@@ -55,12 +58,12 @@ for (( i=0; i<$vel_serv_ord_length; i++ )); do
 done
 logGreen "velocity serverAttemptJoinOrder formatted:"
 echo $vel_serv_ord
-echo ""
+logLine
 
 # [forced-hosts] section --------------
 logGreen "velocity forcedHosts JSON:"
 echo $VEL_FORCED_HOSTS
-echo ""
+logLine
 vel_forced_hosts=""
 vel_forced_hosts_length=$(echo "$VEL_FORCED_HOSTS" | jq '. | length')
 for (( i=0; i<$vel_servers_length; i++ )); do
@@ -76,23 +79,23 @@ for (( i=0; i<$vel_servers_length; i++ )); do
 done
 logGreen "velocity forcedHosts formatted:"
 echo $vel_forced_hosts
-echo ""
+logLine
 
 # [advanced] section --------------
 logGreen "velocity advanced JSON:"
 echo $VEL_ADVANCED
-echo ""
+logLine
 vel_advanced=$(echo "$VEL_ADVANCED" | jq -r 'to_entries | .[] | "\(.key) = \((if .value | type == "string" then "\"\(.value)\"" else .value end))"')
 logGreen "velocity advanced formatted:"
 echo $vel_advanced
-echo ""
+logLine
 
 # -------    SAVE --------
 echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
-echo ""
-echo ""
+logLine
+logLine
 
 # --------------------------------- EAGLERCRAFT ----------------------------------------
 #------- get config --------
@@ -101,7 +104,7 @@ EAG_AUTH=$(bashio::config 'eagAuth')
 # ----- plugins/eaglerxvelocity/settings.yml ---------
 logGreen "eagConfig JSON:"
 echo $EAG_CONFIG
-echo ""
+logLine
 
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key): \(
@@ -118,29 +121,29 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
 ')
 logGreen "eagConfig:"
 # echo $eag_config
-echo ""
+logLine
 # -------   SAVE --------
 echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
 logGreen "plugins/eaglerxvelocity/settings.yml:"
 cat plugins/eaglerxvelocity/settings.yml
-echo ""
-echo ""
+logLine
+logLine
 
 # ----- plugins/eaglerxvelocity/authservice.yml -------
 logGreen "eagAuth JSON:"
 echo $EAG_AUTH
-echo ""
+logLine
 
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
 logGreen "eagAuth:"
 # echo $eag_auth
-echo ""
+logLine
 # ------  SAVE --------
 echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
-echo -e "\n"
-echo -e "\n"
+logLine
+logLine
 
 
 
