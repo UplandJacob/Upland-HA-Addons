@@ -146,7 +146,7 @@ jobs:
         id: lat-vers-getter
         uses: Bruce17/ghaction-package-latest-version@v1
         with:
-          package: ${{ env.REPO_NAME_ONLY_LC }}
+          package: ${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}
           language: node
 
       - name: Output latest version
