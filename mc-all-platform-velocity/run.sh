@@ -21,11 +21,11 @@ logLine
 logLine
 
 
-VEL_ROOT_CONFIG=$(bashio::config 'rootConfig')
-VEL_SERVERS=$(bashio::config 'servers')
+VEL_ROOT_CONFIG=$(getConfig '.rootConfig')
+VEL_SERVERS=$(getConfig '.servers')
 VEL_SERV_ATT_JOIN_ORD=$(getConfig '.serverAttemptJoinOrder')
 VEL_FORCED_HOSTS=$(getConfig '.forcedHosts')
-VEL_ADVANCED=$(bashio::config 'advanced')
+VEL_ADVANCED=$(getConfig '.advanced')
 
 # main section -----------
 logLine
