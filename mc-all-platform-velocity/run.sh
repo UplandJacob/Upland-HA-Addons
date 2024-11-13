@@ -14,7 +14,6 @@ logLine
 logLine
 #---------------------- velocity.toml -----------------------
 #------- get config --------
-
 VEL_ROOT_CONFIG=$(getConfig '.rootConfig')
 VEL_SERVERS=$(getConfig '.servers')
 VEL_SERV_ATT_JOIN_ORD=$(getConfig '.serverAttemptJoinOrder')
