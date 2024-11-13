@@ -150,7 +150,8 @@ jobs:
           language: node
 
       - name: Output latest version
-        run: echo " Latest version: ${{ steps.lat-vers-getter.outputs.latest-version }}"
+        run: |
+          echo "Latest version: ${{ steps.lat-vers-getter.outputs.latest-version }}"
 
       
 
