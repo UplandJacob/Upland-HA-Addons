@@ -5,7 +5,7 @@ logGreen() {
   echo -e "\033[32m$1\033[0m"
 }
 logLine() {
-  echo -e " \n"
+  echo -e ". \n"
 }
 getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
@@ -115,7 +115,7 @@ logLine
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key): \(
     if .value | type == "string" then
-      (if .value | test("^\\$\\{.*\\}$")
+      (if .value | test("^\\$\\{.*\\}$") then
         .value
       else
         "\"\(.value)\""
