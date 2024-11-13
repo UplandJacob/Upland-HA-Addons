@@ -147,7 +147,7 @@ jobs:
         id: lat-vers-getter
         run: |
           lat-vers=$(curl --silent -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" "https://api.github.com/users/${{ github.repository_owner }}/packages/container/${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}/versions/latest" | jq -r .metadata.container.tags[0])
-          echo "::set-output name=version::$lat-vers"
+          echo "version=$lat-vers" >> $GITHUB_ENV
 
       - name: Output latest version
         run: |
