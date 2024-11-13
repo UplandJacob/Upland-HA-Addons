@@ -19,7 +19,6 @@ VEL_SERVERS=$(getConfig '.servers')
 VEL_SERV_ATT_JOIN_ORD=$(getConfig '.serverAttemptJoinOrder')
 VEL_FORCED_HOSTS=$(getConfig '.forcedHosts')
 VEL_ADVANCED=$(getConfig '.advanced')
-
 # main section -----------
 logLine
 logGreen "velocity rootConfig JSON:"
