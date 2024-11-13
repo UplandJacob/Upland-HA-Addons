@@ -14,12 +14,6 @@ logLine
 logLine
 #---------------------- velocity.toml -----------------------
 #------- get config --------
-TEST=$(getConfig '.rootConfig')
-logGreen "TEST: "
-echo -e "$TEST"
-logLine
-logLine
-
 
 VEL_ROOT_CONFIG=$(getConfig '.rootConfig')
 VEL_SERVERS=$(getConfig '.servers')
