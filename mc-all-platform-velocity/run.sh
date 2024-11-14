@@ -144,8 +144,11 @@ logLine
 echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
+
+
+
+####### finalize
 logLine
 logLine
 logGreen "Starting..............."
-
 java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar
