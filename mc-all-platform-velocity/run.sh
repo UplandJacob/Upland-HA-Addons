@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 CONFIG_PATH=/data/options.json
-# simple function 
+# simple functions
 logGreen() {
   echo -e "\033[32m$1\033[0m"
 }
