@@ -11,6 +11,7 @@ getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
 ####
+logGreen "Generating config files..."
 logLine
 logLine
 #---------------------- velocity.toml -----------------------
