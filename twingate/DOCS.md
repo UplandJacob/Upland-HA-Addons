@@ -1,5 +1,9 @@
 # Twingate
 
+## About
+
+Run a Twingate connector to access your local network remotely.
+
 ## Setup
 
 1. Go to [twingate.com](https://www.twingate.com) and create an account and network.
