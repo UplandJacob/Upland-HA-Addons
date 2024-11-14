@@ -99,7 +99,7 @@ jobs:
                 echo "BUILD_ARGS=" >> $GITHUB_ENV;
               fi
             else
-              echo "${{ matrix.arch }} is not in condig.yaml for ${{ matrix.addon }}, skipping build";
+              echo "${{ matrix.arch }} is not in config.yaml for ${{ matrix.addon }}, skipping build";
               echo "build_arch=false" >> $GITHUB_OUTPUT;
             fi
           else
