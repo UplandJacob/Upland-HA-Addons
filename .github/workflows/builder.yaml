@@ -129,9 +129,14 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" \
             "https://api.github.com/users/${{ github.repository_owner }}/packages/container/${REPO_NAME_ONLY_LC}-${{ matrix.addon }}-${{ matrix.arch }}/versions"
           )
-          lat_vers=$(echo "$resp" | jq -r .[0].metadata.container.tags[0])
-          echo "$lat_vers"
-          echo "LATEST_VERSION=$lat_vers" >> $GITHUB_ENV
+          if [[ $(echo "$resp" | jq -r .message) != "Resource not found" ]]; then
+            lat_vers=$(echo "$resp" | jq -r .[0].metadata.container.tags[0])
+            echo "$lat_vers"
+            echo "LATEST_VERSION=$lat_vers" >> $GITHUB_ENV
+          else
+            echo "no current package found"
+            echo "LATEST_VERSION=$VERSION" >> $GITHUB_ENV
+          fi
 
       # echo "$(echo "$resp" | jq -r .[0])"
 
@@ -161,7 +166,7 @@ jobs:
       - name: Build and push Docker images
         if: steps.check.outputs.build_arch == 'true'
         run: |
-          if (( env.VERSION != env.LATEST_VERSION )); then
+          if [[ env.VERSION != env.LATEST_VERSION ]]; then
             docker buildx build --platform linux/${{ env.PLATFORM }} \
               --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
               --build-arg REPO_URL=https://github.com/${{ env.REPO_NAME_LC }} \
