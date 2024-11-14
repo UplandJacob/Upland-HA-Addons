@@ -93,8 +93,8 @@ logLine
 
 # --------------------------------- EAGLERCRAFT ----------------------------------------
 #------- get config --------
-EAG_CONFIG=$(getConfig 'eagConfig')
-EAG_AUTH=$(getConfig 'eagAuth')
+EAG_CONFIG=$(getConfig '.eagConfig')
+EAG_AUTH=$(getConfig '.eagAuth')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
 logGreen "eagConfig JSON:"
 echo -e "$EAG_CONFIG"
