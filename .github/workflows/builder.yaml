@@ -148,8 +148,8 @@ jobs:
         run: |
           resp=$(curl --silent -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" "https://api.github.com/users/${{ github.repository_owner }}/packages/container/${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}/versions")
           echo "$resp"
-          lat-vers=$(echo "$resp" | jq -r .metadata.container.tags[0])
-      #    echo "version=$lat-vers" >> $GITHUB_ENV
+          lat_vers=$(echo "$resp" | jq -r .[0].metadata.container.tags[0])
+          echo "version=$lat_vers" >> $GITHUB_ENV
 
       # - name: Output latest version
       #   run: |
