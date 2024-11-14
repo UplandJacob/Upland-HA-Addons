@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 CONFIG_PATH=/data/options.json
-
+# simple function 
 logGreen() {
   echo -e "\033[32m$1\033[0m"
 }
@@ -10,6 +10,7 @@ logLine() {
 getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
+####
 logLine
 logLine
 #---------------------- velocity.toml -----------------------
@@ -145,6 +146,6 @@ logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 logLine
 logLine
-logGreem "Starting..............."
+logGreen "Starting..............."
 
 java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar
