@@ -146,14 +146,14 @@ jobs:
       - name: Get latest version of ${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}
         id: lat-vers-getter
         run: |
-          resp=$(curl --silent -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" "https://api.github.com/users/${{ github.repository_owner }}/packages/container/${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}/versions/latest")
+          resp=$(curl --silent -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" "https://api.github.com/users/${{ github.repository_owner }}/packages/container/${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}/versions")
           echo "$resp"
           lat-vers=$(echo "$resp" | jq -r .metadata.container.tags[0])
-          echo "version=$lat-vers" >> $GITHUB_ENV
+      #    echo "version=$lat-vers" >> $GITHUB_ENV
 
-      - name: Output latest version
-        run: |
-          echo "Latest version: ${{ steps.lat-vers-getter.outputs.version }}"
+      # - name: Output latest version
+      #   run: |
+      #     echo "Latest version: ${{ steps.lat-vers-getter.outputs.version }}"
 
       
 
