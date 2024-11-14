@@ -1,3 +1,6 @@
+[![Build Status](https://github.com/UplandJacob/Upland-HA-Addons/actions/workflows/builder.yaml/badge.svg)](https://github.com/UplandJacob/Upland-HA-Addons/actions/workflows/builder.yaml)
+
+
 # Upland-HA-Addons
 
 A repository for all my Home Assistant addons.
@@ -17,3 +20,10 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 Run and Eaglerctaft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_eag-relay)
+
+### MC All-Platform Velocity Proxy
+
+Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser) clients to join your server(s).
+
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
+
