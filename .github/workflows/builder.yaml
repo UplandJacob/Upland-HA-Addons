@@ -107,15 +107,6 @@ jobs:
             echo "build_arch=false" >> $GITHUB_OUTPUT;
           fi
 
-#      - name: Login to GitHub Container Registry
-#        if: env.BUILD_ARGS != '--test'
-#        uses: docker/login-action@v3.3.0
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.repository_owner }}
-#          password: ${{ secrets.GITHUB_TOKEN }}
-
-
 
       - name: Set BUILD_FROM, PLATFORM, VERSION, etc
         if: steps.check.outputs.build_arch == 'true'
@@ -148,26 +139,13 @@ jobs:
             echo "LATEST_VERSION=$VERSION" >> $GITHUB_ENV
           fi
 
-      # echo "$(echo "$resp" | jq -r .[0])"
-
-      # - name: Get latest version of ${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}
-      #   run: |
-      #     resp=$(curl --silent \
-      #       -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" \
-      #       "https://api.github.com/users/${{ github.repository_owner }}/packages/container/${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}/versions"
-      #     )
-      #     echo "$(echo "$resp" | jq -r .[0])"
-      #     lat_vers=$(echo "$resp" | jq -r .[0].metadata.container.tags[0])
-      #     echo "$lat_vers"
-      #     echo "LATEST_VERSION=$lat_vers" >> $GITHUB_ENV
-
       - name: Authenticate GitHub Container Registry
         # if: env.BUILD_ARGS != '--test'
         if: env.VERSION != env.LATEST_VERSION
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.HA_GITHUB_TOKEN }}
 
       - name: Set up Docker Buildx
