@@ -28,11 +28,3 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 ## Setup
 
 No idea yet
-
-
-[install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant
-[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant
-[repo-badge]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
-
-[install-url]: https://my.home-assistant.io/redirect/supervisor_addon?addon=1f1b42b3_twingate
-[repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/UplandJacob/Upland-HA-Addons
