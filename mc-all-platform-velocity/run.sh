@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/with-contenv bashio
 CONFIG_PATH=/data/options.json
 # simple functions
 logGreen() {
