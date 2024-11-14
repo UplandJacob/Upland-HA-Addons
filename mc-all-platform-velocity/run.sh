@@ -29,19 +29,14 @@ logGreen "velocity rootConfig formatted:"
 echo -e "$vel_root_config"
 logLine
 # '[servers]' section --------------
-logLine
-logGreen "velocity servers raw:"
+logGreen "velocity servers JSON:"
 echo -e "$VEL_SERVERS"
 logLine
-vel_servers_JSON=$(echo $VEL_SERVERS | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 "]"}')
-logGreen "velocity servers JSON:"
-echo -e "$vel_servers_JSON"
-logLine
 vel_servers=""
-vel_servers_length=$(echo "$vel_servers_JSON" | jq '. | length')
+vel_servers_length=$(echo "$VEL_SERVERS" | jq '. | length')
 for (( i=0; i<$vel_servers_length; i++ )); do
-  name=$(echo "$vel_servers_JSON" | jq -r ".[$i].name")
-  addr=$(echo "$vel_servers_JSON" | jq -r ".[$i].address")
+  name=$(echo "$VEL_SERVERS" | jq -r ".[$i].name")
+  addr=$(echo "$VEL_SERVERS" | jq -r ".[$i].address")
   vel_servers+="$name = \"$addr\"\n"
   vel_servers+="\n"
 done
