@@ -12,7 +12,6 @@ getConfig() {
 }
 ####
 logGreen "Generating config files..."
-logLine
 #---------------------- velocity.toml -----------------------
 #------- get config --------
 VEL_ROOT_CONFIG=$(getConfig '.rootConfig')
