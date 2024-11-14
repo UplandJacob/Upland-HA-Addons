@@ -129,10 +129,11 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" \
             "https://api.github.com/users/${{ github.repository_owner }}/packages/container/${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}/versions"
           )
-          echo "$(echo "$resp" | jq -r .[0])"
           lat_vers=$(echo "$resp" | jq -r .[0].metadata.container.tags[0])
           echo "$lat_vers"
           echo "LATEST_VERSION=$lat_vers" >> $GITHUB_ENV
+
+      # echo "$(echo "$resp" | jq -r .[0])"
 
       # - name: Get latest version of ${{ env.REPO_NAME_ONLY_LC }}-${{ matrix.addon }}-${{ matrix.arch }}
       #   run: |
