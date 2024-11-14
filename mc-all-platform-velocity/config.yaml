@@ -188,6 +188,9 @@ schema:
     override_eagler_to_vanilla_skins: bool
     max_registration_per_ip: int
 
+map:
+  - addon_config:rw
+
 ports:
   "25565": 25565
   "19132": 19132
