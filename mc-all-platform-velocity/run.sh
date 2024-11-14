@@ -146,8 +146,7 @@ logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 
 
-
-####### finalize
+####### -------------------------- finalize -------------------------------------
 logLine
 logLine
 logGreen "Starting..............."
