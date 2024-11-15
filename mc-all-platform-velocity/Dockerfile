@@ -1,6 +1,13 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
+ARG VELOCITY_VERS="3.4.0-SNAPSHOT"
+ARG VELOCITY_BUILD="450"
+
+ARG VIAVERSION_VERS="5.1.1"
+ARG VIAREWIND_VERS="4.0.3"
+ARG VIABACKWARDS_VERS="5.1.1"
+	
 
 COPY run.sh run.sh
 COPY kickstart.sh kickstart.sh
@@ -24,7 +31,7 @@ RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o /velocity.jar \
-    "https://api.papermc.io/v2/projects/velocity/versions/3.4.0-SNAPSHOT/builds/450/downloads/velocity-3.4.0-SNAPSHOT-450.jar"
+    "https://api.papermc.io/v2/projects/velocity/versions/$VELOCITY_VERS/builds/$VELOCITY_BUILD/downloads/velocity-$VELOCITY_VERS-$VELOCITY_BUILD.jar"
 
 ### PLUGINS
 RUN mkdir -p plugins
@@ -41,19 +48,19 @@ RUN cd plugins && curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o ViaVersion.jar \
-    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.1.1/PAPER/ViaVersion-5.1.1.jar"
+    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/$VIAVERSION_VERS/PAPER/ViaVersion-$VIAVERSION_VERS.jar"
 
 RUN cd plugins && curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o ViaRewind.jar \
-    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/4.0.3/PAPER/ViaRewind-4.0.3.jar"
+    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/$VIAREWIND_VERS/PAPER/ViaRewind-$VIAREWIND_VERS.jar"
 
 RUN cd plugins && curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o ViaBackwards.jar \
-    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.1.1/PAPER/ViaBackwards-5.1.1.jar"
+    "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/$VIABACKWARDS_VERS/PAPER/ViaBackwards-$VIABACKWARDS_VERS.jar"
 
 # for Bedrock
 RUN cd plugins && curl --no-progress-meter \
