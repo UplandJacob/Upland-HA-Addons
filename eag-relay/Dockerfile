@@ -30,30 +30,31 @@ RUN chmod +x run.sh
 CMD [ "/start.sh" ]
 
 
-#ARG BUILD_ARCH
+ARG BUILD_ARCH
 #ARG BUILD_DATE
-#ARG BUILD_DESCRIPTION
-#ARG BUILD_NAME
 #ARG BUILD_REF
-ARG REPO_URL
-ARG VERSION
-ARG PLATFORM
+ARG BUILD_NAME
+ARG BUILD_DESCRIPTION
+ARG BUILD_REPO_NAME
+ARG BUILD_SLUG
+ARG BUILD_AUTHOR
+ARG BUILD_LICENSE
+ARG BUILD_VERSION
 LABEL \
-#    io.hass.name="${BUILD_NAME}" \
-#    io.hass.description="${BUILD_DESCRIPTION}" \
-    io.hass.arch="${PLATFORM}" \
+    io.hass.name="${BUILD_NAME}" \
+    io.hass.description="${BUILD_DESCRIPTION}" \
+    io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version=${VERSION} \
-    maintainer="UplandJacob (${REPO_URL})" \
-#    org.opencontainers.image.title="${BUILD_NAME}" \
-#    org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
+    io.hass.version=${BUILD_VERSION} \
+    maintainer="${BUILD_AUTHOR} (https://github.com/${BUILD_AUTHOR})" \
+    org.opencontainers.image.title="${BUILD_NAME}" \
+    org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.vendor="Home Assistant Add-ons" \
-    org.opencontainers.image.authors="UplandJacob (https://github.com/uplandjacob)" \
-    org.opencontainers.image.licenses="MIT" \
-    org.opencontainers.image.url="${REPO_URL}" \
-    org.opencontainers.image.source="${REPO_URL}" \
-    org.opencontainers.image.documentation="${REPO_URL}/blob/main/README.md" \
+    org.opencontainers.image.authors="${BUILD_AUTHOR} (https://github.com/${BUILD_AUTHOR})" \
+    org.opencontainers.image.licenses="${BUILD_LICENSE}" \
+    org.opencontainers.image.url="https://github.com/${BUILD_AUTHOR}/${BUILD_REPO_NAME}" \
+    org.opencontainers.image.source="https://github.com/${BUILD_AUTHOR}/${BUILD_REPO_NAME}/tree/main/${BUILD_SLUG}" \
+    org.opencontainers.image.documentation="https://github.com/${BUILD_AUTHOR}/${BUILD_REPO_NAME}/blob/main/${BUILD_SLUG}/README.md" \
 #    org.opencontainers.image.created=${BUILD_DATE} \
 #    org.opencontainers.image.revision=${BUILD_REF} \
-    org.opencontainers.image.version=${VERSION}
-
+    org.opencontainers.image.version=${BUILD_VERSION}
