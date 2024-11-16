@@ -7,7 +7,7 @@ COPY relays.txt /
 RUN chmod +x start.sh
 RUN chmod +x run.sh
 
-ARG RELAY_DL_COMMIT="7a9c154254415e6646fc6afdcf66279d521e1f56"
+ARG RELAY_DL_COMMIT="59aee1b42f8d06b9a7d1813cb89afe08112c7fcc"
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
