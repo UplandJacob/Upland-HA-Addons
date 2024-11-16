@@ -7,6 +7,8 @@ COPY relays.txt /
 RUN chmod +x start.sh
 RUN chmod +x run.sh
 
+ARG RELAY_DL_COMMIT="7a9c154254415e6646fc6afdcf66279d521e1f56"
+
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
@@ -21,8 +23,7 @@ RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o /relay.zip \
-    "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/branch/main/sources/resources/relay_download.zip"
-
+    "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/commit/${RELAY_DL_COMMIT}/sources/resources/relay_download.zip"
 RUN unzip -n relay.zip
 RUN chmod +x run.sh
 
