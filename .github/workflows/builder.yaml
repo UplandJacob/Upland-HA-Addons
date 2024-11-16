@@ -168,7 +168,10 @@ jobs:
           docker buildx build --platform linux/${{ env.PLATFORM }} \
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --build-arg BUILD_AUTHOR=${{ github.repository_owner }} \
-            --build-arg BUILD_REPO_NAME=https://github.com/${{ env.REPO_NAME_ONLY_LC }} \
+            --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
+            --build-arg BUILD_SLUG=https://github.com/${{ env.REPO_NAME_ONLY_LC }} \
+            --build-arg BUILD_NAME=${{ env.BUILD_NAME }} \
+            --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
             --push \
@@ -182,7 +185,10 @@ jobs:
           docker buildx build --platform linux/${{ env.PLATFORM }} \
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --build-arg BUILD_AUTHOR=${{ github.repository_owner }} \
-            --build-arg BUILD_REPO_NAME=https://github.com/${{ env.REPO_NAME_ONLY_LC }} \
+            --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
+            --build-arg BUILD_SLUG=https://github.com/${{ env.REPO_NAME_ONLY_LC }} \
+            --build-arg BUILD_NAME=${{ env.BUILD_NAME }} \
+            --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
             -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.arch }}:${{ env.VERSION }} \
