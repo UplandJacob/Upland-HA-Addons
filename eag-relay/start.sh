@@ -38,24 +38,25 @@ relayJSON=$(echo $RELAYS | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 
 logGreen "relays JSON formatted:"
 echo $relayJSON
 echo ""
-
 length=$(echo "$relayJSON" | jq '. | length')
-
 relays=""
 for (( i=0; i<$length; i++ )); do
-  type=$(echo "$relayJSON" | jq -r ".[$i].type")
+  # type=$(echo "$relayJSON" | jq -r ".[$i].type")
   url=$(echo "$relayJSON" | jq -r ".[$i].url")
   user=$(echo "$relayJSON" | jq -r ".[$i].username // empty")
   cred=$(echo "$relayJSON" | jq -r ".[$i].credential // empty")
-
-  relays+="[$type]\nurl=$url\n"
-  [ -n "$user" ] && relays+="username=$user\n"
-  [ -n "$cred" ] && relays+="credential=$cred\n"
+  
+  if [ -n "$user" ] && [ -n "$cred" ]; then
+    relays+="[PASSWD]\nurl=$url\nusername=$user\ncredential=$cred\n\n"
+  else
+    relays+="[NO_PASSWD]\nurl=$url\n\n"
+  fi
+  # relays+="[$type]\nurl=$url\n"
+  # [ -n "$user" ] && relays+="username=$user\n"
+  # [ -n "$cred" ] && relays+="credential=$cred\n"
   relays+="\n"
 done
-
 echo -e "$relays" > relays.txt
-
 logGreen "relays.txt:"
 cat relays.txt
 
