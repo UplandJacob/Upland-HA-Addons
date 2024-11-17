@@ -7,6 +7,7 @@ COPY relays.txt /
 RUN chmod +x start.sh
 RUN chmod +x run.sh
 
+# commit ID at git.eaglercraft.rip/eaglercraft/eaglercraft-1.8 to download the relay jar from
 ARG RELAY_DL_COMMIT="59aee1b42f8d06b9a7d1813cb89afe08112c7fcc"
 
 # Uses /bin for compatibility purposes
