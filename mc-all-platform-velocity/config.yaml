@@ -194,9 +194,9 @@ map:
 
 ports:
   "25565": 25565
-  "19132": 19132
-  "8081": 8081
+  "19132/udp": 19132
+  "8081/tcp": 8081
 ports_description:
-  "25565": "java edition port"
-  "19132": "bedrock edition port"
-  "8081": "Eaglercraft port"
+  "25565": "Java Edition port"
+  "19132/udp": "Bedrock Edition port"
+  "8081/tcp": "Eaglercraft port"
