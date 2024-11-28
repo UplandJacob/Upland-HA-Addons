@@ -139,6 +139,21 @@ echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 
+#---------------------------------------- BEDROCK -----------------------------------
+#------- get config --------
+FLOOD_CONF=$(getConfig '.floodgate')
+# ------------ plugins/floodgate/config.yml ------------
+logGreen "floodgate JSON:"
+echo -e "$FLOOD_CONF"
+logLine
+flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "floodgate:"
+echo -e "$flood_conf"
+logLine
+# ------  SAVE --------
+echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
+logGreen "plugins/floodgate/config.yml"
+cat plugins/floodgate/config.yml
 
 ####### -------------------------- finalize -------------------------------------
 logLine
