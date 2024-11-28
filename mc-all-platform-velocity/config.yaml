@@ -100,6 +100,24 @@ options:
     override_eagler_to_vanilla_skins: false
     max_registration_per_ip: -1
 
+
+  floodgate:
+    username-prefix: '.'
+    replace-spaces: true
+    default-locale: en_US
+    disconnect:
+      invalid-key: 'Please connect through the official Geyser'
+      invalid-arguments-length: 'Expected {} arguments, got {}. Is Geyser up-to-date?'
+    player-link:
+      enabled: true
+      require-link: false
+      enable-own-linking: false
+      allowed: true
+      link-code-timeout: 300
+      type: sqlite
+      enable-global-linking: true
+
+
 schema:
   rootConfig:
     motd: str
@@ -188,6 +206,24 @@ schema:
     need_vanilla_to_register_message: str
     override_eagler_to_vanilla_skins: bool
     max_registration_per_ip: int
+
+
+
+  floodgate:
+    username-prefix: str
+    replace-spaces: bool
+    default-locale: str
+    disconnect:
+      invalid-key: str
+      invalid-arguments-length: str
+    player-link:
+      enabled: hool
+      require-link: bool
+      enable-own-linking: bool
+      allowed: bool
+      link-code-timeout: int
+      type: str
+      enable-global-linking: bool
 
 map:
   - addon_config:rw
