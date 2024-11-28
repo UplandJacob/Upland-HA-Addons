@@ -140,6 +140,19 @@ logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 
 
+# ------------ plugins/floodgate/config.yml ------------
+logGreen "floodgate JSON:"
+echo -e "$FLOOD_CONF"
+logLine
+flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "floodgate:"
+echo -e "$flood_conf"
+logLine
+# ------  SAVE --------
+echo -e "$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
+logGreen "plugins/floodgate/config.yml"
+cat plugins/floodgate/config.yml
+
 ####### -------------------------- finalize -------------------------------------
 logLine
 logGreen "Starting..............."
