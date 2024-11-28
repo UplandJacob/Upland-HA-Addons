@@ -139,7 +139,9 @@ echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 
-
+#---------------------------------------- BEDROCK -----------------------------------
+#------- get config --------
+FLOOD_CONF=$(getConfig '.floodgate')
 # ------------ plugins/floodgate/config.yml ------------
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
