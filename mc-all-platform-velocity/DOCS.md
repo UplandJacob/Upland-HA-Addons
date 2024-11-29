@@ -1,4 +1,4 @@
-# Configuring Velocity All-Platform Proxy
+# Configuring Minecraft All-Platform Velocity Proxy
 
 From <https://docs.papermc.io/velocity/configuration> but modifies for this addon:
 
