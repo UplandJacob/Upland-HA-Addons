@@ -49,8 +49,8 @@ Each list value:
 
 | Setting Name | Type | Description |
 | --- | --- | --- |
-| name | String | "The name the proxy gives a server it can connect to." |
-| address | Address | "The address given to that name." |
+| name | String | The name the proxy gives a server it can connect to. These names will be reference later. |
+| address | Address | The address given to that name. |
 
 ```
 - name: lobby
