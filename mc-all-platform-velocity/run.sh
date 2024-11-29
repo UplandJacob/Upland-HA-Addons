@@ -142,6 +142,7 @@ cat plugins/eaglerxvelocity/authservice.yml
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
+FLOOD_DISC=$(getConfig '.flood-disconnect')
 # ------------ plugins/floodgate/config.yml ------------
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
@@ -150,8 +151,16 @@ flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "\(.key): \(( if .va
 logGreen "floodgate:"
 echo -e "$flood_conf"
 logLine
+
+logGreen "floodgate disconnect JSON:"
+echo -e "$FLOOD_DISC"
+logLine
+flood_disc=$(echo "$FLOOD_DISC" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "floodgate disconnect:"
+echo -e "$flood_disc"
+logLine
 # ------  SAVE --------
-echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
+echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\n$flood_disc\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
 
