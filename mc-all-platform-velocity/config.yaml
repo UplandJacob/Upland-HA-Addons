@@ -213,10 +213,12 @@ schema:
     username-prefix: str
     replace-spaces: bool
     default-locale: str
-  flood-disconnect:
+
+  floodDisconnect:
     invalid-key: str
     invalid-arguments-length: str
-  flood-player-link:
+
+  floodPlayerLink:
     enabled: bool
     require-link: bool
     enable-own-linking: bool

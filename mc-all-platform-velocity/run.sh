@@ -142,8 +142,8 @@ cat plugins/eaglerxvelocity/authservice.yml
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
-FLOOD_DISC=$(getConfig '.flood-disconnect')
-FLOOD_PLAYER=$(getConfig '.flood-player-link')
+FLOOD_DISC=$(getConfig '.floodDisconnect')
+FLOOD_PLAYER=$(getConfig '.floodPlayerLink')
 # ------------ plugins/floodgate/config.yml ------------
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
