@@ -148,7 +148,7 @@ FLOOD_PLAYER=$(getConfig '.floodPlayerLink')
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
 logLine
-flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
 logGreen "floodgate:"
 echo -e "$flood_conf"
 logLine
@@ -164,7 +164,7 @@ logLine
 logGreen "floodgate player link JSON:"
 echo -e "$FLOOD_PLAYER"
 logLine
-flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
 logGreen "floodgate player link:"
 echo -e "$flood_player"
 logLine
