@@ -1,4 +1,6 @@
-From <https://docs.papermc.io/velocity/configuration>:
+# Configuring Velocity All-Platform Proxy
+
+From <https://docs.papermc.io/velocity/configuration> but modifies for this addon:
 
 ## Configuring Velocity
 
@@ -51,15 +53,19 @@ Each list value:
 | address | Address | "The address given to that name." |
 
 ```
-TODO
+- name: lobby
+  address: internal-hostname:25565
+- name: game1
+  address: example.com:25565
+- name: game2
+  address: 192.168.1.22:25565
 ```
 
 #### `serverAttemptJoinOrder`
 
-| Setting Name | Type | Description |
-| --- | --- | --- |
-| A server name | Address | "This makes the proxy aware of a server that it can connect to." |
-| `try` | Array | This specifies what servers Velocity should try to connect to upon player login and when a player is kicked from a server. |
+This specifies what servers Velocity should try to connect to upon player login and when a player is kicked from a server.
+
+ex: if set to "`lobby`, `backup`", it will try `lobby` first, then `backup` if it fails.
 
 ### `forced-hosts` section (`forcedHosts`)
 
