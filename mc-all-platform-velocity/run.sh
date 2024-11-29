@@ -148,7 +148,7 @@ FLOOD_PLAYER=$(getConfig '.floodPlayerLink')
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
 logLine
-flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
 logGreen "floodgate:"
 echo -e "$flood_conf"
 logLine
@@ -156,7 +156,7 @@ logLine
 logGreen "floodgate disconnect JSON:"
 echo -e "$FLOOD_DISC"
 logLine
-flood_disc=$(echo "$FLOOD_DISC" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+flood_disc=$(echo "$FLOOD_DISC" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
 logGreen "floodgate disconnect:"
 echo -e "$flood_disc"
 logLine
@@ -169,7 +169,7 @@ logGreen "floodgate player link:"
 echo -e "$flood_player"
 logLine
 # ------  SAVE --------
-echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\n$flood_disc\n\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
+echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
 
