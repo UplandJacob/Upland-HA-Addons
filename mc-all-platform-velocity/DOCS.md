@@ -1,26 +1,25 @@
 From <https://docs.papermc.io/velocity/configuration>:
 
-# Configuring Velocity
+## Configuring Velocity
 
 Velocity is designed to be easy to configure and set up. Every Velocity file is stored in `velocity.toml`, located in the directory where you started the proxy. Velocity uses the [TOML](https://github.com/toml-lang/toml)  file format, as it is easy to understand and avoids pitfalls of YAML and other configuration formats common in the community.
 
 An up-to-date version of the default configuration can be found on [GitHub](https://github.com/PaperMC/Velocity/blob/dev/3.0.0/proxy/src/main/resources/default-velocity.toml).
 
-## Data types
+### Data types
 
 "There are a few "special" data types in the Velocity configuration."
 
-### Chat
+#### Chat
 
 Chat messages may be provided in [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format.
-
 RGB support is available for Minecraft 1.16 and later versions.
 
-### Address
+#### Address
 
 An address is a pairing of an IP address or hostname, and a port, separated by a colon (`:`). For instance, `127.0.0.1:25577` and `server01.example.com:25565` are valid addresses.
 
-## Root section
+### Root section (`rootConfig`)
 
 These settings mostly cover the basic, most essential settings of the proxy.
 
@@ -40,20 +39,43 @@ These settings mostly cover the basic, most essential settings of the proxy.
 | `ping-passthrough` | String | Allows forwarding nothing (the default), the `MODS` (for Forge), the `DESCRIPTION`, or everything (`ALL`) from the `try` list (or forced host server connection order). |
 | `enable-player-address-logging` | Boolean | If disabled (default is true), player IP addresses will be replaced by " " in logs. |
 
-## `servers` section
+### `servers` section (seperated in 2 parts for the addon)
+
+#### `servers`
+
+Each list value:
+
+| Setting Name | Type | Description |
+| --- | --- | --- |
+| name | String | "The name the proxy gives a server it can connect to." |
+| address | Address | "The address given to that name." |
+
+```
+TODO
+```
+
+#### `serverAttemptJoinOrder`
 
 | Setting Name | Type | Description |
 | --- | --- | --- |
 | A server name | Address | "This makes the proxy aware of a server that it can connect to." |
 | `try` | Array | This specifies what servers Velocity should try to connect to upon player login and when a player is kicked from a server. |
 
-## `forced-hosts` section
+### `forced-hosts` section (`forcedHosts`)
 
-| Setting Name | Type | Description |
-| --- | --- | --- |
-| A host name | Hostname | This configures the proxy to create a forced host for the specified hostname. An array of servers to try for the specified hostname is the value. |
+In this addon, this option will be a list with a `hostname` and another list of servernames (`servNames`) to attempt to connect to:
 
-## `advanced` section
+```
+- hostname: lobby.example.com
+  servNames:
+    - lobby
+- hostname: game.example.com
+  servNames:
+    - game1
+    - game2
+```
+
+### `advanced` section
 
 | Setting name | Type | Description |
 | --- | --- | --- |
@@ -72,7 +94,7 @@ These settings mostly cover the basic, most essential settings of the proxy.
 | `log-player-connections` | Boolean | Enables logging of player connections when connecting to the proxy, switching servers and disconnecting from the proxy. |
 | `accepts-transfers` | Boolean | Determines whether or not the proxy accepts incoming transfers from other servers. If disabled, the proxy will disconnect transferred clients. |
 
-## `query` section
+### `query` section (not currently configurable in this addon)
 
 | Setting name | Type | Description |
 | --- | --- | --- |
