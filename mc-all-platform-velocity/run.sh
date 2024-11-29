@@ -143,6 +143,7 @@ cat plugins/eaglerxvelocity/authservice.yml
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
 FLOOD_DISC=$(getConfig '.flood-disconnect')
+FLOOD_PLAYER=$(getConfig '.flood-player-link')
 # ------------ plugins/floodgate/config.yml ------------
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
@@ -159,8 +160,16 @@ flood_disc=$(echo "$FLOOD_DISC" | jq -r 'to_entries | .[] | "\(.key): \(( if .va
 logGreen "floodgate disconnect:"
 echo -e "$flood_disc"
 logLine
+
+logGreen "floodgate player link JSON:"
+echo -e "$FLOOD_PLAYER"
+logLine
+flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "floodgate player link:"
+echo -e "$flood_player"
+logLine
 # ------  SAVE --------
-echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\n$flood_disc\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
+echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\n$flood_disc\n\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
 
