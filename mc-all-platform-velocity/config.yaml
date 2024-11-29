@@ -117,6 +117,61 @@ options:
     type: sqlite
     enable-global-linking: true
 
+  geyserBedrock:
+    #port: 19132
+    #clone-remote-port: false
+    motd1: "Geyser"
+    motd2: "Another Geyser server."
+    server-name: "Geyser"
+    compression-level: 6
+    enable-proxy-protocol: false
+  geyserRemote:
+    #address: auto
+    #port: 25565
+    auth-type: floodgate
+    use-proxy-protocol: false
+    forward-hostname: false
+  geyser:
+    #floodgate-key-file: key.pem
+    saved-user-logins: []
+    pending-authentication-timeout: 120
+    command-suggestions: true
+    passthrough-motd: true
+    passthrough-player-counts: true
+    legacy-ping-passthrough: false
+    ping-passthrough-interval: 3
+    forward-player-ping: false
+    max-players: 60
+    debug-mode: false
+    show-cooldown: title
+    show-coordinates: true
+    disable-bedrock-scaffolding: false
+    emote-offhand-workaround: "disabled"
+    default-locale: en_us
+    cache-images: 0
+    allow-custom-skulls: true
+    max-visible-custom-skulls: 128
+    custom-skull-render-distance: 32
+    add-non-bedrock-items: true
+    above-bedrock-nether-building: false
+    force-resource-packs: true
+    xbox-achievements-enabled: false
+    log-player-ip-addresses: true
+    notify-on-new-bedrock-update: true
+    unusable-space-block: minecraft:barrier
+
+#metrics:
+#  enabled: false
+#  uuid: generateduuid
+
+  geyserAdvanced:
+    scoreboard-packet-threshold: 20
+    enable-proxy-connections: false
+    mtu: 1400
+    use-direct-connection: true
+    disable-compression: true
+    #config-version: 4
+
 
 schema:
   rootConfig:
@@ -226,6 +281,56 @@ schema:
     link-code-timeout: int
     type: str
     enable-global-linking: bool
+
+  geyserBedrock:
+    motd1: atr
+    motd2: str
+    server-name: str
+    compression-level: int
+    enable-proxy-protocol: bool
+    proxy-protocol-whitelisted-ips: 
+      - str?
+
+  geyserRemote:
+    auth-type: match(online|offline|floodgate)
+    use-proxy-protocol: bool
+    forward-hostname: bool
+
+  geyser:
+    saved-user-logins: 
+      - str?
+    pending-authentication-timeout: int
+    command-suggestions: bol
+    passthrough-motd: bool
+    passthrough-player-counts: bool
+    legacy-ping-passthrough: bool
+    ping-passthrough-interval: int
+    forward-player-ping: bool
+    max-players: int
+    debug-mode: bool
+    show-cooldown: match(title|actionbar|false)
+    show-coordinates: bool
+    disable-bedrock-scaffolding: bool
+    emote-offhand-workaround: match(disabled|no-emotes|emotes-and-offhand)
+    default-locale: str
+    cache-images: int
+    allow-custom-skulls: bool
+    max-visible-custom-skulls: int
+    custom-skull-render-distance: int
+    add-non-bedrock-items: bool
+    above-bedrock-nether-building: bool
+    force-resource-packs: bool
+    xbox-achievements-enabled: bool
+    log-player-ip-addresses: bool
+    notify-on-new-bedrock-update: biol
+    unusable-space-block: str
+
+  geyserAdvanced:
+    scoreboard-packet-threshold: int
+    enable-proxy-connections: bool
+    mtu: int
+    use-direct-connection: bool
+    disable-compression: bool
 
 map:
   - addon_config:rw
