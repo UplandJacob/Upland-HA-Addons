@@ -25,10 +25,10 @@ An address is a pairing of an IP address or hostname, and a port, separated by a
 
 These settings mostly cover the basic, most essential settings of the proxy.
 
+Settings removed from addin config: `bind` and `config-version`
+
 | Setting Name | Type | Description |
 | --- | --- | --- |
-| `config-version` | String | This is the current config version used by Velocity. You should not alter this setting. |
-| `bind` | Address | This tells the proxy to accept connections on a specific IP. By default, Velocity will listen for connections on all IP addresses on the computer on port 25565. |
 | `motd` | Chat | This allows you to change the message shown to players when they add your server to their server list. You can use [MiniMessage format](https://docs.advntr.dev/minimessage/format.html). |
 | `show-max-players` | Integer | This allows you to customize the number of "maximum" players in the player's server list. Note that Velocity doesn't have a maximum number of players it supports. |
 | `online-mode` | Boolean | Should we authenticate players with Mojang? By default, this is on. |
