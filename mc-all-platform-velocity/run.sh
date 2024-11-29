@@ -144,6 +144,10 @@ cat plugins/eaglerxvelocity/authservice.yml
 FLOOD_CONF=$(getConfig '.floodgate')
 FLOOD_DISC=$(getConfig '.floodDisconnect')
 FLOOD_PLAYER=$(getConfig '.floodPlayerLink')
+GEYSER_BEDROCK=$(getConfig '.geyserBedrock')
+GEYSER_REMOTE=$(getConfig '.geyserRemote')
+GEYSER=$(getConfig '.geyser')
+GEYSER_ADVANCED=$(getConfig '.geyserAdvanced')
 # ------------ plugins/floodgate/config.yml ------------
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
@@ -172,7 +176,43 @@ logLine
 echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
+# ------------ plugins/Geyser-Velocity/config.yml ------------
+logGreen "geyser bedrock JSON:"
+echo -e "$GEYSER_BEDROCK"
+logLine
+geyser_bedrock=$(echo "$GEYSER_BEDROCK" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "geyser bedrock:"
+echo -e "$geyser_bedrock"
+logLine
 
+logGreen "geyser remote JSON:"
+echo -e "$GEYSER_REMOTE"
+logLine
+geyser_remote=$(echo "$GEYSER_REMOTE" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "geyser remote:"
+echo -e "$geyser_remote"
+logLine
+
+logGreen "geyser JSON:"
+echo -e "$GEYSER"
+logLine
+geyser=$(echo "$GEYSER" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "geyser:"
+echo -e "$geyser"
+logLine
+
+logGreen "geyser advanced JSON:"
+echo -e "$GEYSER_ADVANCED"
+logLine
+geyser_advanced=$(echo "$GEYSER_ADVANCED" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "geyser advanced:"
+echo -e "$geyser_advanced"
+logLine
+
+# ------  SAVE --------
+echo -e "bedrock:\nport: 19132\n$geyser_bedrock\n\nremote:\n$geyser_remote\n\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/floodgate/config.yml
+logGreen "plugins/Geyser-Velocity/config.yml"
+cat plugins/Geyser-Velocity/config.yml
 ####### -------------------------- finalize -------------------------------------
 logLine
 logGreen "Starting..............."
