@@ -9,6 +9,7 @@ stop_when_string_logged() {
   while IFS= read -r line; do
     echo "$line"
     if [[ "$line" == *"downloaded and loaded!"* ]]; then
+      sleep 2
       kill $pid
       echo "Process stopped."
       break
