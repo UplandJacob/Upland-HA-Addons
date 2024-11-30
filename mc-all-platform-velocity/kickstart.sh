@@ -7,7 +7,7 @@ pid=$!
 # Function to stop the process when the specific string is found in the log
 stop_when_string_logged() {
   while IFS= read -r line; do
-    echo "$line"
+    echo "RUNNING: $line"
     if [[ "$line" == *"downloaded and loaded!"* ]]; then
       sleep 2
       kill $pid
