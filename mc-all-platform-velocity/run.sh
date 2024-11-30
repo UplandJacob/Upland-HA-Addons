@@ -31,6 +31,7 @@ if [[ ! -f "/plugins/floodgate/key.pem" ]]; then
   }
   stop_when_string_logged < <(tail -f log.txt)
   wait $pid
+  logGreen "copying key.pem..."
   cp /plugins/floodgate/key.pem /plugins/Geyser-Velocity/key.pem
 fi
 
