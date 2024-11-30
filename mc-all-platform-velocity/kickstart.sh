@@ -1,6 +1,6 @@
 #!/bin/bash
 
-java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar &
+java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > log.txt 2>&1 &
 # Get the process ID (PID) of the last background command
 pid=$!
 
@@ -25,7 +25,7 @@ stop_when_string_logged() {
 #kill $pid
 
 
-stop_when_string_logged < <(tail -f nohup.out)
+stop_when_string_logged < <(tail -f log.txt)
 
 wait $pid
 
