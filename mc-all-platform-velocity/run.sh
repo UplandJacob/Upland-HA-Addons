@@ -11,7 +11,7 @@ getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
 
-if [[ ! -f "/plugins/floodgate/key.pem" ]]; then
+if [[ ! -f "/config/key.pem" ]]; then
   logGreen "no key.pem file found. Temporarily starting proxy to generate one."
   java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > log.txt 2>&1 &
   # Get process ID of last background cmd
@@ -32,9 +32,12 @@ if [[ ! -f "/plugins/floodgate/key.pem" ]]; then
   stop_when_string_logged &
   stop_pid=$!
   wait $stop_pid
-  logGreen "copying key.pem..."
-  cp /plugins/floodgate/key.pem /plugins/Geyser-Velocity/key.pem
+  logGreen "copying key.pem to config folder..."
+  cp /plugins/floodgate/key.pem /config/key.pem
 fi
+logGreen "copying key.pem into plugin folders..."
+cp /config/key.pem /plugins/Geyser-Velocity/key.pem
+cp /config/key.pem /plugins/floodgate/key.pem
 
 ################################################
 logGreen "Generating config files..."
