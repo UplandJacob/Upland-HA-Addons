@@ -105,9 +105,11 @@ options:
     username-prefix: '.'
     replace-spaces: true
     default-locale: en_US
+
   floodDisconnect:
     invalid-key: 'Please connect through the official Geyser'
     invalid-arguments-length: 'Expected {} arguments, got {}. Is Geyser up-to-date?'
+
   floodPlayerLink:
     enabled: true
     require-link: false
@@ -118,21 +120,18 @@ options:
     enable-global-linking: true
 
   geyserBedrock:
-    #port: 19132
-    #clone-remote-port: false
     motd1: "Geyser"
     motd2: "Another Geyser server."
     server-name: "Geyser"
     compression-level: 6
     enable-proxy-protocol: false
+
   geyserRemote:
-    #address: auto
-    #port: 25565
     auth-type: floodgate
     use-proxy-protocol: false
     forward-hostname: false
+
   geyser:
-    #floodgate-key-file: key.pem
     saved-user-logins: []
     pending-authentication-timeout: 120
     command-suggestions: true
@@ -160,17 +159,12 @@ options:
     notify-on-new-bedrock-update: true
     unusable-space-block: minecraft:barrier
 
-#metrics:
-#  enabled: false
-#  uuid: generateduuid
-
   geyserAdvanced:
     scoreboard-packet-threshold: 20
     enable-proxy-connections: false
     mtu: 1400
     use-direct-connection: true
     disable-compression: true
-    #config-version: 4
 
 
 schema:
@@ -300,7 +294,7 @@ schema:
     saved-user-logins: 
       - str?
     pending-authentication-timeout: int
-    command-suggestions: bol
+    command-suggestions: bool
     passthrough-motd: bool
     passthrough-player-counts: bool
     legacy-ping-passthrough: bool
