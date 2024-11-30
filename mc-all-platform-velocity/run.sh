@@ -10,7 +10,31 @@ logLine() {
 getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
-####
+
+if [[ ! -f "/plugins/floodgate/key.pem" ]]; then
+  logGreen "no key.pem file found. Temporarily starting proxy to generate one."
+  java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > log.txt 2>&1 &
+  # Get process ID of last background cmd
+  pid=$!
+
+  # Function to stop the process when the specific string is found in the log
+  stop_when_string_logged() {
+    while IFS= read -r line; do
+      echo "RUNNING: $line"
+      if [[ "$line" == *"help for help!"* ]]; then
+        sleep 2
+        kill $pid
+        logGreen "Process finished."
+        break
+      fi
+    done
+  }
+  stop_when_string_logged < <(tail -f log.txt)
+  wait $pid
+  cp /plugins/floodgate/key.pem /plugins/Geyser-Velocity/key.pem
+fi
+
+################################################
 logGreen "Generating config files..."
 #---------------------- velocity.toml -----------------------
 #------- get config --------
@@ -116,8 +140,8 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
     end
   )" 
 ')
-logGreen "eagConfig:"
-echo -e "$eag_config"
+#logGreen "eagConfig:"
+#echo -e "$eag_config"
 logLine
 # -------   SAVE --------
 echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
@@ -131,8 +155,8 @@ logGreen "eagAuth JSON:"
 echo -e "$EAG_AUTH"
 logLine
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "eagAuth:"
-echo -e "$eag_auth"
+#logGreen "eagAuth:"
+#echo -e "$eag_auth"
 logLine
 # ------  SAVE --------
 echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
@@ -144,6 +168,10 @@ cat plugins/eaglerxvelocity/authservice.yml
 FLOOD_CONF=$(getConfig '.floodgate')
 FLOOD_DISC=$(getConfig '.floodDisconnect')
 FLOOD_PLAYER=$(getConfig '.floodPlayerLink')
+GEYSER_BEDROCK=$(getConfig '.geyserBedrock')
+GEYSER_REMOTE=$(getConfig '.geyserRemote')
+GEYSER=$(getConfig '.geyser')
+GEYSER_ADVANCED=$(getConfig '.geyserAdvanced')
 # ------------ plugins/floodgate/config.yml ------------
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
@@ -172,7 +200,43 @@ logLine
 echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
+# ------------ plugins/Geyser-Velocity/config.yml ------------
+logGreen "geyser bedrock JSON:"
+echo -e "$GEYSER_BEDROCK"
+logLine
+geyser_bedrock=$(echo "$GEYSER_BEDROCK" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "geyser bedrock:"
+echo -e "$geyser_bedrock"
+logLine
 
+logGreen "geyser remote JSON:"
+echo -e "$GEYSER_REMOTE"
+logLine
+geyser_remote=$(echo "$GEYSER_REMOTE" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "geyser remote:"
+echo -e "$geyser_remote"
+logLine
+
+logGreen "geyser JSON:"
+echo -e "$GEYSER"
+logLine
+geyser=$(echo "$GEYSER" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "geyser:"
+echo -e "$geyser"
+logLine
+
+logGreen "geyser advanced JSON:"
+echo -e "$GEYSER_ADVANCED"
+logLine
+geyser_advanced=$(echo "$GEYSER_ADVANCED" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+logGreen "geyser advanced:"
+echo -e "$geyser_advanced"
+logLine
+
+# ------  SAVE --------
+echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
+logGreen "plugins/Geyser-Velocity/config.yml"
+cat plugins/Geyser-Velocity/config.yml
 ####### -------------------------- finalize -------------------------------------
 logLine
 logGreen "Starting..............."
