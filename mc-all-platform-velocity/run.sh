@@ -210,7 +210,7 @@ echo -e "$geyser_advanced"
 logLine
 
 # ------  SAVE --------
-echo -e "bedrock:\nport: 19132\n$geyser_bedrock\n\nremote:\n$geyser_remote\n\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/floodgate/config.yml
+echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
 logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
 ####### -------------------------- finalize -------------------------------------
