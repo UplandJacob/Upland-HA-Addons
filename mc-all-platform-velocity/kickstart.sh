@@ -1,7 +1,7 @@
 #!/bin/bash
 
 java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > log.txt 2>&1 &
-# Get the process ID (PID) of the last background command
+# Get process ID of last background cmd
 pid=$!
 
 # Function to stop the process when the specific string is found in the log
@@ -16,14 +16,6 @@ stop_when_string_logged() {
     fi
   done
 }
-
-
-
-#duration=7
-
-#sleep $duration
-#kill $pid
-
 
 stop_when_string_logged < <(tail -f log.txt)
 
