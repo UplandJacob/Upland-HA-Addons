@@ -10,7 +10,31 @@ logLine() {
 getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
-####
+
+if [[ ! -f "/plugins/floodgate/key.pem" ]]; then
+  logGreen "no key.pem file found. Temporarily starting proxy to generate one."
+  java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > log.txt 2>&1 &
+  # Get process ID of last background cmd
+  pid=$!
+
+  # Function to stop the process when the specific string is found in the log
+  stop_when_string_logged() {
+    while IFS= read -r line; do
+      echo "RUNNING: $line"
+      if [[ "$line" == *"help for help!"* ]]; then
+        sleep 2
+        kill $pid
+        logGreen "Process finished."
+        break
+      fi
+    done
+  }
+  stop_when_string_logged < <(tail -f log.txt)
+  wait $pid
+  cp /plugins/floodgate/key.pem /plugins/Geyser-Velocity/key.pem
+fi
+
+################################################
 logGreen "Generating config files..."
 #---------------------- velocity.toml -----------------------
 #------- get config --------
@@ -116,8 +140,8 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
     end
   )" 
 ')
-logGreen "eagConfig:"
-echo -e "$eag_config"
+#logGreen "eagConfig:"
+#echo -e "$eag_config"
 logLine
 # -------   SAVE --------
 echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
@@ -131,8 +155,8 @@ logGreen "eagAuth JSON:"
 echo -e "$EAG_AUTH"
 logLine
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "eagAuth:"
-echo -e "$eag_auth"
+#logGreen "eagAuth:"
+#echo -e "$eag_auth"
 logLine
 # ------  SAVE --------
 echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
