@@ -239,7 +239,7 @@ if [[ -f "/config/server-icon.png" ]]; then
   logGreen "server-icon.png found"
   cp /config/server-icon.png /server-icon.png
 else
-  logGree "no server-icon.png found"
+  logGreen "no server-icon.png found"
 fi
 
 RAM_ALLOCATE=$(getConfig '.allocatedRAM_MB')
