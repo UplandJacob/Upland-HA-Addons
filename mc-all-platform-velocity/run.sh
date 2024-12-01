@@ -183,7 +183,7 @@ keys=$(echo "$EAG_LISTENER" | jq -r 'keys[]')
 
 for key in $keys; do
   value=$(echo "$EAG_LISTENER" | jq -c --arg k "$key" '.[$k]')
-  yq ".listener_01.$key = $value" /plugins/eaglerxvelocity/listeners.yml
+  yq -iy ".listener_01.$key = $value" /plugins/eaglerxvelocity/listeners.yml
 done
 
 cat /plugins/eaglerxvelocity/listeners.yml
