@@ -248,5 +248,7 @@ logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
 ####### -------------------------- finalize -------------------------------------
 logLine
+RAM_ALLOCATE=$(getConfig '.allocatedRAM-MB')
+logGreen "Allocated RAM: $RAM_ALLOCATE MB"
 logGreen "Starting..............."
-java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar
+java -Xms${RAM_ALLOCATE}m -Xmx${RAM_ALLOCATE}m -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar
