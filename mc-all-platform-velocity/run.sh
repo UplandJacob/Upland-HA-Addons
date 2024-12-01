@@ -177,7 +177,6 @@ if [[ ! -f "/config/eag_listeners.yml" ]]; then
 fi
 logGreen "copying eag_listeners.yml from config..."
 cp /config/eag_listeners.yml /plugins/eaglerxvelocity/listeners.yml
-cat /plugins/eaglerxvelocity/listeners.yml
 
 logGreen "eag listener JSON:"
 echo -e "$EAG_LISTENER"
@@ -185,9 +184,11 @@ keys=$(echo "$EAG_LISTENER" | jq -r 'keys[]')
 
 for key in $keys; do
   value=$(echo "$EAG_LISTENER" | jq -c --arg k "$key" '.[$k]')
-  yq ".listener_01.$key = $value" -i /plugins/eaglerxvelocity/listeners.yml
+  yq ".listener_01.$key = $value" /plugins/eaglerxvelocity/listeners.yml
   cat /plugins/eaglerxvelocity/listeners.yml
 done
+
+cat /plugins/eaglerxvelocity/listeners.yml
 
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
