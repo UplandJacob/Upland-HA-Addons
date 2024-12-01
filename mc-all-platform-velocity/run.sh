@@ -186,7 +186,9 @@ for key in $keys; do
   yq -iy ".listener_01.$key = $value" /plugins/eaglerxvelocity/listeners.yml
 done
 
+logGreen "/plugins/eaglerxvelocity/listeners.yml"
 cat /plugins/eaglerxvelocity/listeners.yml
+logLine
 logLine
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
