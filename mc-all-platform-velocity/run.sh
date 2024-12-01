@@ -177,6 +177,7 @@ if [[ ! -f "/config/eag_listeners.yml" ]]; then
 fi
 logGreen "copying eag_listeners.yml from config..."
 cp /config/eag_listeners.yml /plugins/eaglerxvelocity/listeners.yml
+cat /plugins/eaglerxvelocity/listeners.yml
 
 logGreen "eag listener JSON:"
 echo -e "$EAG_LISTENER"
