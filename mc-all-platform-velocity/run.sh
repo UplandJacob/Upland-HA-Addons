@@ -125,6 +125,7 @@ logLine
 #------- get config --------
 EAG_CONFIG=$(getConfig '.eagConfig')
 EAG_AUTH=$(getConfig '.eagAuth')
+EAG_LISTENER=$(getConfig '.eagListener')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
 logGreen "eagConfig JSON:"
 echo -e "$EAG_CONFIG"
@@ -169,12 +170,16 @@ echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 
+# ------------ plugins/eaglerxvelocity/listeners.yml ------------
 if [[ ! -f "/config/eag_listeners.yml" ]]; then
   logGreen "no eag_listeners.yml file found. Copying from default.."
   cp /default_config/eag_listeners.yml /config/eag_listeners.yml
 fi
 logGreen "copying eag_listeners.yml from config..."
 cp /config/eag_listeners.yml /plugins/eaglerxvelocity/listeners.yml
+
+logGreen "eag listener JSON:"
+echo -e "$EAG_LISTENER"
 
 #TODO
 
