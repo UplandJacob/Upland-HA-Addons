@@ -14,6 +14,7 @@ image: ghcr.io/uplandjacob/upland-ha-addons-mc-all-platform-velocity-{arch}
 map:
   - config
 options:
+  allocatedRAM-MB: 1024
   rootConfig:
     motd: "<#09add3>A Velocity Server"
     show-max-players: 500
@@ -100,6 +101,15 @@ options:
     override_eagler_to_vanilla_skins: false
     max_registration_per_ip: -1
 
+  eagListener:
+    max_players: 60
+    forward_ip: false
+    server_motd:
+      - '&6An EaglercraftX server'
+    allow_motd: true
+    allow_query: true
+    allow_voice: false
+
 
   floodgate:
     username-prefix: '.'
@@ -168,6 +178,7 @@ options:
 
 
 schema:
+  allocatedRAM-MB: int
   rootConfig:
     motd: str
     show-max-players: int
@@ -256,6 +267,14 @@ schema:
     override_eagler_to_vanilla_skins: bool
     max_registration_per_ip: int
 
+  eagListener:
+    max_players: int
+    forward_ip: bool
+    server_motd:
+      - str
+    allow_motd: bool
+    allow_query: bool
+    allow_voice: bool
 
 
   floodgate:
