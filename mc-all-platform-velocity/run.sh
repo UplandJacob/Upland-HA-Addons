@@ -169,7 +169,14 @@ echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 
+if [[ ! -f "/config/eag_listeners.yml" ]]; then
+  logGreen "no eag_listeners.yml file found. Copying from default.."
+  cp /default_config/eag_listeners.yml /config/eag_listeners.yml
+fi
+logGreen "copying eag_listeners.yml from config..."
+cp /config/eag_listeners.yml /plugins/eaglerxvelocity/listeners.yml
 
+#TODO
 
 
 #---------------------------------------- BEDROCK -----------------------------------
