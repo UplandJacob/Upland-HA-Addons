@@ -127,8 +127,8 @@ EAG_CONFIG=$(getConfig '.eagConfig')
 EAG_AUTH=$(getConfig '.eagAuth')
 EAG_LISTENER=$(getConfig '.eagListener')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
-logGreen "eagConfig JSON:"
-echo -e "$EAG_CONFIG"
+#logGreen "eagConfig JSON:"
+#echo -e "$EAG_CONFIG"
 logLine
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key): \(
@@ -155,11 +155,10 @@ echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
 logGreen "plugins/eaglerxvelocity/settings.yml:"
 cat plugins/eaglerxvelocity/settings.yml
 logLine
-logLine
 
 # ------------ plugins/eaglerxvelocity/authservice.yml ------------
-logGreen "eagAuth JSON:"
-echo -e "$EAG_AUTH"
+#logGreen "eagAuth JSON:"
+#echo -e "$EAG_AUTH"
 logLine
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
 #logGreen "eagAuth:"
@@ -185,11 +184,10 @@ keys=$(echo "$EAG_LISTENER" | jq -r 'keys[]')
 for key in $keys; do
   value=$(echo "$EAG_LISTENER" | jq -c --arg k "$key" '.[$k]')
   yq ".listener_01.$key = $value" /plugins/eaglerxvelocity/listeners.yml
-  cat /plugins/eaglerxvelocity/listeners.yml
 done
 
 cat /plugins/eaglerxvelocity/listeners.yml
-
+logLine
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
