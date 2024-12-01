@@ -6,7 +6,9 @@ ARG VELOCITY_BUILD="451"
 ARG VIAVERSION_VERS="5.1.1"
 ARG VIAREWIND_VERS="4.0.3"
 ARG VIABACKWARDS_VERS="5.1.1"
-	
+
+COPY default_config default_config
+
 COPY run.sh run.sh
 COPY kickstart.sh kickstart.sh
 RUN chmod +x run.sh
