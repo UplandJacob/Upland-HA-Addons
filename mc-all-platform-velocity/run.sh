@@ -127,9 +127,7 @@ EAG_CONFIG=$(getConfig '.eagConfig')
 EAG_AUTH=$(getConfig '.eagAuth')
 EAG_LISTENER=$(getConfig '.eagListener')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
-#logGreen "eagConfig JSON:"
-#echo -e "$EAG_CONFIG"
-logLine
+
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key): \(
     if .value | type == "string" then
@@ -147,8 +145,7 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
     end
   )" 
 ')
-#logGreen "eagConfig:"
-#echo -e "$eag_config"
+
 logLine
 # -------   SAVE --------
 echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
@@ -157,12 +154,9 @@ cat plugins/eaglerxvelocity/settings.yml
 logLine
 
 # ------------ plugins/eaglerxvelocity/authservice.yml ------------
-#logGreen "eagAuth JSON:"
-#echo -e "$EAG_AUTH"
-logLine
+
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-#logGreen "eagAuth:"
-#echo -e "$eag_auth"
+
 logLine
 # ------  SAVE --------
 echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
@@ -202,26 +196,16 @@ GEYSER_ADVANCED=$(getConfig '.geyserAdvanced')
 # ------------ plugins/floodgate/config.yml ------------
 logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
-logLine
 flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-#logGreen "floodgate:"
-#echo -e "$flood_conf"
-logLine
 
 logGreen "floodgate disconnect JSON:"
 echo -e "$FLOOD_DISC"
-logLine
 flood_disc=$(echo "$FLOOD_DISC" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-#logGreen "floodgate disconnect:"
-#echo -e "$flood_disc"
-logLine
 
 logGreen "floodgate player link JSON:"
 echo -e "$FLOOD_PLAYER"
-logLine
 flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-#logGreen "floodgate player link:"
-#echo -e "$flood_player"
+
 logLine
 # ------  SAVE --------
 echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
@@ -230,43 +214,36 @@ cat plugins/floodgate/config.yml
 # ------------ plugins/Geyser-Velocity/config.yml ------------
 logGreen "geyser bedrock JSON:"
 echo -e "$GEYSER_BEDROCK"
-logLine
 geyser_bedrock=$(echo "$GEYSER_BEDROCK" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-#logGreen "geyser bedrock:"
-#echo -e "$geyser_bedrock"
-logLine
 
 logGreen "geyser remote JSON:"
 echo -e "$GEYSER_REMOTE"
-logLine
 geyser_remote=$(echo "$GEYSER_REMOTE" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-#logGreen "geyser remote:"
-#echo -e "$geyser_remote"
-logLine
 
 logGreen "geyser JSON:"
 echo -e "$GEYSER"
-logLine
 geyser=$(echo "$GEYSER" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-#logGreen "geyser:"
-#echo -e "$geyser"
-logLine
 
 logGreen "geyser advanced JSON:"
 echo -e "$GEYSER_ADVANCED"
-logLine
 geyser_advanced=$(echo "$GEYSER_ADVANCED" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-#logGreen "geyser advanced:"
-#echo -e "$geyser_advanced"
-logLine
 
+logLine
 # ------  SAVE --------
 echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
 logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
 ####### -------------------------- finalize -------------------------------------
 logLine
+if [[ -f "/config/server-icon.png" ]]; then
+  logGreen "server-icon.png found"
+  cp /config/server-icon.png /server-icon.png
+else
+  logGree "no server-icon.png found"
+fi
+
 RAM_ALLOCATE=$(getConfig '.allocatedRAM_MB')
 logGreen "Allocated RAM: $RAM_ALLOCATE MB"
+logLine
 logGreen "Starting..............."
 java -Xms${RAM_ALLOCATE}m -Xmx${RAM_ALLOCATE}m -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar
