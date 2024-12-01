@@ -180,9 +180,12 @@ cp /config/eag_listeners.yml /plugins/eaglerxvelocity/listeners.yml
 
 logGreen "eag listener JSON:"
 echo -e "$EAG_LISTENER"
+keys=$(echo "$EAG_LISTENER" | jq -r 'keys[]')
 
-#TODO
-
+for key in $keys; do
+  value=$(echo "$EAG_LISTENER" | jq -c --arg k "$key" '.[$k]')
+  yq e ".listener_01.$key = $value" -i /plugins/eaglerxvelocity/listeners.yml
+done
 
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
