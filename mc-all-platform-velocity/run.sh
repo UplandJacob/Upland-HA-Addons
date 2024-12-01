@@ -11,6 +11,7 @@ getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
 
+# check for key.pem (for floodgate and geyser)
 if [[ ! -f "/config/key.pem" ]]; then
   logGreen "no key.pem file found. Temporarily starting proxy to generate one."
   java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > log.txt 2>&1 &
@@ -20,9 +21,9 @@ if [[ ! -f "/config/key.pem" ]]; then
   # Function to stop the process when the specific string is found in the log
   stop_when_string_logged() {
     while IFS= read -r line; do
-      echo "RUNNING: $line"
+      echo "- $line"
       if [[ "$line" == *"help for help!"* ]]; then
-        sleep 2
+        sleep 1
         kill $pid
         logGreen "Process finished."
         break
@@ -168,6 +169,9 @@ echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 
+
+
+
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
@@ -182,24 +186,24 @@ logGreen "floodgate JSON:"
 echo -e "$FLOOD_CONF"
 logLine
 flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "floodgate:"
-echo -e "$flood_conf"
+#logGreen "floodgate:"
+#echo -e "$flood_conf"
 logLine
 
 logGreen "floodgate disconnect JSON:"
 echo -e "$FLOOD_DISC"
 logLine
 flood_disc=$(echo "$FLOOD_DISC" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "floodgate disconnect:"
-echo -e "$flood_disc"
+#logGreen "floodgate disconnect:"
+#echo -e "$flood_disc"
 logLine
 
 logGreen "floodgate player link JSON:"
 echo -e "$FLOOD_PLAYER"
 logLine
 flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "floodgate player link:"
-echo -e "$flood_player"
+#logGreen "floodgate player link:"
+#echo -e "$flood_player"
 logLine
 # ------  SAVE --------
 echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
@@ -210,32 +214,32 @@ logGreen "geyser bedrock JSON:"
 echo -e "$GEYSER_BEDROCK"
 logLine
 geyser_bedrock=$(echo "$GEYSER_BEDROCK" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "geyser bedrock:"
-echo -e "$geyser_bedrock"
+#logGreen "geyser bedrock:"
+#echo -e "$geyser_bedrock"
 logLine
 
 logGreen "geyser remote JSON:"
 echo -e "$GEYSER_REMOTE"
 logLine
 geyser_remote=$(echo "$GEYSER_REMOTE" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "geyser remote:"
-echo -e "$geyser_remote"
+#logGreen "geyser remote:"
+#echo -e "$geyser_remote"
 logLine
 
 logGreen "geyser JSON:"
 echo -e "$GEYSER"
 logLine
 geyser=$(echo "$GEYSER" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "geyser:"
-echo -e "$geyser"
+#logGreen "geyser:"
+#echo -e "$geyser"
 logLine
 
 logGreen "geyser advanced JSON:"
 echo -e "$GEYSER_ADVANCED"
 logLine
 geyser_advanced=$(echo "$GEYSER_ADVANCED" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "geyser advanced:"
-echo -e "$geyser_advanced"
+#logGreen "geyser advanced:"
+#echo -e "$geyser_advanced"
 logLine
 
 # ------  SAVE --------
