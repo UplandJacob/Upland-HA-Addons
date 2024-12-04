@@ -1,6 +1,17 @@
 # Configuring Minecraft All-Platform Velocity Proxy
+**These docs are split into multiple sections for configuring Velocity and each plugin.**
+***
+## Addon configuration 
+|Setting Name|Type|Description|
+|-|-|-|
+|`allocatedRAM_MB`|Integer|MiB of ram to be allocated to the Java process.|
 
-From <https://docs.papermc.io/velocity/configuration> but modifies for this addon:
+
+
+
+***
+
+From <https://docs.papermc.io/velocity/configuration> with modifications for this addon:
 
 ## Configuring Velocity
 
@@ -8,18 +19,14 @@ Velocity is designed to be easy to configure and set up. Every Velocity file is 
 
 An up-to-date version of the default configuration can be found on [GitHub](https://github.com/PaperMC/Velocity/blob/dev/3.0.0/proxy/src/main/resources/default-velocity.toml).
 
-### Data types
-
-"There are a few "special" data types in the Velocity configuration."
+### “Special” data types for Velocity
 
 #### Chat
-
 Chat messages may be provided in [MiniMessage](https://docs.advntr.dev/minimessage/format.html) format.
 RGB support is available for Minecraft 1.16 and later versions.
-
 #### Address
-
 An address is a pairing of an IP address or hostname, and a port, separated by a colon (`:`). For instance, `127.0.0.1:25577` and `server01.example.com:25565` are valid addresses.
+
 
 ### Root section (`rootConfig`)
 
@@ -27,8 +34,8 @@ These settings mostly cover the basic, most essential settings of the proxy.
 
 Settings removed from addin config: `bind` and `config-version`
 
-| Setting Name | Type | Description |
-| --- | --- | --- |
+|Setting Name|Type|Description|
+|-|-|-|
 | `motd` | Chat | This allows you to change the message shown to players when they add your server to their server list. You can use [MiniMessage format](https://docs.advntr.dev/minimessage/format.html). |
 | `show-max-players` | Integer | This allows you to customize the number of "maximum" players in the player's server list. Note that Velocity doesn't have a maximum number of players it supports. |
 | `online-mode` | Boolean | Should we authenticate players with Mojang? By default, this is on. |
@@ -47,12 +54,12 @@ Settings removed from addin config: `bind` and `config-version`
 
 Each list value:
 
-| Setting Name | Type | Description |
-| --- | --- | --- |
+|Setting Name|Type|Description|
+|-|-|-|
 | name | String | The name the proxy gives a server it can connect to. These names will be reference later. |
 | address | Address | The address given to that name. |
 
-```
+```yaml
 - name: lobby
   address: internal-hostname:25565
 - name: game1
@@ -69,9 +76,9 @@ ex: if set to "`lobby`, `backup`", it will try `lobby` first, then `backup` if i
 
 ### `forced-hosts` section (`forcedHosts`)
 
-In this addon, this option will be a list with a `hostname` and another list of servernames (`servNames`) to attempt to connect to:
+In this addon, this option will be a list with a `hostname` with another list of servernames (`servNames`) to attempt to connect to (like with serverAttemptJoin order):
 
-```
+```yaml
 - hostname: lobby.example.com
   servNames:
     - lobby
@@ -83,8 +90,8 @@ In this addon, this option will be a list with a `hostname` and another list of 
 
 ### `advanced` section
 
-| Setting name | Type | Description |
-| --- | --- | --- |
+|Setting Name|Type|Description|
+|-|-|-|
 | `compression-threshold` | Integer | This is the minimum size (in bytes) that a packet must be before the proxy compresses it. Minecraft uses 256 bytes by default. |
 | `compression-level` | Integer | This setting indicates what `zlib` compression level the proxy should use to compress packets. The default value uses the default zlib level. |
 | `login-ratelimit` | Integer | This setting determines the minimum amount of time (in milliseconds) that must pass before a connection from the same IP address will be accepted by the proxy. A value of `0` disables the rate limit." |
@@ -102,9 +109,15 @@ In this addon, this option will be a list with a `hostname` and another list of 
 
 ### `query` section (not currently configurable in this addon)
 
-| Setting name | Type | Description |
-| --- | --- | --- |
+|Setting Name|Type|Description|
+|-|-|-|
 | `enabled` | Boolean | Whether or not Velocity should reply to Minecraft query protocol requests. You can usually leave this false. |
 | `port` | Number | Specifies which port that Velocity should listen on for GameSpy 4 (Minecraft query protocol) requests. |
 | `map` | String | Specifies the map name to be shown to clients. |
 | `show-plugins` | Boolean | Whether or not Velocity plugins are included in the query responses. |
+
+***
+From 
+
+## Configuring EaglerXVelocity
+
