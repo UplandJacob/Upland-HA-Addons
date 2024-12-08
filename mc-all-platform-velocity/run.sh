@@ -13,8 +13,10 @@ getConfig() {
 
 # check for key.pem (for floodgate and geyser)
 if [[ ! -f "/config/key.pem" ]]; then
+  tmpfile=$(mktmp)
+  
   logGreen "no key.pem file found. Temporarily starting proxy to generate one."
-  java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > log.txt 2>&1 &
+  java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > $tmpfile 2>&1 &
   # Get process ID of last background cmd
   pid=$!
 
@@ -28,7 +30,7 @@ if [[ ! -f "/config/key.pem" ]]; then
         logGreen "Process finished."
         break
       fi
-    done < <(tail -f log.txt)
+    done < <(tail -f $tmpfile)
   }
   stop_when_string_logged &
   stop_pid=$!
@@ -148,7 +150,7 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
 
 logLine
 # -------   SAVE --------
-echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
+echo -e "skin_cache_db_uri: jdbc:sqlite:/config/eaglercraft_skins_cache.db\n$eag_config" > plugins/eaglerxvelocity/settings.yml
 logGreen "plugins/eaglerxvelocity/settings.yml:"
 cat plugins/eaglerxvelocity/settings.yml
 logLine
@@ -159,7 +161,7 @@ eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value 
 
 logLine
 # ------  SAVE --------
-echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
+echo -e "auth_db_uri: jdbc:sqlite:/config/eaglercraft_auths.db\n$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
 
