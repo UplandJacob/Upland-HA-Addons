@@ -1,5 +1,5 @@
 #!/bin/bash
-tmpfile=$(mktmp)
+tmpfile=$(mktemp)
 
 java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > $tmpfile 2>&1 &
 # Get process ID of last background cmd
