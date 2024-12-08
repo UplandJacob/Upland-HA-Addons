@@ -13,7 +13,7 @@ getConfig() {
 
 # check for key.pem (for floodgate and geyser)
 if [[ ! -f "/config/key.pem" ]]; then
-  tmpfile=$(mktmp)
+  tmpfile=$(mktemp)
   
   logGreen "no key.pem file found. Temporarily starting proxy to generate one."
   java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > $tmpfile 2>&1 &
