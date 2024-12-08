@@ -1,5 +1,5 @@
 name: Minecraft All-Platform Velocity Proxy
-version: 1.4.2
+version: 1.5.0
 slug: mc-all-platform-velocity
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity
@@ -66,7 +66,6 @@ options:
     uuid_lookup_ratelimit_global: 175
     skin_download_ratelimit_player: 1000
     skin_download_ratelimit_global: 30000
-    skin_cache_db_uri: 'jdbc:sqlite:eaglercraft_skins_cache.db'
     skin_cache_keep_objects_days: 45
     skin_cache_keep_profiles_days: 7
     skin_cache_max_objects: 32768
@@ -85,7 +84,6 @@ options:
   eagAuth: 
     enable_authentication_system: true
     use_onboard_eaglerx_system: true
-    auth_db_uri: 'jdbc:sqlite:eaglercraft_auths.db'
     sql_driver_class: 'internal'
     sql_driver_path: 'internal'
     password_prompt_screen_text: 'Enter your password to join:'
