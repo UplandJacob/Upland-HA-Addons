@@ -228,7 +228,6 @@ schema:
     uuid_lookup_ratelimit_global: int
     skin_download_ratelimit_player: int
     skin_download_ratelimit_global: int
-    skin_cache_db_uri: str
     skin_cache_keep_objects_days: int
     skin_cache_keep_profiles_days: int
     skin_cache_max_objects: int
@@ -249,7 +248,6 @@ schema:
   eagAuth: 
     enable_authentication_system: bool
     use_onboard_eaglerx_system: bool
-    auth_db_uri: str
     sql_driver_class: str
     sql_driver_path: str
     password_prompt_screen_text: str
