@@ -40,6 +40,7 @@ if [ -n "${ACCESS_TOKEN}" ] && [ -n "${REFRESH_TOKEN}" ]; then
         echo "TWINGATE_LOG_ANALYTICS=v2" >> "${CONFIG}"
     fi
     chmod 0600 "$CONFIG"
+    cat "$CONFIG"
     systemctl enable --now twingate-connector
 fi
 
