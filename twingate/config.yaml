@@ -8,7 +8,6 @@ arch:
   - armv7
   - aarch64
   - amd64
-  - i386
 boot: manual
 init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-twingate-{arch}
