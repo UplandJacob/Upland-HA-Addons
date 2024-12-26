@@ -43,20 +43,3 @@ apt-get update -yq
 apt-get install -yq twingate-connector
 
 
-if [ -n "${TWINGATE_NETWORK}" ]; then
-  echo "TWINGATE_NETWORK=${TWINGATE_NETWORK}" >> "${CONFIG}"
-elif [ -n "${TWINGATE_URL}" ]; then
-  echo "TWINGATE_URL=${TWINGATE_URL}" >> "${CONFIG}"
-fi
-
-if [ -n "${TWINGATE_ACCESS_TOKEN}" ] && [ -n "${TWINGATE_REFRESH_TOKEN}" ]; then
-    { \
-        echo "TWINGATE_ACCESS_TOKEN=${TWINGATE_ACCESS_TOKEN}"; \
-        echo "TWINGATE_REFRESH_TOKEN=${TWINGATE_REFRESH_TOKEN}"; \
-    } >> "${CONFIG}"
-    if [ -n "${TWINGATE_LOG_ANALYTICS}" ]; then
-        echo "TWINGATE_LOG_ANALYTICS=${TWINGATE_LOG_ANALYTICS}" >> "${CONFIG}"
-    fi
-    chmod 0600 "$CONFIG"
-    systemctl enable --now twingate-connector
-fi
