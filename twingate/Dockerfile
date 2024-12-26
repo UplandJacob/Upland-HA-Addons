@@ -18,9 +18,11 @@ RUN apt-get update && \
 
 
 COPY twingate-install.sh /twingate-install.sh
+RUN chmod a+x /twingate-install.sh
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
 
+RUN ./twingate-install.sh
 
 
 # entrypoint
