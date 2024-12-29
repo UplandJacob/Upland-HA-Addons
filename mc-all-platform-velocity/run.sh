@@ -235,6 +235,19 @@ logLine
 echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
 logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
+
+
+#----------------------------------------- VABACKWARDS --------------------------------
+# ------------ plugins/viabackwards/config.yml ------------
+if [[ ! -f "/config/viabackwards.yml" ]]; then
+  logGreen "no viabackwards.yml file found. Copying from default.."
+  cp /default_config/viabackwards.yml /config/viabackwards.yml
+fi
+logGreen "copying viabackwards.yml from config..."
+cp /config/viabackwards.yml /plugins/viabackwards/config.yml
+
+
+
 ####### -------------------------- finalize -------------------------------------
 logLine
 if [[ -f "/config/server-icon.png" ]]; then
