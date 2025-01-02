@@ -245,14 +245,14 @@ if [[ ! -d "/config/geyser/packs" ]]; then
   logGreen "creating 'geyser/packs' folder..."
   mkdir /config/geyser/packs
 fi
-if [[ ! -d "/config/geyser/extentions" ]]; then
-  logGreen "creating 'geyser/extentions' folder..."
-  mkdir /config/geyser/extentions
+if [[ ! -d "/config/geyser/extensions" ]]; then
+  logGreen "creating 'geyser/extensions' folder..."
+  mkdir /config/geyser/extensions
 fi
 logGreen "copying Geyser packs..."
 rsync -av --ignore-existing /config/geyser/packs/ /plugins/Geyser-Velocity/packs/
 logGreen "copying Geyser extensions..."
-rsync -av --ignore-existing /config/geyser/extentions/ /plugins/Geyser-Velocity/extentions/
+rsync -av --ignore-existing /config/geyser/extensions/ /plugins/Geyser-Velocity/extensions/
 
 #----------------------------------------- VIABACKWARDS --------------------------------
 # ------------ plugins/viabackwards/config.yml ------------
