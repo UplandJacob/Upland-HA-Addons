@@ -238,16 +238,21 @@ cat plugins/Geyser-Velocity/config.yml
 
 #------------------ packs and extentions -----------------
 if [[ ! -d "/config/geyser" ]]; then
+  logGreen "creating 'geyser' folder..."
   mkdir /config/geyser
 fi
 if [[ ! -d "/config/geyser/packs" ]]; then
+  logGreen "creating 'geyser/packs' folder..."
   mkdir /config/geyser/packs
 fi
 if [[ ! -d "/config/geyser/extentions" ]]; then
+  logGreen "creating 'geyser/extentions' folder..."
   mkdir /config/geyser/extentions
 fi
-cp -r /config/packs/. /plugins/Geyser-Velocity/packs
-cp -r /config/extentions/. /plugins/Geyser-Velocity/extentions
+logGreen "copying Geyser packs..."
+cp -R /config/packs/. /plugins/Geyser-Velocity/packs
+logGreen "copying Geyser extensions..."
+cp -R /config/extentions/. /plugins/Geyser-Velocity/extentions
 
 #----------------------------------------- VIABACKWARDS --------------------------------
 # ------------ plugins/viabackwards/config.yml ------------
