@@ -250,9 +250,9 @@ if [[ ! -d "/config/geyser/extentions" ]]; then
   mkdir /config/geyser/extentions
 fi
 logGreen "copying Geyser packs..."
-cp -r /config/packs/* /plugins/Geyser-Velocity/packs
+rsync -av --ignore-existing /config/packs/ /plugins/Geyser-Velocity/packs/
 logGreen "copying Geyser extensions..."
-cp -r /config/extentions/* /plugins/Geyser-Velocity/extentions
+rsync -av --ignore-existing /config/extentions/ /plugins/Geyser-Velocity/extentions/
 
 #----------------------------------------- VIABACKWARDS --------------------------------
 # ------------ plugins/viabackwards/config.yml ------------
