@@ -236,8 +236,20 @@ echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\
 logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
 
+#------------------ packs and extentions -----------------
+if [[ ! -d "/config/geyser" ]]; then
+  mkdir /config/geyser
+fi
+if [[ ! -d "/config/geyser/packs" ]]; then
+  mkdir /config/geyser/packs
+fi
+if [[ ! -d "/config/geyser/extentions" ]]; then
+  mkdir /config/geyser/extentions
+fi
+cp -r /config/packs/. /plugins/Geyser-Velocity/packs
+cp -r /config/extentions/. /plugins/Geyser-Velocity/extentions
 
-#----------------------------------------- VABACKWARDS --------------------------------
+#----------------------------------------- VIABACKWARDS --------------------------------
 # ------------ plugins/viabackwards/config.yml ------------
 if [[ ! -f "/config/viabackwards.yml" ]]; then
   logGreen "no viabackwards.yml file found. Copying from default.."
