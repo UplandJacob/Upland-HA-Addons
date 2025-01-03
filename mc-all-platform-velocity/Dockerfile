@@ -79,6 +79,10 @@ RUN cd plugins && curl --no-progress-meter \
 RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 RUN ./kickstart.sh
+RUN rm /plugins/floodgate/key.pem \
+    rm eaglercraft_auths.db \
+    rm eaglercraft_skins_cache.db
+
 # entrypoint
 CMD [ "/run.sh" ]
 
