@@ -10,7 +10,43 @@ logLine() {
 getConfig() {
   jq --raw-output "$1" $CONFIG_PATH
 }
-####
+
+# check for key.pem (for floodgate and geyser)
+if [[ ! -f "/config/key.pem" ]]; then
+  logGreen "no key.pem file found. Temporarily starting proxy to generate one."
+  
+  tmpfile=$(mktemp)
+  # Create a screen session named "minecraft" and start the command
+  screen -dmS velocity bash -c 'java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > '$tmpfile' 2>&1'
+  
+  # Function to stop the process when the specific string is found in the log
+  stop_when_string_logged() {
+    while IFS= read -r line; do
+      echo "- $line"
+      if [[ "$line" == *"help for help!"* ]]; then
+        sleep 1
+        # Send the "stop" command to the "minecraft" screen session
+        screen -S velocity -X stuff "`echo -ne \"stop\r\"`"
+        echo "Process stopped."
+        break
+      fi
+    done
+  }
+  
+  stop_when_string_logged < <(tail -f $tmpfile)
+  
+  # Wait for the process to finish
+  screen -S velocity -X quit
+  rm -f $tmpfile
+  
+  logGreen "copying key.pem to config folder..."
+  cp /plugins/floodgate/key.pem /config/key.pem
+fi
+logGreen "copying key.pem into plugin folders..."
+cp /config/key.pem /plugins/Geyser-Velocity/key.pem
+cp /config/key.pem /plugins/floodgate/key.pem
+
+################################################
 logGreen "Generating config files..."
 #---------------------- velocity.toml -----------------------
 #------- get config --------
@@ -95,10 +131,9 @@ logLine
 #------- get config --------
 EAG_CONFIG=$(getConfig '.eagConfig')
 EAG_AUTH=$(getConfig '.eagAuth')
+EAG_LISTENER=$(getConfig '.eagListener')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
-logGreen "eagConfig JSON:"
-echo -e "$EAG_CONFIG"
-logLine
+
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
   to_entries | .[] | "\(.key): \(
     if .value | type == "string" then
@@ -116,31 +151,138 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
     end
   )" 
 ')
-logGreen "eagConfig:"
-echo -e "$eag_config"
+
 logLine
 # -------   SAVE --------
-echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
+echo -e "skin_cache_db_uri: jdbc:sqlite:/config/eaglercraft_skins_cache.db\n$eag_config" > plugins/eaglerxvelocity/settings.yml
 logGreen "plugins/eaglerxvelocity/settings.yml:"
 cat plugins/eaglerxvelocity/settings.yml
 logLine
-logLine
 
 # ------------ plugins/eaglerxvelocity/authservice.yml ------------
-logGreen "eagAuth JSON:"
-echo -e "$EAG_AUTH"
-logLine
+
 eag_auth=$(echo "$EAG_AUTH" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
-logGreen "eagAuth:"
-echo -e "$eag_auth"
+
 logLine
 # ------  SAVE --------
-echo -e "$eag_auth" > plugins/eaglerxvelocity/authservice.yml
+echo -e "auth_db_uri: jdbc:sqlite:/config/eaglercraft_auths.db\n$eag_auth" > plugins/eaglerxvelocity/authservice.yml
 logGreen "plugins/eaglerxvelocity/authservice.yml:"
 cat plugins/eaglerxvelocity/authservice.yml
+
+# ------------ plugins/eaglerxvelocity/listeners.yml ------------
+if [[ ! -f "/config/eag_listeners.yml" ]]; then
+  logGreen "no eag_listeners.yml file found. Copying from default.."
+  cp /default_config/eag_listeners.yml /config/eag_listeners.yml
+fi
+logGreen "copying eag_listeners.yml from config..."
+cp /config/eag_listeners.yml /plugins/eaglerxvelocity/listeners.yml
+
+logGreen "eag listener JSON:"
+echo -e "$EAG_LISTENER"
+keys=$(echo "$EAG_LISTENER" | jq -r 'keys[]')
+
+for key in $keys; do
+  value=$(echo "$EAG_LISTENER" | jq -c --arg k "$key" '.[$k]')
+  yq -iy ".listener_01.$key = $value" /plugins/eaglerxvelocity/listeners.yml
+done
+
+logGreen "/plugins/eaglerxvelocity/listeners.yml"
+cat /plugins/eaglerxvelocity/listeners.yml
+logLine
+logLine
+#---------------------------------------- BEDROCK -----------------------------------
+#------- get config --------
+FLOOD_CONF=$(getConfig '.floodgate')
+FLOOD_DISC=$(getConfig '.floodDisconnect')
+FLOOD_PLAYER=$(getConfig '.floodPlayerLink')
+GEYSER_BEDROCK=$(getConfig '.geyserBedrock')
+GEYSER_REMOTE=$(getConfig '.geyserRemote')
+GEYSER=$(getConfig '.geyser')
+GEYSER_ADVANCED=$(getConfig '.geyserAdvanced')
+# ------------ plugins/floodgate/config.yml ------------
+logGreen "floodgate JSON:"
+echo -e "$FLOOD_CONF"
+flood_conf=$(echo "$FLOOD_CONF" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+
+logGreen "floodgate disconnect JSON:"
+echo -e "$FLOOD_DISC"
+flood_disc=$(echo "$FLOOD_DISC" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+
+logGreen "floodgate player link JSON:"
+echo -e "$FLOOD_PLAYER"
+flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+
+logLine
+# ------  SAVE --------
+echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
+logGreen "plugins/floodgate/config.yml"
+cat plugins/floodgate/config.yml
+# ------------ plugins/Geyser-Velocity/config.yml ------------
+logGreen "geyser bedrock JSON:"
+echo -e "$GEYSER_BEDROCK"
+geyser_bedrock=$(echo "$GEYSER_BEDROCK" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+
+logGreen "geyser remote JSON:"
+echo -e "$GEYSER_REMOTE"
+geyser_remote=$(echo "$GEYSER_REMOTE" | jq -r 'to_entries | .[] | "  \(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+
+logGreen "geyser JSON:"
+echo -e "$GEYSER"
+geyser=$(echo "$GEYSER" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+
+logGreen "geyser advanced JSON:"
+echo -e "$GEYSER_ADVANCED"
+geyser_advanced=$(echo "$GEYSER_ADVANCED" | jq -r 'to_entries | .[] | "\(.key): \(( if .value | type == "string" then "\"\(.value)\"\n" else "\(.value)\n" end ))"')
+
+logLine
+# ------  SAVE --------
+echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
+logGreen "plugins/Geyser-Velocity/config.yml"
+cat plugins/Geyser-Velocity/config.yml
+
+#------------------ packs and extentions -----------------
+if [[ ! -d "/config/geyser" ]]; then
+  logGreen "creating 'geyser' folder..."
+  mkdir /config/geyser
+fi
+if [[ ! -d "/config/geyser/packs" ]]; then
+  logGreen "creating 'geyser/packs' folder..."
+  mkdir /config/geyser/packs
+fi
+if [[ ! -d "/config/geyser/extensions" ]]; then
+  logGreen "creating 'geyser/extensions' folder..."
+  mkdir /config/geyser/extensions
+fi
+logGreen "copying Geyser packs..."
+rsync -av --ignore-existing /config/geyser/packs/ /plugins/Geyser-Velocity/packs/
+logGreen "copying Geyser extensions..."
+rsync -av --ignore-existing /config/geyser/extensions/ /plugins/Geyser-Velocity/extensions/
+
+#----------------------------------------- VIABACKWARDS --------------------------------
+# ------------ plugins/viabackwards/config.yml ------------
+if [[ ! -f "/config/viabackwards.yml" ]]; then
+  logGreen "no viabackwards.yml file found. Copying from default.."
+  cp /default_config/viabackwards.yml /config/viabackwards.yml
+fi
+logGreen "copying viabackwards.yml from config..."
+cp /config/viabackwards.yml /plugins/viabackwards/config.yml
+
+#----------------------------------------- VIAREWIND --------------------------------
+# ------------ plugins/viarewind/config.yml ------------
+# TODO
 
 
 ####### -------------------------- finalize -------------------------------------
 logLine
+if [[ -f "/config/server-icon.png" ]]; then
+  logGreen "server-icon.png found"
+  cp /config/server-icon.png /server-icon.png
+else
+  logGreen "no server-icon.png found"
+fi
+
+RAM_ALLOCATE=$(getConfig '.allocatedRAM_MB')
+logGreen "Allocated RAM: $RAM_ALLOCATE MB"
+logLine
 logGreen "Starting..............."
-java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar
+java -Xms${RAM_ALLOCATE}m -Xmx${RAM_ALLOCATE}m -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar

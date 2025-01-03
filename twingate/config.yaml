@@ -1,13 +1,13 @@
 name: Twingate
-version: 0.0.1
+version: 0.1.0
 slug: twingate
 description: Twingate VPN from Home Assistant.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/twingate
+stage: experimental
 arch:
   - armv7
   - aarch64
   - amd64
-  - i386
 boot: manual
 init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-twingate-{arch}

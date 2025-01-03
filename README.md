@@ -23,7 +23,7 @@ Run and Eaglerctaft relay server from Home Assistant, allowing players connected
 
 ### [MC All-Platform Velocity Proxy](/mc-all-platform-velocity)
 
-Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser) clients to join your server(s).
+Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser) clients to join your Minecraft server(s).
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
 

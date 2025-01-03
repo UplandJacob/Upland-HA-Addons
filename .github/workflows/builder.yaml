@@ -21,7 +21,7 @@ jobs:
       changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.2
 
       - name: Get changed files
         id: changed_files
@@ -75,7 +75,7 @@ jobs:
       #    GITHUB_CONTEXT: ${{ toJson(github) }}
    
       - name: Check out repository
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.2
 
       - name: Get information
         id: info
@@ -159,7 +159,8 @@ jobs:
           password: ${{ secrets.HA_GITHUB_TOKEN }}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3.7.1
+        if: ${{ steps.check.outputs.build_arch == 'true' }}
+        uses: docker/setup-buildx-action@v3.8.0
 
       - name: Build and push Docker images
         if: ${{ steps.check.outputs.build_arch == 'true' && env.VERSION != env.LATEST_VERSION }}

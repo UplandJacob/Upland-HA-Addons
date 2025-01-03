@@ -2,11 +2,14 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 ARG VELOCITY_VERS="3.4.0-SNAPSHOT"
-ARG VELOCITY_BUILD="450"
-ARG VIAVERSION_VERS="5.1.1"
-ARG VIAREWIND_VERS="4.0.3"
-ARG VIABACKWARDS_VERS="5.1.1"
-	
+ARG VELOCITY_BUILD="458"
+ARG VIAVERSION_VERS="5.2.1"
+ARG VIABACKWARDS_VERS="5.2.1"
+ARG VIAREWIND_VERS="4.0.5"
+
+
+COPY default_config default_config
+
 COPY run.sh run.sh
 COPY kickstart.sh kickstart.sh
 RUN chmod +x run.sh
@@ -19,8 +22,9 @@ RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
-# RUN apt-get update && \
-#     apt-get install --no-install-recommends -y \
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+    rsync screen
 
 #Velocity
 RUN curl --no-progress-meter \

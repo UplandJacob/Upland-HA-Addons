@@ -1,8 +1,9 @@
 name: Minecraft All-Platform Velocity Proxy
-version: 1.1.17
+version: 1.7.6
 slug: mc-all-platform-velocity
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity
+stage: experimental
 arch:
   - aarch64
   - amd64
@@ -13,6 +14,7 @@ image: ghcr.io/uplandjacob/upland-ha-addons-mc-all-platform-velocity-{arch}
 map:
   - config
 options:
+  allocatedRAM_MB: 1024
   rootConfig:
     motd: "<#09add3>A Velocity Server"
     show-max-players: 500
@@ -64,7 +66,6 @@ options:
     uuid_lookup_ratelimit_global: 175
     skin_download_ratelimit_player: 1000
     skin_download_ratelimit_global: 30000
-    skin_cache_db_uri: 'jdbc:sqlite:eaglercraft_skins_cache.db'
     skin_cache_keep_objects_days: 45
     skin_cache_keep_profiles_days: 7
     skin_cache_max_objects: 32768
@@ -83,7 +84,6 @@ options:
   eagAuth: 
     enable_authentication_system: true
     use_onboard_eaglerx_system: true
-    auth_db_uri: 'jdbc:sqlite:eaglercraft_auths.db'
     sql_driver_class: 'internal'
     sql_driver_path: 'internal'
     password_prompt_screen_text: 'Enter your password to join:'
@@ -99,7 +99,84 @@ options:
     override_eagler_to_vanilla_skins: false
     max_registration_per_ip: -1
 
+  eagListener:
+    max_players: 60
+    forward_ip: false
+    server_motd:
+      - '&6An EaglercraftX server'
+    allow_motd: true
+    allow_query: true
+    allow_voice: false
+
+
+  floodgate:
+    username-prefix: '.'
+    replace-spaces: true
+    default-locale: en_US
+
+  floodDisconnect:
+    invalid-key: 'Please connect through the official Geyser'
+    invalid-arguments-length: 'Expected {} arguments, got {}. Is Geyser up-to-date?'
+
+  floodPlayerLink:
+    enabled: true
+    require-link: false
+    enable-own-linking: false
+    allowed: true
+    link-code-timeout: 300
+    type: sqlite
+    enable-global-linking: true
+
+  geyserBedrock:
+    motd1: "Geyser"
+    motd2: "Another Geyser server."
+    server-name: "Geyser"
+    compression-level: 6
+    enable-proxy-protocol: false
+
+  geyserRemote:
+    auth-type: floodgate
+    use-proxy-protocol: false
+    forward-hostname: false
+
+  geyser:
+    saved-user-logins: []
+    pending-authentication-timeout: 120
+    command-suggestions: true
+    passthrough-motd: true
+    passthrough-player-counts: true
+    legacy-ping-passthrough: false
+    ping-passthrough-interval: 3
+    forward-player-ping: false
+    max-players: 60
+    debug-mode: false
+    show-cooldown: title
+    show-coordinates: true
+    disable-bedrock-scaffolding: false
+    emote-offhand-workaround: "disabled"
+    default-locale: en_us
+    cache-images: 0
+    allow-custom-skulls: true
+    max-visible-custom-skulls: 128
+    custom-skull-render-distance: 32
+    add-non-bedrock-items: true
+    above-bedrock-nether-building: false
+    force-resource-packs: true
+    xbox-achievements-enabled: false
+    log-player-ip-addresses: true
+    notify-on-new-bedrock-update: true
+    unusable-space-block: minecraft:barrier
+
+  geyserAdvanced:
+    scoreboard-packet-threshold: 20
+    enable-proxy-connections: false
+    mtu: 1400
+    use-direct-connection: true
+    disable-compression: true
+
+
 schema:
+  allocatedRAM_MB: int
   rootConfig:
     motd: str
     show-max-players: int
@@ -151,7 +228,6 @@ schema:
     uuid_lookup_ratelimit_global: int
     skin_download_ratelimit_player: int
     skin_download_ratelimit_global: int
-    skin_cache_db_uri: str
     skin_cache_keep_objects_days: int
     skin_cache_keep_profiles_days: int
     skin_cache_max_objects: int
@@ -172,7 +248,6 @@ schema:
   eagAuth: 
     enable_authentication_system: bool
     use_onboard_eaglerx_system: bool
-    auth_db_uri: str
     sql_driver_class: str
     sql_driver_path: str
     password_prompt_screen_text: str
@@ -188,14 +263,92 @@ schema:
     override_eagler_to_vanilla_skins: bool
     max_registration_per_ip: int
 
+  eagListener:
+    max_players: int
+    forward_ip: bool
+    server_motd:
+      - str
+    allow_motd: bool
+    allow_query: bool
+    allow_voice: bool
+
+
+  floodgate:
+    username-prefix: str
+    replace-spaces: bool
+    default-locale: str
+
+  floodDisconnect:
+    invalid-key: str
+    invalid-arguments-length: str
+
+  floodPlayerLink:
+    enabled: bool
+    require-link: bool
+    enable-own-linking: bool
+    allowed: bool
+    link-code-timeout: int
+    type: str
+    enable-global-linking: bool
+
+  geyserBedrock:
+    motd1: str
+    motd2: str
+    server-name: str
+    compression-level: int
+    enable-proxy-protocol: bool
+    proxy-protocol-whitelisted-ips: 
+      - str?
+
+  geyserRemote:
+    auth-type: match(online|offline|floodgate)
+    use-proxy-protocol: bool
+    forward-hostname: bool
+
+  geyser:
+    saved-user-logins: 
+      - str?
+    pending-authentication-timeout: int
+    command-suggestions: bool
+    passthrough-motd: bool
+    passthrough-player-counts: bool
+    legacy-ping-passthrough: bool
+    ping-passthrough-interval: int
+    forward-player-ping: bool
+    max-players: int
+    debug-mode: bool
+    show-cooldown: match(title|actionbar|false)
+    show-coordinates: bool
+    disable-bedrock-scaffolding: bool
+    emote-offhand-workaround: match(disabled|no-emotes|emotes-and-offhand)
+    default-locale: str
+    cache-images: int
+    allow-custom-skulls: bool
+    max-visible-custom-skulls: int
+    custom-skull-render-distance: int
+    add-non-bedrock-items: bool
+    above-bedrock-nether-building: bool
+    force-resource-packs: bool
+    xbox-achievements-enabled: bool
+    log-player-ip-addresses: bool
+    notify-on-new-bedrock-update: bool
+    unusable-space-block: str
+
+  geyserAdvanced:
+    scoreboard-packet-threshold: int
+    enable-proxy-connections: bool
+    mtu: int
+    use-direct-connection: bool
+    disable-compression: bool
+
 map:
   - addon_config:rw
 
 ports:
   "25565": 25565
-  "19132": 19132
-  "8081": 8081
+  "19132/udp": 19132
+  "8081/tcp": 8081
 ports_description:
-  "25565": "java edition port"
-  "19132": "bedrock edition port"
-  "8081": "Eaglercraft port"
+  "25565": "Java Edition port"
+  "19132/udp": "Bedrock Edition port"
+  "8081/tcp": "Eaglercraft port"

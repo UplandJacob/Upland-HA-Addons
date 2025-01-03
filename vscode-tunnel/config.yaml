@@ -3,6 +3,7 @@ version: 0.0.1
 slug: vscode-tunnel
 description: VSCode Tunnel to have a full experience at vscode.dev.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/vscode-tunnel
+stage: experimental
 arch:
   - armv7
   - aarch64

@@ -25,18 +25,26 @@ echo -e "${NC}"
 echo ""
 
 
+CONFIG="/etc/twingate/connector.conf"
 
-#curl "https://binaries.twingate.com/connector/setup.sh" | sudo \
-#sudo /twingate-install.sh -f \
-#  TWINGATE_ACCESS_TOKEN="${ACCESS_TOKEN}" \
-#  TWINGATE_REFRESH_TOKEN="${REFRESH_TOKEN}" \
-#  TWINGATE_LOG_ANALYTICS="v2" \
-#  TWINGATE_NETWORK="${NETWORK}" \
-#  TWINGATE_LABEL_DEPLOYED_BY="linux" bash
+if [ -n "${NETWORK}" ]; then
+  echo "TWINGATE_NETWORK=${NETWORK}" >> "${CONFIG}"
+fi
+
+if [ -n "${ACCESS_TOKEN}" ] && [ -n "${REFRESH_TOKEN}" ]; then
+    { \
+        echo "TWINGATE_ACCESS_TOKEN=${ACCESS_TOKEN}"; \
+        echo "TWINGATE_REFRESH_TOKEN=${REFRESH_TOKEN}"; \
+    } >> "${CONFIG}"
+    if [ "${LOGS}" = true ]; then
+        echo "TWINGATE_LOG_ANALYTICS=v2" >> "${CONFIG}"
+    fi
+    chmod 0600 "$CONFIG"
+    cat "$CONFIG"
+    systemctl enable --now twingate-connector
+fi
 
 
 echo ""
 echo ""
-
-#sudo twingate-connector
 
