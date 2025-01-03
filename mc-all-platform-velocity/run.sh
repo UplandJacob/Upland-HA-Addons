@@ -263,6 +263,9 @@ fi
 logGreen "copying viabackwards.yml from config..."
 cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 
+#----------------------------------------- VIAREWIND --------------------------------
+# ------------ plugins/viarewind/config.yml ------------
+# TODO
 
 
 ####### -------------------------- finalize -------------------------------------
