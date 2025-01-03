@@ -98,7 +98,7 @@ jobs:
           # A comma separated list of rules whose severity will be `style`
           #override-style: # optional
           # A comma separated string of rules to ignore
-          ignore: ["DL3006"]
+          ignore: "DL3006"
           # A comma separated list of trusted registry urls
           #trusted-registries: # optional
           
