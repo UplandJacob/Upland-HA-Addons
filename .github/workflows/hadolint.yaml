@@ -1,0 +1,100 @@
+name: Hadolint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    name: Initialize builds
+    outputs:
+      changed_addons: ${{ steps.changed_addons.outputs.addons }}
+      changed: ${{ steps.changed_addons.outputs.changed }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Get changed files
+        id: changed_files
+        uses: UplandJacob2/retrieve-changed-files@v4.0.0
+
+      - name: Find add-on directories
+        id: addons
+        uses: home-assistant/actions/helpers/find-addons@master
+
+      - name: Get changed add-ons
+        id: changed_addons
+        run: |
+          declare -a changed_addons
+          for addon in ${{ steps.addons.outputs.addons }}; do
+            if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon ]]; then
+              for file in ${{ env.MONITORED_FILES }}; do
+                  if [[ "${{ steps.changed_files.outputs.all }}" =~ $addon/$file ]]; then
+                    if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
+                      changed_addons+=("\"${addon}\",");
+                    fi
+                  fi
+              done
+            fi
+          done
+
+          changed=$(echo ${changed_addons[@]} | rev | cut -c 2- | rev)
+
+          if [[ -n ${changed} ]]; then
+            echo "Changed add-ons: $changed";
+            echo "changed=true" >> $GITHUB_OUTPUT;
+            echo "addons=[$changed]" >> $GITHUB_OUTPUT;
+          else
+            echo "No add-on had any monitored files changed (${{ env.MONITORED_FILES }})";
+          fi
+  lint:
+    needs: init
+    runs-on: ubuntu-latest
+    if: needs.init.outputs.changed == 'true'
+    name: Lint ${{ matrix.addon }} add-on Dockerfile
+    strategy:
+      matrix:
+        addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
+      fail-fast: false
+    steps:
+      # - name: Dump github context
+      #   run: echo "$GITHUB_CONTEXT"
+      #   shell: bash
+      #   env:
+      #    GITHUB_CONTEXT: ${{ toJson(github) }}
+   
+      - name: Check out repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Run Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: "./${{ matrix.addon }}/Dockerfile"
+          #config: # optional
+          #recursive: # optional, default is false
+          #output-file: # optional, default is /dev/stdout
+          #no-color: # optional, default is false
+          #no-fail: true
+          #verbose: # optional, default is false
+          # The output format, one of [tty (default) | json | checkstyle | codeclimate | gitlab_codeclimate | codacy | sarif]
+          #format: # optional, default is tty
+          # Fail the pipeline only if rules with severity above this threshold are violated. One of [error | warning | info (default) | style | ignore]
+          #failure-threshold: warning # optional, default is info
+          # A comma separated list of rules whose severity will be `error`
+          #override-error: # optional
+          # A comma separated list of rules whose severity will be `warning`
+          #override-warning: # optional
+          # A comma separated list of rules whose severity will be `info`
+          #override-info: # optional
+          # A comma separated list of rules whose severity will be `style`
+          #override-style: # optional
+          # A comma separated string of rules to ignore
+          #ignore: # optional
+          # A comma separated list of trusted registry urls
+          #trusted-registries: # optional
+          
