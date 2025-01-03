@@ -172,7 +172,7 @@ jobs:
             --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
             --build-arg BUILD_SLUG=${{ matrix.addon }} \
             --build-arg BUILD_NAME=${{ env.BUILD_NAME }} \
-            --build-arg BUILD_DESCRIPTION=${{ env.BUILD_DESCRIPTION }} \
+            --build-arg BUILD_DESCRIPTION="${{ env.BUILD_DESCRIPTION }}" \
             --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
@@ -190,7 +190,7 @@ jobs:
             --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
             --build-arg BUILD_SLUG=${{ matrix.addon }} \
             --build-arg BUILD_NAME=${{ env.BUILD_NAME }} \
-            --build-arg BUILD_DESCRIPTION=${{ env.BUILD_DESCRIPTION }} \
+            --build-arg BUILD_DESCRIPTION="${{ env.BUILD_DESCRIPTION }}" \
             --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
