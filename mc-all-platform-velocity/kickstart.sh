@@ -17,14 +17,9 @@ stop_when_string_logged() {
     fi
   done
 }
-
 stop_when_string_logged < <(tail -f $tmpfile)
 
 # Wait for the process to finish
 screen -S velocity -X quit
-
-# cleanup for build
+# cleanup tmpfile
 rm -f $tmpfile
-rm /plugins/floodgate/key.pem
-rm eaglercraft_auths.db
-rm eaglercraft_skins_cache.db
