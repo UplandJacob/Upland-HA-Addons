@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+env:
+  MONITORED_FILES: "Dockerfile"
+
+
 jobs:
   init:
     runs-on: ubuntu-latest
