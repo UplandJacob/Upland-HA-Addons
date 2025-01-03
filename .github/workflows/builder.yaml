@@ -123,9 +123,9 @@ jobs:
           NAME=$(yq e ".name" ./${{ matrix.addon }}/config.yaml)
           DESC=$(yq e ".description" ./${{ matrix.addon }}/config.yaml)
 
-          echo "BUILD_LICENSE=${LICENSE}" >> GITHUB_ENV
-          echo "BUILD_NAME=${NAME}" >> GITHUB_ENV
-          echo "BUILD_DESCRIPTION=${DESC}" >> GITHUB_ENV
+          echo "BUILD_LICENSE=${LICENSE}" >> $GITHUB_ENV
+          echo "BUILD_NAME=${NAME}" >> $GITHUB_ENV
+          echo "BUILD_DESCRIPTION=${DESC}" >> $GITHUB_ENV
 
 
           
@@ -172,7 +172,7 @@ jobs:
             --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
             --build-arg BUILD_SLUG=https://github.com/${{ env.REPO_NAME_ONLY_LC }} \
             --build-arg BUILD_NAME=${{ env.BUILD_NAME }} \
-            --build-arg BUILD_DESCRIPTION={{ env.BUILD_DESCRIPTION }} \
+            --build-arg BUILD_DESCRIPTION=${{ env.BUILD_DESCRIPTION }} \
             --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
@@ -190,7 +190,7 @@ jobs:
             --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
             --build-arg BUILD_SLUG=https://github.com/${{ env.REPO_NAME_ONLY_LC }} \
             --build-arg BUILD_NAME=${{ env.BUILD_NAME }} \
-            --build-arg BUILD_DESCRIPTION={{ env.BUILD_DESCRIPTION }} \
+            --build-arg BUILD_DESCRIPTION=${{ env.BUILD_DESCRIPTION }} \
             --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
