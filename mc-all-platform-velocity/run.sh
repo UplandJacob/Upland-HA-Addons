@@ -13,28 +13,32 @@ getConfig() {
 
 # check for key.pem (for floodgate and geyser)
 if [[ ! -f "/config/key.pem" ]]; then
-  tmpfile=$(mktemp)
-  
   logGreen "no key.pem file found. Temporarily starting proxy to generate one."
-  java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > $tmpfile 2>&1 &
-  # Get process ID of last background cmd
-  pid=$!
-
+  
+  tmpfile=$(mktemp)
+  # Create a screen session named "minecraft" and start the command
+  screen -dmS velocity bash -c 'java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > '$tmpfile' 2>&1'
+  
   # Function to stop the process when the specific string is found in the log
   stop_when_string_logged() {
     while IFS= read -r line; do
       echo "- $line"
       if [[ "$line" == *"help for help!"* ]]; then
         sleep 1
-        kill $pid
-        logGreen "Process finished."
+        # Send the "stop" command to the "minecraft" screen session
+        screen -S velocity -X stuff "`echo -ne \"stop\r\"`"
+        echo "Process stopped."
         break
       fi
-    done < <(tail -f $tmpfile)
+    done
   }
-  stop_when_string_logged &
-  stop_pid=$!
-  wait $stop_pid
+  
+  stop_when_string_logged < <(tail -f $tmpfile)
+  
+  # Wait for the process to finish
+  screen -S velocity -X quit
+  rm -f $tmpfile
+  
   logGreen "copying key.pem to config folder..."
   cp /plugins/floodgate/key.pem /config/key.pem
 fi
