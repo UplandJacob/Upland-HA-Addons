@@ -27,4 +27,4 @@ screen -S velocity -X quit
 rm -f $tmpfile
 rm /plugins/floodgate/key.pem
 rm eaglercraft_auths.db
-rm eaglercraft_skin_cache.db
+rm eaglercraft_skins_cache.db
