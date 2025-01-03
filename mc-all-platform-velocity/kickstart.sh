@@ -11,7 +11,8 @@ stop_when_string_logged() {
     echo "- $line"
     if [[ "$line" == *"downloaded and loaded!"* ]]; then
       sleep 1
-      kill $pid
+      #kill $pid
+      echo -ne "stop\r" > /proc/$pid/fd/0
       echo "Process stopped."
       break
     fi
