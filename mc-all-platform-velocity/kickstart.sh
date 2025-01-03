@@ -24,3 +24,5 @@ stop_when_string_logged < <(tail -f $tmpfile)
 wait $pid
 
 rm /plugins/floodgate/key.pem
+rm eaglercraft_auths.db
+rm eaglercraft_skin_cache.db
