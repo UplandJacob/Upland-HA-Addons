@@ -178,7 +178,7 @@ jobs:
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
             --push \
             -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.arch }}:${{ env.VERSION }} \
-            ./${{ matrix.addon }}
+            ${GITHUB_WORKSPACE}/${{ matrix.addon }}
 
       - name: Build Docker images
         if: ${{ steps.check.outputs.build_arch == 'true' && env.VERSION == env.LATEST_VERSION }}
@@ -195,5 +195,5 @@ jobs:
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
             -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.arch }}:${{ env.VERSION }} \
-            ./${{ matrix.addon }}
+            ${GITHUB_WORKSPACE}/${{ matrix.addon }}
 
