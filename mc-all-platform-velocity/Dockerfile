@@ -7,7 +7,8 @@ ARG VIAVERSION_VERS="5.2.1"
 ARG VIABACKWARDS_VERS="5.2.1"
 ARG VIAREWIND_VERS="4.0.5"
 
-WORKDIR ${GITHUB_WORKSPACE}
+ARG BUILD_SLUG
+WORKDIR ${GITHUB_WORKSPACE}/${BUILD_SLUG}
 
 COPY default_config default_config
 
@@ -37,7 +38,7 @@ RUN curl --no-progress-meter \
     "https://api.papermc.io/v2/projects/velocity/versions/$VELOCITY_VERS/builds/$VELOCITY_BUILD/downloads/velocity-$VELOCITY_VERS-$VELOCITY_BUILD.jar"
 
 ### PLUGINS
-WORKDIR ${GITHUB_WORKSPACE}/plugins
+WORKDIR ${GITHUB_WORKSPACE}/${BUILD_SLUG}/plugins
 
 # for Eaglercraft
 RUN curl --no-progress-meter \
@@ -78,7 +79,7 @@ RUN curl --no-progress-meter \
     -o Floodgate.jar \
     "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity"
 
-WORKDIR ${GITHUB_WORKSPACE}
+WORKDIR ${GITHUB_WORKSPACE}/${BUILD_SLUG}
 
 RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
@@ -97,7 +98,7 @@ ARG BUILD_ARCH
 ARG BUILD_NAME
 ARG BUILD_DESCRIPTION
 ARG BUILD_REPO_NAME
-ARG BUILD_SLUG
+
 ARG BUILD_AUTHOR
 ARG BUILD_LICENSE
 ARG BUILD_VERSION
