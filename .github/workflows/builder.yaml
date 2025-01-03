@@ -194,4 +194,6 @@ jobs:
             --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
+            -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.arch }}:${{ env.VERSION }} \
+            ./${{ matrix.addon }}
 
