@@ -27,7 +27,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     rsync screen \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean
 
 #Velocity
 RUN curl --no-progress-meter \
