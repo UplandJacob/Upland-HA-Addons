@@ -26,8 +26,8 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    rsync screen \
-    apt-get clean
+    rsync screen && \
+    apt-get autoremove && apt-get clean
 
 #Velocity
 RUN curl --no-progress-meter \
