@@ -1,5 +1,5 @@
 [![Build Status](https://github.com/UplandJacob/Upland-HA-Addons/actions/workflows/builder.yaml/badge.svg)](https://github.com/UplandJacob/Upland-HA-Addons/actions/workflows/builder.yaml)
-
+[![Hadolint Status](https://github.com/UplandJacob/Upland-HA-Addons/actions/workflows/hadolint.yaml/badge.svg)](https://github.com/UplandJacob/Upland-HA-Addons/actions/workflows/hadolint.yaml)
 
 # Upland-HA-Addons
 
