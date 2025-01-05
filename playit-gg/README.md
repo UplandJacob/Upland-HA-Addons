@@ -15,6 +15,18 @@ Playit.gg is a global proxy that allows anyone to host a server without port for
 
 Thanks to [Benjamin589](https://github.com/benjamin5896/hassio-addons) for the PR in williamcorsel/hassio-addons for a playit.gg addon.
 
+## Install
+
+**Add repository**
+
+[![Add repo](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/UplandJacob/Upland-HA-Addons)
+
+or go to the **Add-on Store -> repositories** and add: https://github.com/UplandJacob/Upland-HA-Addons
+
+**Then install:**
+
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_playit-gg)
+
 ## Setup
 
 1. If you don't already have a Playit.gg account, head over to [Playit.gg](https://playit.gg) and sign up.
