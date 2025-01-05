@@ -86,25 +86,30 @@ jobs:
       - name: Check if add-on should be built
         id: check
         run: |
-          build_archs=${{ steps.info.outputs.architectures }}
-          config_archs=$(yq eval -o=json '.arch' ./${{ matrix.addon }}/config.yaml | jq -c '.')
-          echo "From build.yaml: $build_archs"
-          echo "From config.yaml: $config_archs"
+          if [[ ! -f "./${{ matrix.addon }}/Dockerfile" ]]; then
+            echo "NO NEED TO BUILD"
+            echo "build_arch=false" >> $GITHUB_OUTPUT;
+          else
+            build_archs=${{ steps.info.outputs.architectures }}
+            config_archs=$(yq eval -o=json '.arch' ./${{ matrix.addon }}/config.yaml | jq -c '.')
+            echo "From build.yaml: $build_archs"
+            echo "From config.yaml: $config_archs"
 
-          if [[ "${build_archs}" =~ ${{ matrix.arch }} ]]; then
-            if [[ "${config_archs}" =~ ${{ matrix.arch }} ]]; then
-              echo "build_arch=true" >> $GITHUB_OUTPUT;
-              echo "image=$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)" >> $GITHUB_OUTPUT;
-              if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
-                echo "BUILD_ARGS=" >> $GITHUB_ENV;
+            if [[ "${build_archs}" =~ ${{ matrix.arch }} ]]; then
+              if [[ "${config_archs}" =~ ${{ matrix.arch }} ]]; then
+                echo "build_arch=true" >> $GITHUB_OUTPUT;
+                echo "image=$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)" >> $GITHUB_OUTPUT;
+                if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
+                  echo "BUILD_ARGS=" >> $GITHUB_ENV;
+                fi
+              else
+                echo "${{ matrix.arch }} is not in config.yaml for ${{ matrix.addon }}, skipping build";
+                echo "build_arch=false" >> $GITHUB_OUTPUT;
               fi
             else
-              echo "${{ matrix.arch }} is not in config.yaml for ${{ matrix.addon }}, skipping build";
+              echo "${{ matrix.arch }} is not in build.yaml for ${{ matrix.addon }}, skipping build";
               echo "build_arch=false" >> $GITHUB_OUTPUT;
             fi
-          else
-            echo "${{ matrix.arch }} is not in build.yaml for ${{ matrix.addon }}, skipping build";
-            echo "build_arch=false" >> $GITHUB_OUTPUT;
           fi
 
 
