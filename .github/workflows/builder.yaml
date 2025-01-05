@@ -119,19 +119,20 @@ jobs:
           BUILD_FROM=$(yq e ".build_from.${{ matrix.arch }}" ./${{ matrix.addon }}/build.yaml)
           PLATFORM=$(yq e ".platform.${{ matrix.arch }}" ./${{ matrix.addon }}/build.yaml)
           VERSION=$(yq e ".version" ./${{ matrix.addon }}/config.yaml)
-          echo "BUILD_FROM=${BUILD_FROM}" >> $GITHUB_ENV
-          echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-          echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-
           LICENSE=$(head -n1 LICENSE)
           NAME=$(yq e ".name" ./${{ matrix.addon }}/config.yaml)
           DESC=$(yq e ".description" ./${{ matrix.addon }}/config.yaml)
+          SLUG=$(yq e ".slug" ./${{ matrix.addon }}/config.yaml)
 
+          echo "BUILD_FROM=${BUILD_FROM}" >> $GITHUB_ENV
+          echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
           echo "BUILD_LICENSE=${LICENSE}" >> $GITHUB_ENV
           echo "BUILD_NAME=${NAME}" >> $GITHUB_ENV
           echo "BUILD_DESCRIPTION=${DESC}" >> $GITHUB_ENV
+          echo "BUILD_SLUG=${SLUG}" >> $GITHUB_ENV
 
+          echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
           
           REPO_NAME_ONLY_LC=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
@@ -175,7 +176,7 @@ jobs:
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --build-arg BUILD_AUTHOR=${{ github.repository_owner }} \
             --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
-            --build-arg BUILD_SLUG=${{ matrix.addon }} \
+            --build-arg BUILD_SLUG=${{ env.BUILD_SLUG }} \
             --build-arg BUILD_NAME="${{ env.BUILD_NAME }}" \
             --build-arg BUILD_DESCRIPTION="${{ env.BUILD_DESCRIPTION }}" \
             --build-arg BUILD_LICENSE="${{ env.BUILD_LICENSE }}" \
@@ -193,7 +194,7 @@ jobs:
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --build-arg BUILD_AUTHOR=${{ github.repository_owner }} \
             --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
-            --build-arg BUILD_SLUG=${{ matrix.addon }} \
+            --build-arg BUILD_SLUG=${{ env.BUILD_SLUG }} \
             --build-arg BUILD_NAME="${{ env.BUILD_NAME }}" \
             --build-arg BUILD_DESCRIPTION="${{ env.BUILD_DESCRIPTION }}" \
             --build-arg BUILD_LICENSE="${{ env.BUILD_LICENSE }}" \
