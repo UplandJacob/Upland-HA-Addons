@@ -79,26 +79,26 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: "./${{ matrix.addon }}/Dockerfile"
-          #config: # optional
-          #recursive: # optional, default is false
+          #config: 
+          #recursive: 
           #output-file: # optional, default is /dev/stdout
-          #no-color: # optional, default is false
+          #no-color: true
           #no-fail: true
-          #verbose: # optional, default is false
+          #verbose: true
           # The output format, one of [tty (default) | json | checkstyle | codeclimate | gitlab_codeclimate | codacy | sarif]
-          #format: # optional, default is tty
+          #format: 
           # Fail the pipeline only if rules with severity above this threshold are violated. One of [error | warning | info (default) | style | ignore]
-          #failure-threshold: warning # optional, default is info
+          failure-threshold: "warning"
           # A comma separated list of rules whose severity will be `error`
-          #override-error: # optional
+          #override-error: 
           # A comma separated list of rules whose severity will be `warning`
-          #override-warning: # optional
+          #override-warning: 
           # A comma separated list of rules whose severity will be `info`
-          #override-info: # optional
+          #override-info: 
           # A comma separated list of rules whose severity will be `style`
-          #override-style: # optional
+          #override-style: 
           # A comma separated string of rules to ignore
-          #ignore: # optional
+          ignore: "DL3006"
           # A comma separated list of trusted registry urls
-          #trusted-registries: # optional
+          #trusted-registries: 
           

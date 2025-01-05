@@ -86,25 +86,30 @@ jobs:
       - name: Check if add-on should be built
         id: check
         run: |
-          build_archs=${{ steps.info.outputs.architectures }}
-          config_archs=$(yq eval -o=json '.arch' ./${{ matrix.addon }}/config.yaml | jq -c '.')
-          echo "From build.yaml: $build_archs"
-          echo "From config.yaml: $config_archs"
+          if [[ ! -f "./${{ matrix.addon }}/Dockerfile" ]]; then
+            echo "NO NEED TO BUILD"
+            echo "build_arch=false" >> $GITHUB_OUTPUT;
+          else
+            build_archs=${{ steps.info.outputs.architectures }}
+            config_archs=$(yq eval -o=json '.arch' ./${{ matrix.addon }}/config.yaml | jq -c '.')
+            echo "From build.yaml: $build_archs"
+            echo "From config.yaml: $config_archs"
 
-          if [[ "${build_archs}" =~ ${{ matrix.arch }} ]]; then
-            if [[ "${config_archs}" =~ ${{ matrix.arch }} ]]; then
-              echo "build_arch=true" >> $GITHUB_OUTPUT;
-              echo "image=$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)" >> $GITHUB_OUTPUT;
-              if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
-                echo "BUILD_ARGS=" >> $GITHUB_ENV;
+            if [[ "${build_archs}" =~ ${{ matrix.arch }} ]]; then
+              if [[ "${config_archs}" =~ ${{ matrix.arch }} ]]; then
+                echo "build_arch=true" >> $GITHUB_OUTPUT;
+                echo "image=$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)" >> $GITHUB_OUTPUT;
+                if [[ -z "${{ github.head_ref }}" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
+                  echo "BUILD_ARGS=" >> $GITHUB_ENV;
+                fi
+              else
+                echo "${{ matrix.arch }} is not in config.yaml for ${{ matrix.addon }}, skipping build";
+                echo "build_arch=false" >> $GITHUB_OUTPUT;
               fi
             else
-              echo "${{ matrix.arch }} is not in config.yaml for ${{ matrix.addon }}, skipping build";
+              echo "${{ matrix.arch }} is not in build.yaml for ${{ matrix.addon }}, skipping build";
               echo "build_arch=false" >> $GITHUB_OUTPUT;
             fi
-          else
-            echo "${{ matrix.arch }} is not in build.yaml for ${{ matrix.addon }}, skipping build";
-            echo "build_arch=false" >> $GITHUB_OUTPUT;
           fi
 
 
@@ -114,19 +119,20 @@ jobs:
           BUILD_FROM=$(yq e ".build_from.${{ matrix.arch }}" ./${{ matrix.addon }}/build.yaml)
           PLATFORM=$(yq e ".platform.${{ matrix.arch }}" ./${{ matrix.addon }}/build.yaml)
           VERSION=$(yq e ".version" ./${{ matrix.addon }}/config.yaml)
-          echo "BUILD_FROM=${BUILD_FROM}" >> $GITHUB_ENV
-          echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-          echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-
           LICENSE=$(head -n1 LICENSE)
           NAME=$(yq e ".name" ./${{ matrix.addon }}/config.yaml)
           DESC=$(yq e ".description" ./${{ matrix.addon }}/config.yaml)
+          SLUG=$(yq e ".slug" ./${{ matrix.addon }}/config.yaml)
 
-          echo "BUILD_LICENSE=${LICENSE}" >> GITHUB_ENV
-          echo "BUILD_NAME=${NAME}" >> GITHUB_ENV
-          echo "BUILD_DESCRIPTION=${DESC}" >> GITHUB_ENV
+          echo "BUILD_FROM=${BUILD_FROM}" >> $GITHUB_ENV
+          echo "PLATFORM=${PLATFORM}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "BUILD_LICENSE=${LICENSE}" >> $GITHUB_ENV
+          echo "BUILD_NAME=${NAME}" >> $GITHUB_ENV
+          echo "BUILD_DESCRIPTION=${DESC}" >> $GITHUB_ENV
+          echo "BUILD_SLUG=${SLUG}" >> $GITHUB_ENV
 
+          echo "REPO_NAME_LC=$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
           
           REPO_NAME_ONLY_LC=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
@@ -170,10 +176,10 @@ jobs:
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --build-arg BUILD_AUTHOR=${{ github.repository_owner }} \
             --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
-            --build-arg BUILD_SLUG=https://github.com/${{ env.REPO_NAME_ONLY_LC }} \
-            --build-arg BUILD_NAME=${{ env.BUILD_NAME }} \
-            --build-arg BUILD_DESCRIPTION={{ env.BUILD_DESCRIPTION }} \
-            --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
+            --build-arg BUILD_SLUG=${{ env.BUILD_SLUG }} \
+            --build-arg BUILD_NAME="${{ env.BUILD_NAME }}" \
+            --build-arg BUILD_DESCRIPTION="${{ env.BUILD_DESCRIPTION }}" \
+            --build-arg BUILD_LICENSE="${{ env.BUILD_LICENSE }}" \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
             --push \
@@ -188,10 +194,12 @@ jobs:
             --build-arg BUILD_FROM=${{ env.BUILD_FROM }} \
             --build-arg BUILD_AUTHOR=${{ github.repository_owner }} \
             --build-arg BUILD_REPO_NAME=${{ env.REPO_NAME_ONLY_LC }} \
-            --build-arg BUILD_SLUG=https://github.com/${{ env.REPO_NAME_ONLY_LC }} \
-            --build-arg BUILD_NAME=${{ env.BUILD_NAME }} \
-            --build-arg BUILD_DESCRIPTION={{ env.BUILD_DESCRIPTION }} \
-            --build-arg BUILD_LICENSE=${{ env.BUILD_LICENSE }} \
+            --build-arg BUILD_SLUG=${{ env.BUILD_SLUG }} \
+            --build-arg BUILD_NAME="${{ env.BUILD_NAME }}" \
+            --build-arg BUILD_DESCRIPTION="${{ env.BUILD_DESCRIPTION }}" \
+            --build-arg BUILD_LICENSE="${{ env.BUILD_LICENSE }}" \
             --build-arg BUILD_VERSION=${{ env.VERSION }} \
             --build-arg BUILD_ARCH=${{ matrix.arch }} \
+            -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.arch }}:${{ env.VERSION }} \
+            ./${{ matrix.addon }}
 
