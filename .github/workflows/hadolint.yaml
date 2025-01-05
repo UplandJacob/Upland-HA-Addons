@@ -15,7 +15,7 @@ env:
 jobs:
   init:
     runs-on: ubuntu-latest
-    name: Initialize builds
+    name: Initialize addons to lint
     outputs:
       changed_addons: ${{ steps.changed_addons.outputs.addons }}
       changed: ${{ steps.changed_addons.outputs.changed }}
