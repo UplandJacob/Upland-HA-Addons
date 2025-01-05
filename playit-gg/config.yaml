@@ -6,6 +6,7 @@ image: alex33856/playitgg-docker
 init: false
 legacy: true
 host_network: true
+stage: experimental
 arch:
   - amd64
   - aarch64
