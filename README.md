@@ -27,3 +27,10 @@ Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
 
+### [Playit.gg](/playit-gg)
+
+Playit.gg is a global proxy that allows anyone to host a server without port forwarding.
+
+Thanks to [Benjamin589](https://github.com/benjamin5896/hassio-addons) for the PR in williamcorsel/hassio-addons for a playit.gg addon.
+
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_playitgg)
