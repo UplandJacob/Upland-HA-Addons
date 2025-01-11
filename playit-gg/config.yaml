@@ -1,8 +1,8 @@
 name: "Playit.gg Agent"
 slug: "playitgg"
 description: "Addon to run the Playit.gg tunnel service in Home Assistant"
-version: "0.93"
-image: alex33856/playitgg-docker
+version: 0.1-v0.93
+image: alex33856/playitgg-docker:0.93
 init: false
 legacy: true
 host_network: true
