@@ -11,6 +11,7 @@ on:
 env:
   MONITORED_FILES: "Dockerfile"
 
+permissions: write-all
 
 jobs:
   init:
