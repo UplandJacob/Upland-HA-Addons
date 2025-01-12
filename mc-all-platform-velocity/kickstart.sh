@@ -10,7 +10,7 @@ stop_when_string_logged() {
     echo "- $line"
     if [[ "$line" == *"downloaded and loaded!"* ]]; then
       sleep 1
-      # Send the "stop" command to the "minecraft" screen session
+      # Send the "stop" command to the "velocity" screen session
       screen -S velocity -X stuff "`echo -ne \"stop\r\"`"
       echo "Process stopped."
       break
