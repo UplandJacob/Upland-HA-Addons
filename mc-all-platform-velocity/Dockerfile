@@ -6,6 +6,10 @@ ARG VELOCITY_BUILD="458"
 ARG VIAVERSION_VERS="5.2.1"
 ARG VIABACKWARDS_VERS="5.2.1"
 ARG VIAREWIND_VERS="4.0.5"
+ARG GEYSER_VERS="2.6.0"
+ARG GEYSER_BUILD="744"
+ARG FLOOD_VERS="2.2.3"
+ARG FLOOD_BUILD="114"
 
 WORKDIR /
 
@@ -70,13 +74,13 @@ RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o Geyser.jar \
-    "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/velocity"
+    "https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity"
 
 RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o Floodgate.jar \
-    "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/velocity"
+    "https://download.geysermc.org/v2/projects/floodgate/versions/$FLOOD_VERS/builds/$FLOOD_BUILD/downloads/velocity"
 
 WORKDIR /
 
