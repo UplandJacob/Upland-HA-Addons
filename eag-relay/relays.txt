@@ -1,5 +1,5 @@
 [NO_PASSWD]
-url=stun:stun.duckdns.org:3478
+url=stun:example-stun.duckdns.org:3478
 
 [NO_PASSWD]
 url=stun:stun.l.google.com:19302
@@ -21,12 +21,12 @@ url=stun:stun.stunprotocol.org:3478
 
 
 [NO_PASSWD]
-url=turn:turn.duckdns.org:5349
+url=turn:example-turn.duckdns.org:5349
 
 [PASSWD]
 url=turn:turn.speed.cloudflare.com:50000
-username=aa6bfdace75434eb08879f54aca515b83e8e69579d461d3dcae71ed3e1a2b5f856780dace4d82bed70848733e5c1e958def215f32f156e2b85a63a90340fde82
-credential=aba9b169546eb6dcc7bfb1cdf34544cf95b5161d602e3b5fa7c8342b2e9802fb
+username=you-can-generate-this-at
+credential=https://speed.cloudflare.com/turn-creds
 
 [NO_PASSWD]
 url=turn:turn01.hubl.in?transport=udp
