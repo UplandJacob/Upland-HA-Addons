@@ -39,10 +39,12 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 2. Because most players use clients with https, you need some things to make your relay work:
   * A domain (or subdomain) name:
-    * You can get a subdomain at [duckdns.org](https://duckdns.org) (100% free)
-    * You may set up the [duckdns addon](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_duckdns) for dynamic DNS (DDNS) in case your public IP adress changes.
+    * You may set up dynamic DNS (DDNS) in case your public IP adress changes.
+    * You can get a subdomain at [duckdns.org](https://duckdns.org) (100% free) - [duckdns addon](https://my.home-assistant.io/redirect/supervisor_addon/?addon=core_duckdns) for DDNS
+    * Or at [Freedns](https://freedns.afraid.org)
+    * Or you can use Cloudflare (paid domain, SSL included) - optionaly using a tunnel with the [cloudflared addon](https://github.com/brenner-tobias/addon-cloudflared) (so no port forwarding is required)
   * Port forwarding: you will need to port forward port 80 (for Let's Encrypt) and port 443 (for the actual websocket). This is different for every router, so you'll need to look it up yourself.
-  * A certificate and proxy:
+  * A certificate and proxy (may not be required if you are using Cloudflare):
     * Can be done with any just one addon: [Nginx Proxy Manager](https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_nginxproxymanager)
       * This addon uses Let’s Encrypt to get certificates and an NGINX proxy for converting http (ws) to https (wss)
     * Once the addon is installed and started, open the web UI, sign in with **admin@example.com** and **changeme**, and change you account information. (Make sure you save it). Then you need to set some things up:
