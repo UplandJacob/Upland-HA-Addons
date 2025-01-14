@@ -15,6 +15,12 @@ map:
   - config
 options:
   allocatedRAM_MB: 1024
+  
+  enableAuthMeV: false
+  enableVPacketEv: false
+  enableEpicGuard: false
+  enableAntiBot: false
+  
   rootConfig:
     motd: "<#09add3>A Velocity Server"
     show-max-players: 500
@@ -177,6 +183,12 @@ options:
 
 schema:
   allocatedRAM_MB: int
+
+  enableAuthMeV: bool
+  enableVPacketEv: bool
+  enableEpicGuard: bool
+  enableAntiBot: bool
+  
   rootConfig:
     motd: str
     show-max-players: int
