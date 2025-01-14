@@ -20,6 +20,7 @@ options:
   enableVPacketEv: false
   enableEpicGuard: false
   enableAntiBot: false
+  enableSkinRest: false
   
   rootConfig:
     motd: "<#09add3>A Velocity Server"
@@ -188,6 +189,7 @@ schema:
   enableVPacketEv: bool
   enableEpicGuard: bool
   enableAntiBot: bool
+  enableSkinRest: bool
   
   rootConfig:
     motd: str
