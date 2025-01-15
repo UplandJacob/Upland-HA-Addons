@@ -274,6 +274,36 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 
 ####### -------------------------- finalize -------------------------------------
 logLine
+
+# optional plugins
+AUTHME=$(getConfig '.enableAuthMeV')
+PACKEV=$(getConfig '.enableVPacketEv')
+EPICGUARD=$(getConfig '.enableEpicGuard')
+ANTIBOT=$(getConfig '.enableAntiBot')
+SKINREST=$(getConfig '.enableSkinRest')
+
+if [ "$AUTHME" = true ]; then
+  logGreen "AuthMeVelocity.jar enabled"
+  cp /optional_plugins/AuthMeVelocity.jar /plugins/AuthMeVelocity.jar
+fi
+if [ "$PACKEV" = true ]; then
+  logGreen "VPacketEvents.jar enabled"
+  cp /optional_plugins/VPacketEvents.jar /plugins/VPacketEvents.jar
+fi
+if [ "$EPICGUARD" = true ]; then
+  logGreen "EpicGuardVelocity.jar enabled"
+  cp /optional_plugins/EpicGuardVelocity.jar /plugins/EpicGuardVelocity.jar
+fi
+if [ "$ANTIBOT" = true ]; then
+  logGreen "UltimateAntibot.jar enabled"
+  cp /optional_plugins/UltimateAntibot.jar /plugins/UltimateAntibot.jar
+fi
+if [ "$SKINREST" = true ]; then
+  logGreen "SkinsRestorer.jar enabled"
+  cp /optional_plugins/SkinsRestorer.jar /plugins/SkinsRestorer.jar
+fi
+
+logLine
 if [[ -f "/config/server-icon.png" ]]; then
   logGreen "server-icon.png found"
   cp /config/server-icon.png /server-icon.png
