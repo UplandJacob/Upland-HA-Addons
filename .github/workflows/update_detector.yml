@@ -16,5 +16,6 @@ jobs:
         run: |
           resourceID='2124'
           resp=$(curl -X 'GET' 'https://api.spiget.org/v2/resources/$resourceID/versions/latest' -H 'accept: application/json')
-          latestVers=$(echo "$resp" | jq .id)
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .id)
           echo "$latestVers"
