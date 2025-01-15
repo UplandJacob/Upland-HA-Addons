@@ -17,7 +17,7 @@ jobs:
       - name: SkinsRestorer
         run: |
           resourceID='2124'
-          resp=$(curl -X 'GET' 'https://api.spiget.org/v2/resources/$resourceID/versions/latest' -H 'accept: application/json')
+          resp=$(curl -X 'GET' "https://api.spiget.org/v2/resources/$resourceID/versions/latest" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .id)
           echo "$latestVers"
