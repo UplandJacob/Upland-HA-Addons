@@ -17,7 +17,16 @@ jobs:
       - name: SkinsRestorer
         run: |
           resourceID='2124'
-          resp=$(curl -X 'GET' "https://api.spiget.org/v2/resources/$resourceID/versions/latest" -H 'accept: application/json')
+          resp=$(curl --silent -X 'GET' "https://api.spiget.org/v2/resources/$resourceID/versions/latest" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .id)
           echo "$latestVers"
+      - name: Geyser https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
+        run: |
+          resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser/versions/" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          echo "$latestVers"
+          resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser/versions/$latestVers" -H 'accept: application/json')
+          echo "$resp2"
+          
