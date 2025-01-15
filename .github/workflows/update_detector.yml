@@ -14,6 +14,7 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4.2.2
+
       - name: SkinsRestorer
         run: |
           resourceID='2124'
@@ -21,6 +22,7 @@ jobs:
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .id)
           echo "$latestVers"
+      
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
       - name: Geyser
         run: |
@@ -32,7 +34,8 @@ jobs:
           echo "$resp2"
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
           echo "$latestBuild"
-          currentVers=$(echo ./mc-all-platform-velocity/Dockerfile | grep -Eo '[0-9]\.[0-9]+')
+          
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Eo '[0-9]\.[0-9]+')
           echo "$currentVers"
       - name: Floodgate
         run: |
