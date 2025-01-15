@@ -23,7 +23,7 @@ jobs:
           echo "$latestVers"
       - name: Geyser https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
         run: |
-          resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser/versions/" -H 'accept: application/json')
+          resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .versions.[-1])
           echo "$latestVers"
