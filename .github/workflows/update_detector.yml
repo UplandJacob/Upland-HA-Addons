@@ -22,6 +22,9 @@ jobs:
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .id)
           echo "$latestVers"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Eo 'SKINRESTORE_VERS="[0-9]+')
+          echo "$currentVers"
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
       - name: Geyser
@@ -35,7 +38,7 @@ jobs:
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
           echo "$latestBuild"
           
-          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Eo '[0-9]\.[0-9]+')
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Eo 'GEYSER_VERS="[0-9]+\.[0-9]+\.[0-9]+')
           echo "$currentVers"
       - name: Floodgate
         run: |
@@ -47,4 +50,7 @@ jobs:
           echo "$resp2"
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
           echo "$latestBuild"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Eo 'FLOOD_VERS="[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
           
