@@ -23,8 +23,8 @@ jobs:
           latestVers=$(echo "$resp" | jq -r .id)
           echo "$latestVers"
 
-          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Eo 'SKINRESTORE_VERS="[0-9]+')
-          echo "$currentVers"
+        # currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Eo 'SKINRESTORE_VERS="[0-9]+')
+        # echo "$currentVers"
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
       - name: Geyser
