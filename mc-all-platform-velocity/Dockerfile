@@ -15,7 +15,7 @@ ARG AUTHME_VERS="4.1.2"
 ARG EPICGUARD_VERS="7.6.0"
 ARG PACKEVENTS_VERS="1.1.0"
 ARG ANTIBOT_VERS="4.1.2"
-ARG SKINRESTORE_VERS="570237"
+ARG SKINRESTORE_VERS="15.5.1"
 
 
 WORKDIR /
@@ -119,7 +119,7 @@ RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o SkinsRestorer.jar \
-    "https://www.spigotmc.org/resources/skinsrestorer.2124/download?version=$SKINRESTORE_VERS"
+    "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$SKINRESTORE_VERS/SkinsRestorer.jar"
 
 WORKDIR /
 
