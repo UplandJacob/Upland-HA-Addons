@@ -38,7 +38,7 @@ jobs:
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
           echo "$latestBuild"
           
-          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -EoP '(?<=GEYSER_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
           echo "$currentVers"
       - name: Floodgate
         run: |
@@ -51,6 +51,6 @@ jobs:
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
           echo "$latestBuild"
 
-          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -EoP '(?<=FLOOD_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
           echo "$currentVers"
           
