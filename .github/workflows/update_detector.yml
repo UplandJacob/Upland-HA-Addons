@@ -3,6 +3,8 @@ name: Update Detector
 on:
   schedule:
     - cron: '0 */2 * * *'
+  workflow_dispatch:
+
 
 
 jobs:
@@ -12,9 +14,48 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4.2.2
+
       - name: SkinsRestorer
         run: |
           resourceID='2124'
-          resp=$(curl -X 'GET' 'https://api.spiget.org/v2/resources/$resourceID/versions/latest' -H 'accept: application/json')
-          latestVers=$(echo "$resp" | jq .id)
+          resp=$(curl --silent -X 'GET' "https://api.spiget.org/v2/resources/$resourceID/versions/latest" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .id)
           echo "$latestVers"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
+          echo "$currentVers"
+      
+      # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
+      - name: Geyser
+        run: |
+          resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          echo "$latestVers"
+          resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser/versions/$latestVers" -H 'accept: application/json')
+          echo "$resp2"
+          latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
+          echo "$latestBuild"
+          
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+          currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_BUILD=")[0-9]+')
+          echo "$currentBuild"
+          
+      - name: Floodgate
+        run: |
+          resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          echo "$latestVers"
+          resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate/versions/$latestVers" -H 'accept: application/json')
+          echo "$resp2"
+          latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
+          echo "$latestBuild"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+          currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_BUILD=")[0-9]+')
+          echo "$currentBuild"
+          
