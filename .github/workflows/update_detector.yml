@@ -61,7 +61,10 @@ jobs:
       
       - name: ViaVersion
         run: |
-          latestVers=$(curl --silent -X 'GET' "https://hangar.papermc.io/api/v1/projects/ViaVersion/ViaVersion/latestrelease" -H 'accept: application/json')
+          latestVers=$(curl --silent \
+            -X 'GET' -H "Accept-Encoding: identity" \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaVersion/latestrelease" -H 'accept: application/json')
           echo "$latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAVERSION_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
@@ -69,7 +72,10 @@ jobs:
 
       - name: ViaBackwards
         run: |
-          latestVers=$(curl --silent -X 'GET' "https://hangar.papermc.io/api/v1/projects/ViaVersion/ViaBackwards/latestrelease" -H 'accept: application/json')
+          latestVers=$(curl --silent \
+            -X 'GET' -H "Accept-Encoding: identity" \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaBackwards/latestrelease" -H 'accept: application/json')
           echo "$latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIABACKWARDS_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
@@ -77,7 +83,10 @@ jobs:
 
       - name: ViaRewind
         run: |
-          latestVers=$(curl --silent -X 'GET' "https://hangar.papermc.io/api/v1/projects/ViaVersion/ViaRewind/latestrelease" -H 'accept: application/json')
+          latestVers=$(curl --silent \
+            -X 'GET' -H "Accept-Encoding: identity" \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaRewind/latestrelease" -H 'accept: application/json')
           echo "$latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAREWIND_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
