@@ -58,4 +58,28 @@ jobs:
           echo "$currentVers"
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_BUILD=")[0-9]+')
           echo "$currentBuild"
-          
+      
+      - name: ViaVersion
+        run: |
+          latestVers=$(curl --silent -X 'GET' "https://hangar.papermc.io/api/v1/projects/ViaVersion/latestrelease" -H 'accept: application/json')
+          echo "$latestVers"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAVERSION_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+
+      - name: ViaBackwards
+        run: |
+          latestVers=$(curl --silent -X 'GET' "https://hangar.papermc.io/api/v1/projects/ViaBackwards/latestrelease" -H 'accept: application/json')
+          echo "$latestVers"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIABACKWARDS_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+
+      - name: ViaRewind
+        run: |
+          latestVers=$(curl --silent -X 'GET' "https://hangar.papermc.io/api/v1/projects/ViaRewind/latestrelease" -H 'accept: application/json')
+          echo "$latestVers"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAREWIND_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+
