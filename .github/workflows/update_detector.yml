@@ -40,6 +40,9 @@ jobs:
           
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
           echo "$currentVers"
+          currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_BUILD=")[0-9]+')
+          echo "$currentVers"
+          
       - name: Floodgate
         run: |
           resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate" -H 'accept: application/json')
@@ -52,5 +55,7 @@ jobs:
           echo "$latestBuild"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+          currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_BUILD=")[0-9]+')
           echo "$currentVers"
           
