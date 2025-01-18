@@ -7,13 +7,14 @@ COPY run.sh /
 RUN chmod +x start.sh && chmod +x run.sh
 
 # commit ID at git.eaglercraft.rip/eaglercraft/eaglercraft-1.8 to download the relay jar from
-ARG RELAY_DL_COMMIT="59aee1b42f8d06b9a7d1813cb89afe08112c7fcc"
+ARG RELAY_DL_COMMIT="713ab652f8dd27259241e8105f1379246b82273d"
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
+# hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     yq curl && \
