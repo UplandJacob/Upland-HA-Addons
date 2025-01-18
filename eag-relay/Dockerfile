@@ -3,9 +3,8 @@ FROM ${BUILD_FROM}
 
 COPY start.sh /
 COPY run.sh /
-COPY relays.txt /
-RUN chmod +x start.sh
-RUN chmod +x run.sh
+
+RUN chmod +x start.sh && chmod +x run.sh
 
 # commit ID at git.eaglercraft.rip/eaglercraft/eaglercraft-1.8 to download the relay jar from
 ARG RELAY_DL_COMMIT="59aee1b42f8d06b9a7d1813cb89afe08112c7fcc"
@@ -15,17 +14,15 @@ ARG RELAY_DL_COMMIT="59aee1b42f8d06b9a7d1813cb89afe08112c7fcc"
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
-
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    yq curl default-jre unzip
+    yq curl && \
+    apt-get autoremove && apt-get clean
 
-RUN curl --no-progress-meter \
-    -H "Accept-Encoding: identity" \
+RUN curl --no-progress-meter -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o /relay.zip \
-    "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/commit/${RELAY_DL_COMMIT}/sources/resources/relay_download.zip"
-RUN unzip -n relay.zip
+    -o /EaglerSPRelay.jar "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/commit/${RELAY_DL_COMMIT}/sp-relay/SharedWorldRelay/SharedWorldRelay-Latest.jar"
+
 RUN chmod +x run.sh
 
 # entrypoint
