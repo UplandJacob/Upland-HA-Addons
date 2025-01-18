@@ -1,5 +1,5 @@
 #!/usr/bin/with-contenv bashio
-CONFIG_PATH=/data/options.json
+
 # simple functions
 logGreen() {
   echo -e "\033[32m$1\033[0m"
@@ -8,7 +8,7 @@ logLine() {
   echo -e ". \n"
 }
 getConfig() {
-  jq --raw-output "$1" $CONFIG_PATH
+  jq --raw-output "$1" /data/options.json
 }
 
 # check for key.pem (for floodgate and geyser)
