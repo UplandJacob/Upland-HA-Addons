@@ -39,10 +39,10 @@ relays=""
 for (( i=0; i<$length; i++ )); do
   url=$(echo "$RELAYS" | jq -r ".[$i].url")
   user=$(echo "$RELAYS" | jq -r ".[$i].username // empty")
-  cred=$(echo "$RELAYS" | jq -r ".[$i].credential // empty")
+  pass=$(echo "$RELAYS" | jq -r ".[$i].password // empty")
   
   if [ -n "$user" ] && [ -n "$cred" ]; then
-    relays+="[PASSWD]\nurl=$url\nusername=$user\ncredential=$cred\n\n"
+    relays+="[PASSWD]\nurl=$url\nusername=$user\npassword=$pass\n\n"
   else
     relays+="[NO_PASSWD]\nurl=$url\n\n"
   fi
