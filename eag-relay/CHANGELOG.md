@@ -1,4 +1,4 @@
-## 1.8.1 (01/18/2025)
+## 1.8.2 (01/18/2025)
 - Change ‘credential’ to ‘password’ (been broken for a while. oops)
 
 ## 1.8.0 (01/18/2025)
