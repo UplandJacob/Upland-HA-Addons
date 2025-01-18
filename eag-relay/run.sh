@@ -6,7 +6,7 @@ logGreen() {
 
 echo ""
 echo "Eaglercraft 1.5.2 LAN World Relay"
-echo "Relay version: 1.3"
+echo "Relay version: 1.4"
 echo "From https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/src/branch/main/sp-relay/SharedWorldRelay"
 echo ""
 
