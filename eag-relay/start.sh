@@ -6,10 +6,13 @@ echo ""
 logGreen() {
   echo -e "\033[32m$1\033[0m"
 }
+getConfig() {
+  jq --raw-output "$1" /data/options.json
+}
 
 #get config
-RELAY_CONFIG=$(bashio::config 'relayConfig')
-RELAYS=$(bashio::config 'relays')
+RELAY_CONFIG=$(getConfig '.relayConfig')
+RELAYS=$(getConfig '.relays')
 
 AUTO_RESTART=$(bashio::config 'autoRestart')
 DEBUG_MODE=$(bashio::config 'debugMode')
@@ -27,21 +30,16 @@ cat relayConfig.ini
 echo ""
 
 echo ""
-logGreen "relays JSON unformatted:"
+logGreen "relays JSON:"
 echo $RELAYS
 echo ""
 
-relayJSON=$(echo $RELAYS | sed 's/}/},/g' | sed '$ s/,$//' | awk '{print "[" $0 "]"}')
-
-logGreen "relays JSON formatted:"
-echo $relayJSON
-echo ""
-length=$(echo "$relayJSON" | jq '. | length')
+length=$(echo "$RELAYS" | jq '. | length')
 relays=""
 for (( i=0; i<$length; i++ )); do
-  url=$(echo "$relayJSON" | jq -r ".[$i].url")
-  user=$(echo "$relayJSON" | jq -r ".[$i].username // empty")
-  cred=$(echo "$relayJSON" | jq -r ".[$i].credential // empty")
+  url=$(echo "$RELAYS" | jq -r ".[$i].url")
+  user=$(echo "$RELAYS" | jq -r ".[$i].username // empty")
+  cred=$(echo "$RELAYS" | jq -r ".[$i].credential // empty")
   
   if [ -n "$user" ] && [ -n "$cred" ]; then
     relays+="[PASSWD]\nurl=$url\nusername=$user\ncredential=$cred\n\n"
