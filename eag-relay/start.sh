@@ -3,7 +3,6 @@
 echo ""
 echo ""
 
-
 logGreen() {
   echo -e "\033[32m$1\033[0m"
 }
@@ -14,7 +13,6 @@ RELAYS=$(bashio::config 'relays')
 
 AUTO_RESTART=$(bashio::config 'autoRestart')
 DEBUG_MODE=$(bashio::config 'debugMode')
-
 
 logGreen "relayConfig JSON:"
 echo $RELAY_CONFIG
@@ -41,7 +39,6 @@ echo ""
 length=$(echo "$relayJSON" | jq '. | length')
 relays=""
 for (( i=0; i<$length; i++ )); do
-  # type=$(echo "$relayJSON" | jq -r ".[$i].type")
   url=$(echo "$relayJSON" | jq -r ".[$i].url")
   user=$(echo "$relayJSON" | jq -r ".[$i].username // empty")
   cred=$(echo "$relayJSON" | jq -r ".[$i].credential // empty")
@@ -51,9 +48,6 @@ for (( i=0; i<$length; i++ )); do
   else
     relays+="[NO_PASSWD]\nurl=$url\n\n"
   fi
-  # relays+="[$type]\nurl=$url\n"
-  # [ -n "$user" ] && relays+="username=$user\n"
-  # [ -n "$cred" ] && relays+="credential=$cred\n"
   relays+="\n"
 done
 echo -e "$relays" > relays.txt
@@ -65,7 +59,7 @@ echo ""
 logGreen "Starting Eaglercraft relay..."
 echo ""
 
-#start relay (run.sh file is downloaded with relay)
+#start relay
 ./run.sh $AUTO_RESTART $DEBUG_MODE
 
 
