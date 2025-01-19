@@ -272,10 +272,9 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 # TODO
 
 
-####### -------------------------- finalize -------------------------------------
-logLine
 
-# optional plugins
+logLine
+####### -------------------------------   optional plugins ---------------------------------
 AUTHME=$(getConfig '.enableAuthMeV')
 PACKEV=$(getConfig '.enableVPacketEv')
 EPICGUARD=$(getConfig '.enableEpicGuard')
@@ -303,6 +302,8 @@ if [ "$SKINREST" = true ]; then
   cp /optional_plugins/SkinsRestorer.jar /plugins/SkinsRestorer.jar
 fi
 
+
+####### ------------------------------------- finalize -------------------------------------
 logLine
 if [[ -f "/config/server-icon.png" ]]; then
   logGreen "server-icon.png found"
