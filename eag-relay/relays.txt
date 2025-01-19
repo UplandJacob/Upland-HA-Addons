@@ -26,7 +26,7 @@ url=turn:example-turn.duckdns.org:5349
 [PASSWD]
 url=turn:turn.speed.cloudflare.com:50000
 username=you-can-generate-this-at
-credential=https://speed.cloudflare.com/turn-creds
+password=https://speed.cloudflare.com/turn-creds
 
 [NO_PASSWD]
 url=turn:turn01.hubl.in?transport=udp

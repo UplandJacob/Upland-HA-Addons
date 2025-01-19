@@ -1,5 +1,5 @@
 name: Eaglercraft Relay
-version: 1.7.0
+version: 1.8.3
 slug: eag-relay
 description: Relay for Eaglercraft
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/eag-relay
@@ -39,7 +39,7 @@ options:
   relays: 
     - url: turn:turn.speed.cloudflare.com:50000
       username: you-can-generate-this-at
-      credential: https://speed.cloudflare.com/turn-creds
+      password: https://speed.cloudflare.com/turn-creds
     - url: stun:stun.l.google.com:19302
     - url: stun:stun1.l.google.com:19302
     - url: stun:stun2.l.google.com:19302
@@ -78,7 +78,7 @@ schema:
   relays:
     - url: str
       username: str?
-      credential: str?
+      password: str?
 
   autoRestart: bool
   debugMode: bool

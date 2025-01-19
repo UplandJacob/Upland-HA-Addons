@@ -1,5 +1,5 @@
 #!/usr/bin/with-contenv bashio
-CONFIG_PATH=/data/options.json
+
 # simple functions
 logGreen() {
   echo -e "\033[32m$1\033[0m"
@@ -8,11 +8,11 @@ logLine() {
   echo -e ". \n"
 }
 getConfig() {
-  jq --raw-output "$1" $CONFIG_PATH
+  jq --raw-output "$1" /data/options.json
 }
 
 # check for key.pem (for floodgate and geyser)
-if [[ ! -f "/config/key.pem" ]]; then
+if [[ ! -f "/config/geyser/key.pem" ]]; then
   logGreen "no key.pem file found. Temporarily starting proxy to generate one."
   
   tmpfile=$(mktemp)
@@ -40,11 +40,11 @@ if [[ ! -f "/config/key.pem" ]]; then
   rm -f $tmpfile
   
   logGreen "copying key.pem to config folder..."
-  cp /plugins/floodgate/key.pem /config/key.pem
+  cp /plugins/floodgate/key.pem /config/geyser/key.pem
 fi
 logGreen "copying key.pem into plugin folders..."
-cp /config/key.pem /plugins/Geyser-Velocity/key.pem
-cp /config/key.pem /plugins/floodgate/key.pem
+cp /config/geyser/key.pem /plugins/Geyser-Velocity/key.pem
+cp /config/geyser/key.pem /plugins/floodgate/key.pem
 
 ################################################
 logGreen "Generating config files..."

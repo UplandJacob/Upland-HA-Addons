@@ -23,8 +23,8 @@ jobs:
           latestVers=$(echo "$resp" | jq -r .id)
           echo "$latestVers"
 
-          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
-          echo "$currentVers"
+        # currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
+        # echo "$currentVers"
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
       - name: Geyser
@@ -58,4 +58,36 @@ jobs:
           echo "$currentVers"
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_BUILD=")[0-9]+')
           echo "$currentBuild"
-          
+      
+      - name: ViaVersion
+        run: |
+          latestVers=$(curl --silent -X 'GET' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaVersion/latestrelease" -H 'accept: application/json')
+          echo "$latestVers"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAVERSION_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+
+      - name: ViaBackwards
+        run: |
+          latestVers=$(curl --silent \
+            -X 'GET' -H "Accept-Encoding: identity" \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaBackwards/latestrelease" -H 'accept: application/json')
+          echo "$latestVers"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIABACKWARDS_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+
+      - name: ViaRewind
+        run: |
+          latestVers=$(curl --silent \
+            -X 'GET' -H "Accept-Encoding: identity" \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaRewind/latestrelease" -H 'accept: application/json')
+          echo "$latestVers"
+
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAREWIND_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
+          echo "$currentVers"
+
