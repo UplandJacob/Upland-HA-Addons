@@ -11,10 +11,24 @@ getConfig() {
   jq --raw-output "$1" /data/options.json
 }
 
+if [[ ! -f "/config/uuid.txt" ]]; then
+  logGreen "No uuid.txt found, generating one..."
+  uuid=$(uuidgen)
+  echo "$uuid" > /config/uuid.txt
+  logGreen "new server uuid: $uuid"
+fi
+UUID=$(</config/uuid.txt)
+
+if [[ ! -f "/config/forwarding.secret.txt" ]]; then
+  logGreen "No forwarding.secret.txt found, generating one..."
+  secret=$(head -1 <(fold -w 10  <(tr -dc 'a-zA-Z0-9' < /dev/urandom)))
+  echo "$secret" > /config/forwarding.secret.txt
+  logGreen "new server forwarding secret: $secret"
+fi
+
 # check for key.pem (for floodgate and geyser)
 if [[ ! -f "/config/geyser/key.pem" ]]; then
   logGreen "no key.pem file found. Temporarily starting proxy to generate one."
-  
   tmpfile=$(mktemp)
   # Create a screen session named "minecraft" and start the command
   screen -dmS velocity bash -c 'java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > '$tmpfile' 2>&1'
@@ -25,16 +39,14 @@ if [[ ! -f "/config/geyser/key.pem" ]]; then
       echo "- $line"
       if [[ "$line" == *"help for help!"* ]]; then
         sleep 1
-        # Send the "stop" command to the "minecraft" screen session
+        # Send the "stop" command to the "velocity" screen session
         screen -S velocity -X stuff "`echo -ne \"stop\r\"`"
         echo "Process stopped."
         break
       fi
     done
   }
-  
   stop_when_string_logged < <(tail -f $tmpfile)
-  
   # Wait for the process to finish
   screen -S velocity -X quit
   rm -f $tmpfile
@@ -214,7 +226,7 @@ flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( 
 
 logLine
 # ------  SAVE --------
-echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
+echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: $UUID\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
 # ------------ plugins/Geyser-Velocity/config.yml ------------
@@ -236,7 +248,7 @@ geyser_advanced=$(echo "$GEYSER_ADVANCED" | jq -r 'to_entries | .[] | "\(.key): 
 
 logLine
 # ------  SAVE --------
-echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
+echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: $UUID\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
 logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
 
