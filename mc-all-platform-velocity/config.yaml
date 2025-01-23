@@ -29,7 +29,6 @@ options:
     force-key-authentication: true
     prevent-client-proxy-connections: false
     player-info-forwarding-mode: "NONE"
-    forwarding-secret-file: "forwarding.secret"
     announce-forge: false
     kick-existing-players: false
     ping-passthrough: "DISABLED"
@@ -211,7 +210,6 @@ schema:
     force-key-authentication: bool
     prevent-client-proxy-connections: bool
     player-info-forwarding-mode: match(NONE|LEGACY|BUNGEEGUARD|MODERN)
-    forwarding-secret-file: str
     announce-forge: bool
     kick-existing-players: bool
     ping-passthrough: match(DISABLED|MODS|DESCRIPTION|ALL)
