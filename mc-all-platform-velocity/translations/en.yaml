@@ -24,6 +24,9 @@ configuration:
   eagListener:
     name: Eaglercraft listeners
     description: Most listener settings are availible in the config folder of the addon. THe setting defined here will ALWAYS overwrite changes you make to listener_01 in that file.
+  eagRelays:
+    name: Eaglercraft ICE relay servers
+    description: Used fo in-game voice chat
   
   floodgate:
     name: Floodgate config

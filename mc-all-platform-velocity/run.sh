@@ -144,6 +144,7 @@ logLine
 EAG_CONFIG=$(getConfig '.eagConfig')
 EAG_AUTH=$(getConfig '.eagAuth')
 EAG_LISTENER=$(getConfig '.eagListener')
+EAG_RELAYS=$(getconfig '.eagRelays')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
 
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
@@ -202,6 +203,30 @@ logGreen "/plugins/eaglerxvelocity/listeners.yml"
 cat /plugins/eaglerxvelocity/listeners.yml
 logLine
 logLine
+
+# ------------------- plugins/eaglerxvelocity/relays.yml -----------
+echo ""
+logGreen "Eaglercraft ICE relay servers JSON:"
+echo $EAG_RELAYS
+echo ""
+
+length=$(echo "$EAG_RELAYS" | jq '. | length')
+relays="voice_servers_passwd:\n"
+relays_no_cred="voice_servers_no_passwd:\n"
+for (( i=0; i<$length; i++ )); do
+  url=$(echo "$EAG_RELAYS" | jq -r ".[$i].url")
+  user=$(echo "$EAG_RELAYS" | jq -r ".[$i].username // empty")
+  pass=$(echo "$EAG_RELAYS" | jq -r ".[$i].password // empty")
+  
+  if [ -n "$user" ] && [ -n "$pass" ]; then
+    relays+="  relay_$i:\n    url: '$url'\n    username: '$user'\n    password: '$pass'\n\n"
+  else
+    relays_no_cred+="   - '$url'\n"
+  fi
+  
+done
+echo -e "$relays_no_cred\n\n$relays" > plugins/eaglerxvelocity/ice_servers.yml
+logGreen "Eagler ICE servers"
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
