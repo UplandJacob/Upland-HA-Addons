@@ -11,11 +11,11 @@ ARG GEYSER_BUILD="744"
 ARG FLOOD_VERS="2.2.3"
 ARG FLOOD_BUILD="114"
 
-ARG AUTHME_VERS="4.1.2"
-ARG EPICGUARD_VERS="7.6.0"
-ARG PACKEVENTS_VERS="1.1.0"
-ARG ANTIBOT_VERS="4.1.2"
-ARG SKINRESTORE_VERS="15.5.1"
+ENV AUTHME_VERS="4.1.2"
+ENV EPICGUARD_VERS="7.6.0"
+ENV PACKEVENTS_VERS="1.1.0"
+ENV ANTIBOT_VERS="4.1.2"
+ENV SKINRESTORE_VERS="15.5.1"
 
 
 WORKDIR /
@@ -87,39 +87,6 @@ RUN curl --no-progress-meter \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o Floodgate.jar \
     "https://download.geysermc.org/v2/projects/floodgate/versions/$FLOOD_VERS/builds/$FLOOD_BUILD/downloads/velocity"
-
-### OPTIONAL PLUGONS
-WORKDIR  /optional_plugins
-# AuthMeVelocity
-RUN curl --no-progress-meter \
-    -H "Accept-Encoding: identity" \
-    -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o AuthMeVelocity.jar \
-    "https://github.com/4drian3d/AuthMeVelocity/releases/download/$AUTHME_VERS/AuthMeVelocity-Velocity-$AUTHME_VERS.jar"
-# EpicGuard
-RUN curl --no-progress-meter \
-    -H "Accept-Encoding: identity" \
-    -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o EpicGuardVelocity.jar \
-    "https://github.com/4drian3d/EpicGuard/releases/download/$EPICGUARD_VERS/EpicGuardVelocity-$EPICGUARD_VERS.jar"
-# VPacketEvents
-RUN curl --no-progress-meter \
-    -H "Accept-Encoding: identity" \
-    -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o VPacketEvents.jar \
-    "https://github.com/4drian3d/VPacketEvents/releases/download/$PACKEVENTS_VERS/VPacketEvents-$PACKEVENTS_VERS.jar"
-# UltimateAntibot
-RUN curl --no-progress-meter \
-    -H "Accept-Encoding: identity" \
-    -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o UltimateAntibot.jar \
-    "https://github.com/Kr1S-D/UltimateAntibotRecoded/releases/download/v$ANTIBOT_VERS/UltimateAntibot-velocity-$ANTIBOT_VERS-ABYSS.jar"
-# SkinsRestorer
-RUN curl --no-progress-meter \
-    -H "Accept-Encoding: identity" \
-    -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o SkinsRestorer.jar \
-    "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$SKINRESTORE_VERS/SkinsRestorer.jar"
 
 WORKDIR /
 
