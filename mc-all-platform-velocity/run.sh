@@ -94,7 +94,7 @@ getPlugin() {
   pl="$1"
   current_pl_vers=""
   if [[ ! -f "/config/cache/optional_plugins/$pl" ]]; then
-    current_pl_vers=$(yq -r ".'$pl'" /config/cache/optional_plugins/versions.yaml)
+    current_pl_vers=$(yq eval ".'$pl' // \"none\"" /config/cache/optional_plugins/versions.yaml)
   fi
   url=""
   latest_pl_vers=""
