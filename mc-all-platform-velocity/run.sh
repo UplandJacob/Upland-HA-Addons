@@ -58,6 +58,103 @@ logGreen "copying key.pem into plugin folders..."
 cp /config/geyser/key.pem /plugins/Geyser-Velocity/key.pem
 cp /config/geyser/key.pem /plugins/floodgate/key.pem
 
+
+
+logLine
+####### -------------------------------   optional plugins ---------------------------------
+AUTHME=$(getConfig '.enableAuthMeV')
+PACKEV=$(getConfig '.enableVPacketEv')
+EPICGUARD=$(getConfig '.enableEpicGuard')
+ANTIBOT=$(getConfig '.enableAntiBot')
+SKINREST=$(getConfig '.enableSkinRest')
+
+if [[ ! -d "/config/cache" ]]; then
+  mkdir "/config/cache"
+  logGreen "created /config/cache folder"
+fi
+if [[ ! -d "/config/cache/optional_plugins" ]]; then
+  mkdir "/config/cache/optional_plugins"
+  logGreen "created /config/cache/optional_plugins folder"
+fi
+if [[ ! -f "/config/cache/optional_plugins/versions.yaml" ]]; then
+  echo -e "\n" > /config/cache/optional_plugins/versions.yaml
+  logGreen "created /config/cache/optional_plugins/versions.yaml"
+fi
+
+downloadPlugin() {
+  name=$1
+  url=$2
+  logGreen "Downloading $name from the url: $url"
+  curl --no-progress-meter -H "Accept-Encoding: identity" \
+    -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+    -o /config/cache/optional_plugins/$name "$url"
+}
+
+getPlugin() {
+  pl="$1"
+  current_pl_vers=""
+  if [[ ! -f "/config/cache/optional_plugins/$pl" ]]; then
+    current_pl_vers=$(yq -r ".'$pl'" /config/cache/optional_plugins/versions.yaml)
+  fi
+  url=""
+  latest_pl_vers=""
+  case $pl in
+    "AuthMeVelocity.jar")
+      url="https://github.com/4drian3d/AuthMeVelocity/releases/download/$AUTHME_VERS/AuthMeVelocity-Velocity-$AUTHME_VERS.jar"
+      latest_pl_vers=$AUTHME_VERS
+    ;;
+    "EpicGuardVelocity.jar")
+      url="https://github.com/4drian3d/EpicGuard/releases/download/$EPICGUARD_VERS/EpicGuardVelocity-$EPICGUARD_VERS.jar"
+      latest_pl_vers=$EPICGUARD_VERS
+    ;;
+    "VPacketEvents.jar")
+      url="https://github.com/4drian3d/VPacketEvents/releases/download/$PACKEVENTS_VERS/VPacketEvents-$PACKEVENTS_VERS.jar"
+      latest_pl_vers=$PACKEVENTS_VERS
+    ;;
+    "UltimateAntibot.jar")
+      url="https://github.com/Kr1S-D/UltimateAntibotRecoded/releases/download/v$ANTIBOT_VERS/UltimateAntibot-velocity-$ANTIBOT_VERS-ABYSS.jar"
+      latest_pl_vers=$ANTIBOT_VERS
+    ;;
+    "SkinsRestorer.jar")
+      url="https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$SKINRESTORE_VERS/SkinsRestorer.jar"
+      latest_pl_vers=$SKINRESTORE_VERS
+    ;;
+  esac
+  if [[ ! -f "/config/cache/optional_plugins/$pl" ]]; then
+    downloadPlugin $pl $url
+  elif [[ ! $current_pl_vers == $latest_pl_vers ]]; then
+    logGreen "update available for $pl ($current_pl_vers) - new version: $latest_pl_vers"
+    downloadPlugin $pl $url
+  fi
+  cp /config/cache/optional_plugins/$name/plugins/$name
+}
+
+
+if [ "$AUTHME" = true ]; then
+  logGreen "AuthMeVelocity.jar enabled"
+  getPlugin "AuthMeVelocity.jar"
+fi
+if [ "$PACKEV" = true ]; then
+  logGreen "VPacketEvents.jar enabled"
+  getPlugin "VPacketEvents.jar"
+fi
+if [ "$EPICGUARD" = true ]; then
+  logGreen "EpicGuardVelocity.jar enabled"
+  getPlugin "EpicGuardVelocity.jar"
+fi
+if [ "$ANTIBOT" = true ]; then
+  logGreen "UltimateAntibot.jar enabled"
+  getPlugin "UltimateAntibot.jar"
+fi
+if [ "$SKINREST" = true ]; then
+  logGreen "SkinsRestorer.jar enabled"
+  getPlugin "SkinsRestorer.jar"
+fi
+
+
+
+
+
 ################################################
 logGreen "Generating config files..."
 #---------------------- velocity.toml -----------------------
@@ -309,35 +406,6 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 # TODO
 
 
-
-logLine
-####### -------------------------------   optional plugins ---------------------------------
-AUTHME=$(getConfig '.enableAuthMeV')
-PACKEV=$(getConfig '.enableVPacketEv')
-EPICGUARD=$(getConfig '.enableEpicGuard')
-ANTIBOT=$(getConfig '.enableAntiBot')
-SKINREST=$(getConfig '.enableSkinRest')
-
-if [ "$AUTHME" = true ]; then
-  logGreen "AuthMeVelocity.jar enabled"
-  cp /optional_plugins/AuthMeVelocity.jar /plugins/AuthMeVelocity.jar
-fi
-if [ "$PACKEV" = true ]; then
-  logGreen "VPacketEvents.jar enabled"
-  cp /optional_plugins/VPacketEvents.jar /plugins/VPacketEvents.jar
-fi
-if [ "$EPICGUARD" = true ]; then
-  logGreen "EpicGuardVelocity.jar enabled"
-  cp /optional_plugins/EpicGuardVelocity.jar /plugins/EpicGuardVelocity.jar
-fi
-if [ "$ANTIBOT" = true ]; then
-  logGreen "UltimateAntibot.jar enabled"
-  cp /optional_plugins/UltimateAntibot.jar /plugins/UltimateAntibot.jar
-fi
-if [ "$SKINREST" = true ]; then
-  logGreen "SkinsRestorer.jar enabled"
-  cp /optional_plugins/SkinsRestorer.jar /plugins/SkinsRestorer.jar
-fi
 
 
 ####### ------------------------------------- finalize -------------------------------------
