@@ -204,7 +204,7 @@ cat /plugins/eaglerxvelocity/listeners.yml
 logLine
 logLine
 
-# ------------------- plugins/eaglerxvelocity/relays.yml -----------
+# ------------------- plugins/eaglerxvelocity/ice_servers.yml -----------
 echo ""
 logGreen "Eaglercraft ICE relay servers JSON:"
 echo $EAG_RELAYS
