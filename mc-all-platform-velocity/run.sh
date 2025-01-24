@@ -72,13 +72,13 @@ if [[ ! -d "/config/cache" ]]; then
   mkdir "/config/cache"
   logGreen "created /config/cache folder"
 fi
-if [[ ! -d "/config/cache/optional_plugins" ]]; then
-  mkdir "/config/cache/optional_plugins"
-  logGreen "created /config/cache/optional_plugins folder"
+if [[ ! -d "/config/cache/plugins" ]]; then
+  mkdir "/config/cache/plugins"
+  logGreen "created /config/cache/plugins folder"
 fi
-if [[ ! -f "/config/cache/optional_plugins/versions.yaml" ]]; then
-  echo -e "\n" > /config/cache/optional_plugins/versions.yaml
-  logGreen "created /config/cache/optional_plugins/versions.yaml"
+if [[ ! -f "/config/cache/plugins/versions.yaml" ]]; then
+  echo -e "\n" > /config/cache/plugins/versions.yaml
+  logGreen "created /config/cache/plugins/versions.yaml"
 fi
 
 downloadPlugin() {
@@ -87,14 +87,14 @@ downloadPlugin() {
   logGreen "Downloading $name from the url: $url"
   curl --no-progress-meter -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o /config/cache/optional_plugins/$name "$url"
+    -o /config/cache/plugins/$name "$url"
 }
 
 getPlugin() {
   pl="$1"
   current_pl_vers=""
-  if [[ ! -f "/config/cache/optional_plugins/$pl" ]]; then
-    current_pl_vers=$(yq eval ".'$pl' // \"none\"" /config/cache/optional_plugins/versions.yaml)
+  if [[ ! -f "/config/cache/plugins/$pl" ]]; then
+    current_pl_vers=$(yq eval ".'$pl' // \"none\"" /config/cache/plugins/versions.yaml)
   fi
   url=""
   latest_pl_vers=""
@@ -120,13 +120,13 @@ getPlugin() {
       latest_pl_vers=$SKINRESTORE_VERS
     ;;
   esac
-  if [[ ! -f "/config/cache/optional_plugins/$pl" ]]; then
+  if [[ ! -f "/config/cache/plugins/$pl" ]]; then
     downloadPlugin $pl $url
   elif [[ ! $current_pl_vers == $latest_pl_vers ]]; then
     logGreen "update available for $pl ($current_pl_vers) - new version: $latest_pl_vers"
     downloadPlugin $pl $url
   fi
-  cp /config/cache/optional_plugins/$name/plugins/$name
+  cp /config/cache/plugins/$name/plugins/$name
 }
 
 
