@@ -87,7 +87,7 @@ WORKDIR /
 RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 # kickstart and make sure there are no extra files
-RUN ./kickstart.sh && \
+RUN ./kickstart.sh "downloaded and loaded!" && \
     rm /plugins/floodgate/key.pem && \
     rm eaglercraft_auths.db && \
     rm eaglercraft_skins_cache.db
