@@ -230,7 +230,7 @@ flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( 
 
 logLine
 # ------  SAVE --------
-echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: $UUID\n\nconfig-version: 3" > plugins/floodgate/config.yml
+echo -e "key-file-name: 'key.pem'\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: $UUID\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
 # ------------ plugins/Geyser-Velocity/config.yml ------------
