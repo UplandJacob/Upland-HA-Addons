@@ -123,7 +123,7 @@ logLine
 EAG_CONFIG=$(getConfig '.eagConfig')
 EAG_AUTH=$(getConfig '.eagAuth')
 EAG_LISTENER=$(getConfig '.eagListener')
-EAG_RELAYS=$(getconfig '.eagRelays')
+EAG_RELAYS=$(getConfig '.eagRelays')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
 
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
