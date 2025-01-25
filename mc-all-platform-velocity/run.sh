@@ -208,6 +208,7 @@ echo -e "$relays_no_cred\n\n$relays" > plugins/eaglerxvelocity/ice_servers.yml
 logGreen "Eagler ICE servers"
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
+FLOOD_SEND=$(getConfig '.foodSendData')
 FLOOD_CONF=$(getConfig '.floodgate')
 FLOOD_DISC=$(getConfig '.floodDisconnect')
 FLOOD_PLAYER=$(getConfig '.floodPlayerLink')
@@ -230,7 +231,7 @@ flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( 
 
 logLine
 # ------  SAVE --------
-echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: $UUID\n\nconfig-version: 3" > plugins/floodgate/config.yml
+echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: $FLOOD_SEND\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: $UUID\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
 # ------------ plugins/Geyser-Velocity/config.yml ------------
