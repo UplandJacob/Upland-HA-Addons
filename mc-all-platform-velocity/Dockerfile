@@ -7,7 +7,7 @@ ENV VIAVERSION_VERS="5.2.1"
 ENV VIABACKWARDS_VERS="5.2.1"
 ENV VIAREWIND_VERS="4.0.5"
 ENV GEYSER_VERS="2.6.0"
-ENV GEYSER_BUILD="744"
+ENV GEYSER_BUILD="751"
 ENV FLOOD_VERS="2.2.3"
 ENV FLOOD_BUILD="114"
 
@@ -36,7 +36,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    rsync screen && \
+    rsync screen uuid-runtime && \
     apt-get autoremove && apt-get clean
 
 #Velocity

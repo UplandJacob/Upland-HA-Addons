@@ -209,7 +209,7 @@ logGreen "velocity advanced formatted:"
 echo -e "$vel_advanced"
 logLine
 # -------    SAVE --------
-echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\nforwarding-secret-file: \"/config/forwarding.secret.txt\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
+echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\nforwarding-secret-file = \"/config/forwarding.secret.txt\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
 logLine
@@ -220,7 +220,7 @@ logLine
 EAG_CONFIG=$(getConfig '.eagConfig')
 EAG_AUTH=$(getConfig '.eagAuth')
 EAG_LISTENER=$(getConfig '.eagListener')
-EAG_RELAYS=$(getconfig '.eagRelays')
+EAG_RELAYS=$(getConfig '.eagRelays')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
 
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
@@ -327,7 +327,7 @@ flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( 
 
 logLine
 # ------  SAVE --------
-echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: $UUID\n\nconfig-version: 3" > plugins/floodgate/config.yml
+echo -e "key-file-name: 'key.pem'\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: $UUID\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
 # ------------ plugins/Geyser-Velocity/config.yml ------------
