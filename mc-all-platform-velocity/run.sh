@@ -4,6 +4,9 @@
 logGreen() {
   echo -e "\033[32m$1\033[0m"
 }
+logRed() {
+  echo -e "\033[31m$1\033[0m"
+}
 logLine() {
   echo -e ". \n"
 }
@@ -280,16 +283,33 @@ fi
 # local linking
 if [[ jq -r "$FLOOD_PLAYER.enable-own-linking" = true ]]; then
   if [[ jq -r "$FLOOD_PLAYER.type" = "mysql" ]]; then
-    # TODO - check for MySQL DB driver
+    if [[ ! -f "/config/geyser/floodgate/floodgate-mysql-database.jar" ]]; then
+      logRed "missing floodgate-mysql-database.jar for Floodgate DB type 'mysql'"
+      exit 0
+    fi
     # TODO - check this mysql.yml file location
     if [[ ! -f "/config/geyser/floodgate/mysql.yml" ]]; then
       need_kick=true
       need_kick_reason+=("floodgate/mysql.yml")
     fi
+  elif [[ jq -r "$FLOOD_PLAYER.type" = "mongo" ]]; then
+    if [[ ! -f "/config/geyser/floodgate/floodgate-mongo-database.jar" ]]; then
+      logRed "missing floodgate-mongo-database.jar for Floodgate DB type 'mongo'"
+      exit 0
+    fi
+    # TODO - check this mongo.yml file location
+    if [[ ! -f "/config/geyser/floodgate/mongo.yml" ]]; then
+      need_kick=true
+      need_kick_reason+=("floodgate/mongo.yml")
+    fi
   elif [[ jq -r "$FLOOD_PLAYER.type" = "sqlite" ]]; then
-    # TODO - check for SQLite DB driver
+    if [[ ! -f "/config/geyser/floodgate/floodgate-sqlite-database.jar" ]]; then
+      logRed "missing floodgate-sqlite-database.jar for Floodgate DB type 'sqlite'"
+      exit 0
+    fi
     # TODO - symbo-link DB file location?
   fi
+  
   rsync -av --ignore-existing /config/geyser/floodgate /plugins/floodgate
 fi
 #----------------------------------------- VIABACKWARDS --------------------------------
