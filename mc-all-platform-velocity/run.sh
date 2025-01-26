@@ -186,7 +186,7 @@ logLine
 # ------------------- plugins/eaglerxvelocity/ice_servers.yml -----------
 echo ""
 logGreen "Eaglercraft ICE relay servers JSON:"
-echo $EAG_RELAYS
+echo -e "$EAG_RELAYS"
 echo ""
 
 length=$(echo "$EAG_RELAYS" | jq '. | length')
@@ -206,6 +206,7 @@ for (( i=0; i<$length; i++ )); do
 done
 echo -e "$relays_no_cred\n\n$relays" > plugins/eaglerxvelocity/ice_servers.yml
 logGreen "Eagler ICE servers"
+cat plugins/eaglerxvelocity/ice_servers.yml
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
