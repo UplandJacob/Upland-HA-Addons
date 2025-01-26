@@ -288,8 +288,10 @@ if [[ jq -r "$FLOOD_PLAYER.enable-own-linking" = true ]]; then
       logRed "missing floodgate-mysql-database.jar for Floodgate DB type 'mysql'"
       exit 0
     fi
-    # TODO - check this mysql.yml file location
-    if [[ ! -f "/config/geyser/floodgate/mysql.yml" ]]; then
+     if [[ ! -d "/config/geyser/floodgate/mysql" ]]; then
+      mkdir /config/geyser/floodgate/mysql
+    fi
+    if [[ ! -f "/config/geyser/floodgate/mysql/mysql.yml" ]]; then
       need_kick=true
       need_kick_reason+=("floodgate/mysql.yml")
     fi
@@ -298,8 +300,10 @@ if [[ jq -r "$FLOOD_PLAYER.enable-own-linking" = true ]]; then
       logRed "missing floodgate-mongo-database.jar for Floodgate DB type 'mongo'"
       exit 0
     fi
-    # TODO - check this mongo.yml file location
-    if [[ ! -f "/config/geyser/floodgate/mongo.yml" ]]; then
+    if [[ ! -d "/config/geyser/floodgate/mongo" ]]; then
+      mkdir /config/geyser/floodgate/mongo
+    fi
+    if [[ ! -f "/config/geyser/floodgate/mongo/mongo.yml" ]]; then
       need_kick=true
       need_kick_reason+=("floodgate/mongo.yml")
     fi
@@ -308,7 +312,7 @@ if [[ jq -r "$FLOOD_PLAYER.enable-own-linking" = true ]]; then
       logRed "missing floodgate-sqlite-database.jar for Floodgate DB type 'sqlite'"
       exit 0
     fi
-    # TODO - symbo-link DB file location?
+    ln -s /config/geyser/floodgate/linked-players.db /plugins/floodgate/linked-players.db
   fi
   
   rsync -av --ignore-existing /config/geyser/floodgate /plugins/floodgate
