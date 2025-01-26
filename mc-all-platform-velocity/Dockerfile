@@ -11,8 +11,14 @@ ENV GEYSER_BUILD="751"
 ENV FLOOD_VERS="2.2.3"
 ENV FLOOD_BUILD="114"
 
-WORKDIR /
+ENV AUTHME_VERS="4.1.2"
+ENV EPICGUARD_VERS="7.6.0"
+ENV PACKEVENTS_VERS="1.1.0"
+ENV ANTIBOT_VERS="4.1.2"
+ENV SKINRESTORE_VERS="15.5.1"
 
+
+WORKDIR /
 COPY default_config default_config
 
 COPY run.sh run.sh
@@ -47,7 +53,7 @@ WORKDIR /plugins
 RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o EaglerXVelocity-Latest.jar \
+    -o EaglerXVelocity.jar \
     "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/branch/main/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar"
 
 # for old clients including Eaglercraft
