@@ -288,7 +288,7 @@ if [[ jq -r "$FLOOD_PLAYER.enable-own-linking" = true ]]; then
       logRed "missing floodgate-mysql-database.jar for Floodgate DB type 'mysql'"
       exit 0
     fi
-     if [[ ! -d "/config/geyser/floodgate/mysql" ]]; then
+    if [[ ! -d "/config/geyser/floodgate/mysql" ]]; then
       mkdir /config/geyser/floodgate/mysql
     fi
     if [[ ! -f "/config/geyser/floodgate/mysql/mysql.yml" ]]; then
@@ -334,7 +334,6 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 ####### -------------------------- finalize -------------------------------------
 logLine
 
-
 if [[ "$need_kick" = true ]]; then
   logGreen "Temporarlily starting proxy for reason(s): $need_kick_reason"
   ./kickstart.sh "help for help!"
@@ -342,13 +341,18 @@ if [[ "$need_kick" = true ]]; then
     logGreen "copying key.pem to config folder..."
     cp /plugins/floodgate/key.pem /config/geyser/key.pem
   fi
+  if [[ "$need_kick_reason" =~ "floodgate/mysql.yml" ]]; then
+    logGreen "copying mysql.yml to config folder..."
+    cp /plugins/floodgate/mysql/mysql.yml /config/geyser/floodgate/mysql/mysql.yml
+  elif [[ "$need_kick_reason" =~ "floodgate/mongo.yml" ]]; then
+    logGreen "copying mongo.yml to config folder..."
+    cp /plugins/floodgate/mongo/mongo.yml /config/geyser/floodgate/mongo/mongo.yml
+  fi
 fi
 
 logGreen "copying key.pem into plugin folders..."
 cp /config/geyser/key.pem /plugins/Geyser-Velocity/key.pem
 cp /config/geyser/key.pem /plugins/floodgate/key.pem
-
-
 
 
 if [[ -f "/config/server-icon.png" ]]; then
