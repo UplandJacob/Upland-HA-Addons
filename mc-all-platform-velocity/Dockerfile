@@ -3,6 +3,7 @@ FROM ${BUILD_FROM}
 
 ENV VELOCITY_VERS="3.4.0-SNAPSHOT"
 ENV VELOCITY_BUILD="458"
+ENV EAGLER_COMMIT_ID="ed97c1ac0082547d5d289eb0677b2565acaa9876"
 ENV VIAVERSION_VERS="5.2.1"
 ENV VIABACKWARDS_VERS="5.2.1"
 ENV VIAREWIND_VERS="4.0.5"
@@ -48,7 +49,7 @@ RUN curl --no-progress-meter \
     -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
     -o EaglerXVelocity-Latest.jar \
-    "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/branch/main/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar"
+    "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar"
 
 # for old clients including Eaglercraft
 RUN curl --no-progress-meter \
