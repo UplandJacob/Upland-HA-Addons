@@ -36,8 +36,7 @@ RUN apt-get update && \
 #Velocity
 RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
     -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o /velocity.jar \
-    "https://api.papermc.io/v2/projects/velocity/versions/$VELOCITY_VERS/builds/$VELOCITY_BUILD/downloads/velocity-$VELOCITY_VERS-$VELOCITY_BUILD.jar"
+    -o /velocity.jar "https://api.papermc.io/v2/projects/velocity/versions/$VELOCITY_VERS/builds/$VELOCITY_BUILD/downloads/velocity-$VELOCITY_VERS-$VELOCITY_BUILD.jar"
 
 ### PLUGINS
 WORKDIR /plugins
