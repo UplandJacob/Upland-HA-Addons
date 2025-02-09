@@ -93,7 +93,7 @@ jobs:
           # A comma separated list of rules whose severity will be `error`
           #override-error: 
           # A comma separated list of rules whose severity will be `warning`
-          #override-warning: 
+          override-warning: "SC1001"
           # A comma separated list of rules whose severity will be `info`
           #override-info: 
           # A comma separated list of rules whose severity will be `style`
