@@ -26,7 +26,7 @@ jobs:
 
       - name: Get changed files
         id: changed_files
-        uses: UplandJacob2/retrieve-changed-files@v4.0.0
+        uses: UplandJacob/retrieve-changed-files@v4.1.0
 
       - name: Find add-on directories
         id: addons
@@ -93,7 +93,7 @@ jobs:
           # A comma separated list of rules whose severity will be `error`
           #override-error: 
           # A comma separated list of rules whose severity will be `warning`
-          #override-warning: 
+          override-warning: "SC1001"
           # A comma separated list of rules whose severity will be `info`
           #override-info: 
           # A comma separated list of rules whose severity will be `style`
