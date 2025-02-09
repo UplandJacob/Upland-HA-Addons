@@ -89,7 +89,7 @@ jobs:
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAREWIND_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
           echo "$currentVers"
 
-      - name: ViaRewind
+      - name: EaglercraftXVelocity
         run: |
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
