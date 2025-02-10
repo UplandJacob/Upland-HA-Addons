@@ -282,8 +282,8 @@ if [[ ! -d "/config/geyser/floodgate" ]]; then
   mkdir /config/geyser/floodgate
 fi
 # local linking
-if [[ echo "$FLOOD_PLAYER" | jq -e '.enable-own-linking == true' ]]; then
-  if [[ echo "$FLOOD_PLAYER" | jq -e '.type == mysql' ]]; then
+if [ echo "$FLOOD_PLAYER" | jq -e '.enable-own-linking == true' ]; then
+  if [ echo "$FLOOD_PLAYER" | jq -e '.type == mysql' ]; then
     if [[ ! -f "/config/geyser/floodgate/floodgate-mysql-database.jar" ]]; then
       logRed "missing floodgate-mysql-database.jar for Floodgate DB type 'mysql'"
       exit 0
@@ -295,7 +295,7 @@ if [[ echo "$FLOOD_PLAYER" | jq -e '.enable-own-linking == true' ]]; then
       need_kick=true
       need_kick_reason+=("floodgate/mysql.yml")
     fi
-  elif [[ echo "$FLOOD_PLAYER" | jq -e '.type == mongo' ]]; then
+  elif [ echo "$FLOOD_PLAYER" | jq -e '.type == mongo' ]; then
     if [[ ! -f "/config/geyser/floodgate/floodgate-mongo-database.jar" ]]; then
       logRed "missing floodgate-mongo-database.jar for Floodgate DB type 'mongo'"
       exit 0
@@ -307,7 +307,7 @@ if [[ echo "$FLOOD_PLAYER" | jq -e '.enable-own-linking == true' ]]; then
       need_kick=true
       need_kick_reason+=("floodgate/mongo.yml")
     fi
-  elif [[ echo "$FLOOD_PLAYER" | jq -e '.type == sqlite' ]]; then
+  elif [ echo "$FLOOD_PLAYER" | jq -e '.type == sqlite' ]; then
     if [[ ! -f "/config/geyser/floodgate/floodgate-sqlite-database.jar" ]]; then
       logRed "missing floodgate-sqlite-database.jar for Floodgate DB type 'sqlite'"
       exit 0
