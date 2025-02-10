@@ -282,7 +282,7 @@ if [[ ! -d "/config/geyser/floodgate" ]]; then
   mkdir /config/geyser/floodgate
 fi
 # local linking
-if [[ jq -r "$FLOOD_PLAYER.enable-own-linking" == true ]]; then
+if [[ jq -r "$FLOOD_PLAYER.enable-own-linking" == "true" ]]; then
   if [[ jq -r "$FLOOD_PLAYER.type" == "mysql" ]]; then
     if [[ ! -f "/config/geyser/floodgate/floodgate-mysql-database.jar" ]]; then
       logRed "missing floodgate-mysql-database.jar for Floodgate DB type 'mysql'"
