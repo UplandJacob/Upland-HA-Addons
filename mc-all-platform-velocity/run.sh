@@ -315,7 +315,7 @@ if echo "$FLOOD_PLAYER" | jq -e '."enable-own-linking" == true'; then
     ln -s /config/geyser/floodgate/linked-players.db /plugins/floodgate/linked-players.db
   fi
   
-  rsync -av --ignore-existing /config/geyser/floodgate /plugins/floodgate
+  rsync -av --ignore-existing /config/geyser/floodgate/ /plugins/floodgate
 fi
 #----------------------------------------- VIABACKWARDS --------------------------------
 # ------------ plugins/viabackwards/config.yml ------------
