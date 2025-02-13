@@ -44,7 +44,7 @@ WORKDIR /plugins
 # for Eaglercraft
 RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
     -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o EaglerXVelocity-Latest.jar "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar"
+    -o EaglerXVelocity.jar "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar"
 
 # for old clients including Eaglercraft
 RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
