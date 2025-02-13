@@ -4,6 +4,9 @@
 logGreen() {
   echo -e "\033[32m$1\033[0m"
 }
+logRed() {
+  echo -e "\033[31m$1\033[0m"
+}
 logLine() {
   echo -e ". \n"
 }
@@ -26,16 +29,8 @@ if [[ ! -f "/config/forwarding.secret.txt" ]]; then
   logGreen "new server forwarding secret: $secret"
 fi
 
-# check for key.pem (for floodgate and geyser)
-if [[ ! -f "/config/geyser/key.pem" ]]; then
-  logGreen "no key.pem file found. Temporarily starting proxy to generate one."
-  ./kickstart.sh "help for help!"
-  logGreen "copying key.pem to config folder..."
-  cp /plugins/floodgate/key.pem /config/geyser/key.pem
-fi
-logGreen "copying key.pem into plugin folders..."
-cp /config/geyser/key.pem /plugins/Geyser-Velocity/key.pem
-cp /config/geyser/key.pem /plugins/floodgate/key.pem
+need_kick=false
+need_kick_reason=()
 
 
 
@@ -283,7 +278,7 @@ logLine
 # ------------------- plugins/eaglerxvelocity/ice_servers.yml -----------
 echo ""
 logGreen "Eaglercraft ICE relay servers JSON:"
-echo $EAG_RELAYS
+echo -e "$EAG_RELAYS"
 echo ""
 
 length=$(echo "$EAG_RELAYS" | jq '. | length')
@@ -303,6 +298,7 @@ for (( i=0; i<$length; i++ )); do
 done
 echo -e "$relays_no_cred\n\n$relays" > plugins/eaglerxvelocity/ice_servers.yml
 logGreen "Eagler ICE servers"
+cat plugins/eaglerxvelocity/ice_servers.yml
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
@@ -353,7 +349,7 @@ echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\
 logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
 
-#------------------ packs and extentions -----------------
+#----- packs and extentions ------
 if [[ ! -d "/config/geyser" ]]; then
   logGreen "creating 'geyser' folder..."
   mkdir /config/geyser
@@ -371,6 +367,53 @@ rsync -av --ignore-existing /config/geyser/packs/ /plugins/Geyser-Velocity/packs
 logGreen "copying Geyser extensions..."
 rsync -av --ignore-existing /config/geyser/extensions/ /plugins/Geyser-Velocity/extensions/
 
+# check for key.pem
+if [[ ! -f "/config/geyser/key.pem" ]]; then
+  logGreen "no key.pem file found. Will generate one."
+  need_kick=true
+  need_kick_reason+=("key.pem")
+fi
+# floodgate folder for DB jars and config
+if [[ ! -d "/config/geyser/floodgate" ]]; then
+  logGreen "creating 'geyser/floodgate' folder..."
+  mkdir /config/geyser/floodgate
+fi
+# local linking
+if echo "$FLOOD_PLAYER" | jq -e '."enable-own-linking" == true'; then
+  if echo "$FLOOD_PLAYER" | jq -e '.type == "mysql"'; then
+    if [[ ! -f "/config/geyser/floodgate/floodgate-mysql-database.jar" ]]; then
+      logRed "missing floodgate-mysql-database.jar for Floodgate DB type 'mysql'"
+      exit 0
+    fi
+    if [[ ! -d "/config/geyser/floodgate/mysql" ]]; then
+      mkdir /config/geyser/floodgate/mysql
+    fi
+    if [[ ! -f "/config/geyser/floodgate/mysql/mysql.yml" ]]; then
+      need_kick=true
+      need_kick_reason+=("floodgate/mysql.yml")
+    fi
+  elif echo "$FLOOD_PLAYER" | jq -e '.type == "mongo"'; then
+    if [[ ! -f "/config/geyser/floodgate/floodgate-mongo-database.jar" ]]; then
+      logRed "missing floodgate-mongo-database.jar for Floodgate DB type 'mongo'"
+      exit 0
+    fi
+    if [[ ! -d "/config/geyser/floodgate/mongo" ]]; then
+      mkdir /config/geyser/floodgate/mongo
+    fi
+    if [[ ! -f "/config/geyser/floodgate/mongo/mongo.yml" ]]; then
+      need_kick=true
+      need_kick_reason+=("floodgate/mongo.yml")
+    fi
+  elif echo "$FLOOD_PLAYER" | jq -e '.type == "sqlite"'; then
+    if [[ ! -f "/config/geyser/floodgate/floodgate-sqlite-database.jar" ]]; then
+      logRed "missing floodgate-sqlite-database.jar for Floodgate DB type 'sqlite'"
+      exit 0
+    fi
+    ln -s /config/geyser/floodgate/linked-players.db /plugins/floodgate/linked-players.db
+  fi
+  
+  rsync -av --ignore-existing /config/geyser/floodgate/ /plugins/floodgate
+fi
 #----------------------------------------- VIABACKWARDS --------------------------------
 # ------------ plugins/viabackwards/config.yml ------------
 if [[ ! -f "/config/viabackwards.yml" ]]; then
@@ -389,6 +432,28 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 
 ####### ------------------------------------- finalize -------------------------------------
 logLine
+
+if [[ "$need_kick" = true ]]; then
+  logGreen "Temporarlily starting proxy for reason(s): $need_kick_reason"
+  ./kickstart.sh "help for help!"
+  if [[ "$need_kick_reason" =~ "key.pem" ]]; then
+    logGreen "copying key.pem to config folder..."
+    cp /plugins/floodgate/key.pem /config/geyser/key.pem
+  fi
+  if [[ "$need_kick_reason" =~ "floodgate/mysql.yml" ]]; then
+    logGreen "copying mysql.yml to config folder..."
+    cp /plugins/floodgate/mysql/mysql.yml /config/geyser/floodgate/mysql/mysql.yml
+  elif [[ "$need_kick_reason" =~ "floodgate/mongo.yml" ]]; then
+    logGreen "copying mongo.yml to config folder..."
+    cp /plugins/floodgate/mongo/mongo.yml /config/geyser/floodgate/mongo/mongo.yml
+  fi
+fi
+
+logGreen "copying key.pem into plugin folders..."
+cp /config/geyser/key.pem /plugins/Geyser-Velocity/key.pem
+cp /config/geyser/key.pem /plugins/floodgate/key.pem
+
+
 if [[ -f "/config/server-icon.png" ]]; then
   logGreen "server-icon.png found"
   cp /config/server-icon.png /server-icon.png

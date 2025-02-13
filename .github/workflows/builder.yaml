@@ -27,7 +27,7 @@ jobs:
 
       - name: Get changed files
         id: changed_files
-        uses: UplandJacob2/retrieve-changed-files@v4.0.0
+        uses: UplandJacob/retrieve-changed-files@v4.1.0
 
       - name: Find add-on directories
         id: addons
@@ -168,7 +168,7 @@ jobs:
 
       - name: Set up Docker Buildx
         if: ${{ steps.check.outputs.build_arch == 'true' }}
-        uses: docker/setup-buildx-action@v3.8.0
+        uses: docker/setup-buildx-action@v3.9.0
 
       - name: Build and push Docker images
         if: ${{ steps.check.outputs.build_arch == 'true' && env.VERSION != env.LATEST_VERSION }}
