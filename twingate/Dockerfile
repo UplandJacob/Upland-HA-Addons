@@ -15,9 +15,9 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # hadolint ignore=DL3008
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
-    curl
+# RUN apt-get update && \
+#     apt-get install --no-install-recommends -y \
+#     curl
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
