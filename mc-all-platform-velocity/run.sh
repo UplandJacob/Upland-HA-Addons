@@ -61,14 +61,14 @@ downloadPlugin() {
   logGreen "Downloading $name from the url: $url"
   curl --no-progress-meter -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o /config/cache/plugins/$name "$url"
+    -o /config/plugins/optional_cache/$name "$url"
 }
 
 getPlugin() {
   pl="$1"
   current_pl_vers=""
   if [[ ! -f "/config/cache/plugins/$pl" ]]; then
-    current_pl_vers=$(yq eval ".'$pl' // \"none\"" /config/cache/plugins/versions.yaml)
+    current_pl_vers=$(yq eval ".'$pl' // \"none\"" /config/plugins/optional_cache/versions.yaml)
   fi
   url=""
   latest_pl_vers=""
@@ -96,17 +96,22 @@ getPlugin() {
   esac
   if [[ ! -f "/config/cache/plugins/$pl" ]]; then
     downloadPlugin $pl $url
-  elif [[ ! $current_pl_vers == $latest_pl_vers ]]; then
+  elif [ ! "$current_pl_vers" = "$latest_pl_vers" ]]; then
     logGreen "update available for $pl ($current_pl_vers) - new version: $latest_pl_vers"
     downloadPlugin $pl $url
   fi
-  cp /config/cache/plugins/$name/plugins/$name
+  cp /config/plugins/optional_cache/$name /plugins/$name
 }
 
 
 if [ "$AUTHME" = true ]; then
   logGreen "AuthMeVelocity.jar enabled"
   getPlugin "AuthMeVelocity.jar"
+  if [[ ! -f "/config/plugins/optional_config/authme" ]]; then
+    mkdir /config/plugins/optional_config/authme
+    ## TODO
+  fi
+  ## TODO
 fi
 if [ "$PACKEV" = true ]; then
   logGreen "VPacketEvents.jar enabled"
@@ -115,14 +120,17 @@ fi
 if [ "$EPICGUARD" = true ]; then
   logGreen "EpicGuardVelocity.jar enabled"
   getPlugin "EpicGuardVelocity.jar"
+  ## TODO
 fi
 if [ "$ANTIBOT" = true ]; then
   logGreen "UltimateAntibot.jar enabled"
   getPlugin "UltimateAntibot.jar"
+  ## TODO
 fi
 if [ "$SKINREST" = true ]; then
   logGreen "SkinsRestorer.jar enabled"
   getPlugin "SkinsRestorer.jar"
+  ## TODO
 fi
 
 
@@ -426,8 +434,6 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 #----------------------------------------- VIAREWIND --------------------------------
 # ------------ plugins/viarewind/config.yml ------------
 # TODO
-
-
 
 
 ####### ------------------------------------- finalize -------------------------------------
