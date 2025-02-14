@@ -1,6 +1,11 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
+# Set S6 wait time
+ENV S6_CMD_WAIT_FOR_SERVICES=1 \
+    S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
+    S6_SERVICES_GRACETIME=0
+
 # Add rootfs
 #COPY rootfs/ /
 
@@ -14,19 +19,35 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     curl
 
+# Modules
+ARG MODULES="00-banner.sh 00-global_var.sh"
 
+# Automatic modules download
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
+RUN chmod 744 /ha_automodules.sh && /ha_automodules.sh "$MODULES" && rm /ha_automodules.sh
 
+# Manual apps (NONE)
+ENV PACKAGES=""
+# Automatic apps & bashio
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_autoapps.sh" "/ha_autoapps.sh"
+RUN chmod 744 /ha_autoapps.sh && /ha_autoapps.sh "$PACKAGES" && rm /ha_autoapps.sh
 
-COPY twingate-install.sh /twingate-install.sh
-RUN chmod a+x /twingate-install.sh
-COPY run.sh /run.sh
-RUN chmod a+x /run.sh
-
-RUN ./twingate-install.sh
 
 
 # entrypoint
-CMD [ "/run.sh" ]
+# CMD [ "/run.sh" ]
+
+# Add entrypoint
+ENV S6_STAGE2_HOOK=/ha_entrypoint.sh
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint.sh" "/ha_entrypoint.sh"
+
+# Entrypoint modifications
+ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
+RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
+
+ENTRYPOINT [ "/usr/bin/env" ]
+CMD [ "/ha_entrypoint.sh" ]
+
 
 ARG BUILD_ARCH
 #ARG BUILD_DATE
