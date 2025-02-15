@@ -5,6 +5,7 @@ FROM ${BUILD_FROM}
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=debian /bin/apt-get /bin/apt-get
+COPY --from=debian /bin/libapt-private.so.0.0 /bin/libapt-private.so.0.0
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
