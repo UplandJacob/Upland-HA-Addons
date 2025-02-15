@@ -2,7 +2,7 @@ ARG BUILD_FROM
 ARG BUILD_ARCH
 
 FROM debian
-RUN apt-get update && apt-get install -y wget
+RUN apt-get update && apt-get upgrade -y && apt-get install -y wget
 
 RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/libapt-pkg4.12_0.8.16~exp12ubuntu10.21_amd64.deb
 
