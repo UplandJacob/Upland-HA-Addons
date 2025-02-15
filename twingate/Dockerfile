@@ -13,7 +13,7 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=0 /bin/apt-get /bin/apt-get
 COPY --from=0 /bin/dpkg /bin/dpkg
-COPY --from=0 /bin/ldconfig /bin/ldconfig
+COPY --from=0 /lib/libmd.so.0 /lib/libmd.so.0
 COPY --from=0 ./apt.deb ./apt.deb
 
 
