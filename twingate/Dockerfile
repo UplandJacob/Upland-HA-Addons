@@ -13,6 +13,7 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
+COPY --from=0 /usr/bin/su /usr/bin/su
 COPY --from=0 /usr/lib /usr/lib
 COPY --from=0 /lib /lib
 COPY --from=0 /lib64 /lib64
