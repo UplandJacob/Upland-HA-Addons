@@ -11,10 +11,9 @@ FROM ${BUILD_FROM}
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
-COPY --from=0 /bin/apt-get /bin/apt-get
-COPY --from=0 /bin/dpkg /bin/dpkg
-COPY --from=0 /lib/libmd.so.0 /lib/libmd.so.0
-COPY --from=0 ./apt.deb ./apt.deb
+COPY --from=0 /usr/bin/apt /usr/bin/apt
+COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
+COPY --from=0 ./apt.deb /tmp/apt.deb
 
 
 
@@ -31,7 +30,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 RUN ldconfig
-RUN dpkg -i apt.deb
+RUN dpkg -i /tmp/apt.deb
 
 
 # hadolint ignore=DL3008
