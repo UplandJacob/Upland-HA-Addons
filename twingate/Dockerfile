@@ -1,4 +1,5 @@
 ARG BUILD_FROM
+ARG BUILD_ARCH
 
 FROM debian
 RUN apt-get update && apt-get install -y wget
@@ -6,7 +7,6 @@ RUN apt-get update && apt-get install -y wget
 RUN wget "http://security.ubuntu.com/ubuntu/pool/main/a/apt/libapt-pkg4.12_0.8.16~exp12ubuntu10.21_$BUILD_ARCH.deb"
 
 FROM ${BUILD_FROM}
-ARG BUILD_ARCH
 
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
