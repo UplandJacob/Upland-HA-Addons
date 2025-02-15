@@ -13,6 +13,7 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
+COPY --from=0 /usr/lib/amd64-linux-gnu/libmd.so.0 /usr/lib/amd64-linux-gnu/libmd.so.0
 COPY --from=0 ./apt.deb /tmp/apt.deb
 
 
