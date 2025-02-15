@@ -3,6 +3,7 @@ ARG BUILD_FROM
 FROM debian
 RUN apt-get update && apt-get install -y wget
 
+RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/libapt-pkg4.12_0.8.16~exp12ubuntu10.21_${BUILD_ARCH}.deb
 
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH
@@ -12,12 +13,8 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=0 /bin/apt-get /bin/apt-get
 COPY --from=0 /bin/dpkg /bin/dpkg
-COPY --from=0 /bin/wget /bin/wget
-# COPY --from=0 /bin/ca-certificates /bin/ca-certificates
-# COPY --from=0 /bin/libpsl5 /bin/libpsl5
-# COPY --from=0 /bin/libssl3 /bin/libssl3
-COPY --from=0 /bin/openssl /bin/openssl
-# COPY --from=0 /bin/publicsuffix /bin/publicsuffix
+COPY --from=0 ./libapt-pkg4.12_0.8.16~exp12ubuntu10.21_${BUILD_ARCH}.deb ./libapt-pkg4.12_0.8.16~exp12ubuntu10.21_${BUILD_ARCH}.deb
+
 
 
 # Set S6 wait time
@@ -32,8 +29,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # hadolint ignore=DL4005
 # RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
-RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/libapt-pkg4.12_0.8.16~exp12ubuntu10.21_${BUILD_ARCH}.deb && \
-    dpkg -i libapt-pkg4.12_0.8.16~exp12ubuntu10.21_${BUILD_ARCH}.deb
+RUN dpkg -i libapt-pkg4.12_0.8.16~exp12ubuntu10.21_${BUILD_ARCH}.deb
 
 
 # hadolint ignore=DL3008
