@@ -2,7 +2,7 @@ ARG BUILD_FROM
 ARG BUILD_ARCH
 
 FROM debian
-RUN apt-get update && apt-get upgrade -y && apt-get install -y wget sudo
+RUN apt-get update && apt-get upgrade -y && apt-get install -y wget
 
 RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_2.9.29_amd64.deb -O apt.deb
 
@@ -34,7 +34,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
-RUN sudo dpkg -i /tmp/apt.deb
+RUN su - && dpkg -i /tmp/apt.deb
 
 
 # hadolint ignore=DL3008
