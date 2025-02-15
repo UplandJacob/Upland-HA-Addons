@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 
 FROM debian
-RUN apt-get update && apt-get install wget
+RUN apt-get update && apt-get install -y wget
 
 
 FROM ${BUILD_FROM}
@@ -13,6 +13,11 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 COPY --from=0 /bin/apt-get /bin/apt-get
 COPY --from=0 /bin/dpkg /bin/dpkg
 COPY --from=0 /bin/wget /bin/wget
+COPY --from=0 /bin/wget /bin/ca-certificates
+COPY --from=0 /bin/wget /bin/libpsl5
+COPY --from=0 /bin/wget /bin/libssl3
+COPY --from=0 /bin/wget /bin/openssl
+COPY --from=0 /bin/wget /bin/publicsuffix
 
 
 # Set S6 wait time
