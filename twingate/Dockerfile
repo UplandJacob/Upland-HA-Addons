@@ -2,7 +2,7 @@ ARG BUILD_FROM
 ARG BUILD_ARCH
 
 FROM debian
-RUN apt-get update && apt-get upgrade -y && apt-get install -y wget
+RUN apt-get update && apt-get upgrade -y && apt-get install -y wget sudo
 
 RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_2.9.29_amd64.deb -O apt.deb
 RUN cd /usr/lib/x86_64-linux-gnu && ls
@@ -14,6 +14,7 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
+COPY --from=0 /usr/bin/sudo /usr/bin/sudo
 COPY --from=0 /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
 COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 /lib64 /lib64
