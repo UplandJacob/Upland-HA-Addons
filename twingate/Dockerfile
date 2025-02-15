@@ -15,6 +15,7 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 ./apt.deb /tmp/apt.deb
 
 
