@@ -5,7 +5,7 @@ FROM debian
 RUN apt-get update && apt-get upgrade -y && apt-get install -y wget
 
 RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_2.9.29_amd64.deb -O apt.deb
-RUN cd /usr/lib && ls
+RUN cd /usr/lib/x86_64-linux-gnu && ls
 
 FROM ${BUILD_FROM}
 
@@ -14,7 +14,7 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
-COPY --from=0 /usr/lib/*-linux-gnu/libmd.so.0 /usr/lib/*-linux-gnu/libmd.so.0
+COPY --from=0 /usr/lib/x86_64-linux-gnu/libmd.so.0 /usr/lib/x86_64-linux-gnu/libmd.so.0
 COPY --from=0 ./apt.deb /tmp/apt.deb
 
 
