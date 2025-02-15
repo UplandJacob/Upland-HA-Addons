@@ -1,7 +1,9 @@
+ARG BUILD_FROM
+
 FROM debian
 RUN apt-get update && apt-get install wget
 
-ARG BUILD_FROM
+
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH
 
