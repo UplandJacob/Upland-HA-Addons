@@ -1,6 +1,9 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
+# we need /bin/sh
+COPY --from=gcr.io/distroless/base-debian11:bebug /bin/sh /bin/sh
+
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
