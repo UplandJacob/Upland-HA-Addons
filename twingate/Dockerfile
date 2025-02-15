@@ -1,11 +1,14 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
+ARG BUILD_ARCH
 
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=debian /bin/apt-get /bin/apt-get
-COPY --from=debian /bin/libapt-private.so.0.0 /bin/libapt-private.so.0.0
+COPY --from=debian /bin/dpkg /bin/dpkg
+COPY --from=debian /bin/wget /bin/wget
+
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
@@ -19,6 +22,9 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # hadolint ignore=DL4005
 # RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
+RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/libapt-pkg4.12_0.8.16~exp12ubuntu10.21_${BUILD_ARCH}.deb && \
+    dpkg -i libapt-pkg4.12_0.8.16~exp12ubuntu10.21_${BUILD_ARCH}.deb
+
 
 # hadolint ignore=DL3008
 RUN apt-get update && \
@@ -55,7 +61,7 @@ ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/ha_entrypoint.sh" ]
 
 
-ARG BUILD_ARCH
+
 #ARG BUILD_DATE
 #ARG BUILD_REF
 ARG BUILD_NAME
