@@ -4,7 +4,7 @@ ARG BUILD_ARCH
 FROM debian
 RUN apt-get update && apt-get upgrade -y && apt-get install -y wget
 
-RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_1.0.1ubuntu2.17_amd64.deb
+RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_2.9.29_amd64.deb -O apt.deb
 
 FROM ${BUILD_FROM}
 
@@ -13,7 +13,7 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 COPY --from=0 /bin/apt-get /bin/apt-get
 COPY --from=0 /bin/dpkg /bin/dpkg
-COPY --from=0 ./apt_1.0.1ubuntu2.17_amd64.deb ./apt_1.0.1ubuntu2.17_amd64.deb
+COPY --from=0 ./apt.deb ./apt.deb
 
 
 
@@ -29,7 +29,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # hadolint ignore=DL4005
 # RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
-RUN dpkg -i apt_1.0.1ubuntu2.17_amd64.deb
+RUN dpkg -i apt.deb
 
 
 # hadolint ignore=DL3008
