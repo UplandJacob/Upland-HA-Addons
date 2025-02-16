@@ -113,10 +113,7 @@ getPlugin() {
 if [ "$AUTHME" = true ]; then
   logGreen "AuthMeVelocity.jar enabled"
   getPlugin "AuthMeVelocity.jar"
-  if [[ ! -f "/config/plugins/optional_config/authme" ]]; then
-    mkdir /config/plugins/optional_config/authme
-    ## TODO
-  fi
+  checkDir "/config/plugins/optional_config/authmevelocity"
   ## TODO
 fi
 if [ "$PACKEV" = true ]; then
@@ -126,16 +123,19 @@ fi
 if [ "$EPICGUARD" = true ]; then
   logGreen "EpicGuardVelocity.jar enabled"
   getPlugin "EpicGuardVelocity.jar"
+  checkDir "/config/plugins/optional_config/epicguard"
   ## TODO
 fi
 if [ "$ANTIBOT" = true ]; then
   logGreen "UltimateAntibot.jar enabled"
   getPlugin "UltimateAntibot.jar"
+  checkDir "/config/plugins/optional_config/ultimateantibot-velocity"
   ## TODO
 fi
 if [ "$SKINREST" = true ]; then
   logGreen "SkinsRestorer.jar enabled"
   getPlugin "SkinsRestorer.jar"
+  checkDir "/config/plugins/optional_config/skinsrestorer"
   ## TODO
 fi
 
