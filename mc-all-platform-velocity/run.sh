@@ -319,8 +319,12 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 
 #----------------------------------------- VIAREWIND --------------------------------
 # ------------ plugins/viarewind/config.yml ------------
-# TODO
-
+if [[ ! -f "/config/viarewind.yml" ]]; then
+  logGreen "no viarewind.yml file found. Copying from default.."
+  cp /default_config/viarewind.yml /config/viarewind.yml
+fi
+logGreen "copying viarewind.yml from config..."
+cp /config/viarewind.yml /plugins/viarewind/config.yml
 
 ####### -------------------------- finalize -------------------------------------
 logLine
