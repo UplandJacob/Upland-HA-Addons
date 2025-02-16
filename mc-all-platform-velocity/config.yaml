@@ -377,10 +377,10 @@ map:
   - addon_config:rw
 
 ports:
-  "25565": 25565
+  "25565/tcp": 25565
   "19132/udp": 19132
   "8081/tcp": 8081
 ports_description:
-  "25565": "Java Edition port"
+  "25565/tcp": "Java Edition port"
   "19132/udp": "Bedrock Edition port"
   "8081/tcp": "Eaglercraft port"
