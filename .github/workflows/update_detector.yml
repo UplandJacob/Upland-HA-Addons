@@ -50,6 +50,7 @@ jobs:
           echo "current build: $currentBuild"
 
           if [ ! "$latestVers" = "currentVers" -o "$latestBuild" = "currentBuild" ]; then
+            echo "UPDATE"
             echo "changed='${{ env.changed }} Geyser'" >> $GITHUB_OUTPUT;
           fi
           
@@ -70,6 +71,7 @@ jobs:
           echo "current build: $currentBuild"
 
           if [ ! "$latestVers" = "currentVers" -o "$latestBuild" = "currentBuild" ]; then
+            echo "UPDATE"
             echo "changed='${{ env.changed }} Floodgate'" >> $GITHUB_OUTPUT;
           fi
       
