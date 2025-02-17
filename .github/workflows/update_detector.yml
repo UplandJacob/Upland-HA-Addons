@@ -54,10 +54,10 @@ jobs:
             echo "changed=${{ env.changed }} Geyser" >> $GITHUB_ENV;
           fi
           if [ $latestVers != $currentVers ]; then
-            cat ./mc-all-platform-velocity/Dockerfile | awk 'gsub("(?<=GEYSER_VERS=")[0-9]+\\.[0-9]+\\.[0-9]+","$latestVers") > ./mc-all-platform-velocity/Dockerfile
+            cat ./mc-all-platform-velocity/Dockerfile | awk '{ gsub(/(?<=GEYSER_VERS=")[0-9]+\\.[0-9]+\\.[0-9]+/,"$latestVers"); print }' > ./mc-all-platform-velocity/Dockerfile
           fi
           if [ $latestBuild != $currentBuild ]; then
-            cat ./mc-all-platform-velocity/Dockerfile | awk 'gsub("(?<=GEYSER_BUILD=")[0-9]+","$latestBuild") > ./mc-all-platform-velocity/Dockerfile
+            cat ./mc-all-platform-velocity/Dockerfile | awk '{ gsub(/(?<=GEYSER_BUILD=")[0-9]+/,"$latestBuild"); print }' > ./mc-all-platform-velocity/Dockerfile
             cat ./mc-all-platform-velocity/Dockerfile
           fi
           
