@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4.2.2
+      - name: Create empty "changed" env variable.
+        run: |
+          echo "changed=''" >> $GITHUB_OUTPUT;
 
       - name: SkinsRestorer
         run: |
@@ -23,8 +26,11 @@ jobs:
           latestVers=$(echo "$resp" | jq -r .id)
           echo "latest version: $latestVers"
 
-        # currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
-        # echo "current version: $currentVers"
+          # currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
+          # echo "current version: $currentVers"
+          # if [ ! "$latestVers" = "currentVers" ]; then
+          #   echo "changed='${{ env.changed }} SkinsRestorer'" >> $GITHUB_OUTPUT;
+          # fi
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
       - name: Geyser
@@ -42,6 +48,10 @@ jobs:
           echo "current version: $currentVers"
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_BUILD=")[0-9]+')
           echo "current build: $currentBuild"
+
+          if [ ! "$latestVers" = "currentVers" ]; then
+            echo "changed='${{ env.changed }} Geyser'" >> $GITHUB_OUTPUT;
+          fi
           
       - name: Floodgate
         run: |
@@ -58,6 +68,10 @@ jobs:
           echo "current version: $currentVers"
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_BUILD=")[0-9]+')
           echo "current build: $currentBuild"
+
+          if [ ! "$latestVers" = "currentVers" ]; then
+            echo "changed='${{ env.changed }} Floodgate'" >> $GITHUB_OUTPUT;
+          fi
       
       - name: ViaVersion
         run: |
@@ -69,6 +83,10 @@ jobs:
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAVERSION_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
           echo "current version: $currentVers"
 
+          if [ ! "$latestVers" = "currentVers" ]; then
+            echo "changed='${{ env.changed }} ViaVersion'" >> $GITHUB_OUTPUT;
+          fi
+
       - name: ViaBackwards
         run: |
           latestVers=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" \
@@ -79,6 +97,10 @@ jobs:
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIABACKWARDS_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
           echo "current version: $currentVers"
 
+          if [ ! "$latestVers" = "currentVers" ]; then
+            echo "changed='${{ env.changed }} ViaBackwards'" >> $GITHUB_OUTPUT;
+          fi
+
       - name: ViaRewind
         run: |
           latestVers=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" \
@@ -88,6 +110,10 @@ jobs:
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAREWIND_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
           echo "current version: $currentVers"
+
+          if [ ! "$latestVers" = "currentVers" ]; then
+            echo "changed='${{ env.changed }} ViaRewind'" >> $GITHUB_OUTPUT;
+          fi
 
       - name: EaglercraftXVelocity
         run: |
@@ -100,5 +126,12 @@ jobs:
 
           currentID=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=EAGLER_COMMIT_ID=")[0-9a-z]+')
           echo "current commit: $currentID"
+
+          if [ ! "$latestID" = "currentID" ]; then
+            echo "changed='${{ env.changed }} EaglercraftXVelocity'" >> $GITHUB_OUTPUT;
+          fi
+
+      - name: Changed:
+        run: echo ${{ env.changed }}
 
 
