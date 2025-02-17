@@ -30,6 +30,7 @@ jobs:
           # echo "current version: $currentVers"
           # if [ "$latestVers" != "$currentVers" ]; then
           #   echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
+          #   sed -i -E "s/SKINRESTORE_BUILD=\"[0-9]+\"/SKINRESTORE_BUILD=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
           # fi
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
@@ -54,13 +55,12 @@ jobs:
             echo "changed=${{ env.changed }} Geyser" >> $GITHUB_ENV;
           fi
           if [ $latestVers != $currentVers ]; then
-            cat ./mc-all-platform-velocity/Dockerfile | awk '{ gsub(/(?<=GEYSER_VERS=")[0-9]+\\.[0-9]+\\.[0-9]+/,"$latestVers"); print }' > ./mc-all-platform-velocity/Dockerfile
+            echo "VERSION update"
+            sed -i -E "s/GEYSER_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/GEYSER_VERS=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
-            cat ./mc-all-platform-velocity/Dockerfile
             sed -i -E "s/GEYSER_BUILD=\"[0-9]+\"/GEYSER_BUILD=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
-            cat ./mc-all-platform-velocity/Dockerfile
           fi
           
       - name: Floodgate
@@ -83,6 +83,14 @@ jobs:
             echo "UPDATE"
             echo "changed=${{ env.changed }} Floodgate" >> $GITHUB_ENV;
           fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+            sed -i -E "s/FLOOD_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/FLOOD_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
+          if [ $latestBuild != $currentBuild ]; then
+            echo "BUILD update"
+            sed -i -E "s/FLOOD_BUILD=\"[0-9]+\"/FLOOD_BUILD=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
       
       - name: ViaVersion
         run: |
@@ -96,6 +104,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaVersion" >> $GITHUB_ENV;
+            sed -i -E "s/VIAVERSION_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/VIAVERSION_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
           fi
 
       - name: ViaBackwards
@@ -110,6 +119,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaBackwards" >> $GITHUB_ENV;
+            sed -i -E "s/VIABACKWARDS_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/VIABACKWARDS_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
           fi
 
       - name: ViaRewind
@@ -124,6 +134,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaRewind" >> $GITHUB_ENV;
+            sed -i -E "s/VIAREWIND_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/VIAREWIND_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
           fi
 
       - name: EaglercraftXVelocity
@@ -140,6 +151,7 @@ jobs:
 
           if [ "$latestID" != "$currentID" ]; then
             echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
+            sed -i -E "s/EAGLER_COMMIT_ID=\"[0-9a-z]+\"/EAGLER_COMMIT_ID=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
           fi
 
       - name: "Changed:"
