@@ -59,7 +59,7 @@ jobs:
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
             cat ./mc-all-platform-velocity/Dockerfile
-            cat ./mc-all-platform-velocity/Dockerfile | awk '{ gsub(/(?<=GEYSER_BUILD=")[0-9]+/,"$latestBuild"); print }' > ./mc-all-platform-velocity/Dockerfile
+            cat ./mc-all-platform-velocity/Dockerfile | awk '{ gsub(/(?<=GEYSER_BUILD=\")[0-9]+/,"$latestBuild"); print }' > ./mc-all-platform-velocity/Dockerfile
             cat ./mc-all-platform-velocity/Dockerfile
           fi
           
