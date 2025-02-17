@@ -21,10 +21,10 @@ jobs:
           resp=$(curl --silent -X 'GET' "https://api.spiget.org/v2/resources/$resourceID/versions/latest" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .id)
-          echo "$latestVers"
+          echo "latest version: $latestVers"
 
         # currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
-        # echo "$currentVers"
+        # echo "current version: $currentVers"
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
       - name: Geyser
@@ -32,62 +32,62 @@ jobs:
           resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .versions.[-1])
-          echo "$latestVers"
+          echo "latest version: $latestVers"
           resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser/versions/$latestVers" -H 'accept: application/json')
           echo "$resp2"
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
-          echo "$latestBuild"
+          echo "latest build: $latestBuild"
           
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_BUILD=")[0-9]+')
-          echo "$currentBuild"
+          echo "current build: $currentBuild"
           
       - name: Floodgate
         run: |
           resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .versions.[-1])
-          echo "$latestVers"
+          echo "latest version: $latestVers"
           resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate/versions/$latestVers" -H 'accept: application/json')
           echo "$resp2"
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
-          echo "$latestBuild"
+          echo "latest build: $latestBuild"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_BUILD=")[0-9]+')
-          echo "$currentBuild"
+          echo "current build: $currentBuild"
       
       - name: ViaVersion
         run: |
           latestVers=$(curl --silent -X 'GET' \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
             "https://hangar.papermc.io/api/v1/projects/ViaVersion/latestrelease")
-          echo "$latestVers"
+          echo "latest version: $latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAVERSION_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
 
       - name: ViaBackwards
         run: |
           latestVers=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
             "https://hangar.papermc.io/api/v1/projects/ViaBackwards/latestrelease")
-          echo "$latestVers"
+          echo "latest version: $latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIABACKWARDS_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
 
       - name: ViaRewind
         run: |
           latestVers=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
             "https://hangar.papermc.io/api/v1/projects/ViaRewind/latestrelease")
-          echo "$latestVers"
+          echo "latest version: $latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAREWIND_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
 
       - name: EaglercraftXVelocity
         run: |
@@ -96,9 +96,9 @@ jobs:
             "https://git.eaglercraft.rip/api/v1/repos/eaglercraft/eaglercraft-1.8/commits?path=gateway%2FEaglercraftXVelocity%2Fsrc%2Fmain%2Fjava%2Fnet%2Flax1dude%2Feaglercraft%2Fv1_8%2Fplugin%2Fgateway_velocity%2FEaglerXVelocityVersion.java")
           
           latestID=$(echo "$resp" | jq -r .[0].sha)
-          echo "$latestID"
+          echo "latest commit: $latestID"
 
           currentID=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=EAGLER_COMMIT_ID=")[0-9a-z]+')
-          echo "$currentID"
+          echo "current commit: $currentID"
 
 
