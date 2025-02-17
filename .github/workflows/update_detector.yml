@@ -131,7 +131,7 @@ jobs:
             echo "changed='${{ env.changed }} EaglercraftXVelocity'" >> $GITHUB_OUTPUT;
           fi
 
-      - name: Changed:
+      - name: "Changed:"
         run: echo ${{ env.changed }}
 
 
