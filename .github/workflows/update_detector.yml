@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4.2.2
       - name: Create empty "changed" env variable.
         run: |
-          echo "changed=''" >> $GITHUB_ENV;
+          echo "changed=" >> $GITHUB_ENV;
 
       - name: SkinsRestorer
         run: |
@@ -29,7 +29,7 @@ jobs:
           # currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
           # echo "current version: $currentVers"
           # if [ "$latestVers" != "$currentVers" ]; then
-          #   echo "changed='${{ env.changed }} SkinsRestorer'" >> $GITHUB_ENV;
+          #   echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
           # fi
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
@@ -51,7 +51,7 @@ jobs:
 
           if [ $latestVers != $currentVers -o $latestBuild != $currentBuild ]; then
             echo "UPDATE"
-            echo "changed='${{ env.changed }} Geyser'" >> $GITHUB_ENV;
+            echo "changed=${{ env.changed }} Geyser" >> $GITHUB_ENV;
           fi
           
       - name: Floodgate
@@ -72,7 +72,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" -o "$latestBuild" != "$currentBuild" ]; then
             echo "UPDATE"
-            echo "changed='${{ env.changed }} Floodgate'" >> $GITHUB_ENV;
+            echo "changed=${{ env.changed }} Floodgate" >> $GITHUB_ENV;
           fi
       
       - name: ViaVersion
@@ -86,7 +86,7 @@ jobs:
           echo "current version: $currentVers"
 
           if [ "$latestVers" != "$currentVers" ]; then
-            echo "changed='${{ env.changed }} ViaVersion'" >> $GITHUB_ENV;
+            echo "changed=${{ env.changed }} ViaVersion" >> $GITHUB_ENV;
           fi
 
       - name: ViaBackwards
@@ -100,7 +100,7 @@ jobs:
           echo "current version: $currentVers"
 
           if [ "$latestVers" != "$currentVers" ]; then
-            echo "changed='${{ env.changed }} ViaBackwards'" >> $GITHUB_ENV;
+            echo "changed=${{ env.changed }} ViaBackwards" >> $GITHUB_ENV;
           fi
 
       - name: ViaRewind
@@ -114,7 +114,7 @@ jobs:
           echo "current version: $currentVers"
 
           if [ "$latestVers" != "$currentVers" ]; then
-            echo "changed='${{ env.changed }} ViaRewind'" >> $GITHUB_ENV;
+            echo "changed=${{ env.changed }} ViaRewind" >> $GITHUB_ENV;
           fi
 
       - name: EaglercraftXVelocity
@@ -130,7 +130,7 @@ jobs:
           echo "current commit: $currentID"
 
           if [ "$latestID" != "$currentID" ]; then
-            echo "changed='${{ env.changed }} EaglercraftXVelocity'" >> $GITHUB_ENV;
+            echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
           fi
 
       - name: "Changed:"
