@@ -49,7 +49,7 @@ jobs:
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_BUILD=")[0-9]+')
           echo "current build: $currentBuild"
 
-          if [ ! "$latestVers" = "currentVers" ]; then
+          if [ ! "$latestVers" = "currentVers" -o "$latestBuild" = "currentBuild" ]; then
             echo "changed='${{ env.changed }} Geyser'" >> $GITHUB_OUTPUT;
           fi
           
@@ -69,7 +69,7 @@ jobs:
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_BUILD=")[0-9]+')
           echo "current build: $currentBuild"
 
-          if [ ! "$latestVers" = "currentVers" ]; then
+          if [ ! "$latestVers" = "currentVers" -o "$latestBuild" = "currentBuild" ]; then
             echo "changed='${{ env.changed }} Floodgate'" >> $GITHUB_OUTPUT;
           fi
       
