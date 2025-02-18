@@ -14,7 +14,7 @@ env:
 permissions: write-all
 
 jobs:
-  init:
+  init_lint:
     runs-on: ubuntu-latest
     name: Initialize addons to lint
     outputs:
