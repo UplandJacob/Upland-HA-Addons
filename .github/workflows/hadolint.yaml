@@ -58,13 +58,13 @@ jobs:
             echo "No add-on had any monitored files changed (${{ env.MONITORED_FILES }})";
           fi
   lint:
-    needs: init
+    needs: init_lint
     runs-on: ubuntu-latest
     if: needs.init.outputs.changed == 'true'
-    name: Lint ${{ matrix.addon }} add-on Dockerfile
+    name: Lint add-on Dockerfile
     strategy:
       matrix:
-        addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
+        addon: ${{ fromJson(needs.init_lint.outputs.changed_addons) }}
       fail-fast: false
     steps:
       # - name: Dump github context
