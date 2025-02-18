@@ -205,3 +205,15 @@ jobs:
             -t ghcr.io/${{ env.REPO_NAME_LC }}-${{ matrix.addon }}-${{ matrix.arch }}:${{ env.VERSION }} \
             ./${{ matrix.addon }}
 
+  check_build:
+    name: Check build success
+    if: always()
+    needs:
+    - build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Decide whether the needed jobs succeeded or failed
+      uses: re-actors/alls-green@release/v1
+      with:
+        jobs: ${{ toJSON(needs) }}

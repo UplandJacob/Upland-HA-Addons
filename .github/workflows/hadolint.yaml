@@ -102,4 +102,16 @@ jobs:
           ignore: "DL3006"
           # A comma separated list of trusted registry urls
           #trusted-registries: 
-          
+
+  check_lint:
+    name: Check lint success
+    if: always()
+    needs:
+    - lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Decide whether the needed jobs succeeded or failed
+      uses: re-actors/alls-green@release/v1
+      with:
+        jobs: ${{ toJSON(needs) }}
