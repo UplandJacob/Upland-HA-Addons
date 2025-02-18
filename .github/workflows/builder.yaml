@@ -15,7 +15,7 @@ on:
 permissions: write-all
 
 jobs:
-  init:
+  init_build:
     runs-on: ubuntu-latest
     name: Initialize builds
     outputs:
