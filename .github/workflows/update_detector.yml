@@ -5,6 +5,9 @@ on:
     - cron: '0 */2 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
 
 
 jobs:
@@ -14,6 +17,9 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4.2.2
+      - name: Create empty "changed" env variable.
+        run: |
+          echo "changed=" >> $GITHUB_ENV;
 
       - name: SkinsRestorer
         run: |
@@ -21,10 +27,14 @@ jobs:
           resp=$(curl --silent -X 'GET' "https://api.spiget.org/v2/resources/$resourceID/versions/latest" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .id)
-          echo "$latestVers"
+          echo "latest version: $latestVers"
 
-        # currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
-        # echo "$currentVers"
+          # currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=SKINRESTORE_VERS=")[0-9]+')
+          # echo "current version: $currentVers"
+          # if [ "$latestVers" != "$currentVers" ]; then
+          #   echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
+          #   sed -i -E "s/SKINRESTORE_BUILD=\"[0-9]+\"/SKINRESTORE_BUILD=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
+          # fi
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
       - name: Geyser
@@ -32,62 +42,103 @@ jobs:
           resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .versions.[-1])
-          echo "$latestVers"
+          echo "latest version: $latestVers"
           resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser/versions/$latestVers" -H 'accept: application/json')
           echo "$resp2"
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
-          echo "$latestBuild"
+          echo "latest build: $latestBuild"
           
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=GEYSER_BUILD=")[0-9]+')
-          echo "$currentBuild"
+          echo "current build: $currentBuild"
+
+          if [ $latestVers != $currentVers -o $latestBuild != $currentBuild ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} Geyser" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+            sed -i -E "s/GEYSER_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/GEYSER_VERS=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
+          if [ $latestBuild != $currentBuild ]; then
+            echo "BUILD update"
+            sed -i -E "s/GEYSER_BUILD=\"[0-9]+\"/GEYSER_BUILD=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
           
       - name: Floodgate
         run: |
           resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate" -H 'accept: application/json')
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .versions.[-1])
-          echo "$latestVers"
+          echo "latest version: $latestVers"
           resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate/versions/$latestVers" -H 'accept: application/json')
           echo "$resp2"
           latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
-          echo "$latestBuild"
+          echo "latest build: $latestBuild"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
           currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=FLOOD_BUILD=")[0-9]+')
-          echo "$currentBuild"
+          echo "current build: $currentBuild"
+
+          if [ "$latestVers" != "$currentVers" -o "$latestBuild" != "$currentBuild" ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} Floodgate" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+            sed -i -E "s/FLOOD_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/FLOOD_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
+          if [ $latestBuild != $currentBuild ]; then
+            echo "BUILD update"
+            sed -i -E "s/FLOOD_BUILD=\"[0-9]+\"/FLOOD_BUILD=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
       
       - name: ViaVersion
         run: |
           latestVers=$(curl --silent -X 'GET' \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
             "https://hangar.papermc.io/api/v1/projects/ViaVersion/latestrelease")
-          echo "$latestVers"
+          echo "latest version: $latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAVERSION_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
+
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} ViaVersion" >> $GITHUB_ENV;
+            sed -i -E "s/VIAVERSION_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/VIAVERSION_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
 
       - name: ViaBackwards
         run: |
           latestVers=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
             "https://hangar.papermc.io/api/v1/projects/ViaBackwards/latestrelease")
-          echo "$latestVers"
+          echo "latest version: $latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIABACKWARDS_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
+
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} ViaBackwards" >> $GITHUB_ENV;
+            sed -i -E "s/VIABACKWARDS_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/VIABACKWARDS_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
 
       - name: ViaRewind
         run: |
           latestVers=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
             "https://hangar.papermc.io/api/v1/projects/ViaRewind/latestrelease")
-          echo "$latestVers"
+          echo "latest version: $latestVers"
 
           currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VIAREWIND_VERS=")[0-9]+\.[0-9]+\.[0-9]+')
-          echo "$currentVers"
+          echo "current version: $currentVers"
+
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} ViaRewind" >> $GITHUB_ENV;
+            sed -i -E "s/VIAREWIND_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/VIAREWIND_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
 
       - name: EaglercraftXVelocity
         run: |
@@ -96,9 +147,32 @@ jobs:
             "https://git.eaglercraft.rip/api/v1/repos/eaglercraft/eaglercraft-1.8/commits?path=gateway%2FEaglercraftXVelocity%2Fsrc%2Fmain%2Fjava%2Fnet%2Flax1dude%2Feaglercraft%2Fv1_8%2Fplugin%2Fgateway_velocity%2FEaglerXVelocityVersion.java")
           
           latestID=$(echo "$resp" | jq -r .[0].sha)
-          echo "$latestID"
+          echo "latest commit: $latestID"
 
           currentID=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=EAGLER_COMMIT_ID=")[0-9a-z]+')
-          echo "$currentID"
+          echo "current commit: $currentID"
 
+          if [ "$latestID" != "$currentID" ]; then
+            echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
+            sed -i -E "s/EAGLER_COMMIT_ID=\"[0-9a-z]+\"/EAGLER_COMMIT_ID=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
+
+      - name: "Changed:"
+        run: echo ${{ env.changed }}
+
+      - name: Create Pull Request
+        if: false ##  DISABLED
+        uses: peter-evans/create-pull-request@v7.0.6
+        with:
+          commit-message: |
+            Update deps:
+
+            ${{ env.changed }}"
+          branch: update-deps
+          delete-branch: true
+          branch-suffix: short-commit-hash
+          title: "Update deps:${{ env.changed }}"
+          body: "This pull request was created automatically."
+          labels: dependencies
+          maintainer-can-modify: true
 
