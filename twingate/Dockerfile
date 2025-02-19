@@ -1,15 +1,16 @@
 ARG BUILD_FROM
 ARG BUILD_ARCH
 
-FROM twingate/connector:1
+FROM debian
 
-COPY --from=debian / /
+RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt-get | grep "^\w" | sort -u
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
 
+FROM ${BUILD_FROM}
 
 # we need /bin/sh
-# COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
+COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
 
 
