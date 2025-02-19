@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.HA_GITHUB_TOKEN }}
 
       - name: Get changed files
         id: changed_files
@@ -115,3 +117,4 @@ jobs:
       with:
         allowed-skips: lint
         jobs: ${{ toJSON(needs) }}
+        token: ${{ secrets.HA_GITHUB_TOKEN }}
