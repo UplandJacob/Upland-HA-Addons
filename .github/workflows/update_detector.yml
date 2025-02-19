@@ -164,12 +164,9 @@ jobs:
           echo ${{ env.changed }}
           if [ "${{ env.changed }}" != "" ]; then
             REGEX_PATTERN="update-deps-[a-f0-9]{7}"
-            echo "Using regex pattern: $REGEX_PATTERN"
             BRANCHES=$(git branch -r)
             echo "Branches: $BRANCHES"
-            echo "test: $(echo \"$BRANCHES\" | grep -E \"$REGEX_PATTERN\")"
-            BRANCH_NAME=$(echo "$BRANCHES" | grep -E "$REGEX_PATTERN" | sed 's|origin/||' | head -n 1)
-
+            BRANCH_NAME=$(echo "$BRANCHES" | grep -E "$REGEX_PATTERN" | sed 's|origin/||' | head -n 1 | xargs )
             echo "Found branch: $BRANCH_NAME"
             echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
             if [ -z "$BRANCH_NAME" ]; then
