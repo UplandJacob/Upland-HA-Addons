@@ -2,22 +2,14 @@ ARG BUILD_FROM
 ARG BUILD_ARCH
 
 FROM debian
-RUN apt-get update && apt-get upgrade -y && apt-get install -y wget
+RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
 
-RUN wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_2.9.29_amd64.deb -O apt.deb
-
-FROM ${BUILD_FROM}
+COPY --from=${BUILD_FROM} / /
 
 # we need /bin/sh
-COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
+# COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 
-COPY --from=0 /usr/bin/apt /usr/bin/apt
-COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
-COPY --from=0 /usr/bin/su /usr/bin/su
-COPY --from=0 /usr/lib /usr/lib
-COPY --from=0 /lib /lib
-COPY --from=0 /lib64 /lib64
-COPY --from=0 ./apt.deb /tmp/apt.deb
+
 
 
 
