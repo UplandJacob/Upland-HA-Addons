@@ -60,7 +60,7 @@ jobs:
   lint:
     needs: init_lint
     runs-on: ubuntu-latest
-    if: needs.init.outputs.changed == 'true'
+    if: needs.init_lint.outputs.changed == 'true'
     name: Lint ${{ matrix.addon }} add-on Dockerfile
     strategy:
       matrix:
