@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
       - name: Create empty "changed" env variable.
         run: |
           echo "changed=" >> $GITHUB_ENV;
@@ -161,10 +163,10 @@ jobs:
         run: | 
           echo ${{ env.changed }}
           if [ "${{ env.changed }}" != "" ]; then
-            git branch --no-merged
+            git branch -r
 
             REGEX_PATTERN="^update-deps-[a-f0-9]{7}$"
-            BRANCH_NAME=$(git branch --no-merged | grep -E "$REGEX_PATTERN" | sed 's|origin/||' | head -n 1)
+            BRANCH_NAME=$(git branch -r | grep -E "$REGEX_PATTERN" | sed 's|origin/||' | head -n 1)
             echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
             if [ -z "$BRANCH_NAME" ]; then
               echo "No branch matching the pattern found."
