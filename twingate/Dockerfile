@@ -11,7 +11,7 @@ RUN dpkg-query -L apt
 # RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances dpkg | grep "^\w" | sort -u
 # RUN dpkg-query -L dpkg
 
-RUN dpkg-query -L rm
+# RUN dpkg-query -L 
 
 
 # RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
@@ -25,6 +25,7 @@ USER root
 
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
+COPY --from=0 /bin/rm /bin/rm
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/apt-cache /usr/bin/apt-cache
 COPY --from=0 /usr/bin/apt-cdrom /usr/bin/apt-cdrom
