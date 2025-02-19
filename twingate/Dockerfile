@@ -3,10 +3,10 @@ ARG BUILD_ARCH
 
 FROM debian:latest
 
-RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances dpkg | grep "^\w" | sort -u
-RUN apt-cache depends --recurse dpkg
-RUN apt-cache rdepends --recurse --installed dpkg
-RUN dpkg-query -L dpkg
+RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt | grep "^\w" | sort -u
+RUN apt-cache depends --recurse apt
+RUN apt-cache rdepends --recurse --installed apt
+RUN dpkg-query -L apt
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
 
