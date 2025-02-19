@@ -29,6 +29,7 @@ COPY --from=0 /usr/bin/apt-key /usr/bin/apt-key
 COPY --from=0 /usr/bin/apt-mark /usr/bin/apt-mark
 COPY --from=0 /usr/lib /usr/lib
 COPY --from=0 /lib/x86_64-linux-gnu/libc.so.6 /lib/x86_64-linux-gnu/libc.so.6
+COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 # COPY --from=0 /usr/lib/apt /usr/lib/apt
 # COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
