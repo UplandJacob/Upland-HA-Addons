@@ -161,7 +161,8 @@ jobs:
         run: | 
           echo ${{ env.changed }}
           if [ "${{ env.changed }}" != "" ]; then
-            BRANCH_NAME=$(git branch -r | grep -E "^update-deps-[a-z0-9]+$" | sed 's|origin/||' | head -n 1)
+            REGEX_PATTERN="^update-deps-[a-f0-9]{7}$"
+            BRANCH_NAME=$(git branch -r | grep -E "$REGEX_PATTERN" | sed 's|origin/||' | head -n 1)
             echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
             if [ -z "$BRANCH_NAME" ]; then
               echo "No branch matching the pattern found."
