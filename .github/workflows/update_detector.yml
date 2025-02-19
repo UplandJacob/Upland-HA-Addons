@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 0
+          token: ${{ secrets.HA_GITHUB_TOKEN }}
       - name: Create empty "changed" env variable.
         run: |
           echo "changed=" >> $GITHUB_ENV;
@@ -208,4 +209,5 @@ jobs:
           body: "This pull request was created automatically."
           labels: dependencies
           maintainer-can-modify: true
+          token: ${{ secrets.HA_GITHUB_TOKEN }}
 
