@@ -163,7 +163,7 @@ jobs:
         run: | 
           echo ${{ env.changed }}
           if [ "${{ env.changed }}" != "" ]; then
-            REGEX_PATTERN="^update-deps-[a-f0-9]{7}$"
+            REGEX_PATTERN="update-deps-[a-f0-9]{7}"
             echo "Using regex pattern: $REGEX_PATTERN"
             BRANCHES=$(git branch -r)
             echo "Branches: $BRANCHES"
