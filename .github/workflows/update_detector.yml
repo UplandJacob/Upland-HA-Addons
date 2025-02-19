@@ -200,7 +200,7 @@ jobs:
           commit-message: |
             Update deps:
 
-            ${{ env.changed }}"
+            ${{ env.changed }}
           branch: update-deps
           delete-branch: true
           branch-suffix: short-commit-hash
