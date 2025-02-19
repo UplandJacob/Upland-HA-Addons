@@ -4,7 +4,7 @@ ARG BUILD_ARCH
 FROM debian:latest
 
 RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt-get | grep "^\w" | sort -u
-RUN apt-cache depends --recurse apt-get
+# RUN apt-cache depends --recurse apt-get
 RUN apt-cache rdepends --recurse --installed apt-get
 RUN dpkg-query -L apt-get
 
