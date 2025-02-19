@@ -27,11 +27,12 @@ COPY --from=0 /usr/bin/apt-config /usr/bin/apt-config
 COPY --from=0 /usr/bin/apt-get /usr/bin/apt-get
 COPY --from=0 /usr/bin/apt-key /usr/bin/apt-key
 COPY --from=0 /usr/bin/apt-mark /usr/bin/apt-mark
-COPY --from=0 /usr/lib/apt /usr/lib/apt
-COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
-COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
-COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0
-COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0
+COPY --from=0 /usr/lib /usr/lib
+# COPY --from=0 /usr/lib/apt /usr/lib/apt
+# COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
+# COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
+# COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0
+# COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0
 
 COPY --from=0 /var/lib/apt /var/lib/apt
 
