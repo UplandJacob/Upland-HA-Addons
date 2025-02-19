@@ -1,5 +1,3 @@
-USER root
-
 ARG BUILD_FROM
 ARG BUILD_ARCH
 
@@ -19,6 +17,9 @@ RUN dpkg-query -L dpkg
 
 
 FROM ${BUILD_FROM}
+
+USER root
+
 
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
