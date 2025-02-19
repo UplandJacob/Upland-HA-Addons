@@ -4,7 +4,7 @@ ARG BUILD_ARCH
 FROM debian
 RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
 
-COPY --from=$BUILD_FROM / /
+COPY --from=twingate/connector:1 / /
 
 # we need /bin/sh
 # COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
