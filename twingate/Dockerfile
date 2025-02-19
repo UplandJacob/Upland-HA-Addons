@@ -16,10 +16,17 @@ FROM ${BUILD_FROM}
 
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
-COPY --from=0 /bin/apt-get /bin/apt-get
-
-
-
+COPY --from=0 /usr/bin/apt /usr/bin/apt
+COPY --from=0 /usr/bin/apt-cache /usr/bin/apt-cache
+COPY --from=0 /usr/bin/apt-cdrom /usr/bin/apt-cdrom
+COPY --from=0 /usr/bin/apt-config /usr/bin/apt-config
+COPY --from=0 /usr/bin/apt-get /usr/bin/apt-get
+COPY --from=0 /usr/bin/apt-key /usr/bin/apt-key
+COPY --from=0 /usr/bin/apt-mark /usr/bin/apt-mark
+COPY --from=0 /usr/lib/apt /usr/lib/apt
+COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
+COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
+COPY --from=0 /var/lib/apt /var/lib/apt
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
@@ -34,7 +41,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
-RUN dpkg -i /tmp/apt.deb
+# RUN dpkg -i /tmp/apt.deb
 
 
 # hadolint ignore=DL3008
