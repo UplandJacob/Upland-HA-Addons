@@ -11,7 +11,7 @@ RUN dpkg-query -L apt
 # RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances dpkg | grep "^\w" | sort -u
 # RUN dpkg-query -L dpkg
 
-RUN dpkg-query -L gpgv
+RUN dpkg-query -L rm
 
 
 # RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
@@ -32,6 +32,7 @@ COPY --from=0 /usr/bin/apt-config /usr/bin/apt-config
 COPY --from=0 /usr/bin/apt-get /usr/bin/apt-get
 COPY --from=0 /usr/bin/apt-key /usr/bin/apt-key
 COPY --from=0 /usr/bin/apt-mark /usr/bin/apt-mark
+COPY --from=0 /usr/bin/gpgv /usr/bin/gpgv
 COPY --from=0 /usr/lib /usr/lib
 COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
