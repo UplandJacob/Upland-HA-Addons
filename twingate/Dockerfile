@@ -1,3 +1,5 @@
+USER root
+
 ARG BUILD_FROM
 ARG BUILD_ARCH
 
@@ -55,7 +57,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 
 # RUN dpkg -i /tmp/apt.deb
 
-
+RUN apt-get -f install
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
