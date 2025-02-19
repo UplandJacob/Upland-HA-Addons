@@ -31,6 +31,8 @@ COPY --from=0 /usr/lib/apt /usr/lib/apt
 COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
 COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
 COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0
+COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0
+
 COPY --from=0 /var/lib/apt /var/lib/apt
 
 # Set S6 wait time
