@@ -1,17 +1,19 @@
 ARG BUILD_FROM
 ARG BUILD_ARCH
 
-FROM debian
+FROM debian:latest
 
 RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt-get | grep "^\w" | sort -u
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
 
+
+
 FROM ${BUILD_FROM}
 
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
-
+COPY --from=0 /bin/apt-get /bin/apt-get
 
 
 
@@ -29,7 +31,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
-RUN su - && dpkg -i /tmp/apt.deb
+RUN dpkg -i /tmp/apt.deb
 
 
 # hadolint ignore=DL3008
