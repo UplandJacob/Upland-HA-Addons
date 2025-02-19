@@ -12,7 +12,7 @@ RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --n
 RUN dpkg-query -L dpkg
 
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
+# RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
 
 
 
@@ -31,7 +31,6 @@ COPY --from=0 /usr/lib /usr/lib
 COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=0 /usr/share/dpkg /usr/share/dpkg
-COPY --from=0 /usr/share/apt /usr/share/apt
 # COPY --from=0 /usr/lib/apt /usr/lib/apt
 # COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
