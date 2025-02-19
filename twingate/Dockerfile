@@ -37,6 +37,7 @@ COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0
 
 COPY --from=0 /var/lib/apt /var/lib/apt
+COPY --from=0 /etc/apt /etc/apt
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
