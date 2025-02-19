@@ -8,8 +8,10 @@ RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --n
 # RUN apt-cache rdepends --recurse --installed apt
 RUN dpkg-query -L apt
 
-RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances dpkg | grep "^\w" | sort -u
-RUN dpkg-query -L dpkg
+# RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances dpkg | grep "^\w" | sort -u
+# RUN dpkg-query -L dpkg
+
+RUN dpkg-query -L gpgv
 
 
 # RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
