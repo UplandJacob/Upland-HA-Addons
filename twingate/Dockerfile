@@ -35,10 +35,23 @@ COPY --from=0 /usr/bin/apt-get /usr/bin/apt-get
 COPY --from=0 /usr/bin/apt-key /usr/bin/apt-key
 COPY --from=0 /usr/bin/apt-mark /usr/bin/apt-mark
 COPY --from=0 /usr/bin/gpgv /usr/bin/gpgv
+
+COPY --from=0 /usr/bin/dpkg-deb /usr/bin/dpkg-deb
+COPY --from=0 /usr/bin/dpkg-divert /usr/bin/dpkg-divert
+COPY --from=0 /usr/bin/dpkg-maintscript-helper /usr/bin/dpkg-maintscript-helper
+COPY --from=0 /usr/bin/dpkg-query /usr/bin/dpkg-query
+COPY --from=0 /usr/bin/dpkg-realpath /usr/bin/dpkg-realpath
+COPY --from=0 /usr/bin/dpkg-split /usr/bin/dpkg-split
+COPY --from=0 /usr/bin/dpkg-statoverride /usr/bin/dpkg-statoverride
+COPY --from=0 /usr/bin/dpkg-trigger /usr/bin/dpkg-trigger
+COPY --from=0 /usr/bin/update-alternatives /usr/bin/update-alternatives
+
 COPY --from=0 /usr/lib /usr/lib
+COPY --from=0 /usr/libexec/dpkg /usr/libexec/dpkg
 COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=0 /usr/share/dpkg /usr/share/dpkg
+COPY --from=0 /usr/sbin/dpkg-fsys-usrunmess /usr/sbin/dpkg-fsys-usrunmess
 # COPY --from=0 /usr/lib/apt /usr/lib/apt
 # COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
@@ -46,6 +59,7 @@ COPY --from=0 /usr/share/dpkg /usr/share/dpkg
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0
 
 COPY --from=0 /var/lib/apt /var/lib/apt
+COPY --from=0 /var/lib/dpkg /var/lib/dpkg
 COPY --from=0 /etc/apt /etc/apt
 
 # Set S6 wait time
