@@ -14,6 +14,8 @@ RUN dpkg-query -L dpkg
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y gnupg
 
+RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances gnupg | grep "^\w" | sort -u
+RUN dpkg-query -L gnupg
 
 
 FROM ${BUILD_FROM}
@@ -51,7 +53,7 @@ COPY --from=0 /usr/bin/update-alternatives /usr/bin/update-alternatives
 
 COPY --from=0 /usr/lib /usr/lib
 COPY --from=0 /usr/libexec/dpkg /usr/libexec/dpkg
-COPY --from=0 /usr/libexec/gpg /usr/libexec/gpg
+# COPY --from=0 /usr/libexec/gpg /usr/libexec/gpg
 COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=0 /usr/share/dpkg /usr/share/dpkg
