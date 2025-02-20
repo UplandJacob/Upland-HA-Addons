@@ -14,8 +14,8 @@ RUN dpkg-query -L dpkg
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y gnupg
 
-RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances gnupg | grep "^\w" | sort -u
-RUN dpkg-query -L gnupg
+RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances wget | grep "^\w" | sort -u
+RUN dpkg-query -L wget
 
 
 FROM ${BUILD_FROM}
@@ -40,6 +40,7 @@ COPY --from=0 /usr/bin/find /usr/bin/find
 COPY --from=0 /usr/bin/awk /usr/bin/awk
 COPY --from=0 /usr/bin/cat /usr/bin/cat
 COPY --from=0 /usr/bin/base64 /usr/bin/base64
+COPY --from=0 /usr/bin/wget /usr/bin/wget
 
 
 COPY --from=0 /usr/sbin/ldconfig /usr/sbin/ldconfig
