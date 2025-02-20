@@ -12,7 +12,7 @@ RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --n
 RUN dpkg-query -L dpkg
 
 
-# RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
+RUN apt-get update && apt-get upgrade -y && apt-get install -y gnupg
 
 
 
