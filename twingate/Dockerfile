@@ -37,7 +37,7 @@ COPY --from=0 /usr/bin/apt-get /usr/bin/apt-get
 COPY --from=0 /usr/bin/apt-key /usr/bin/apt-key
 COPY --from=0 /usr/bin/apt-mark /usr/bin/apt-mark
 COPY --from=0 /usr/bin/gpgv /usr/bin/gpgv
-COPY --from=0 /usr/bin/gnupg /usr/bin/gnupg
+COPY --from=0 /usr/bin/gpg /usr/bin/gpg
 
 COPY --from=0 /usr/bin/dpkg-deb /usr/bin/dpkg-deb
 COPY --from=0 /usr/bin/dpkg-divert /usr/bin/dpkg-divert
@@ -51,6 +51,7 @@ COPY --from=0 /usr/bin/update-alternatives /usr/bin/update-alternatives
 
 COPY --from=0 /usr/lib /usr/lib
 COPY --from=0 /usr/libexec/dpkg /usr/libexec/dpkg
+COPY --from=0 /usr/libexec/gpg /usr/libexec/gpg
 COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=0 /usr/share/dpkg /usr/share/dpkg
