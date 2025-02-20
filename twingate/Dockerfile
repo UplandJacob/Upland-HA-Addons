@@ -30,6 +30,7 @@ COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
 COPY --from=0 /usr/bin/diff /usr/bin/diff
 COPY --from=0 /usr/sbin/ldconfig /usr/sbin/ldconfig
+COPY --from=0 /usr/sbin/mktemp /usr/sbin/mktemp
 COPY --from=0 /usr/sbin/start-stop-daemon /usr/sbin/start-stop-daemon
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/apt-cache /usr/bin/apt-cache
