@@ -34,6 +34,9 @@ COPY --from=0 /usr/bin/chmod /usr/bin/chmod
 COPY --from=0 /usr/bin/sed /usr/bin/sed
 COPY --from=0 /usr/bin/touch /usr/bin/touch
 COPY --from=0 /usr/bin/readlink /usr/bin/readlink
+COPY --from=0 /usr/bin/sort /usr/bin/sort
+COPY --from=0 /usr/bin/cp /usr/bin/cp
+COPY --from=0 /usr/bin/find /usr/bin/find
 
 
 COPY --from=0 /usr/sbin/ldconfig /usr/sbin/ldconfig
