@@ -11,8 +11,6 @@ RUN dpkg-query -L apt
 RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances dpkg | grep "^\w" | sort -u
 RUN dpkg-query -L dpkg
 
-RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances gnupg | grep "^\w" | sort -u
-RUN dpkg-query -L gnupg
 
 # RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
 
