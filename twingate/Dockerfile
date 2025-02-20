@@ -60,6 +60,8 @@ COPY --from=0 /usr/sbin/dpkg-fsys-usrunmess /usr/sbin/dpkg-fsys-usrunmess
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0
 
+COPY --from=0 /var/log/apt /var/log/apt
+COPY --from=0 var/cache/apt var/cache/apt
 COPY --from=0 /var/lib/apt /var/lib/apt
 COPY --from=0 /var/lib/dpkg /var/lib/dpkg
 COPY --from=0 /etc/apt /etc/apt
