@@ -8,8 +8,8 @@ RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --n
 # RUN apt-cache rdepends --recurse --installed apt
 RUN dpkg-query -L apt
 
-RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt-key | grep "^\w" | sort -u
-RUN dpkg-query -L apt-key
+# RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt-key | grep "^\w" | sort -u
+# RUN dpkg-query -L apt-key
 
 
 # RUN apt-get update && apt-get upgrade -y && apt-get install -y wget curl
@@ -59,7 +59,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 #     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # RUN dpkg -i /tmp/apt.deb
-
+RUN dpkg --configure -a
 RUN apt-get -f install
 # hadolint ignore=DL3008
 RUN apt-get update && \
