@@ -24,6 +24,7 @@ USER root
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 COPY --from=0 /bin/rm /bin/rm
+COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/apt-cache /usr/bin/apt-cache
 COPY --from=0 /usr/bin/apt-cdrom /usr/bin/apt-cdrom
