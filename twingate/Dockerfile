@@ -37,7 +37,7 @@ COPY --from=0 /usr/bin/apt-get /usr/bin/apt-get
 COPY --from=0 /usr/bin/apt-key /usr/bin/apt-key
 COPY --from=0 /usr/bin/apt-mark /usr/bin/apt-mark
 COPY --from=0 /usr/bin/gpgv /usr/bin/gpgv
-COPY --from=0 /usr/sbin/gnupg /usr/sbin/gnupg
+COPY --from=0 /usr/bin/gnupg2 /usr/bin/gnupg2
 
 COPY --from=0 /usr/bin/dpkg-deb /usr/bin/dpkg-deb
 COPY --from=0 /usr/bin/dpkg-divert /usr/bin/dpkg-divert
