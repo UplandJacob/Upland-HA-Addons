@@ -12,7 +12,7 @@ RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --n
 RUN dpkg-query -L dpkg
 
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y gnupg
+RUN apt-get update && apt-get upgrade -y && apt-get install -y gnupg wget
 
 RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances wget | grep "^\w" | sort -u
 RUN dpkg-query -L wget
