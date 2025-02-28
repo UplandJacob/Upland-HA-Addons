@@ -119,6 +119,9 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6E
 RUN apt-get -f install
 
 RUN apt-get reinstall -y apt dpkg gnupg
+
+RUn apt-cache depends apt | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs apt-get --reinstall install -y
+
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
