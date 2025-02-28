@@ -32,6 +32,7 @@ COPY --from=0 /bin/rm /bin/rm
 COPY --from=0 /bin/xargs /bin/xargs
 COPY --from=0 /bin/grep /bin/grep
 COPY --from=0 /bin/uname /bin/uname
+COPY --from=0 /bin/sleep /bin/sleep
 
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
