@@ -31,6 +31,7 @@ COPY --from=0 /bin/bash /bin/bash
 COPY --from=0 /bin/rm /bin/rm
 COPY --from=0 /bin/xargs /bin/xargs
 COPY --from=0 /bin/grep /bin/grep
+COPY --from=0 /bin/uname /bin/uname
 
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
@@ -123,7 +124,7 @@ RUN apt-get -f install
 
 RUN apt-get reinstall -y apt dpkg gnupg
 
-RUn apt-cache depends apt | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs apt-get --reinstall install -y
+RUN apt-cache depends apt | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs apt-get --reinstall install -y
 
 # hadolint ignore=DL3008
 RUN apt-get update && \
