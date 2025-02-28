@@ -99,7 +99,10 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 
 # RUN dpkg -i /tmp/apt.deb
 RUN dpkg --configure -a
-# RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys [KEY]
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6ED0E7B82643E131
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F8D2585B8783D481
+
 RUN apt-get -f install
 # hadolint ignore=DL3008
 RUN apt-get update && \
