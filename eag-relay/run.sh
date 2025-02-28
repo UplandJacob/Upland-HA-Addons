@@ -6,6 +6,8 @@ logGreen() {
 
 echo ""
 echo "Eaglercraft 1.5.2 LAN World Relay"
+echo "Relay version: 1.4"
+echo "From https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/src/branch/main/sp-relay/SharedWorldRelay"
 echo ""
 
 auto_restart="$1"
@@ -25,13 +27,15 @@ start() {
 }
 
 if [ "$auto_restart" = true ]; then
+  echo "Auto restart enabled"
   while true
     do
       start
-      echo "restarting..."
+      logGreen "restarting..."
     sleep 5
   done
 else
+  echo "Auto restart disabled"
   start
 fi
 

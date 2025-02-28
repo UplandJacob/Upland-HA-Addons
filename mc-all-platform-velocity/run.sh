@@ -1,50 +1,42 @@
 #!/usr/bin/with-contenv bashio
-CONFIG_PATH=/data/options.json
+
 # simple functions
 logGreen() {
   echo -e "\033[32m$1\033[0m"
+}
+logRed() {
+  echo -e "\033[31m$1\033[0m"
 }
 logLine() {
   echo -e ". \n"
 }
 getConfig() {
-  jq --raw-output "$1" $CONFIG_PATH
+  jq --raw-output "$1" /data/options.json
+}
+checkDir() {
+  if [[ ! -d "$1" ]]; then
+    logGreen "creating '$1' folder..."
+    mkdir $1
+  fi
 }
 
-# check for key.pem (for floodgate and geyser)
-if [[ ! -f "/config/key.pem" ]]; then
-  logGreen "no key.pem file found. Temporarily starting proxy to generate one."
-  
-  tmpfile=$(mktemp)
-  # Create a screen session named "minecraft" and start the command
-  screen -dmS velocity bash -c 'java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -Deaglerxvelocity.stfu=true -jar velocity.jar > '$tmpfile' 2>&1'
-  
-  # Function to stop the process when the specific string is found in the log
-  stop_when_string_logged() {
-    while IFS= read -r line; do
-      echo "- $line"
-      if [[ "$line" == *"help for help!"* ]]; then
-        sleep 1
-        # Send the "stop" command to the "minecraft" screen session
-        screen -S velocity -X stuff "`echo -ne \"stop\r\"`"
-        echo "Process stopped."
-        break
-      fi
-    done
-  }
-  
-  stop_when_string_logged < <(tail -f $tmpfile)
-  
-  # Wait for the process to finish
-  screen -S velocity -X quit
-  rm -f $tmpfile
-  
-  logGreen "copying key.pem to config folder..."
-  cp /plugins/floodgate/key.pem /config/key.pem
+if [[ ! -f "/config/uuid.txt" ]]; then
+  logGreen "No uuid.txt found, generating one..."
+  uuid=$(uuidgen)
+  echo "$uuid" > /config/uuid.txt
+  logGreen "new server uuid: $uuid"
 fi
-logGreen "copying key.pem into plugin folders..."
-cp /config/key.pem /plugins/Geyser-Velocity/key.pem
-cp /config/key.pem /plugins/floodgate/key.pem
+UUID=$(</config/uuid.txt)
+
+if [[ ! -f "/config/forwarding.secret.txt" ]]; then
+  logGreen "No forwarding.secret.txt found, generating one..."
+  secret=$(head -1 <(fold -w 10  <(tr -dc 'a-zA-Z0-9' < /dev/urandom)))
+  echo "$secret" > /config/forwarding.secret.txt
+  logGreen "new server forwarding secret: $secret"
+fi
+
+need_kick=false
+need_kick_reason=()
 
 ################################################
 logGreen "Generating config files..."
@@ -121,7 +113,7 @@ logGreen "velocity advanced formatted:"
 echo -e "$vel_advanced"
 logLine
 # -------    SAVE --------
-echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
+echo -e "config-version = \"2.7\"\nbind = \"0.0.0.0:25565\"\nforwarding-secret-file = \"/config/forwarding.secret.txt\"\n$vel_root_config\n\n[servers]\n$vel_servers\n\ntry = [\n$vel_serv_ord\n]\n\n[forced-hosts]\n$vel_forced_hosts\n\n[advanced]\n$vel_advanced\n" > velocity.toml
 logGreen "velocity.toml:"
 cat velocity.toml
 logLine
@@ -132,6 +124,7 @@ logLine
 EAG_CONFIG=$(getConfig '.eagConfig')
 EAG_AUTH=$(getConfig '.eagAuth')
 EAG_LISTENER=$(getConfig '.eagListener')
+EAG_RELAYS=$(getConfig '.eagRelays')
 # ----------- plugins/eaglerxvelocity/settings.yml -----------
 
 eag_config=$(echo "$EAG_CONFIG" | jq -r '
@@ -190,6 +183,31 @@ logGreen "/plugins/eaglerxvelocity/listeners.yml"
 cat /plugins/eaglerxvelocity/listeners.yml
 logLine
 logLine
+
+# ------------------- plugins/eaglerxvelocity/ice_servers.yml -----------
+echo ""
+logGreen "Eaglercraft ICE relay servers JSON:"
+echo -e "$EAG_RELAYS"
+echo ""
+
+length=$(echo "$EAG_RELAYS" | jq '. | length')
+relays="voice_servers_passwd:\n"
+relays_no_cred="voice_servers_no_passwd:\n"
+for (( i=0; i<$length; i++ )); do
+  url=$(echo "$EAG_RELAYS" | jq -r ".[$i].url")
+  user=$(echo "$EAG_RELAYS" | jq -r ".[$i].username // empty")
+  pass=$(echo "$EAG_RELAYS" | jq -r ".[$i].password // empty")
+  
+  if [ -n "$user" ] && [ -n "$pass" ]; then
+    relays+="  relay_$i:\n    url: '$url'\n    username: '$user'\n    password: '$pass'\n\n"
+  else
+    relays_no_cred+="   - '$url'\n"
+  fi
+  
+done
+echo -e "$relays_no_cred\n\n$relays" > plugins/eaglerxvelocity/ice_servers.yml
+logGreen "Eagler ICE servers"
+cat plugins/eaglerxvelocity/ice_servers.yml
 #---------------------------------------- BEDROCK -----------------------------------
 #------- get config --------
 FLOOD_CONF=$(getConfig '.floodgate')
@@ -214,7 +232,7 @@ flood_player=$(echo "$FLOOD_PLAYER" | jq -r 'to_entries | .[] | "  \(.key): \(( 
 
 logLine
 # ------  SAVE --------
-echo -e "key-file-name: 'key.pem'\n\nsend-floodgate-data: false\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: garbo\n\nconfig-version: 3" > plugins/floodgate/config.yml
+echo -e "key-file-name: 'key.pem'\n\ndiaconnect:\n$flood_disc\n\nplayer-link:\n$flood_player\n\n$flood_conf\nmetrics:\n  enabled: false\n  uuid: $UUID\n\nconfig-version: 3" > plugins/floodgate/config.yml
 logGreen "plugins/floodgate/config.yml"
 cat plugins/floodgate/config.yml
 # ------------ plugins/Geyser-Velocity/config.yml ------------
@@ -236,28 +254,60 @@ geyser_advanced=$(echo "$GEYSER_ADVANCED" | jq -r 'to_entries | .[] | "\(.key): 
 
 logLine
 # ------  SAVE --------
-echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: garbo\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
+echo -e "bedrock:\n  port: 19132\n  clone-remote-port: false\n$geyser_bedrock\n\nremote:\n  address: auto\n  port: 25565\n$geyser_remote\n\nfloodgate-key-file: key.pem\n$geyser\n\nmetrics:\n  enabled: false\n  uuid: $UUID\n\n$geyser_advanced\n\nconfig-version: 4" > plugins/Geyser-Velocity/config.yml
 logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
 
-#------------------ packs and extentions -----------------
-if [[ ! -d "/config/geyser" ]]; then
-  logGreen "creating 'geyser' folder..."
-  mkdir /config/geyser
-fi
-if [[ ! -d "/config/geyser/packs" ]]; then
-  logGreen "creating 'geyser/packs' folder..."
-  mkdir /config/geyser/packs
-fi
-if [[ ! -d "/config/geyser/extensions" ]]; then
-  logGreen "creating 'geyser/extensions' folder..."
-  mkdir /config/geyser/extensions
-fi
+#----- packs and extentions ------
+checkDir "/config/geyser"
+checkDir "/config/geyser/packs"
+checkDir "/config/geyser/extentions"
+checkDir "/config/geyser/floodgate"
+
 logGreen "copying Geyser packs..."
 rsync -av --ignore-existing /config/geyser/packs/ /plugins/Geyser-Velocity/packs/
 logGreen "copying Geyser extensions..."
 rsync -av --ignore-existing /config/geyser/extensions/ /plugins/Geyser-Velocity/extensions/
 
+# check for key.pem
+if [[ ! -f "/config/geyser/key.pem" ]]; then
+  logGreen "no key.pem file found. Will generate one."
+  need_kick=true
+  need_kick_reason+=("key.pem")
+fi
+
+# local linking
+if echo "$FLOOD_PLAYER" | jq -e '."enable-own-linking" == true'; then
+  if echo "$FLOOD_PLAYER" | jq -e '.type == "mysql"'; then
+    if [[ ! -f "/config/geyser/floodgate/floodgate-mysql-database.jar" ]]; then
+      logRed "missing floodgate-mysql-database.jar for Floodgate DB type 'mysql'"
+      exit 0
+    fi
+    checkDir "/config/geyser/floodgate/mysql"
+    if [[ ! -f "/config/geyser/floodgate/mysql/mysql.yml" ]]; then
+      need_kick=true
+      need_kick_reason+=("floodgate/mysql.yml")
+    fi
+  elif echo "$FLOOD_PLAYER" | jq -e '.type == "mongo"'; then
+    if [[ ! -f "/config/geyser/floodgate/floodgate-mongo-database.jar" ]]; then
+      logRed "missing floodgate-mongo-database.jar for Floodgate DB type 'mongo'"
+      exit 0
+    fi
+    checkDir "/config/geyser/floodgate/mongo"
+    if [[ ! -f "/config/geyser/floodgate/mongo/mongo.yml" ]]; then
+      need_kick=true
+      need_kick_reason+=("floodgate/mongo.yml")
+    fi
+  elif echo "$FLOOD_PLAYER" | jq -e '.type == "sqlite"'; then
+    if [[ ! -f "/config/geyser/floodgate/floodgate-sqlite-database.jar" ]]; then
+      logRed "missing floodgate-sqlite-database.jar for Floodgate DB type 'sqlite'"
+      exit 0
+    fi
+    ln -s /config/geyser/floodgate/linked-players.db /plugins/floodgate/linked-players.db
+  fi
+  
+  rsync -av --ignore-existing /config/geyser/floodgate/ /plugins/floodgate
+fi
 #----------------------------------------- VIABACKWARDS --------------------------------
 # ------------ plugins/viabackwards/config.yml ------------
 if [[ ! -f "/config/viabackwards.yml" ]]; then
@@ -269,11 +319,37 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 
 #----------------------------------------- VIAREWIND --------------------------------
 # ------------ plugins/viarewind/config.yml ------------
-# TODO
-
+if [[ ! -f "/config/viarewind.yml" ]]; then
+  logGreen "no viarewind.yml file found. Copying from default.."
+  cp /default_config/viarewind.yml /config/viarewind.yml
+fi
+logGreen "copying viarewind.yml from config..."
+cp /config/viarewind.yml /plugins/viarewind/config.yml
 
 ####### -------------------------- finalize -------------------------------------
 logLine
+
+if [[ "$need_kick" = true ]]; then
+  logGreen "Temporarlily starting proxy for reason(s): $need_kick_reason"
+  ./kickstart.sh "help for help!"
+  if [[ "$need_kick_reason" =~ "key.pem" ]]; then
+    logGreen "copying key.pem to config folder..."
+    cp /plugins/floodgate/key.pem /config/geyser/key.pem
+  fi
+  if [[ "$need_kick_reason" =~ "floodgate/mysql.yml" ]]; then
+    logGreen "copying mysql.yml to config folder..."
+    cp /plugins/floodgate/mysql/mysql.yml /config/geyser/floodgate/mysql/mysql.yml
+  elif [[ "$need_kick_reason" =~ "floodgate/mongo.yml" ]]; then
+    logGreen "copying mongo.yml to config folder..."
+    cp /plugins/floodgate/mongo/mongo.yml /config/geyser/floodgate/mongo/mongo.yml
+  fi
+fi
+
+logGreen "copying key.pem into plugin folders..."
+cp /config/geyser/key.pem /plugins/Geyser-Velocity/key.pem
+cp /config/geyser/key.pem /plugins/floodgate/key.pem
+
+
 if [[ -f "/config/server-icon.png" ]]; then
   logGreen "server-icon.png found"
   cp /config/server-icon.png /server-icon.png
