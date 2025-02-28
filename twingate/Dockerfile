@@ -48,6 +48,7 @@ COPY --from=0 /usr/bin/comm /usr/bin/comm
 COPY --from=0 /usr/bin/base64 /usr/bin/base64
 COPY --from=0 /usr/bin/wget /usr/bin/wget
 COPY --from=0 /usr/bin/dirmngr /usr/bin/dirmngr
+COPY --from=0 /usr/bin/basename /usr/bin/basename
 
 COPY --from=0 /usr/sbin/ldconfig /usr/sbin/ldconfig
 COPY --from=0 /usr/sbin/start-stop-daemon /usr/sbin/start-stop-daemon
