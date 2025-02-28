@@ -34,6 +34,7 @@ COPY --from=0 /bin/grep /bin/grep
 COPY --from=0 /bin/uname /bin/uname
 COPY --from=0 /bin/sleep /bin/sleep
 COPY --from=0 /bin/chmod /bin/chmod
+COPY --from=0 /bin/mkdir /bin/mkdir
 
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
