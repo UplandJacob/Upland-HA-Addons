@@ -29,6 +29,8 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 COPY --from=0 /bin/bash /bin/bash
 
 COPY --from=0 /bin/rm /bin/rm
+COPY --from=0 /bin/xargs /bin/xargs
+COPY --from=0 /bin/grep /bin/grep
 
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
@@ -45,6 +47,7 @@ COPY --from=0 /usr/bin/find /usr/bin/find
 COPY --from=0 /usr/bin/awk /usr/bin/awk
 COPY --from=0 /usr/bin/cat /usr/bin/cat
 COPY --from=0 /usr/bin/cut /usr/bin/cut
+COPY --from=0 /usr/bin/tr /usr/bin/tr
 COPY --from=0 /usr/bin/comm /usr/bin/comm
 COPY --from=0 /usr/bin/base64 /usr/bin/base64
 COPY --from=0 /usr/bin/wget /usr/bin/wget
