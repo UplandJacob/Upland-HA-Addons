@@ -108,6 +108,8 @@ RUN dpkg --configure -a
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481
 
 RUN apt-get -f install
+
+RUN apt-get reinstall -y apt
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
