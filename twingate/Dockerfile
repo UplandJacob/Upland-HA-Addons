@@ -29,6 +29,7 @@ COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 COPY --from=0 /bin/bash /bin/bash
 
 COPY --from=0 /bin/rm /bin/rm
+
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
 COPY --from=0 /usr/bin/diff /usr/bin/diff
@@ -50,9 +51,9 @@ COPY --from=0 /usr/bin/wget /usr/bin/wget
 COPY --from=0 /usr/bin/dirmngr /usr/bin/dirmngr
 COPY --from=0 /usr/bin/basename /usr/bin/basename
 COPY --from=0 /usr/bin/getent /usr/bin/getent
-COPY --from=0 /usr/bin/adduser /usr/bin/adduser
 COPY --from=0 /usr/bin/deb-systemd-helper /usr/bin/deb-systemd-helper
 
+COPY --from=0 /usr/sbin/adduser /usr/sbin/adduser
 COPY --from=0 /usr/sbin/ldconfig /usr/sbin/ldconfig
 COPY --from=0 /usr/sbin/start-stop-daemon /usr/sbin/start-stop-daemon
 COPY --from=0 /usr/bin/apt /usr/bin/apt
