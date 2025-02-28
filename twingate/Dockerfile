@@ -25,6 +25,9 @@ USER root
 
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
+
+COPY --from=0 /bin/bash /bin/bash
+
 COPY --from=0 /bin/rm /bin/rm
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
@@ -41,7 +44,7 @@ COPY --from=0 /usr/bin/awk /usr/bin/awk
 COPY --from=0 /usr/bin/cat /usr/bin/cat
 COPY --from=0 /usr/bin/base64 /usr/bin/base64
 COPY --from=0 /usr/bin/wget /usr/bin/wget
-COPY --from=0 /usr/bin/wget /usr/bin/dirmngr
+COPY --from=0 /usr/bin/dirmngr /usr/bin/dirmngr
 
 COPY --from=0 /usr/sbin/ldconfig /usr/sbin/ldconfig
 COPY --from=0 /usr/sbin/start-stop-daemon /usr/sbin/start-stop-daemon
@@ -79,7 +82,7 @@ COPY --from=0 /usr/sbin/dpkg-fsys-usrunmess /usr/sbin/dpkg-fsys-usrunmess
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0
 
 COPY --from=0 /var/log/apt /var/log/apt
-COPY --from=0 var/cache/apt var/cache/apt
+COPY --from=0 /var/cache/apt /var/cache/apt
 COPY --from=0 /var/lib/apt /var/lib/apt
 COPY --from=0 /var/lib/dpkg /var/lib/dpkg
 COPY --from=0 /etc/apt /etc/apt
@@ -99,9 +102,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 
 # RUN dpkg -i /tmp/apt.deb
 RUN dpkg --configure -a
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6ED0E7B82643E131
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F8D2585B8783D481
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481
 
 RUN apt-get -f install
 # hadolint ignore=DL3008
