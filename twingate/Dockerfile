@@ -122,7 +122,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6E
 
 RUN apt-get -f install
 
-RUN apt-get reinstall -y apt dpkg gnupg
+RUN apt-get reinstall -y apt dpkg gnupg gpgv libc6
 
 RUN apt-cache depends apt | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs apt-get --reinstall install -y
 
