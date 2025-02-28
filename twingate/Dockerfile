@@ -56,6 +56,7 @@ COPY --from=0 /usr/bin/deb-systemd-helper /usr/bin/deb-systemd-helper
 COPY --from=0 /usr/sbin/adduser /usr/sbin/adduser
 COPY --from=0 /usr/sbin/ldconfig /usr/sbin/ldconfig
 COPY --from=0 /usr/sbin/start-stop-daemon /usr/sbin/start-stop-daemon
+
 COPY --from=0 /usr/bin/apt /usr/bin/apt
 COPY --from=0 /usr/bin/apt-cache /usr/bin/apt-cache
 COPY --from=0 /usr/bin/apt-cdrom /usr/bin/apt-cdrom
@@ -83,6 +84,9 @@ COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=0 /usr/share/dpkg /usr/share/dpkg
 COPY --from=0 /usr/sbin/dpkg-fsys-usrunmess /usr/sbin/dpkg-fsys-usrunmess
+COPY --from=0 /usr/sbin/dpkg-preconfigure /usr/sbin/dpkg-preconfigure
+
+
 # COPY --from=0 /usr/lib/apt /usr/lib/apt
 # COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
 # COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
