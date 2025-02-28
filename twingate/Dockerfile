@@ -39,6 +39,7 @@ COPY --from=0 /usr/bin/touch /usr/bin/touch
 COPY --from=0 /usr/bin/readlink /usr/bin/readlink
 COPY --from=0 /usr/bin/sort /usr/bin/sort
 COPY --from=0 /usr/bin/cp /usr/bin/cp
+COPY --from=0 /usr/bin/mv /usr/bin/mv
 COPY --from=0 /usr/bin/find /usr/bin/find
 COPY --from=0 /usr/bin/awk /usr/bin/awk
 COPY --from=0 /usr/bin/cat /usr/bin/cat
