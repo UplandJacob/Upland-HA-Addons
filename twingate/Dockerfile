@@ -133,7 +133,7 @@ RUN apt-cache depends apt | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' |
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    curl micro gzip
+    curl micro gzip xz-utils
 
 
 RUN apt-get -f install
