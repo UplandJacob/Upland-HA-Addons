@@ -261,7 +261,7 @@ cat plugins/Geyser-Velocity/config.yml
 #----- packs and extentions ------
 checkDir "/config/geyser"
 checkDir "/config/geyser/packs"
-checkDir "/config/geyser/extentions"
+checkDir "/config/geyser/extensions"
 checkDir "/config/geyser/floodgate"
 
 logGreen "copying Geyser packs..."
