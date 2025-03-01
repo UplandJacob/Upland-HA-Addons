@@ -3,19 +3,10 @@ ARG BUILD_ARCH
 
 FROM debian:latest
 
-RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt | grep "^\w" | sort -u
-# RUN apt-cache depends --recurse apt
-# RUN apt-cache rdepends --recurse --installed apt
-RUN dpkg-query -L apt
-
-RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances dpkg | grep "^\w" | sort -u
-RUN dpkg-query -L dpkg
-
+#RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt | grep "^\w" | sort -u
+#RUN dpkg-query -L apt
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y gnupg wget
-
-RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances wget | grep "^\w" | sort -u
-RUN dpkg-query -L wget
 
 
 FROM ${BUILD_FROM}
@@ -88,7 +79,7 @@ COPY --from=0 /usr/bin/update-alternatives /usr/bin/update-alternatives
 
 COPY --from=0 /usr/lib /usr/lib
 COPY --from=0 /usr/libexec/dpkg /usr/libexec/dpkg
-# COPY --from=0 /usr/libexec/gpg /usr/libexec/gpg
+
 COPY --from=0 /lib/x86_64-linux-gnu /lib/x86_64-linux-gnu
 COPY --from=0 /lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
 COPY --from=0 /usr/share/dpkg /usr/share/dpkg
@@ -126,19 +117,19 @@ RUN dpkg --configure -a
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481
 
 RUN apt-get -f install
-
 RUN apt-get reinstall -y apt dpkg gnupg gpgv libc6
 RUN apt-cache depends apt | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs apt-get --reinstall install -y
 
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    curl micro gzip xz-utils
-
+    curl micro gzip xz-utils tar
 
 RUN apt-get -f install
 RUN apt-get update
 RUN apt-get -f install
+
+
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
