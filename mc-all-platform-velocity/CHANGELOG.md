@@ -1,3 +1,10 @@
+## 1.10.x (02/28/2025)
+- Update Geyser
+- Update Floodgate
+- Update EaglerXVelocity
+- Add viarewind.yml config file
+- Code cleanup
+
 ## 1.9.x (02/09/2025)
 - Update Geyser
 - Update EaglerXVelocity
