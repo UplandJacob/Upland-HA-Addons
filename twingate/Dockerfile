@@ -36,6 +36,7 @@ COPY --from=0 /bin/sleep /bin/sleep
 COPY --from=0 /bin/chmod /bin/chmod
 COPY --from=0 /bin/chown /bin/chown
 COPY --from=0 /bin/mkdir /bin/mkdir
+COPY --from=0 /bin/head /bin/head
 
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
@@ -132,12 +133,12 @@ RUN apt-cache depends apt | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' |
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    curl
+    curl cdd micro
 
 
 RUN apt-get -f install
 RUN apt-get update
-RUN apt-get install –-fix-broken
+RUN apt-get –-fix-broken install
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
