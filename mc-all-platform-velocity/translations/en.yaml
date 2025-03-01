@@ -13,20 +13,20 @@ configuration:
     description: Servers associated withspecific hostnames
   advanced:
     name: Velocity advanced config
-    description: Make sure you know what these settings de before you change them.
+    description: Make sure you know what these settings do before you change them.
   
   eagConfig:
     name: Eaglercraft config
     description: Basic EaglercraftXVelocity config
   eagAuth:
     name: Eaglercraft Authentication
-    description: "Authentication for Eaglercraft clients. You don't need this if you use AuthMe"
+    description: Authentication for Eaglercraft clients. You don't need this if you use AuthMe.
   eagListener:
     name: Eaglercraft listeners
-    description: Most listener settings are availible in the config folder of the addon. THe setting defined here will ALWAYS overwrite changes you make to listener_01 in that file.
+    description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener_01 in that file.
   eagRelays:
     name: Eaglercraft ICE relay servers
-    description: Used fo in-game voice chat
+    description: Used for in-game voice chat
   
   floodgate:
     name: Floodgate config
