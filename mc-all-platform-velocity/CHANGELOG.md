@@ -1,4 +1,4 @@
-## 1.10.0 (02/28/2025)
+## 1.10.x (02/28/2025)
 - Update Geyser
 - Update Floodgate
 - Update EaglerXVelocity
