@@ -13,6 +13,12 @@ logLine() {
 getConfig() {
   jq --raw-output "$1" /data/options.json
 }
+checkDir() {
+  if [[ ! -d "$1" ]]; then
+    logGreen "creating '$1' folder..."
+    mkdir $1
+  fi
+}
 
 if [[ ! -f "/config/uuid.txt" ]]; then
   logGreen "No uuid.txt found, generating one..."
@@ -253,18 +259,11 @@ logGreen "plugins/Geyser-Velocity/config.yml"
 cat plugins/Geyser-Velocity/config.yml
 
 #----- packs and extentions ------
-if [[ ! -d "/config/geyser" ]]; then
-  logGreen "creating 'geyser' folder..."
-  mkdir /config/geyser
-fi
-if [[ ! -d "/config/geyser/packs" ]]; then
-  logGreen "creating 'geyser/packs' folder..."
-  mkdir /config/geyser/packs
-fi
-if [[ ! -d "/config/geyser/extensions" ]]; then
-  logGreen "creating 'geyser/extensions' folder..."
-  mkdir /config/geyser/extensions
-fi
+checkDir "/config/geyser"
+checkDir "/config/geyser/packs"
+checkDir "/config/geyser/extentions"
+checkDir "/config/geyser/floodgate"
+
 logGreen "copying Geyser packs..."
 rsync -av --ignore-existing /config/geyser/packs/ /plugins/Geyser-Velocity/packs/
 logGreen "copying Geyser extensions..."
@@ -276,11 +275,7 @@ if [[ ! -f "/config/geyser/key.pem" ]]; then
   need_kick=true
   need_kick_reason+=("key.pem")
 fi
-# floodgate folder for DB jars and config
-if [[ ! -d "/config/geyser/floodgate" ]]; then
-  logGreen "creating 'geyser/floodgate' folder..."
-  mkdir /config/geyser/floodgate
-fi
+
 # local linking
 if echo "$FLOOD_PLAYER" | jq -e '."enable-own-linking" == true'; then
   if echo "$FLOOD_PLAYER" | jq -e '.type == "mysql"'; then
@@ -288,9 +283,7 @@ if echo "$FLOOD_PLAYER" | jq -e '."enable-own-linking" == true'; then
       logRed "missing floodgate-mysql-database.jar for Floodgate DB type 'mysql'"
       exit 0
     fi
-    if [[ ! -d "/config/geyser/floodgate/mysql" ]]; then
-      mkdir /config/geyser/floodgate/mysql
-    fi
+    checkDir "/config/geyser/floodgate/mysql"
     if [[ ! -f "/config/geyser/floodgate/mysql/mysql.yml" ]]; then
       need_kick=true
       need_kick_reason+=("floodgate/mysql.yml")
@@ -300,9 +293,7 @@ if echo "$FLOOD_PLAYER" | jq -e '."enable-own-linking" == true'; then
       logRed "missing floodgate-mongo-database.jar for Floodgate DB type 'mongo'"
       exit 0
     fi
-    if [[ ! -d "/config/geyser/floodgate/mongo" ]]; then
-      mkdir /config/geyser/floodgate/mongo
-    fi
+    checkDir "/config/geyser/floodgate/mongo"
     if [[ ! -f "/config/geyser/floodgate/mongo/mongo.yml" ]]; then
       need_kick=true
       need_kick_reason+=("floodgate/mongo.yml")
@@ -328,8 +319,12 @@ cp /config/viabackwards.yml /plugins/viabackwards/config.yml
 
 #----------------------------------------- VIAREWIND --------------------------------
 # ------------ plugins/viarewind/config.yml ------------
-# TODO
-
+if [[ ! -f "/config/viarewind.yml" ]]; then
+  logGreen "no viarewind.yml file found. Copying from default.."
+  cp /default_config/viarewind.yml /config/viarewind.yml
+fi
+logGreen "copying viarewind.yml from config..."
+cp /config/viarewind.yml /plugins/viarewind/config.yml
 
 ####### -------------------------- finalize -------------------------------------
 logLine
