@@ -86,12 +86,8 @@ COPY --from=0 /usr/share/dpkg /usr/share/dpkg
 COPY --from=0 /usr/sbin/dpkg-fsys-usrunmess /usr/sbin/dpkg-fsys-usrunmess
 COPY --from=0 /usr/sbin/dpkg-preconfigure /usr/sbin/dpkg-preconfigure
 
-
 # COPY --from=0 /usr/lib/apt /usr/lib/apt
 # COPY --from=0 /usr/lib/dpkg /usr/lib/dpkg
-# COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0.0
-# COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0 /usr/lib/x86_64-linux-gnu/libapt-private.so.0.0
-# COPY --from=0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0 /usr/lib/x86_64-linux-gnu/libapt-pkg.so.6.0
 
 COPY --from=0 /var/log/apt /var/log/apt
 COPY --from=0 /var/cache/apt /var/cache/apt
@@ -114,7 +110,7 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 
 # RUN dpkg -i /tmp/apt.deb
 RUN dpkg --configure -a
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481
+#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9 6ED0E7B82643E131 F8D2585B8783D481
 
 RUN apt-get -f install
 RUN apt-get reinstall -y apt dpkg gnupg gpgv libc6
@@ -125,7 +121,6 @@ RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     curl micro gzip xz-utils tar
 
-RUN apt-get -f install
 RUN apt-get update
 RUN apt-get -f install
 
