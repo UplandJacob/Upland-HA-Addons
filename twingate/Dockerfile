@@ -138,7 +138,7 @@ RUN apt-get update && \
 
 RUN apt-get -f install
 RUN apt-get update
-RUN apt-get –f install
+RUN apt-get -f install
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
