@@ -38,6 +38,111 @@ fi
 need_kick=false
 need_kick_reason=()
 
+
+
+logLine
+####### -------------------------------   optional plugins ---------------------------------
+AUTHME=$(getConfig '.enableAuthMeV')
+PACKEV=$(getConfig '.enableVPacketEv')
+EPICGUARD=$(getConfig '.enableEpicGuard')
+ANTIBOT=$(getConfig '.enableAntiBot')
+SKINREST=$(getConfig '.enableSkinRest')
+
+if [[ ! -d "/config/cache" ]]; then
+  mkdir "/config/cache"
+  logGreen "created /config/cache folder"
+fi
+if [[ ! -d "/config/cache/plugins" ]]; then
+  mkdir "/config/cache/plugins"
+  logGreen "created /config/cache/plugins folder"
+fi
+if [[ ! -f "/config/cache/plugins/versions.yaml" ]]; then
+  echo -e "\n" > /config/cache/plugins/versions.yaml
+  logGreen "created /config/cache/plugins/versions.yaml"
+fi
+
+downloadPlugin() {
+  name=$1
+  url=$2
+  logGreen "Downloading $name from the url: $url"
+  curl --no-progress-meter -H "Accept-Encoding: identity" \
+    -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+    -o /config/plugins/optional_cache/$name "$url"
+}
+
+getPlugin() {
+  pl="$1"
+  current_pl_vers=""
+  if [[ ! -f "/config/cache/plugins/$pl" ]]; then
+    current_pl_vers=$(yq eval ".'$pl' // \"none\"" /config/plugins/optional_cache/versions.yaml)
+  fi
+  url=""
+  latest_pl_vers=""
+  case $pl in
+    "AuthMeVelocity.jar")
+      url="https://github.com/4drian3d/AuthMeVelocity/releases/download/$AUTHME_VERS/AuthMeVelocity-Velocity-$AUTHME_VERS.jar"
+      latest_pl_vers=$AUTHME_VERS
+    ;;
+    "EpicGuardVelocity.jar")
+      url="https://github.com/4drian3d/EpicGuard/releases/download/$EPICGUARD_VERS/EpicGuardVelocity-$EPICGUARD_VERS.jar"
+      latest_pl_vers=$EPICGUARD_VERS
+    ;;
+    "VPacketEvents.jar")
+      url="https://github.com/4drian3d/VPacketEvents/releases/download/$PACKEVENTS_VERS/VPacketEvents-$PACKEVENTS_VERS.jar"
+      latest_pl_vers=$PACKEVENTS_VERS
+    ;;
+    "UltimateAntibot.jar")
+      url="https://github.com/Kr1S-D/UltimateAntibotRecoded/releases/download/v$ANTIBOT_VERS/UltimateAntibot-velocity-$ANTIBOT_VERS-ABYSS.jar"
+      latest_pl_vers=$ANTIBOT_VERS
+    ;;
+    "SkinsRestorer.jar")
+      url="https://github.com/SkinsRestorer/SkinsRestorer/releases/download/$SKINRESTORE_VERS/SkinsRestorer.jar"
+      latest_pl_vers=$SKINRESTORE_VERS
+    ;;
+  esac
+  if [[ ! -f "/config/cache/plugins/$pl" ]]; then
+    downloadPlugin $pl $url
+  elif [ ! "$current_pl_vers" = "$latest_pl_vers" ]]; then
+    logGreen "update available for $pl ($current_pl_vers) - new version: $latest_pl_vers"
+    downloadPlugin $pl $url
+  fi
+  cp /config/plugins/optional_cache/$name /plugins/$name
+}
+
+
+if [ "$AUTHME" = true ]; then
+  logGreen "AuthMeVelocity.jar enabled"
+  getPlugin "AuthMeVelocity.jar"
+  checkDir "/config/plugins/optional_config/authmevelocity"
+  ## TODO
+fi
+if [ "$PACKEV" = true ]; then
+  logGreen "VPacketEvents.jar enabled"
+  getPlugin "VPacketEvents.jar"
+fi
+if [ "$EPICGUARD" = true ]; then
+  logGreen "EpicGuardVelocity.jar enabled"
+  getPlugin "EpicGuardVelocity.jar"
+  checkDir "/config/plugins/optional_config/epicguard"
+  ## TODO
+fi
+if [ "$ANTIBOT" = true ]; then
+  logGreen "UltimateAntibot.jar enabled"
+  getPlugin "UltimateAntibot.jar"
+  checkDir "/config/plugins/optional_config/ultimateantibot-velocity"
+  ## TODO
+fi
+if [ "$SKINREST" = true ]; then
+  logGreen "SkinsRestorer.jar enabled"
+  getPlugin "SkinsRestorer.jar"
+  checkDir "/config/plugins/optional_config/skinsrestorer"
+  ## TODO
+fi
+
+
+
+
+
 ################################################
 logGreen "Generating config files..."
 #---------------------- velocity.toml -----------------------
@@ -326,7 +431,7 @@ fi
 logGreen "copying viarewind.yml from config..."
 cp /config/viarewind.yml /plugins/viarewind/config.yml
 
-####### -------------------------- finalize -------------------------------------
+####### ------------------------------------- finalize -------------------------------------
 logLine
 
 if [[ "$need_kick" = true ]]; then
