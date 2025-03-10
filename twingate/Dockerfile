@@ -29,6 +29,7 @@ COPY --from=0 /bin/chown /bin/chown
 COPY --from=0 /bin/mkdir /bin/mkdir
 COPY --from=0 /bin/head /bin/head
 
+COPY --from=0 /usr/bin/env /usr/bin/env
 COPY --from=0 /usr/bin/dpkg /usr/bin/dpkg
 COPY --from=0 /usr/bin/tar /usr/bin/tar
 COPY --from=0 /usr/bin/diff /usr/bin/diff
