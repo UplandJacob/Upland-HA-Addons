@@ -24,6 +24,35 @@ jobs:
         run: |
           echo "changed=" >> $GITHUB_ENV;
 
+      - name: Velocity #https://api.papermc.io/v2/projects/velocity/
+        run: |
+          resp=$(curl --silent -X 'GET' "https://api.papermc.io/v2/projects/velocity" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          echo "latest version: $latestVers"
+          resp2=$(curl --silent -X 'GET' "https://api.papermc.io/v2/projects/velocity/versions/$latestVers" -H 'accept: application/json')
+          echo "$resp2"
+          latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
+          echo "latest build: $latestBuild"
+          
+          currentVers=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VELOCITY_VERS=")[0-9]+\.[0-9]+\.[0-9]+.+(?=")')
+          echo "current version: $currentVers"
+          currentBuild=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=VELOCITY_BUILD=")[0-9]+')
+          echo "current build: $currentBuild"
+
+          if [ $latestVers != $currentVers -o $latestBuild != $currentBuild ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} Velocity" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+            sed -i -E "s/VELOCITY_VERS=\"[0-9]+\.[0-9]+\.[0-9]+.+\"/VELOCITY_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
+          if [ $latestBuild != $currentBuild ]; then
+            echo "BUILD update"
+            sed -i -E "s/VELOCITY_BUILD=\"[0-9]+\"/VELOCITY_BUILD=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
+          fi
+
       - name: SkinsRestorer
         run: |
           resourceID='2124'
@@ -62,7 +91,7 @@ jobs:
           fi
           if [ $latestVers != $currentVers ]; then
             echo "VERSION update"
-            sed -i -E "s/GEYSER_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/GEYSER_VERS=\"$latestBuild\"/" ./mc-all-platform-velocity/Dockerfile
+            sed -i -E "s/GEYSER_VERS=\"[0-9]+\.[0-9]+\.[0-9]+\"/GEYSER_VERS=\"$latestVers\"/" ./mc-all-platform-velocity/Dockerfile
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
