@@ -5,6 +5,7 @@
 - Add viarewind.yml config file
 - Code cleanup
 - 1.10.1 - fix typo in folder name ("extensions" not "extentions")
+- 1.10.2 - add missing log, add some notes, fix typos in config, update Geyser and Velocity
 
 ## 1.9.x (02/09/2025)
 - Update Geyser
