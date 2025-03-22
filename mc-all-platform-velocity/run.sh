@@ -92,14 +92,16 @@ vel_forced_hosts=""
 vel_forced_hosts_length=$(echo "$VEL_FORCED_HOSTS" | jq '. | length')
 for (( i=0; i<$vel_servers_length; i++ )); do
   host=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].hostname")
-  servs=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].servNames")
-  vel_forced_hosts+="\"$host\" = [\n"
-  servs_len=$(echo "$servs" | jq '. | length')
-  for (( j=0; j<$servs_len; j++ )); do
-    name=$(echo "$servs" | jq -r ".[$j]")
-    vel_forced_hosts+="    \"$name\",\n"
-  done
-  vel_forced_hosts+="]\n"
+  if [ "$host" != "null" ]; then
+    servs=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].servNames")
+    vel_forced_hosts+="\"$host\" = [\n"
+    servs_len=$(echo "$servs" | jq '. | length')
+    for (( j=0; j<$servs_len; j++ )); do
+      name=$(echo "$servs" | jq -r ".[$j]")
+      vel_forced_hosts+="    \"$name\",\n"
+    done
+    vel_forced_hosts+="]\n"
+  fi
 done
 logGreen "velocity forcedHosts formatted:"
 echo -e "$vel_forced_hosts"
