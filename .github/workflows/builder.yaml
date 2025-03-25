@@ -27,7 +27,7 @@ jobs:
 
       - name: Get changed files
         id: changed_files
-        uses: UplandJacob/retrieve-changed-files@v4.1.2
+        uses: UplandJacob/retrieve-changed-files@v4.1.3
 
       - name: Find add-on directories
         id: addons
