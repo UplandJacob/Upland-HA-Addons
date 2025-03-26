@@ -1,4 +1,16 @@
 configuration:
+  enableAuthMeV:
+    name: Enable AuthMeVelocity plugin
+  enableVPacketEv:
+    name: Enable VPacketEvents plugin
+    description: Improves functionality of AuthMeVelocity
+  enableEpicGuard:
+    name: Enable EpicGuard plugin
+  enableAntiBot:
+    name: Enable UltimateAntiBot plugin
+  enableSkinRest:
+    name: Enable SkinsRestorer plugin
+
   rootConfig:
     name: Velocity Config
     description: Main configuration for the proxy
