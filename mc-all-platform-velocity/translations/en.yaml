@@ -4,13 +4,13 @@ configuration:
     description: Main configuration for the proxy
   servers:
     name: Backend Servers
-    description: All servers connected tothe proxy
+    description: All servers connected to the proxy
   serverAttemptJoinOrder:
     name: Server attempt join order
-    description: Order of servers to attempt to connect players
+    description: Order of servers to attempt to connect players to
   forcedHosts:
     name: Forced hosts
-    description: Servers associated withspecific hostnames
+    description: Servers associated with specific hostnames
   advanced:
     name: Velocity advanced config
     description: Make sure you know what these settings do before you change them.
@@ -20,7 +20,7 @@ configuration:
     description: Basic EaglercraftXVelocity config
   eagAuth:
     name: Eaglercraft Authentication
-    description: Authentication for Eaglercraft clients. You don't need this if you use AuthMe.
+    description: Authentication for Eaglercraft clients. You don't need this if you use another plugin such as AuthMe.
   eagListener:
     name: Eaglercraft listeners
     description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener_01 in that file.
@@ -43,7 +43,7 @@ configuration:
     description: Basic Geyser client connection config
   geyserRemote:
     name: Geyser - Remote
-    description: Basic Geyser connection settings. 
+    description: Basic Geyser connection settings
   geyser:
     name: Geyser 
     description: General Geyser config
