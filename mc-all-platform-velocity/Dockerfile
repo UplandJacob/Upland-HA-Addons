@@ -30,7 +30,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     rsync screen uuid-runtime && \
-    apt-get autoremove && apt-get clean
+    apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 #Velocity
 RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
