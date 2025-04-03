@@ -32,11 +32,13 @@ jobs:
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
           if [ -z "$BRANCH_NAME" ]; then
+            echo "fetching and checking out..."
             git fetch --all
             git checkout $BRANCH_NAME
+            echo "done"
           fi
 
-      - name: Velocity #https://api.papermc.io/v2/projects/velocity/
+      - name: Velocity
         run: |
           resp=$(curl --silent -X 'GET' "https://api.papermc.io/v2/projects/velocity" -H 'accept: application/json')
           echo "$resp"
@@ -219,6 +221,7 @@ jobs:
               echo "No changes to commit"
               exit 0
             fi
+            echo "changes found, commiting..."
             git commit -m "Update deps:${{ env.changed }}"
             echo "need_pr_update=true" >> $GITHUB_ENV;
           fi
