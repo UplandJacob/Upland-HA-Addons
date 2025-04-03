@@ -229,6 +229,33 @@ jobs:
           branch: ${{ env.BRANCH_NAME }}
           force: false
 
+      - name: Find and update PR title
+        if: ${{ env.need_pr_update }}
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { context, github } = require('@actions/github');
+
+            // Fetch the open PR for the branch
+            const { data: pullRequests } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${{ env.BRANCH_NAME }}`,
+              state: "open"
+            });
+            if (pullRequests.length > 0) {
+              const pullRequest = pullRequests[0]; // Assuming the first result is the right PR
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pullRequest.number,
+                title: "Update deps:${{ env.changed }}"
+              });
+            } else {
+              console.log("No open PR found for update-deps.");
+            }
+
       - name: Create Pull Request
         if: ${{ env.need_pr }}
         uses: peter-evans/create-pull-request@v7.0.8
