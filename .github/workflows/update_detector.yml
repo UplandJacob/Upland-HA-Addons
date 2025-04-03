@@ -20,11 +20,25 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.HA_GITHUB_TOKEN }}
-      - name: Create empty "changed" env variable.
+      - name: Create empty "changed" env variable and check for existimg branch
         run: |
           echo "changed=" >> $GITHUB_ENV;
 
-      - name: Velocity #https://api.papermc.io/v2/projects/velocity/
+          REGEX_PATTERN="update-deps-[a-f0-9]{7}"
+          BRANCHES=$(git branch -r)
+          echo "Branches: $BRANCHES"
+          BRANCH_NAME=$(echo "$BRANCHES" | grep -E "$REGEX_PATTERN" | sed 's|origin/||' | head -n 1 | xargs )
+          echo "Found branch: $BRANCH_NAME"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+          if [ "$BRANCH_NAME" != "" ]; then
+            echo "fetching and checking out..."
+            git fetch --all
+            git checkout $BRANCH_NAME
+            echo "done"
+          fi
+
+      - name: Velocity
         run: |
           resp=$(curl --silent -X 'GET' "https://api.papermc.io/v2/projects/velocity" -H 'accept: application/json')
           echo "$resp"
@@ -194,25 +208,16 @@ jobs:
         run: | 
           echo ${{ env.changed }}
           if [ "${{ env.changed }}" != "" ]; then
-            REGEX_PATTERN="update-deps-[a-f0-9]{7}"
-            BRANCHES=$(git branch -r)
-            echo "Branches: $BRANCHES"
-            BRANCH_NAME=$(echo "$BRANCHES" | grep -E "$REGEX_PATTERN" | sed 's|origin/||' | head -n 1 | xargs )
-            echo "Found branch: $BRANCH_NAME"
-            echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
-            if [ -z "$BRANCH_NAME" ]; then
+            if [ -z "${{ env.BRANCH_NAME }}" ]; then
               echo "No branch matching the pattern found."
               echo "need_pr=true" >> $GITHUB_ENV;
               exit 0
             fi
-            echo "Branch $BRANCH_NAME exists."
+            echo "Branch ${{ env.BRANCH_NAME }} exists."
             git config --local user.name "github-actions[bot]"
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
             git add .
-            if [ -z "$(git status --porcelain)" ]; then
-              echo "No changes to commit"
-              exit 0
-            fi
+            
             git commit -m "Update deps:${{ env.changed }}"
             echo "need_pr_update=true" >> $GITHUB_ENV;
           fi
