@@ -222,7 +222,7 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           branch: ${{ env.BRANCH_NAME }}
-          force: true
+          force: false
 
       - name: Create Pull Request
         if: ${{ env.need_pr }}
