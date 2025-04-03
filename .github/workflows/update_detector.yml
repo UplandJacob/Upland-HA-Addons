@@ -31,7 +31,7 @@ jobs:
           echo "Found branch: $BRANCH_NAME"
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
-          if [ -z "$BRANCH_NAME" ]; then
+          if [ "$BRANCH_NAME" != "" ]; then
             echo "fetching and checking out..."
             git fetch --all
             git checkout $BRANCH_NAME
