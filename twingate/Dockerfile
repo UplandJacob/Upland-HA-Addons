@@ -4,17 +4,17 @@ ARG BUILD_ARCH
 FROM debian:latest as deb
 #RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt | grep "^\w" | sort -u
 #RUN dpkg-query -L apt
+# hadolint ignore=DL3008
 RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y gnupg wget
 #########################################################################
 FROM ${BUILD_FROM}
 # hadolint ignore=DL3002
 USER root
-SHELL ["/bin/bash", "-c"]
-
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 # and /bin/bash
 COPY --from=deb /bin/bash /bin/bash
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY --from=deb /bin/rm /bin/rm
 COPY --from=deb /bin/xargs /bin/xargs
