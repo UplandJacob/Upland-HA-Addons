@@ -1,6 +1,6 @@
 # Gitea Runner
 
-![Addon Stage](https://img.shields.io/badge/Addon%20stage-ready-green.svg)
+![Addon Stage](https://img.shields.io/badge/Addon%20stage-in_progress-yellow.svg)
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
 
 ![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
