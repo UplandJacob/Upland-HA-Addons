@@ -1,0 +1,31 @@
+name: Gitea Runner
+version: 0.0.1
+slug: gitea-runner
+description: Actions runner for Gitea
+url: https://github.com/uplandjacob/upland-ha-addons/tree/main/gitea-runner
+arch:
+  - aarch64
+  - amd64
+init: false
+image: ghcr.io/uplandjacob/upland-ha-addons-gitea-runner-{arch}
+
+map:
+  - data:rw
+  - name: addon_config
+    path: /config
+    read_only: false
+options:
+  GITEA_INSTANCE_URL: homeassistant.local:3000
+  GITEA_RUNNER_REGISTRATION_TOKEN: "TOKEN_HERE"
+  GITEA_RUNNER_NAME: runner1
+
+schema:
+  GITEA_INSTANCE_URL: url
+  GITEA_RUNNER_REGISTRATION_TOKEN: str
+  GITEA_RUNNER_NAME: str
+  GITEA_RUNNER_LABELS: str?
+
+ports:
+  "8088/tcp": null
+ports_description:
+  "8088/tcp": "Optional: only needed cache is configured"
