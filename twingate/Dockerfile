@@ -1,13 +1,15 @@
 ARG BUILD_FROM
 ARG BUILD_ARCH
-
+# hadolint ignore=DL3007
 FROM debian:latest as deb
 #RUN apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances apt | grep "^\w" | sort -u
 #RUN dpkg-query -L apt
-RUN apt-get update && apt-get upgrade -y && apt-get install -y gnupg wget
+RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends -y gnupg wget
 #########################################################################
 FROM ${BUILD_FROM}
+# hadolint ignore=DL3002
 USER root
+SHELL ["/bin/bash", "-c"]
 
 # we need /bin/sh
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
@@ -102,9 +104,9 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1 \
 # hadolint ignore=DL4005
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
-
+# hadolint ignore=DL3008
 RUN dpkg --configure -a && \
-    apt-get -f install -y && \
+    apt-get -f install --no-install-recommends -y && \
     apt-get reinstall -y apt dpkg gnupg gpgv libc6 && \
     apt-cache depends apt | grep '[ |]Depends: [^<]' | cut -d: -f2 | tr -d ' ' | xargs apt-get --reinstall install -y
 
