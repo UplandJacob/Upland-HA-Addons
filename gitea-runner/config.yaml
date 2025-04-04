@@ -11,7 +11,7 @@ image: ghcr.io/uplandjacob/upland-ha-addons-gitea-runner-{arch}
 
 map:
   - data:rw
-  - name: addon_config
+  - type: addon_config
     path: /config
     read_only: false
 options:
