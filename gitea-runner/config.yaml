@@ -1,5 +1,5 @@
 name: Gitea Runner
-version: 0.0.4
+version: 0.0.5
 slug: gitea-runner
 description: Actions runner for Gitea
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/gitea-runner
@@ -8,14 +8,16 @@ arch:
   - amd64
 init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-gitea-runner-{arch}
+docker_api: true
 
 map:
   - data:rw
   - type: addon_config
     path: /config
     read_only: false
+
 options:
-  GITEA_INSTANCE_URL: homeassistant.local:3000
+  GITEA_INSTANCE_URL: "http://homeassistant.local:3000"
   GITEA_RUNNER_REGISTRATION_TOKEN: "TOKEN_HERE"
   GITEA_RUNNER_NAME: runner1
 
