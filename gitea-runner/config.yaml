@@ -1,5 +1,5 @@
 name: Gitea Runner
-version: 0.0.1
+version: 0.0.2
 slug: gitea-runner
 description: Actions runner for Gitea
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/gitea-runner
