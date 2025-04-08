@@ -235,9 +235,7 @@ jobs:
         with:
           github-token: ${{ secrets.HA_GITHUB_TOKEN }}
           script: |
-            const github = require('@actions/github').getOctokit(process.env.GITHUB_TOKEN);
-            const context = require('@actions/github').context;
-
+            
             // Fetch the open PR for the branch
             const { data: pullRequests } = await github.rest.pulls.list({
               owner: context.repo.owner,
