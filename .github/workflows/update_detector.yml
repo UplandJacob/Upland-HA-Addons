@@ -250,7 +250,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 pull_number: pullRequest.number,
-                title: "Update deps:${{ env.changed }}"
+                title: "${ pullRequest.title }${{ env.changed }}"
               });
             } else {
               console.log("No open PR found for update-deps.");
