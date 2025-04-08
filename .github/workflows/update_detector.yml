@@ -218,7 +218,7 @@ jobs:
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
             git add .
             
-            git commit -m "Auto-update deps:${{ env.changed }}"
+            git commit -m "AUTO-update deps:${{ env.changed }}"
             echo "need_pr_update=true" >> $GITHUB_ENV;
           fi
 
@@ -233,7 +233,7 @@ jobs:
         if: ${{ env.need_pr_update }}
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.HA_GITHUB_TOKEN }}
           script: |
             const { context, github } = require('@actions/github');
 
@@ -261,13 +261,13 @@ jobs:
         uses: peter-evans/create-pull-request@v7.0.8
         with:
           commit-message: |
-            Auto-update deps:${{ env.changed }}
+            AUTO-update deps:${{ env.changed }}
 
             Dependency updates detected.
           branch: update-deps
           delete-branch: true
           branch-suffix: short-commit-hash
-          title: "Update deps:${{ env.changed }}"
+          title: "AUTO-Update deps:${{ env.changed }}"
           body: "This pull request was created automatically by a GitHub Action."
           labels: dependencies
           maintainer-can-modify: true
