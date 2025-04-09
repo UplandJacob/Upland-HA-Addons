@@ -3,6 +3,7 @@ version: 0.0.7
 slug: gitea-runner
 description: Actions runner for Gitea
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/gitea-runner
+stage: experimental
 arch:
   - aarch64
   - amd64
