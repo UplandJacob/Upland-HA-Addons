@@ -1,4 +1,4 @@
-ARG BUILD_FROM=gitea/act_runner:nightly
+ARG BUILD_FROM=gitea/act_runner:nightly-dind
 FROM ${BUILD_FROM}
 
 # Set S6 wait time
