@@ -39,6 +39,7 @@ jobs:
           fi
 
       - name: Velocity
+        if: false # DISABLED until EaglerXVelocity Update
         run: |
           resp=$(curl --silent -X 'GET' "https://api.papermc.io/v2/projects/velocity" -H 'accept: application/json')
           echo "$resp"
