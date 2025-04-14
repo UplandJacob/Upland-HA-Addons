@@ -197,7 +197,7 @@ jobs:
           latestID=$(echo "$resp" | jq -r .[0].sha)
           echo "latest commit: $latestID"
 
-          currentID=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=EAGLER_COMMIT_ID=")[0-9a-z]+')
+          currentID=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=EAGLER_COMMIT_ID=")[0-9a-z]*')
           echo "current commit: $currentID"
 
           if [ "$latestID" != "$currentID" ]; then
