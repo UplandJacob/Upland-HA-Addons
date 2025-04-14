@@ -202,7 +202,7 @@ jobs:
 
           if [ "$latestID" != "$currentID" ]; then
             echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
-            sed -i -E "s/EAGLER_COMMIT_ID=\"[0-9a-z]+\"/EAGLER_COMMIT_ID=\"$latestID\"/" ./mc-all-platform-velocity/Dockerfile
+            sed -i -E "s/EAGLER_COMMIT_ID=\"[0-9a-z]*\"/EAGLER_COMMIT_ID=\"$latestID\"/" ./mc-all-platform-velocity/Dockerfile
           fi
 
       - name: "Check what needs to be done"
