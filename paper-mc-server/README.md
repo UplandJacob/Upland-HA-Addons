@@ -1,6 +1,6 @@
-# Paper MC Server
+# MC auth server
 
-![Addon Stage](https://img.shields.io/badge/Addon%20stage-experimental-yellow.svg)
+![Addon Stage](https://img.shields.io/badge/Addon%20stage-in_progress-red.svg)
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
 
 ![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
@@ -11,7 +11,7 @@
 
 ## About
 
-Minecraft Paper server.
+Minecraft auth server for proxy setups that use AuthMe.
 
 ## Install
 
@@ -23,7 +23,7 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 **Then install:**
 
-[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=TODO_paper-mc-server)
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-auth-server)
 
 ## Setup
 
