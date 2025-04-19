@@ -2,13 +2,13 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 ENV VELOCITY_VERS="3.4.0-SNAPSHOT"
-ENV VELOCITY_BUILD="458"
+ENV VELOCITY_BUILD="487"
 ENV EAGLER_COMMIT_ID="b0a2739fe126dd8440b380449af9a2117754e59c"
-ENV VIAVERSION_VERS="5.2.1"
-ENV VIABACKWARDS_VERS="5.2.1"
-ENV VIAREWIND_VERS="4.0.5"
-ENV GEYSER_VERS="2.6.1"
-ENV GEYSER_BUILD="779"
+ENV VIAVERSION_VERS="5.3.2"
+ENV VIABACKWARDS_VERS="5.3.2"
+ENV VIAREWIND_VERS="4.0.7"
+ENV GEYSER_VERS="2.7.0"
+ENV GEYSER_BUILD="812"
 ENV FLOOD_VERS="2.2.4"
 ENV FLOOD_BUILD="116"
 
@@ -18,9 +18,8 @@ COPY default_config default_config
 
 COPY run.sh run.sh
 COPY kickstart.sh kickstart.sh
-RUN chmod +x run.sh
-RUN chmod +x kickstart.sh
-RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
+RUN chmod +x run.sh && chmod +x kickstart.sh && \
+    find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
@@ -31,7 +30,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     rsync screen uuid-runtime && \
-    apt-get autoremove && apt-get clean
+    apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 #Velocity
 RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
@@ -42,31 +41,16 @@ RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language:
 WORKDIR /plugins
 
 # for Eaglercraft
-RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
-    -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o EaglerXVelocity.jar "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar"
+ADD "https://gitea.uplandustries.com/uplandustries/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar" EaglerXVelocity.jar
 
-# for old clients including Eaglercraft
-RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
-    -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o ViaVersion.jar "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/$VIAVERSION_VERS/PAPER/ViaVersion-$VIAVERSION_VERS.jar"
-
-RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
-    -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o ViaRewind.jar "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/$VIAREWIND_VERS/PAPER/ViaRewind-$VIAREWIND_VERS.jar"
-
-RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
-    -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o ViaBackwards.jar "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/$VIABACKWARDS_VERS/PAPER/ViaBackwards-$VIABACKWARDS_VERS.jar"
+# for older and newer clients (compared to backend servers) including Eaglercraft
+ADD "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/$VIAVERSION_VERS/PAPER/ViaVersion-$VIAVERSION_VERS.jar" ViaVersion.jar
+ADD "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/$VIAREWIND_VERS/PAPER/ViaRewind-$VIAREWIND_VERS.jar" ViaRewind.jar
+ADD "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/$VIABACKWARDS_VERS/PAPER/ViaBackwards-$VIABACKWARDS_VERS.jar" ViaBackwards.jar
 
 # for Bedrock
-RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
-    -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o Geyser.jar "https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity"
-
-RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language: en" -L \
-    -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o Floodgate.jar "https://download.geysermc.org/v2/projects/floodgate/versions/$FLOOD_VERS/builds/$FLOOD_BUILD/downloads/velocity"
+ADD "https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity" Geyser.jar
+ADD "https://download.geysermc.org/v2/projects/floodgate/versions/$FLOOD_VERS/builds/$FLOOD_BUILD/downloads/velocity" Floodgate.jar
 
 WORKDIR /
 

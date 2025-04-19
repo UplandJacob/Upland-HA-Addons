@@ -92,14 +92,16 @@ vel_forced_hosts=""
 vel_forced_hosts_length=$(echo "$VEL_FORCED_HOSTS" | jq '. | length')
 for (( i=0; i<$vel_servers_length; i++ )); do
   host=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].hostname")
-  servs=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].servNames")
-  vel_forced_hosts+="\"$host\" = [\n"
-  servs_len=$(echo "$servs" | jq '. | length')
-  for (( j=0; j<$servs_len; j++ )); do
-    name=$(echo "$servs" | jq -r ".[$j]")
-    vel_forced_hosts+="    \"$name\",\n"
-  done
-  vel_forced_hosts+="]\n"
+  if [ "$host" != "null" ]; then
+    servs=$(echo "$VEL_FORCED_HOSTS" | jq -r ".[$i].servNames")
+    vel_forced_hosts+="\"$host\" = [\n"
+    servs_len=$(echo "$servs" | jq '. | length')
+    for (( j=0; j<$servs_len; j++ )); do
+      name=$(echo "$servs" | jq -r ".[$j]")
+      vel_forced_hosts+="    \"$name\",\n"
+    done
+    vel_forced_hosts+="]\n"
+  fi
 done
 logGreen "velocity forcedHosts formatted:"
 echo -e "$vel_forced_hosts"
@@ -261,7 +263,7 @@ cat plugins/Geyser-Velocity/config.yml
 #----- packs and extentions ------
 checkDir "/config/geyser"
 checkDir "/config/geyser/packs"
-checkDir "/config/geyser/extentions"
+checkDir "/config/geyser/extensions"
 checkDir "/config/geyser/floodgate"
 
 logGreen "copying Geyser packs..."
@@ -305,7 +307,7 @@ if echo "$FLOOD_PLAYER" | jq -e '."enable-own-linking" == true'; then
     fi
     ln -s /config/geyser/floodgate/linked-players.db /plugins/floodgate/linked-players.db
   fi
-  
+  logGreen "copying Floodgate folder..."
   rsync -av --ignore-existing /config/geyser/floodgate/ /plugins/floodgate
 fi
 #----------------------------------------- VIABACKWARDS --------------------------------

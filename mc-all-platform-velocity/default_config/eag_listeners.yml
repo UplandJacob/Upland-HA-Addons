@@ -6,15 +6,15 @@
 listener_01:
   address: 0.0.0.0:8081
   address_v6: 'null'
-  max_players: 60
-  forward_ip: false
+  max_players: 60 # will be overwritten by Addon config
+  forward_ip: false # will be overwritten by Addon config
   forward_ip_header: X-Real-IP
   redirect_legacy_clients_to: 'null'
   server_icon: server-icon.png
-  server_motd:
+  server_motd: # will be overwritten by Addon config
   - '&6An EaglercraftXVelocity server'
-  allow_motd: true
-  allow_query: true
+  allow_motd: true # will be overwritten by Addon config
+  allow_query: true # will be overwritten by Addon config
   min_minecraft_protocol: 47
   max_minecraft_protocol: 340
   allow_protocol_v3: true
@@ -35,7 +35,7 @@ listener_01:
     page_index_name:
     - 'index.html'
     - 'index.htm'
-  allow_voice: true
+  allow_voice: true # will be overwritten by Addon config
   ratelimit:
     ip:
       enable: true
