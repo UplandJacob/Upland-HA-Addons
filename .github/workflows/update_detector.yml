@@ -39,6 +39,7 @@ jobs:
           fi
 
       - name: Velocity
+        if: false # DISABLED until EaglerXVelocity Update
         run: |
           resp=$(curl --silent -X 'GET' "https://api.papermc.io/v2/projects/velocity" -H 'accept: application/json')
           echo "$resp"
@@ -196,12 +197,12 @@ jobs:
           latestID=$(echo "$resp" | jq -r .[0].sha)
           echo "latest commit: $latestID"
 
-          currentID=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=EAGLER_COMMIT_ID=")[0-9a-z]+')
+          currentID=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=EAGLER_COMMIT_ID=")[0-9a-z]*')
           echo "current commit: $currentID"
 
           if [ "$latestID" != "$currentID" ]; then
             echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
-            sed -i -E "s/EAGLER_COMMIT_ID=\"[0-9a-z]+\"/EAGLER_COMMIT_ID=\"$latestID\"/" ./mc-all-platform-velocity/Dockerfile
+            sed -i -E "s/EAGLER_COMMIT_ID=\"[0-9a-z]*\"/EAGLER_COMMIT_ID=\"$latestID\"/" ./mc-all-platform-velocity/Dockerfile
           fi
 
       - name: "Check what needs to be done"
@@ -218,7 +219,7 @@ jobs:
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
             git add .
             
-            git commit -m "Auto-update deps:${{ env.changed }}"
+            git commit -m "AUTO-update deps:${{ env.changed }}"
             echo "need_pr_update=true" >> $GITHUB_ENV;
           fi
 
@@ -231,12 +232,11 @@ jobs:
 
       - name: Find and update PR title
         if: ${{ env.need_pr_update }}
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.HA_GITHUB_TOKEN }}
           script: |
-            const { context, github } = require('@actions/github');
-
+            
             // Fetch the open PR for the branch
             const { data: pullRequests } = await github.rest.pulls.list({
               owner: context.repo.owner,
@@ -250,7 +250,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 pull_number: pullRequest.number,
-                title: "Update deps:${{ env.changed }}"
+                title: `${ pullRequest.title }${{ env.changed }}`
               });
             } else {
               console.log("No open PR found for update-deps.");
@@ -261,13 +261,13 @@ jobs:
         uses: peter-evans/create-pull-request@v7.0.8
         with:
           commit-message: |
-            Auto-update deps:${{ env.changed }}
+            AUTO-update deps:${{ env.changed }}
 
             Dependency updates detected.
           branch: update-deps
           delete-branch: true
           branch-suffix: short-commit-hash
-          title: "Update deps:${{ env.changed }}"
+          title: "AUTO-Update deps:${{ env.changed }}"
           body: "This pull request was created automatically by a GitHub Action."
           labels: dependencies
           maintainer-can-modify: true
