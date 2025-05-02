@@ -117,7 +117,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-SHELL ["/bin/bash", "-o"]
+#SHELL ["/bin/bash", "-o"]
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
