@@ -14,7 +14,7 @@ USER root
 COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
 # and /bin/bash
 COPY --from=deb /bin/bash /bin/bash
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+#SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY --from=deb /bin/rm /bin/rm
 COPY --from=deb /bin/xargs /bin/xargs
