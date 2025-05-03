@@ -200,7 +200,7 @@ jobs:
           currentID=$(cat ./mc-all-platform-velocity/Dockerfile | grep -Po '(?<=EAGLER_COMMIT_ID=")[0-9a-z]*')
           echo "current commit: $currentID"
 
-          if [ "$latestID" != "$currentID" ]; then
+          if [ "$latestID" != "$currentID" ] && [ "$latestID" != "" ]; then
             echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
             sed -i -E "s/EAGLER_COMMIT_ID=\"[0-9a-z]*\"/EAGLER_COMMIT_ID=\"$latestID\"/" ./mc-all-platform-velocity/Dockerfile
           fi
