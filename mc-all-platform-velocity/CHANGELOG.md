@@ -10,7 +10,7 @@
 - 1.10.4 - update Geyser for MC 1.21.5.* and update Velocity
 - 1.10.5 - update Velocity, Geyser, ViaVersion, ViaBackwards, and ViaRewind and some grammer fixes
 - 1.10.6 - revert Velocity update to hopfully fix ratelimit error
-- 1.10.6 - update Geyser to support Bedrock 1.21.80
+- 1.10.7 - update Geyser to support Bedrock 1.21.80
 
 ## 1.9.x (02/09/2025)
 - Update Geyser
