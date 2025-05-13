@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 
-bashio::log.info "Starting app..."
+bashio::log.green "Starting app..."
 
 #!/bin/bash
 tmpfile=$(mktemp)
@@ -15,11 +15,11 @@ filter() {
   while IFS= read -r line; do
     echo "$line"
     if [[ "$line" == *"something to filter"* ]]; then
-      # TODO
+      # TODO - LOG FILTER
       # This is a long-term goal. I just want to have this here ready.
     fi
     if  [[ "$running" == "false" ]]; then
-      bashio::log.info "Stopping log tail..."
+      bashio::log.green "Stopping log tail..."
       break
     fi
   done
@@ -29,5 +29,5 @@ filter < <(tail -f $tmpfile)
 # Wait for the process to finish
 screen -S velocity -X quit
 running=false
-bashio::log.info "End detected"
+bashio::log.green "End detected"
 
