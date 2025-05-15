@@ -14,7 +14,7 @@ ENV FLOOD_BUILD="116"
 
 WORKDIR /
 
-#COPY default_config default_config
+COPY default_config default_config
 
 
 RUN chmod +x run.sh && chmod +x kickstart.sh && \
