@@ -14,10 +14,9 @@ ENV FLOOD_BUILD="116"
 
 WORKDIR /
 
-COPY default_config default_config
+#COPY default_config default_config
 
-COPY run.sh run.sh
-COPY kickstart.sh kickstart.sh
+
 RUN chmod +x run.sh && chmod +x kickstart.sh && \
     find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
@@ -32,16 +31,6 @@ RUN apt-get update && \
     rsync screen uuid-runtime && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#Velocity
-ADD "https://api.papermc.io/v2/projects/velocity/versions/$VELOCITY_VERS/builds/$VELOCITY_BUILD/downloads/velocity-$VELOCITY_VERS-$VELOCITY_BUILD.jar" velocity.jar
-
-RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
-
-# kickstart and make sure there are no extra files
-RUN ./kickstart.sh "downloaded and loaded!" && \
-    rm /plugins/floodgate/key.pem && \
-    rm eaglercraft_auths.db && \
-    rm eaglercraft_skins_cache.db
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
@@ -63,6 +52,8 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 # Entrypoint modifications
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_entrypoint_modif.sh" "/ha_entrypoint_modif.sh"
 RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
+
+RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
 ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/ha_entrypoint.sh" ]
