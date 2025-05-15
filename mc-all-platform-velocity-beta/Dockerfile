@@ -17,9 +17,6 @@ WORKDIR /
 COPY default_config default_config
 
 
-RUN chmod +x run.sh && chmod +x kickstart.sh && \
-    find . -maxdepth 1 -type f -exec chmod 777 {} \;
-
 # Uses /bin for compatibility purposes
 # hadolint ignore=DL4005
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
