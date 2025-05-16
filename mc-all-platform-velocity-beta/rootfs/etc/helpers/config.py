@@ -327,11 +327,37 @@ write_file_w("/config/plugins/eaglerxserver/listeners.toml", tomlkit.dumps(eag_l
 
 ## ----------------------------------- ##
 
+FLOOD = addon_conf["floodgate"]
+FLOOD_DISCONNECT = addon_conf["floodDisconnect"]
+FLOOD_PLAYER_LINK = addon_conf["floodPlayerLink"]
+
 check_dir("/config/plugins/floodgate")
 
 if not file_exists('/config/plugins/floodgate/config.yml'):
   log_norm("No Floodgate config.yml found, copying from default config...")
-  #shutil.copy()
+  shutil.copy(
+    ROOT_DIR+"/default_config/floodgate.yml",
+    ROOT_DIR+"/config/plugins/floodgate/config.yml")
+
+flood_yaml = yaml.load(read_file("/config/plugins/floodgate/config.yml"))
+
+for setting in FLOOD:
+  log_finer(f"{setting}: {FLOOD[setting]}")
+  flood_yaml[setting] = FLOOD[setting]
+
+for setting in FLOOD_DISCONNECT:
+  log_finer(f"{setting}: {FLOOD_DISCONNECT[setting]}")
+  flood_yaml['disconnect'][setting] = FLOOD_DISCONNECT[setting]
+
+for setting in FLOOD_PLAYER_LINK:
+  log_finer(f"{setting}: {FLOOD_PLAYER_LINK[setting]}")
+  flood_yaml['player-link'][setting] = FLOOD_PLAYER_LINK[setting]
+
+flood_yaml['metrics']['uuid'] = UUID
+
+with open(ROOT_DIR+"/config/plugins/floodgate/config.yml", "w") as file:
+  yaml.dump(flood_yaml, file)
+  log_fine("Updated Floodgate config.yml")
 
 ## ------------------------ ##
 
@@ -344,7 +370,7 @@ check_dir("/config/plugins/Geyser-Velocity")
 if not file_exists("/config/plugins/Geyser-Velocity/config.yml"):
   log_norm("No Geyser config.yml found, copying from default config...")
   shutil.copy(
-    ROOT_DIR+"/default_config/geyser.yaml",
+    ROOT_DIR+"/default_config/geyser.yml",
     ROOT_DIR+"/config/plugins/Geyser-Velocity/config.yml")
 
 geyser_yaml = yaml.load(read_file("/config/plugins/Geyser-Velocity/config.yml"))
