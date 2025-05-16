@@ -30,4 +30,4 @@ schema:
 ports:
   "8088/tcp": null
 ports_description:
-  "8088/tcp": "Optional: only needed cache is configured"
+  "8088/tcp": "Optional: only needed if cache is configured"
