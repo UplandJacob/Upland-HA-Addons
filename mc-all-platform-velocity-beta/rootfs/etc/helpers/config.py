@@ -13,8 +13,8 @@ import tomlkit
 import uuid
 from ruamel.yaml import YAML
 
-LOG_LEVEL = 3
-ROOT_DIR = '.'
+LOG_LEVEL = 4
+ROOT_DIR = ''
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -180,35 +180,13 @@ write_file_w("/config/velocity.toml", tomlkit.dumps(vel_toml))
 
 ## ----------------------------------- ##
 
-def get_url(identifier: str,
-    main_group='packaged_plugins',
-    override_group='packaged_plugins_overrides'):
-  data = vers_data[main_group][identifier] if main_group != '' else vers_data[identifier]
+def get_url(identifier: str, data: dict):
   log_finer(f"Data: {data}")
-
-  override = {}
-  if override_group != '':
-    if main_group == '':
-      if override_group in vers_data:
-        log_fine(f"Found overrides for {identifier} in top level as {override_group}")
-        override = vers_data[override_group] if vers_data[override_group] is not None else {}
-    else:
-      if vers_data[override_group] is not None and identifier in vers_data[override_group]:
-          log_fine(f"Found overrides for {identifier}")
-          override = vers_data[override_group][identifier] 
-          if override is None: override = {}
-  log_finer(f"Override: {override}")
   
-  url = override['url'] if 'url' in override else data['url']
-  
+  url = data['url']
   for placeholder in re.findall(r'\{(\w+)\}', url):
     log_finer(f"Found placeholder: {placeholder}")
-    if placeholder in override:
-      log_fine(f"Found override for {placeholder}")
-      url = url.replace(f"{{{placeholder}}}", str(override[placeholder]))
-    else:
-      log_finer(f"Using default value for {placeholder}")
-      url = url.replace(f"{{{placeholder}}}", str(data[placeholder]))
+    url = url.replace(f"{{{placeholder}}}", str(data[placeholder]))
   return url
 
 
@@ -227,7 +205,7 @@ def download_jar(url: str, jar_name: str, path='/config/plugins/'):
 # velocity download
 if not file_exists("/config/velocity.jar"):
   log_norm("No velocity.jar found, downloading...")
-  download_jar(get_url('velocity', '', 'velocity_overrides'), 'velocity.jar', '/config/')
+  download_jar(get_url('velocity', vers_data['velocity']), 'velocity.jar', '/config/')
 
 check_dir("/config/plugins")
 
@@ -236,9 +214,29 @@ def download_plugins(main_group: str, override_group: str):
   if vers_data[main_group] is None: return
   for plugin in vers_data[main_group]:
     log_finer(f"Plugin: {plugin}")
-    url = get_url(plugin, main_group, override_group)
+    plugin_data = dict(vers_data[main_group][plugin])
+    log_finest(f"Plugin data: {plugin_data}")
+    
+    over_group = vers_data[override_group] if override_group != '' else {}
+    over_data = {} if plugin not in over_group or over_group is None else over_group[plugin]
+    log_finest(f"Override data: {over_data}")
+      
+    for key in over_data:
+      log_finer(f"Overriding {key} with {over_data[key]}")
+      plugin_data[key] = over_data[key]
+    log_finer(f"Plugin data: {plugin_data}")
+    
+    if plugin_data is None: continue
+    elif 'enabled' in plugin_data:
+      enabled = plugin_data['enabled']
+    else: enabled = True
+    if not enabled:
+      log_norm(f"Plugin '{plugin}' is disabled, skipping...")
+      continue
+    
+    url = get_url(plugin, plugin_data)
     urls = vers_data['current_installed_urls']
-    jar = vers_data[main_group][plugin]['jar']
+    jar = plugin_data['jar']
     
     plugin_outdated = urls is None or plugin not in urls or urls[plugin] != url
   
@@ -396,3 +394,20 @@ for setting in GEYSER:
 with open(ROOT_DIR+"/config/plugins/Geyser-Velocity/config.yml", "w") as file:
   yaml.dump(geyser_yaml, file)
   log_fine("Updated Geyser config.yml")
+
+## ----------------------------------- ##
+
+check_dir("/config/plugins/viabackwards")
+check_dir("/config/plugins/viarewind")
+
+if not file_exists("/config/plugins/viabackwards/config.yml"):
+  log_norm("No ViaBackwards config.yml found, copying from default config...")
+  shutil.copy(
+    ROOT_DIR+"/default_config/viabackwards.yml",
+    ROOT_DIR+"/config/plugins/viabackwards/config.yml")
+
+if not file_exists("/config/plugins/viarewind/config.yml"):
+  log_norm("No ViaRewind config.yml found, copying from default config...")
+  shutil.copy(
+    ROOT_DIR+"/default_config/viarewind.yml",
+    ROOT_DIR+"/config/plugins/viarewind/config.yml")
