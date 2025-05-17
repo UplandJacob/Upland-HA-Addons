@@ -1,6 +1,6 @@
 name: Minecraft All-Platform Velocity Proxy Beta
-version: 1.10.7
-slug: mc-all-platform-velocity
+version: 0.0.1
+slug: mc-all-platform-velocity-beta
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity-beta
 stage: experimental
@@ -15,9 +15,10 @@ map:
   - config
 options:
   allocatedRAM_MB: 1024
+  max_players: 64
+  server_name: "A Cool Server"
+  motd: ["<red>A Cool Server", "<gray>A second line"]
   rootConfig:
-    motd: "<#09add3>A Velocity Server"
-    show-max-players: 500
     online-mode: false
     force-key-authentication: true
     prevent-client-proxy-connections: false
@@ -27,14 +28,23 @@ options:
     ping-passthrough: "DISABLED"
     enable-player-address-logging: true
   servers: 
-    - name: "lobby"
-      address: "someip.local:25565"
+    - name: "main"
+      address: "127.0.0.1:25565"
+    - name: "test"
+      address: "192.168.1.55:25565"
+    - name: "backup"
+      address: "backup.example.com:25575"
   serverAttemptJoinOrder:
-    - "lobby"
+    - "main"
+    - "backup"
   forcedHosts:
-    - hostname: "lobby.example.com"
+    - hostname: "example.com"
       servNames: 
-        - "lobby"
+        - "main"
+        - "backup"
+    - hostname: "test.example.com"
+      servNames:
+        - "test"
   advanced:
     compression-threshold: 256
     compression-level: -1
@@ -52,74 +62,53 @@ options:
     accepts-transfers: false
 
   eagConfig: 
-    server_name: 'EaglercraftXVelocity Server'
-    server_uuid: ${random_uuid}
-    websocket_connection_timeout: 15000
-    websocket_handshake_timeout: 5000
-    builtin_http_server_timeout: 10000
+    eagler_login_timeout: 10000
     http_websocket_compression_level: 6
+    enable_is_eagler_player_property: true
+    eagler_players_vanilla_skin: ''
+    enable_authentication_events: false
+    enable_backend_rpc_api: false
+    use_modernized_channel_names: false
+    eagler_players_view_distance: -1
+    protocol_v4_defrag_send_delay: 10
+    brand_lookup_ratepimit: 240
+    webview_download_ratelimit: 8
+    webview_message_ratelimit: 120
+  
+  eagSkins:
     download_vanilla_skins_to_clients: true
     valid_skin_download_urls:
     - 'textures.minecraft.net'
-    uuid_lookup_ratelimit_player: 50
-    uuid_lookup_ratelimit_global: 175
-    skin_download_ratelimit_player: 1000
-    skin_download_ratelimit_global: 30000
-    skin_cache_keep_objects_days: 45
-    skin_cache_keep_profiles_days: 7
-    skin_cache_max_objects: 32768
-    skin_cache_max_profiles: 32768
-    skin_cache_antagonists_ratelimit: 15
-    sql_driver_class: 'internal'
-    sql_driver_path: 'internal'
-    eagler_players_vanilla_skin: ''
-    enable_is_eagler_player_property: true
-    disable_voice_chat_on_servers: []
-    disable_fnaw_skins_everywhere: false
-    disable_fnaw_skins_on_servers: []
-    enable_backend_rpc_api: false
-    use_modernized_channel_names: false
-
-  eagAuth: 
-    enable_authentication_system: true
-    use_onboard_eaglerx_system: true
-    sql_driver_class: 'internal'
-    sql_driver_path: 'internal'
-    password_prompt_screen_text: 'Enter your password to join:'
-    wrong_password_screen_text: 'Password Incorrect!'
-    not_registered_screen_text: 'You are not registered on this server!'
-    eagler_command_name: 'eagler'
-    use_register_command_text: '&aUse /eagler to set an Eaglercraft password on this account'
-    use_change_command_text: '&bUse /eagler to change your Eaglercraft password'
-    command_success_text: '&bYour eagler password was changed successfully.'
-    last_eagler_login_message: 'Your last Eaglercraft login was on $date from $ip'
-    too_many_registrations_message: '&cThe maximum number of registrations has been reached for your IP address'
-    need_vanilla_to_register_message: '&cYou need to log in with a vanilla account to use this command'
-    override_eagler_to_vanilla_skins: false
-    max_registration_per_ip: -1
-
+    enable_fnaw_skin_models_global: false
+    enable_fnaw_skin_models_servers: []
+    enable_skinsrestorer_apply_hook: true
+  
+  eagVoice:
+    enable_voice_service: true
+    enable_voice_all_servers: true
+    enable_voice_on_servers: []
+    separate_server_voice_channels: true
+    voice_backend_relayed_mode: false
+    voice_connect_ratelimit: 20
+    voice_request_ratelimit: 120
+    voice_ice_ratelimit: 600
+  
+  eagUpdateService:
+    enable_update_system: true
+    download_latest_certs: true
+    check_for_update_every: 28800
+  
+  eagUpdateChecker:
+    enable_update_checker: true
+    check_for_update_every: 86400
+    print_chat_messages: true
+  
   eagListener:
-    max_players: 60
     forward_ip: false
-    server_motd:
-      - '&6An EaglercraftX server'
-    allow_motd: true
+    spoof_player_address_forwarded: true
+    show_motd_player_list: false
     allow_query: true
-    allow_voice: false
-
-  eagRelays: 
-    - url: turn:turn.speed.cloudflare.com:50000
-      username: you-can-generate-this-at
-      password: https://speed.cloudflare.com/turn-creds
-    - url: stun:stun.l.google.com:19302
-    - url: stun:stun1.l.google.com:19302
-    - url: stun:stun2.l.google.com:19302
-    - url: stun:stun3.l.google.com:19302
-    - url: stun:stun4.l.google.com:19302
-    - url: stun:stun.stunprotocol.org:3478
-    - url: turn:turn01.hubl.in?transport=udp
-    - url: turn:turn01.hubl.in?transport=tcp
-
+    allow_motd: true
 
   floodgate:
     username-prefix: '.'
@@ -129,7 +118,7 @@ options:
 
   floodDisconnect:
     invalid-key: 'Please connect through the official Geyser'
-    invalid-arguments-length: 'Expected {} arguments, got {}. Is Geyser up-to-date?'
+    invalid-arguments-length: 'Expected {} arguments, got {}. Is Geyser up-to-date? Please contact the server owner.'
 
   floodPlayerLink:
     enabled: true
@@ -141,9 +130,6 @@ options:
     enable-global-linking: true
 
   geyserBedrock:
-    motd1: "Geyser"
-    motd2: "Another Geyser server."
-    server-name: "Geyser"
     compression-level: 6
     enable-proxy-protocol: false
 
@@ -153,22 +139,14 @@ options:
     forward-hostname: false
 
   geyser:
-    saved-user-logins: []
-    pending-authentication-timeout: 120
     command-suggestions: true
-    passthrough-motd: true
     passthrough-player-counts: true
-    legacy-ping-passthrough: false
     ping-passthrough-interval: 3
     forward-player-ping: false
-    max-players: 60
-    debug-mode: false
     show-cooldown: title
     show-coordinates: true
     disable-bedrock-scaffolding: false
     emote-offhand-workaround: "disabled"
-    default-locale: en_us
-    cache-images: 0
     allow-custom-skulls: true
     max-visible-custom-skulls: 128
     custom-skull-render-distance: 32
@@ -177,22 +155,14 @@ options:
     force-resource-packs: true
     xbox-achievements-enabled: false
     log-player-ip-addresses: true
-    notify-on-new-bedrock-update: true
-    unusable-space-block: minecraft:barrier
-
-  geyserAdvanced:
-    scoreboard-packet-threshold: 20
-    enable-proxy-connections: false
-    mtu: 1400
-    use-direct-connection: true
-    disable-compression: true
 
 
 schema:
   allocatedRAM_MB: int
+  max_players: int
+  server_name: str
+  motd: list(str)
   rootConfig:
-    motd: str
-    show-max-players: int
     online-mode: bool
     force-key-authentication: bool
     prevent-client-proxy-connections: bool
@@ -227,67 +197,54 @@ schema:
     accepts-transfers: bool
 
   eagConfig: 
-    server_name: str
-    server_uuid: str
-    websocket_connection_timeout: int
-    websocket_handshake_timeout: int
-    builtin_http_server_timeout: int
+    eagler_login_timeout: int
     http_websocket_compression_level: int
-    download_vanilla_skins_to_clients: bool
-    valid_skin_download_urls:
-    - str
-    uuid_lookup_ratelimit_player: int
-    uuid_lookup_ratelimit_global: int
-    skin_download_ratelimit_player: int
-    skin_download_ratelimit_global: int
-    skin_cache_keep_objects_days: int
-    skin_cache_keep_profiles_days: int
-    skin_cache_max_objects: int
-    skin_cache_max_profiles: int
-    skin_cache_antagonists_ratelimit: int
-    sql_driver_class: str
-    sql_driver_path: str
-    eagler_players_vanilla_skin: str
     enable_is_eagler_player_property: bool
-    disable_voice_chat_on_servers:
-      - str
-    disable_fnaw_skins_everywhere: bool
-    disable_fnaw_skins_on_servers:
-      - str
+    eagler_players_vanilla_skin: str
+    enable_authentication_events: bool
     enable_backend_rpc_api: bool
     use_modernized_channel_names: bool
+    eagler_players_view_distance: int
+    protocol_v4_defrag_send_delay: int
+    brand_lookup_ratepimit: int
+    webview_download_ratelimit: int
+    webview_message_ratelimit: int
 
-  eagAuth: 
-    enable_authentication_system: bool
-    use_onboard_eaglerx_system: bool
-    sql_driver_class: str
-    sql_driver_path: str
-    password_prompt_screen_text: str
-    wrong_password_screen_text: str
-    not_registered_screen_text: str
-    eagler_command_name: str
-    use_register_command_text: str
-    use_change_command_text: str
-    command_success_text: str
-    last_eagler_login_message: str
-    too_many_registrations_message: str
-    need_vanilla_to_register_message: str
-    override_eagler_to_vanilla_skins: bool
-    max_registration_per_ip: int
+  eagSkins:
+    download_vanilla_skins_to_clients: bool
+    valid_skin_download_urls:
+      - str
+    enable_fnaw_skin_models_global: bool
+    enable_fnaw_skin_models_servers:
+      - str?
+    enable_skinsrestorer_apply_hook: bool
+
+  eagVoice:
+    enable_voice_service: bool
+    enable_voice_all_servers: bool
+    enable_voice_on_servers:
+      - str?
+    separate_server_voice_channels: bool
+    voice_backend_relayed_mode: bool
+    voice_connect_ratelimit: int
+    voice_request_ratelimit: int
+    voice_ice_ratelimit: int
+
+  eagUpdateService:
+    enable_update_system: bool
+    download_latest_certs: bool
+    check_for_update_every: int
+
+  eagUpdateChecker:
+    enable_update_checker: bool
+    check_for_update_every: int
+    print_chat_messages: bool
 
   eagListener:
-    max_players: int
     forward_ip: bool
-    server_motd:
-      - str
-    allow_motd: bool
+    spoof_player_address_forwarded: bool
     allow_query: bool
-    allow_voice: bool
-
-  eagRelays:
-    - url: str
-      username: str?
-      password: str?
+    allow_motd: bool
 
 
   floodgate:
@@ -310,13 +267,8 @@ schema:
     enable-global-linking: bool
 
   geyserBedrock:
-    motd1: str
-    motd2: str
-    server-name: str
     compression-level: int
     enable-proxy-protocol: bool
-    proxy-protocol-whitelisted-ips: 
-      - str?
 
   geyserRemote:
     auth-type: match(online|offline|floodgate)
@@ -324,23 +276,14 @@ schema:
     forward-hostname: bool
 
   geyser:
-    saved-user-logins: 
-      - str?
-    pending-authentication-timeout: int
     command-suggestions: bool
-    passthrough-motd: bool
     passthrough-player-counts: bool
-    legacy-ping-passthrough: bool
     ping-passthrough-interval: int
     forward-player-ping: bool
-    max-players: int
-    debug-mode: bool
     show-cooldown: match(title|actionbar|false)
     show-coordinates: bool
     disable-bedrock-scaffolding: bool
     emote-offhand-workaround: match(disabled|no-emotes|emotes-and-offhand)
-    default-locale: str
-    cache-images: int
     allow-custom-skulls: bool
     max-visible-custom-skulls: int
     custom-skull-render-distance: int
@@ -349,15 +292,7 @@ schema:
     force-resource-packs: bool
     xbox-achievements-enabled: bool
     log-player-ip-addresses: bool
-    notify-on-new-bedrock-update: bool
-    unusable-space-block: str
 
-  geyserAdvanced:
-    scoreboard-packet-threshold: int
-    enable-proxy-connections: bool
-    mtu: int
-    use-direct-connection: bool
-    disable-compression: bool
 
 map:
   - addon_config:rw
@@ -366,5 +301,5 @@ ports:
   "25565/tcp": 25565
   "19132/udp": 19132
 ports_description:
-  "25565/tcp": "Java Edition and Eaglercraft port (uses dual stack)"
+  "25565/tcp": "Java Edition and Eaglercraft port"
   "19132/udp": "Bedrock Edition port"
