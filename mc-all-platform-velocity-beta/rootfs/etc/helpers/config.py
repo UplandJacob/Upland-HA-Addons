@@ -357,6 +357,8 @@ with open(ROOT_DIR+"/config/plugins/floodgate/config.yml", "w") as file:
   yaml.dump(flood_yaml, file)
   log_fine("Updated Floodgate config.yml")
 
+check_dir("/config/plugins/Geyser-Velocity")
+
 if not file_exists("/config/plugins/floodgate/key.pem"):
   log_norm("No Flodgate key.pem found, generating one...")
   key = os.urandom(16)
@@ -370,8 +372,6 @@ if not file_exists("/config/plugins/floodgate/key.pem"):
 GEYSER_BEDROCK = addon_conf['geyserBedrock']
 GEYSER_REMOTE = addon_conf['geyserRemote']
 GEYSER = addon_conf['geyser']
-
-check_dir("/config/plugins/Geyser-Velocity")
 
 if not file_exists("/config/plugins/Geyser-Velocity/config.yml"):
   log_norm("No Geyser config.yml found, copying from default config...")
