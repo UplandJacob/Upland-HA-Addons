@@ -1,4 +1,8 @@
 configuration:
+  server_name:
+    name: Server Name
+  motd:
+    name: MOTD
   rootConfig:
     name: Velocity Config
     description: Main configuration for the proxy
@@ -11,22 +15,19 @@ configuration:
   forcedHosts:
     name: Forced hosts
     description: Servers associated with specific hostnames
-  advanced:
+  adv:
     name: Velocity advanced config
     description: Make sure you know what these settings do before you change them.
   
   eagConfig:
     name: Eaglercraft config
     description: Basic EaglercraftXVelocity config
-  eagAuth:
-    name: Eaglercraft Authentication
-    description: Authentication for Eaglercraft clients. You don't need this if you use another plugin such as AuthMe.
+  eagSkins:
+    name: Eaglercraft Skin Database
+    description: Settings for the Eaglercraft skins database.
   eagListener:
     name: Eaglercraft listeners
     description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener_01 in that file.
-  eagRelays:
-    name: Eaglercraft ICE relay servers
-    description: Used for in-game voice chat
   
   floodgate:
     name: Floodgate config
