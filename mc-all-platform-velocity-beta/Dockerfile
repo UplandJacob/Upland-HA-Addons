@@ -22,7 +22,7 @@ RUN apt-get update && \
 RUN python3 -m pip install --no-cache-dir --break-system-packages -r  requirements.txt
 
 # Modules
-ARG MODULES="00-banner.sh 00-global_var.sh"
+ARG MODULES="00-banner.sh"
 
 # Automatic modules download
 ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templates/ha_automodules.sh" "/ha_automodules.sh"
