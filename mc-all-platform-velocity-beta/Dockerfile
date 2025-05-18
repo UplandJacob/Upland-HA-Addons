@@ -14,7 +14,9 @@ ENV FLOOD_BUILD="116"
 
 WORKDIR /
 
+COPY rootfs rootfs
 COPY default_config default_config
+COPY requirements.txt requirements.txt
 
 
 # Uses /bin for compatibility purposes
@@ -25,9 +27,10 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    rsync screen uuid-runtime && \
+    screen && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN python3 -m pip install -r requirements.txt
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
