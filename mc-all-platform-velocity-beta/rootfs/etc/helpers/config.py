@@ -131,7 +131,7 @@ VEL_ROOT_CONFIG = addon_conf['rootConfig']
 VEL_SERVERS = addon_conf['servers']
 VEL_SERV_ATT_JOIN_ORD = addon_conf['serverAttemptJoinOrder']
 VEL_FORCED_HOSTS = addon_conf['forcedHosts']
-VEL_ADVANCED = addon_conf['advanced']
+VEL_ADVANCED = addon_conf['adv']
 
 if not file_exists("/config/velocity.toml"):
   log_norm("No velocity.toml found, copying from default config...")
