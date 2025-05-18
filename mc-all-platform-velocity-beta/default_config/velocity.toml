@@ -86,7 +86,7 @@ try = [
     "lobby"
 ]
 
-[forced-hosts # THIS SECTION IS OVERRIDDEN BY ADDON CONFIG
+[forced-hosts] # THIS SECTION IS OVERRIDDEN BY ADDON CONFIG
 # Configure your forced hosts here.
 "lobby.example.com" = [
     "lobby"
