@@ -27,7 +27,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    screen python3-full && \
+    screen python3-full python3-pip && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install --break-system-packages -r  requirements.txt
