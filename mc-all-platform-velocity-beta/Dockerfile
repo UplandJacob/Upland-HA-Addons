@@ -27,11 +27,10 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    screen && \
+    screen python3-pip && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m ensurepip --default-pip \
-    python3 -m pip install -r requirements.txt
+RUN python3 -m pip install -r requirements.txt
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
