@@ -14,7 +14,7 @@ ENV FLOOD_BUILD="116"
 
 WORKDIR /
 
-COPY rootfs rootfs
+COPY rootfs .
 COPY default_config default_config
 COPY requirements.txt requirements.txt
 
