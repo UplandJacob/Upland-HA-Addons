@@ -44,6 +44,8 @@ RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.
 
 RUN find . -maxdepth 1 -type f -exec chmod 777 {} \;
 
+RUN rm /etc/cont-init.d/00-global_var.sh
+
 ENTRYPOINT [ "/usr/bin/env" ]
 CMD [ "/ha_entrypoint.sh" ]
 
