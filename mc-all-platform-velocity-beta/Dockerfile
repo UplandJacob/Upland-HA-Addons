@@ -30,7 +30,7 @@ RUN apt-get update && \
     screen python3-full python3-pip && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --break-system-packages -r  requirements.txt
+RUN python3 -m pip install --no-cache-dir --break-system-packages -r  requirements.txt
 
 # Modules
 ARG MODULES="00-banner.sh 00-global_var.sh"
