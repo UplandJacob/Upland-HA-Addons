@@ -13,7 +13,8 @@ import tomlkit
 import uuid
 from ruamel.yaml import YAML
 
-LOG_LEVEL = 4
+
+LOG_LEVEL = 3
 ROOT_DIR = ''
 
 logging.basicConfig(level=logging.INFO)
@@ -66,29 +67,23 @@ def minimsg_to_leg(minimessage):
         "<underline>": "&n", "<italic>": "&o"
     }
     result = minimessage
-
     # Handle hex colors with closest legacy match
     hex_pattern = r'<#([0-9a-fA-F]{6})>'
     for match in re.finditer(hex_pattern, result):
         hex_color = match.group(1)
         # Map hex to nearest legacy color
         result = result.replace(f'<#{hex_color}>', "&b")
-
     # Handle gradients
     gradient_pattern = r'<gradient[^>]*>.*?</gradient>'
     result = re.sub(gradient_pattern, lambda m: "&b" + re.sub(r'<[^>]+>', '', m.group(0)), result)
-
     # Convert basic colors and formats
     for mini, legacy in {**colors, **formats}.items():
         result = result.replace(mini, legacy)
-
     # Handle special tags
     result = re.sub(r'<click[^>]*>.*?</click>', lambda m: re.sub(r'<[^>]+>', '', m.group(0)), result)
     result = re.sub(r'<hover[^>]*>.*?</hover>', lambda m: re.sub(r'<[^>]+>', '', m.group(0)), result)
-
     # Remove any remaining tags
     result = re.sub(r'<[^>]+>', '', result)
-
     return result
 
 
@@ -154,20 +149,24 @@ vel_toml['show-max-players'] = MAX_PLAYERS
 vel_toml['motd'] = addon_conf['motd'][0]+"\n"+addon_conf['motd'][1]
 
 vel_toml['servers'] = {}
-for server in VEL_SERVERS:
-  log_finer(f"{server}: {VEL_SERVERS[server]}")
-  vel_toml['servers'][server] = VEL_SERVERS[server]
+for i in range(len(VEL_SERVERS)):
+  server = VEL_SERVERS[i]['name']
+  addr = VEL_SERVERS[i]['address']
+  log_finer(f"{server}: {addr}")
+  vel_toml['servers'][server] = addr
 
 log_finer(f"try: {VEL_SERV_ATT_JOIN_ORD}")
 vel_toml['servers']['try'] = VEL_SERV_ATT_JOIN_ORD
 
 vel_toml['forced-hosts'] = {}
-for host in VEL_FORCED_HOSTS:
-  log_finer(f"{host}: {VEL_FORCED_HOSTS[host]}")
+for i in range(len(VEL_FORCED_HOSTS)):
+  host = VEL_FORCED_HOSTS[i]['hostname']
+  serv_names = VEL_FORCED_HOSTS[i]['servNames']
+  log_finer(f"{host}: {serv_names}")
   if host == 'null':
     log_fine('Skipping null host')
     continue
-  vel_toml['forced-hosts'][host] = VEL_FORCED_HOSTS[host]
+  vel_toml['forced-hosts'][host] = serv_names
 
 for setting in VEL_ADVANCED:
   log_finer(f"{setting}: {VEL_ADVANCED[setting]}")
@@ -218,6 +217,7 @@ def download_plugins(main_group: str, override_group: str):
     log_finest(f"Plugin data: {plugin_data}")
     
     over_group = vers_data[override_group] if override_group != '' else {}
+    if over_group is None: over_group = {}
     over_data = {} if plugin not in over_group or over_group is None else over_group[plugin]
     log_finest(f"Override data: {over_data}")
       
@@ -357,6 +357,14 @@ with open(ROOT_DIR+"/config/plugins/floodgate/config.yml", "w") as file:
   yaml.dump(flood_yaml, file)
   log_fine("Updated Floodgate config.yml")
 
+if not file_exists("/config/plugins/floodgate/key.pem"):
+  log_norm("No Flodgate key.pem found, generating one...")
+  key = os.urandom(16)
+  with open(ROOT_DIR+"/config/plugins/floodgate/key.pem", "wb") as f:
+    f.write(key)
+  shutil.copy(ROOT_DIR+"/config/plugins/floodgate/key.pem", ROOT_DIR+"/config/plugins/Geyser-Velocity/key.pem")
+
+
 ## ------------------------ ##
 
 GEYSER_BEDROCK = addon_conf['geyserBedrock']
@@ -395,6 +403,9 @@ with open(ROOT_DIR+"/config/plugins/Geyser-Velocity/config.yml", "w") as file:
   yaml.dump(geyser_yaml, file)
   log_fine("Updated Geyser config.yml")
 
+if not file_exists("/config/plugins/Geyser-Velocity/key.pem"):
+  log_norm("No Geyser key.pem found, copying from Floodgate...")
+  shutil.copy(ROOT_DIR+"/config/plugins/floodgate/key.pem", ROOT_DIR+"/config/plugins/Geyser-Velocity/key.pem")
 ## ----------------------------------- ##
 
 check_dir("/config/plugins/viabackwards")
