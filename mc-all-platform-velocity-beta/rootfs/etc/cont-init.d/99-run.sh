@@ -14,10 +14,10 @@ running=true
 filter() {
   while IFS= read -r line; do
     echo "$line"
-    if [[ "$line" == *"something to filter"* ]]; then
+    #if [[ "$line" == *"something to filter"* ]]; then
       # TODO - LOG FILTER
       # This is a long-term goal. I just want to have this here ready.
-    fi
+    #fi
     if  [[ "$running" == "false" ]]; then
       bashio::log.green "Stopping log tail..."
       break
