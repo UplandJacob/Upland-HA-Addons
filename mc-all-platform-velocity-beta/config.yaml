@@ -1,5 +1,5 @@
 name: Minecraft All-Platform Velocity Proxy Beta
-version: 0.0.8
+version: 0.0.9
 slug: mc-all-platform-velocity-beta
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity-beta
@@ -15,6 +15,7 @@ image: ghcr.io/uplandjacob/upland-ha-addons-mc-all-platform-velocity-beta-{arch}
 map:
   - config
 options:
+  logLevel: 3
   allocatedRAM_MB: 1024
   max_players: 64
   server_name: "A Cool Server"
@@ -161,6 +162,7 @@ options:
 
 
 schema:
+  logLevel: int(1,5)
   allocatedRAM_MB: int
   max_players: int
   server_name: str
