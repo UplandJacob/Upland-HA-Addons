@@ -9,7 +9,7 @@ configuration:
     name: Server Name
   motd:
     name: MOTD
-  
+
   rootConfig:
     name: Velocity Config
     description: Main configuration for the proxy
@@ -25,7 +25,7 @@ configuration:
   adv:
     name: Velocity advanced config
     description: Make sure you know what these settings do before you change them.
-  
+
   eagConfig:
     name: Eaglercraft config
     description: Basic EaglercraftXServer config
@@ -41,7 +41,7 @@ configuration:
   eagListener:
     name: Eaglercraft listeners
     description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener0 in that file.
-  
+
   floodgate:
     name: Floodgate config
     description: Basic Floodgate config
@@ -51,7 +51,7 @@ configuration:
   floodPlayerLink:
     name: Floodgate player link
     description: Local and global player link settings
-  
+
   geyserBedrock:
     name: Geyser - Bedrock
     description: Basic Geyser client connection config
@@ -61,8 +61,4 @@ configuration:
   geyser:
     name: Geyser 
     description: General Geyser config
-  geyserAdvanced:
-    name: Geyser - Advanced
-    description: Make sure you know what these settings de before you change them.
-  
-    
+
