@@ -13,9 +13,15 @@ import tomlkit
 import uuid
 from ruamel.yaml import YAML
 
-
-LOG_LEVEL = 3
 ROOT_DIR = ''
+CONF_DIR = ROOT_DIR + '/config'
+SERV_DIR = ROOT_DIR + '/server'
+PLUG_DIR = SERV_DIR + '/plugins'
+DEF_CONF = ROOT_DIR + '/default_config'
+with open(ROOT_DIR+"/data/options.json", "r") as file:
+  addon_conf = json.load(file)
+
+LOG_LEVEL = addon_conf['logLevel']
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -25,21 +31,21 @@ yaml.preserve_quotes = True
 yaml.indent(mapping=2, sequence=4, offset=2)
 
 def check_dir(path: str):
-  if not os.path.isdir(ROOT_DIR+path):
+  if not os.path.isdir(path):
     log_norm(f"Directory {path} does not exist, creating...")
-    os.makedirs(ROOT_DIR+path, exist_ok=True)
+    os.makedirs(path, exist_ok=True)
 
 def file_exists(path):
-  return os.path.isfile(ROOT_DIR+path)
+  return os.path.isfile(path)
 
 def read_file(path: str):
-  with open(ROOT_DIR+path, 'r', encoding='utf-8') as file:
+  with open(path, 'r', encoding='utf-8') as file:
     return file.read()
 def write_file_a(path: str, to_write: str):
-  with open(ROOT_DIR+path, 'a', encoding='utf-8') as file:
+  with open(path, 'a', encoding='utf-8') as file:
     return file.write(to_write)
 def write_file_w(path: str, to_write: str):
-  with open(ROOT_DIR+path, 'w', encoding='utf-8') as file:
+  with open(path, 'w', encoding='utf-8') as file:
     return file.write(to_write)
 
 def log_finest(msg: str):
@@ -49,7 +55,7 @@ def log_finer(msg: str):
 def log_fine(msg: str):
   if LOG_LEVEL >= 3: log.info(msg)
 def log_norm(msg: str):
-  if LOG_LEVEL >= 2: log.info("\033[92m"+msg+"\033[0m")
+  if LOG_LEVEL >= 2: log.info("\033[32m"+msg+"\033[0m")
 def log_warn(msg: str):
   if LOG_LEVEL >= 1: log.warning(msg)
 
@@ -86,36 +92,45 @@ def minimsg_to_leg(minimessage):
     result = re.sub(r'<[^>]+>', '', result)
     return result
 
+## ------------------ ##
 
-with open(ROOT_DIR+"/data/options.json", "r") as file:
-  addon_conf = json.load(file)
+check_dir(CONF_DIR+"/server")
+
+if not os.path.exists(SERV_DIR):
+  try:
+    os.symlink(CONF_DIR+"/server", SERV_DIR)
+    log_norm("Created symbolic link from "+CONF_DIR+"/server to "+SERV_DIR)
+  except OSError as e:
+    log.error(f"Failed to create symbolic link: {e}")
+else:
+  log_norm(SERV_DIR+" directory already exists, skipping symlink creation.")
 
 ## ----------------------------------- ##
 
-if not file_exists("/config/uuid.txt"):
+if not file_exists(CONF_DIR+"/uuid.txt"):
   log_norm("No uuid.txt found, generating one...")
   new_uuid = str(uuid.uuid4())
   log_finer(f"Generated UUID: {new_uuid}")
-  write_file_a("/config/uuid.txt", new_uuid)
-UUID = read_file("/config/uuid.txt")
+  write_file_a(CONF_DIR+"/uuid.txt", new_uuid)
+UUID = read_file(CONF_DIR+"/uuid.txt")
 log_fine(f"UUID: {UUID}")
 
-if not file_exists("/config/forwarding.secret.txt"):
+if not file_exists(SERV_DIR+"/forwarding.secret.txt"):
   log_norm("No forwarding.secret.txt found, generating one...")
   new_secret = ''.join(random.choices(string.ascii_letters+string.digits, k=10))
   log_fine(f"Generated forwarding secret: {new_secret}")
-  write_file_a("/config/forwarding.secret.txt", new_secret)
+  write_file_a(SERV_DIR+"/forwarding.secret.txt", new_secret)
 
 ###########
 
-if not file_exists("/config/versions.yaml"):
+if not file_exists(CONF_DIR+"/versions.yaml"):
   log_norm("No versions.yaml found, copying from default config...")
-  shutil.copy(ROOT_DIR+"/default_config/versions.yaml", ROOT_DIR+"/config/versions.yaml")
+  shutil.copy(DEF_CONF+"/versions.yaml", CONF_DIR+"/versions.yaml")
 
-vers_data = yaml.load(read_file("/config/versions.yaml"))
+vers_data = yaml.load(read_file(CONF_DIR+"/versions.yaml"))
 
 # load default versions.yaml to update the packaged_plugins section
-vers_default = yaml.load(read_file("/default_config/versions.yaml"))
+vers_default = yaml.load(read_file(DEF_CONF+"/versions.yaml"))
 vers_data['packaged_plugins'] = vers_default['packaged_plugins']
 vers_data['velocity'] = vers_default['velocity']
 
@@ -133,12 +148,12 @@ VEL_SERV_ATT_JOIN_ORD = addon_conf['serverAttemptJoinOrder']
 VEL_FORCED_HOSTS = addon_conf['forcedHosts']
 VEL_ADVANCED = addon_conf['adv']
 
-if not file_exists("/config/velocity.toml"):
+if not file_exists(SERV_DIR+"/velocity.toml"):
   log_norm("No velocity.toml found, copying from default config...")
-  shutil.copy(ROOT_DIR+"/default_config/velocity.toml", ROOT_DIR+"/config/velocity.toml")
+  shutil.copy(DEF_CONF+"/velocity.toml", SERV_DIR+"/velocity.toml")
 
 # Load the TOML file
-vel_toml = tomlkit.parse(read_file("/config/velocity.toml"))
+vel_toml = tomlkit.parse(read_file(SERV_DIR+"/velocity.toml"))
 
 
 for setting in VEL_ROOT_CONFIG:
@@ -175,13 +190,13 @@ for setting in VEL_ADVANCED:
 log_finest(vel_toml)
 
 # Save the updated TOML file
-write_file_w("/config/velocity.toml", tomlkit.dumps(vel_toml))
+write_file_w(SERV_DIR+"/velocity.toml", tomlkit.dumps(vel_toml))
 
 ## ----------------------------------- ##
 
 def get_url(identifier: str, data: dict):
   log_finer(f"Data: {data}")
-  
+
   url = data['url']
   for placeholder in re.findall(r'\{(\w+)\}', url):
     log_finer(f"Found placeholder: {placeholder}")
@@ -189,11 +204,11 @@ def get_url(identifier: str, data: dict):
   return url
 
 
-def download_jar(url: str, jar_name: str, path='/config/plugins/'):
+def download_jar(url: str, jar_name: str, path=PLUG_DIR):
   log_norm(f"Downloading {jar_name} from {url}...")
   response = requests.get(url)
   if response.status_code == 200:
-    with open(ROOT_DIR+path+jar_name, "wb") as file:
+    with open(path+"/"+jar_name, "wb") as file:
       file.write(response.content)
     log_fine("JAR file downloaded successfully!")
     return True
@@ -202,11 +217,11 @@ def download_jar(url: str, jar_name: str, path='/config/plugins/'):
     return False
 
 # velocity download
-if not file_exists("/config/velocity.jar"):
+if not file_exists(SERV_DIR+"/velocity.jar"):
   log_norm("No velocity.jar found, downloading...")
-  download_jar(get_url('velocity', vers_data['velocity']), 'velocity.jar', '/config/')
+  download_jar(get_url('velocity', vers_data['velocity']), 'velocity.jar', SERV_DIR)
 
-check_dir("/config/plugins")
+check_dir(PLUG_DIR)
 
 def download_plugins(main_group: str, override_group: str):
   log_norm(f"Downloading plugins from '{main_group}' with overrides from '{override_group}'")
@@ -215,17 +230,17 @@ def download_plugins(main_group: str, override_group: str):
     log_finer(f"Plugin: {plugin}")
     plugin_data = dict(vers_data[main_group][plugin])
     log_finest(f"Plugin data: {plugin_data}")
-    
+
     over_group = vers_data[override_group] if override_group != '' else {}
     if over_group is None: over_group = {}
     over_data = {} if plugin not in over_group or over_group is None else over_group[plugin]
     log_finest(f"Override data: {over_data}")
-      
+
     for key in over_data:
       log_finer(f"Overriding {key} with {over_data[key]}")
       plugin_data[key] = over_data[key]
     log_finer(f"Plugin data: {plugin_data}")
-    
+
     if plugin_data is None: continue
     elif 'enabled' in plugin_data:
       enabled = plugin_data['enabled']
@@ -233,14 +248,14 @@ def download_plugins(main_group: str, override_group: str):
     if not enabled:
       log_norm(f"Plugin '{plugin}' is disabled, skipping...")
       continue
-    
+
     url = get_url(plugin, plugin_data)
     urls = vers_data['current_installed_urls']
     jar = plugin_data['jar']
-    
+
     plugin_outdated = urls is None or plugin not in urls or urls[plugin] != url
-  
-    if plugin_outdated or not file_exists("/config/plugins/"+jar):
+
+    if plugin_outdated or not file_exists(PLUG_DIR+"/"+jar):
       success = download_jar(url, jar)
       if success:
         if vers_data['current_installed_urls'] is None:
@@ -250,7 +265,7 @@ def download_plugins(main_group: str, override_group: str):
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
 download_plugins('custom_plugins', '')
 
-with open(ROOT_DIR+"/config/versions.yaml", "w") as file:
+with open(CONF_DIR+"/versions.yaml", "w") as file:
   yaml.dump(vers_data, file)
   log_fine("Updated versions.yaml")
 
@@ -262,14 +277,14 @@ EAG_VOICE = addon_conf['eagVoice']
 EAG_UP_SERVICE = addon_conf['eagUpdateService']
 EAG_UP_CHECKER = addon_conf['eagUpdateChecker']
 
-check_dir("/config/plugins/eaglerxserver")
-if not file_exists("/config/plugins/eaglerxserver/settings.toml"):
+check_dir(PLUG_DIR+"/eaglerxserver")
+if not file_exists(PLUG_DIR+"/eaglerxserver/settings.toml"):
   log_norm("No eaglerxserver settings.toml found, copying from default config...")
   shutil.copy(
-    ROOT_DIR+"/default_config/eag_settings.toml",
-    ROOT_DIR+"/config/plugins/eaglerxserver/settings.toml")
+    DEF_CONF+"/eag_settings.toml",
+    PLUG_DIR+"/eaglerxserver/settings.toml")
 
-eag_toml = tomlkit.parse(read_file("/config/plugins/eaglerxserver/settings.toml"))
+eag_toml = tomlkit.parse(read_file(PLUG_DIR+"/eaglerxserver/settings.toml"))
 
 eag_toml['server_uuid'] = UUID
 eag_toml['server_name'] = SERVER_NAME
@@ -296,19 +311,19 @@ for setting in EAG_UP_CHECKER:
 
 
 log_finest(eag_toml)
-write_file_w("/config/plugins/eaglerxserver/settings.toml", tomlkit.dumps(eag_toml))
+write_file_w(PLUG_DIR+"/eaglerxserver/settings.toml", tomlkit.dumps(eag_toml))
 
 # ------------------- #
 
 EAG_LISTENER = addon_conf['eagListener']
 
-if not file_exists("/config/plugins/eaglerxserver/listeners.toml"):
+if not file_exists(PLUG_DIR+"/eaglerxserver/listeners.toml"):
   log_norm("No eaglerxserver listeners.toml found, copying from default config...")
   shutil.copy(
-    ROOT_DIR+"/default_config/eag_listeners.toml",
-    ROOT_DIR+"/config/plugins/eaglerxserver/listeners.toml")
+    DEF_CONF+"/eag_listeners.toml",
+    PLUG_DIR+"/eaglerxserver/listeners.toml")
 
-eag_list_toml = tomlkit.parse(read_file("/config/plugins/eaglerxserver/listeners.toml"))
+eag_list_toml = tomlkit.parse(read_file(PLUG_DIR+"/eaglerxserver/listeners.toml"))
 
 eag_list_toml['listener_list'][0]['server_motd'] = [
   minimsg_to_leg(addon_conf['motd'][0]), 
@@ -321,7 +336,7 @@ for setting in EAG_LISTENER:
 
 
 log_finest(eag_list_toml)
-write_file_w("/config/plugins/eaglerxserver/listeners.toml", tomlkit.dumps(eag_list_toml))
+write_file_w(PLUG_DIR+"/eaglerxserver/listeners.toml", tomlkit.dumps(eag_list_toml))
 
 ## ----------------------------------- ##
 
@@ -329,15 +344,15 @@ FLOOD = addon_conf["floodgate"]
 FLOOD_DISCONNECT = addon_conf["floodDisconnect"]
 FLOOD_PLAYER_LINK = addon_conf["floodPlayerLink"]
 
-check_dir("/config/plugins/floodgate")
+check_dir(PLUG_DIR+"/floodgate")
 
-if not file_exists('/config/plugins/floodgate/config.yml'):
+if not file_exists(PLUG_DIR+"/floodgate/config.yml"):
   log_norm("No Floodgate config.yml found, copying from default config...")
   shutil.copy(
-    ROOT_DIR+"/default_config/floodgate.yml",
-    ROOT_DIR+"/config/plugins/floodgate/config.yml")
+    DEF_CONF+"/floodgate.yml",
+    PLUG_DIR+"/floodgate/config.yml")
 
-flood_yaml = yaml.load(read_file("/config/plugins/floodgate/config.yml"))
+flood_yaml = yaml.load(read_file(PLUG_DIR+"/floodgate/config.yml"))
 
 for setting in FLOOD:
   log_finer(f"{setting}: {FLOOD[setting]}")
@@ -353,18 +368,18 @@ for setting in FLOOD_PLAYER_LINK:
 
 flood_yaml['metrics']['uuid'] = UUID
 
-with open(ROOT_DIR+"/config/plugins/floodgate/config.yml", "w") as file:
+with open(PLUG_DIR+"/floodgate/config.yml", "w") as file:
   yaml.dump(flood_yaml, file)
   log_fine("Updated Floodgate config.yml")
 
-check_dir("/config/plugins/Geyser-Velocity")
+check_dir(PLUG_DIR+"/Geyser-Velocity")
 
-if not file_exists("/config/plugins/floodgate/key.pem"):
+if not file_exists(PLUG_DIR+"/floodgate/key.pem"):
   log_norm("No Flodgate key.pem found, generating one...")
   key = os.urandom(16)
-  with open(ROOT_DIR+"/config/plugins/floodgate/key.pem", "wb") as f:
+  with open(PLUG_DIR+"/floodgate/key.pem", "wb") as f:
     f.write(key)
-  shutil.copy(ROOT_DIR+"/config/plugins/floodgate/key.pem", ROOT_DIR+"/config/plugins/Geyser-Velocity/key.pem")
+  shutil.copy(PLUG_DIR+"/floodgate/key.pem", PLUG_DIR+"/Geyser-Velocity/key.pem")
 
 
 ## ------------------------ ##
@@ -373,13 +388,13 @@ GEYSER_BEDROCK = addon_conf['geyserBedrock']
 GEYSER_REMOTE = addon_conf['geyserRemote']
 GEYSER = addon_conf['geyser']
 
-if not file_exists("/config/plugins/Geyser-Velocity/config.yml"):
+if not file_exists(PLUG_DIR+"/Geyser-Velocity/config.yml"):
   log_norm("No Geyser config.yml found, copying from default config...")
   shutil.copy(
-    ROOT_DIR+"/default_config/geyser.yml",
-    ROOT_DIR+"/config/plugins/Geyser-Velocity/config.yml")
+    DEF_CONF+"/geyser.yml",
+    PLUG_DIR+"/Geyser-Velocity/config.yml")
 
-geyser_yaml = yaml.load(read_file("/config/plugins/Geyser-Velocity/config.yml"))
+geyser_yaml = yaml.load(read_file(PLUG_DIR+"/Geyser-Velocity/config.yml"))
 
 geyser_yaml['metrics']['uuid'] = UUID
 geyser_yaml['bedrock']['server-name'] = SERVER_NAME
@@ -399,26 +414,23 @@ for setting in GEYSER:
   log_finer(f"{setting}: {GEYSER[setting]}")
   geyser_yaml[setting] = GEYSER[setting]
 
-with open(ROOT_DIR+"/config/plugins/Geyser-Velocity/config.yml", "w") as file:
+with open(PLUG_DIR+"/Geyser-Velocity/config.yml", "w") as file:
   yaml.dump(geyser_yaml, file)
   log_fine("Updated Geyser config.yml")
 
-if not file_exists("/config/plugins/Geyser-Velocity/key.pem"):
-  log_norm("No Geyser key.pem found, copying from Floodgate...")
-  shutil.copy(ROOT_DIR+"/config/plugins/floodgate/key.pem", ROOT_DIR+"/config/plugins/Geyser-Velocity/key.pem")
 ## ----------------------------------- ##
 
-check_dir("/config/plugins/viabackwards")
-check_dir("/config/plugins/viarewind")
+check_dir(PLUG_DIR+"/viabackwards")
+check_dir(PLUG_DIR+"/viarewind")
 
-if not file_exists("/config/plugins/viabackwards/config.yml"):
+if not file_exists(PLUG_DIR+"/viabackwards/config.yml"):
   log_norm("No ViaBackwards config.yml found, copying from default config...")
   shutil.copy(
-    ROOT_DIR+"/default_config/viabackwards.yml",
-    ROOT_DIR+"/config/plugins/viabackwards/config.yml")
+    DEF_CONF+"/viabackwards.yml",
+    PLUG_DIR+"/viabackwards/config.yml")
 
-if not file_exists("/config/plugins/viarewind/config.yml"):
+if not file_exists(PLUG_DIR+"/viarewind/config.yml"):
   log_norm("No ViaRewind config.yml found, copying from default config...")
   shutil.copy(
-    ROOT_DIR+"/default_config/viarewind.yml",
-    ROOT_DIR+"/config/plugins/viarewind/config.yml")
+    DEF_CONF+"/viarewind.yml",
+    PLUG_DIR+"/viarewind/config.yml")
