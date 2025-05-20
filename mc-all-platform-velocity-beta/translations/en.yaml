@@ -1,8 +1,15 @@
 configuration:
+  logLevel:
+    name: Log Level
+    description: Amount of logging during startup. 1 for least logging; 5 for most.
+  max_players:
+    name: Max Players
+    description: Displayed for all clients.
   server_name:
     name: Server Name
   motd:
     name: MOTD
+  
   rootConfig:
     name: Velocity Config
     description: Main configuration for the proxy
@@ -21,13 +28,19 @@ configuration:
   
   eagConfig:
     name: Eaglercraft config
-    description: Basic EaglercraftXVelocity config
+    description: Basic EaglercraftXServer config
   eagSkins:
     name: Eaglercraft Skin Database
     description: Settings for the Eaglercraft skins database.
+  eagUpdateService:
+    name: Eaglercraft Update Service
+    description: Loads the latest Eaglercraft version from eaglercraft.com and sends it to clients in case of an available update.
+  eagUpdateChecker:
+    name: Eaglercraft Update Checker
+    description: Sends a message if the EaglerXServer plugin has an update available.
   eagListener:
     name: Eaglercraft listeners
-    description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener_01 in that file.
+    description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener0 in that file.
   
   floodgate:
     name: Floodgate config
