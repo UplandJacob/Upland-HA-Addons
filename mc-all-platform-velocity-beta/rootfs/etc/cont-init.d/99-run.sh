@@ -2,11 +2,12 @@
 
 bashio::log.green "Starting app..."
 
-#!/bin/bash
+cd /server
+
 tmpfile=$(mktemp)
 
 # Create a screen session named "velocity" and start the command
-screen -dmS velocity bash -c 'java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -jar /server/velocity.jar > '$tmpfile' 2>&1'
+screen -dmS velocity bash -c 'java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -jar /velocity.jar > '$tmpfile' 2>&1'
 
 running=true
 
