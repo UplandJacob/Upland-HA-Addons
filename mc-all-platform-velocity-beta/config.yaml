@@ -16,12 +16,12 @@ map:
   - config
 options:
   logLevel: 3
-  allocatedRAM_MB: 1024
+  allocatedRAM: 1024
+  maxRAM: 1536
   max_players: 64
   server_name: "A Cool Server"
-  motd: 
-    - "<red>A Cool Server"
-    - "<gray>A second line"
+  motd1: "<red>{srv_name}"
+  motd2: "<gray>We can have {maxPlayers} players!"
   rootConfig:
     online-mode: false
     force-key-authentication: true
@@ -163,11 +163,12 @@ options:
 
 schema:
   logLevel: int(1,5)
-  allocatedRAM_MB: int
+  allocatedRAM: int
+  maxRAM: int
   max_players: int
   server_name: str
-  motd: 
-    - str
+  motd1: str
+  motd2: str
   rootConfig:
     online-mode: bool
     force-key-authentication: bool
