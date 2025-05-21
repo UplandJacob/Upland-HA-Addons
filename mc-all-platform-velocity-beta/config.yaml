@@ -1,5 +1,5 @@
 name: Minecraft All-Platform Velocity Proxy Beta
-version: 0.1.4
+version: 0.1.5
 slug: mc-all-platform-velocity-beta
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity-beta
@@ -68,6 +68,7 @@ options:
   eagConfig: 
     eagler_login_timeout: 10000
     http_websocket_compression_level: 6
+    http_websocket_ping_intervention: true
     enable_is_eagler_player_property: true
     eagler_players_vanilla_skin: ''
     enable_authentication_events: false
@@ -206,6 +207,7 @@ schema:
   eagConfig: 
     eagler_login_timeout: int
     http_websocket_compression_level: int
+    http_websocket_ping_intervention: bool
     enable_is_eagler_player_property: bool
     eagler_players_vanilla_skin: str
     enable_authentication_events: bool
