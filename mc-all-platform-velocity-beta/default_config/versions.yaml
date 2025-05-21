@@ -2,6 +2,8 @@
 packaged_plugins_overrides: # (or you want to lock to an older version)
   # eaglerxserver: # (example)
   #   version: 1.0.3 # only override the version, the rest will be the packaged_plugins section
+  # geyser_extras: # (example: enabling Geyser Extras))
+  #   enabled: true
 
 # same idea as packaged_plugins_overrides but only for velocity
 velocity_overrides: # (don't include the velocity tag)
@@ -12,7 +14,7 @@ custom_plugins: # add your own plugins here
   #   url: "https://example.com/myplugin-{custom_placeholder}-{version}.jar"
   #   custom_placeholder: "custom_value"  # only needed if you have a custom placeholder in your url
   #   version: 1.0.0  # also optional, only if needed in your url
-  #   jar: "myplugin-{custom_placeholder}-{version}.jar"  # REQUIRED
+  #   file: "myplugin-{custom_placeholder}-{version}.jar"  # REQUIRED
 
 
 ############ EVERYTHING BELOW THIS LINE IS AUTO-GENERATED AND SHOULD NOT BE CHANGED ############
@@ -21,29 +23,41 @@ packaged_plugins:
   eaglerxserver:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
     version: 1.0.4
-    jar: "EaglerXServer.jar"
+    file: "EaglerXServer.jar"
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.7.1
     build: 830
-    jar: "Geyser.jar"
+    file: "Geyser.jar"
+  geyser_extras:
+    url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Extension.jar"
+    version: 2.0.0-BETA-5
+    path: "Geyser-Velocity/extentions"
+    file: "GeyserExtras-Extension.jar"
+    enabled: false
+  xbox_broadcast:
+    url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
+    build: 83
+    path: "Geyser-Velocity/extentions"  
+    file: "MCXboxBroadcastExtension.jar"
+    enabled: false
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.2.4
     build: 116
-    jar: "Floodgate.jar"
+    file: "Floodgate.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
     version: 5.3.2
-    jar: "ViaVersion.jar"
+    file: "ViaVersion.jar"
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
     version: 5.3.2
-    jar: "ViaBackwards.jar"
+    file: "ViaBackwards.jar"
   viarewind:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
-    version: 4.0.1
-    jar: "ViaRewind.jar"
+    version: 4.0.7
+    file: "ViaRewind.jar"
 
 velocity: 
   url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
