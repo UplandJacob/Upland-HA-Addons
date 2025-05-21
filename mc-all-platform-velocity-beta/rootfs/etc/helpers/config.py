@@ -24,7 +24,7 @@ with open(ROOT_DIR+"/data/options.json", "r") as file:
 LOG_LEVEL = addon_conf['logLevel']
 
 logging.basicConfig(level=logging.INFO)
-log = logging.getLogger(__name__)
+log = logging.getLogger("CONF")
 
 yaml = YAML()
 yaml.preserve_quotes = True
@@ -61,16 +61,13 @@ def log_warn(msg: str):
 
 def minimsg_to_leg(minimessage):
     colors = {
-        "<black>": "&0", "<dark_blue>": "&1", "<dark_green>": "&2",
-        "<dark_aqua>": "&3", "<dark_red>": "&4", "<dark_purple>": "&5",
-        "<gold>": "&6", "<gray>": "&7", "<dark_gray>": "&8",
-        "<blue>": "&9", "<green>": "&a", "<aqua>": "&b",
-        "<red>": "&c", "<light_purple>": "&d", "<yellow>": "&e",
-        "<white>": "&f", "<reset>": "&r"
+        "<black>": "&0", "<dark_blue>": "&1", "<dark_green>": "&2", "<dark_aqua>": "&3", "<dark_red>": "&4", "<dark_purple>": "&5",
+        "<gold>": "&6", "<gray>": "&7", "<dark_gray>": "&8", "<blue>": "&9", "<green>": "&a", "<aqua>": "&b",
+        "<red>": "&c", "<light_purple>": "&d", "<yellow>": "&e", "<white>": "&f", "<reset>": "&r"
     }
     formats = {
-        "<obfuscated>": "&k", "<bold>": "&l", "<strikethrough>": "&m",
-        "<underline>": "&n", "<italic>": "&o"
+        "<obfuscated>": "&k", "<obf>": "&k", "<bold>": "&l", "<b>": "&l", "<strikethrough>": "&m", "<st>": "&m",
+        "<underline>": "&n", "<u>": "&n", "<italic>": "&o", "<i>": "&o"
     }
     result = minimessage
     # Handle hex colors with closest legacy match
@@ -134,11 +131,23 @@ vers_default = yaml.load(read_file(DEF_CONF+"/versions.yaml"))
 vers_data['packaged_plugins'] = vers_default['packaged_plugins']
 vers_data['velocity'] = vers_default['velocity']
 
+
 MAX_PLAYERS = addon_conf['max_players']
 SERVER_NAME = addon_conf['server_name']
 
+def parse_pl_holds(inp):
+  inp = re.sub(r"{se?rv(er)?(_?na?me?)?}", SERVER_NAME, inp, flags=re.IGNORECASE)
+  inp = re.sub(r"{max_?pl(a?ye?)?r?s}", str(MAX_PLAYERS), inp, flags=re.IGNORECASE)
+  return inp
+
+MOTD1 = parse_pl_holds(addon_conf['motd1'])
+MOTD2 = parse_pl_holds(addon_conf['motd2'])
+
 log_fine(f"Max Players: {MAX_PLAYERS}")
 log_fine(f"Server Name: {SERVER_NAME}")
+log_fine(f"MOTD1: {MOTD1}")
+log_fine(f"MOTD2: {MOTD2}")
+
 
 ## ----------------------------------- ##
 
@@ -161,7 +170,7 @@ for setting in VEL_ROOT_CONFIG:
   vel_toml[setting] = VEL_ROOT_CONFIG[setting]
 
 vel_toml['show-max-players'] = MAX_PLAYERS
-vel_toml['motd'] = addon_conf['motd'][0]+"\n"+addon_conf['motd'][1]
+vel_toml['motd'] = MOTD1+"\n"+MOTD2
 
 vel_toml['servers'] = {}
 for i in range(len(VEL_SERVERS)):
@@ -194,23 +203,20 @@ write_file_w(SERV_DIR+"/velocity.toml", tomlkit.dumps(vel_toml))
 
 ## ----------------------------------- ##
 
-def get_url(identifier: str, data: dict):
-  log_finer(f"Data: {data}")
-
-  url = data['url']
-  for placeholder in re.findall(r'\{(\w+)\}', url):
+def plug_placeholders(txt: str, data: dict) -> str:
+  for placeholder in re.findall(r'\{(\w+)\}', txt):
     log_finer(f"Found placeholder: {placeholder}")
-    url = url.replace(f"{{{placeholder}}}", str(data[placeholder]))
-  return url
+    txt = txt.replace(f"{{{placeholder}}}", str(data[placeholder]))
+  return txt
 
 
-def download_jar(url: str, jar_name: str, path=PLUG_DIR):
-  log_norm(f"Downloading {jar_name} from {url}...")
+def download_file(url: str, f_name: str, path=PLUG_DIR):
+  log_norm(f"Downloading {f_name} from {url}...")
   response = requests.get(url)
   if response.status_code == 200:
-    with open(path+"/"+jar_name, "wb") as file:
+    with open(path+"/"+f_name, "wb") as file:
       file.write(response.content)
-    log_fine("JAR file downloaded successfully!")
+    log_fine("File downloaded successfully!")
     return True
   else:
     log.error("Failed to download the file.")
@@ -219,9 +225,11 @@ def download_jar(url: str, jar_name: str, path=PLUG_DIR):
 # velocity download
 if not file_exists(SERV_DIR+"/velocity.jar"):
   log_norm("No velocity.jar found, downloading...")
-  download_jar(get_url('velocity', vers_data['velocity']), 'velocity.jar', SERV_DIR)
+  download_file(get_url('velocity', vers_data['velocity']), 'velocity.jar', SERV_DIR)
 
 check_dir(PLUG_DIR)
+check_dir(PLUG_DIR+"/Geyser-Velocity/extentions")
+check_dir(PLUG_DIR+"/Geyser-Velocity/packs")
 
 def download_plugins(main_group: str, override_group: str):
   log_norm(f"Downloading plugins from '{main_group}' with overrides from '{override_group}'")
@@ -249,14 +257,22 @@ def download_plugins(main_group: str, override_group: str):
       log_norm(f"Plugin '{plugin}' is disabled, skipping...")
       continue
 
-    url = get_url(plugin, plugin_data)
+    path = "/"
+    if 'path' in plugin_data and plugin_data['path'] is not None:
+      path = plugin_data['path']
+      if not path.startswith("/"): path = "/"+path
+      if not path.endswith("/"): path += "/"
+
+    log_finer(f"Path: {path}")
+    
+    url = plug_placeholders(plugin_data['url'], plugin_data)
     urls = vers_data['current_installed_urls']
-    jar = plugin_data['jar']
+    f_nm = plug_placeholders(plugin_data['file'], plugin_data)
 
     plugin_outdated = urls is None or plugin not in urls or urls[plugin] != url
 
-    if plugin_outdated or not file_exists(PLUG_DIR+"/"+jar):
-      success = download_jar(url, jar)
+    if plugin_outdated or not file_exists(PLUG_DIR+path+f_nm):
+      success = download_file(url, f_nm, PLUG_DIR+path)
       if success:
         if vers_data['current_installed_urls'] is None:
           vers_data['current_installed_urls'] = {}
@@ -325,10 +341,7 @@ if not file_exists(PLUG_DIR+"/eaglerxserver/listeners.toml"):
 
 eag_list_toml = tomlkit.parse(read_file(PLUG_DIR+"/eaglerxserver/listeners.toml"))
 
-eag_list_toml['listener_list'][0]['server_motd'] = [
-  minimsg_to_leg(addon_conf['motd'][0]), 
-  minimsg_to_leg(addon_conf['motd'][1])
-]
+eag_list_toml['listener_list'][0]['server_motd'] = [minimsg_to_leg(MOTD1), minimsg_to_leg(MOTD2)]
 
 for setting in EAG_LISTENER:
   log_finer(f"{setting}: {EAG_LISTENER[setting]}")
@@ -348,9 +361,7 @@ check_dir(PLUG_DIR+"/floodgate")
 
 if not file_exists(PLUG_DIR+"/floodgate/config.yml"):
   log_norm("No Floodgate config.yml found, copying from default config...")
-  shutil.copy(
-    DEF_CONF+"/floodgate.yml",
-    PLUG_DIR+"/floodgate/config.yml")
+  shutil.copy(DEF_CONF+"/floodgate.yml", PLUG_DIR+"/floodgate/config.yml")
 
 flood_yaml = yaml.load(read_file(PLUG_DIR+"/floodgate/config.yml"))
 
@@ -390,17 +401,15 @@ GEYSER = addon_conf['geyser']
 
 if not file_exists(PLUG_DIR+"/Geyser-Velocity/config.yml"):
   log_norm("No Geyser config.yml found, copying from default config...")
-  shutil.copy(
-    DEF_CONF+"/geyser.yml",
-    PLUG_DIR+"/Geyser-Velocity/config.yml")
+  shutil.copy(DEF_CONF+"/geyser.yml", PLUG_DIR+"/Geyser-Velocity/config.yml")
 
 geyser_yaml = yaml.load(read_file(PLUG_DIR+"/Geyser-Velocity/config.yml"))
 
 geyser_yaml['metrics']['uuid'] = UUID
-geyser_yaml['bedrock']['server-name'] = SERVER_NAME
 geyser_yaml['max-players'] = MAX_PLAYERS
-geyser_yaml['bedrock']['motd1'] = re.sub(r'<[^>]+>', '', addon_conf['motd'][0])
-geyser_yaml['bedrock']['motd2'] = re.sub(r'<[^>]+>', '', addon_conf['motd'][1])
+geyser_yaml['bedrock']['server-name'] = SERVER_NAME
+geyser_yaml['bedrock']['motd1'] = re.sub(r'<[^>]+>', '', MOTD1)
+geyser_yaml['bedrock']['motd2'] = re.sub(r'<[^>]+>', '', MOTD2)
 
 for setting in GEYSER_BEDROCK:
   log_finer(f"{setting}: {GEYSER_BEDROCK[setting]}")
@@ -425,12 +434,8 @@ check_dir(PLUG_DIR+"/viarewind")
 
 if not file_exists(PLUG_DIR+"/viabackwards/config.yml"):
   log_norm("No ViaBackwards config.yml found, copying from default config...")
-  shutil.copy(
-    DEF_CONF+"/viabackwards.yml",
-    PLUG_DIR+"/viabackwards/config.yml")
+  shutil.copy(DEF_CONF+"/viabackwards.yml", PLUG_DIR+"/viabackwards/config.yml")
 
 if not file_exists(PLUG_DIR+"/viarewind/config.yml"):
   log_norm("No ViaRewind config.yml found, copying from default config...")
-  shutil.copy(
-    DEF_CONF+"/viarewind.yml",
-    PLUG_DIR+"/viarewind/config.yml")
+  shutil.copy(DEF_CONF+"/viarewind.yml", PLUG_DIR+"/viarewind/config.yml")
