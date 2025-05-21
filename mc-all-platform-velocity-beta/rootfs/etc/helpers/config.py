@@ -225,7 +225,7 @@ def download_file(url: str, f_name: str, path=PLUG_DIR):
 # velocity download
 if not file_exists(SERV_DIR+"/velocity.jar"):
   log_norm("No velocity.jar found, downloading...")
-  download_file(get_url('velocity', vers_data['velocity']), 'velocity.jar', SERV_DIR)
+  download_file(plug_placeholders(vers_data['velocity']['url'], vers_data['velocity']), 'velocity.jar', SERV_DIR)
 
 check_dir(PLUG_DIR)
 check_dir(PLUG_DIR+"/Geyser-Velocity/extensions")
@@ -264,7 +264,7 @@ def download_plugins(main_group: str, override_group: str):
       if not path.endswith("/"): path += "/"
 
     log_finer(f"Path: {path}")
-    
+
     url = plug_placeholders(plugin_data['url'], plugin_data)
     urls = vers_data['current_installed_urls']
     f_nm = plug_placeholders(plugin_data['file'], plugin_data)
