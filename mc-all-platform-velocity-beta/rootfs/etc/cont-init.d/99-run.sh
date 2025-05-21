@@ -1,13 +1,21 @@
 #!/usr/bin/with-contenv bashio
 
+getConfig() {
+  jq --raw-output "$1" /data/options.json
+}
+
 bashio::log.green "Starting app..."
 
 cd /server
-
 tmpfile=$(mktemp)
 
+RAM_ALLOCATE=$(getConfig '.allocatedRAM')
+RAM_MAX=$(getConfig '.maxRAM')
+bashio::log.green "Allocated RAM: $RAM_ALLOCATE MB"
+bashio::log.green "Max RAM: $RAM_MAX MB"
+
 # Create a screen session named "velocity" and start the command
-screen -dmS velocity bash -c 'java -Xms1G -Xmx1G -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -jar velocity.jar > '$tmpfile' 2>&1'
+screen -dmS velocity bash -c "java -Xms$RAM_ALLOCATE -Xmx$RAM_MAX -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 -jar velocity.jar > $tmpfile 2>&1"
 
 running=true
 
