@@ -14,9 +14,9 @@ configuration:
   server_name:
     name: Server Name
   motd1:
-    name: MOTD line 1
+    name: MOTD (Message of the Day, shown in the Multiplayer screen) line 1
   motd2:
-    name: MOTD line 2
+    name: MOTD line 2. On Bedrock clients, this line is only visible on the Friends tab.
 
   rootConfig:
     name: Velocity Config
@@ -25,7 +25,7 @@ configuration:
     name: Backend Servers
     description: All servers connected to the proxy
   serverAttemptJoinOrder:
-    name: Server attempt join order
+    name: Server attempt to join order
     description: Order of servers to attempt to connect players to
   forcedHosts:
     name: Forced hosts
