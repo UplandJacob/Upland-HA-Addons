@@ -228,7 +228,7 @@ if not file_exists(SERV_DIR+"/velocity.jar"):
   download_file(get_url('velocity', vers_data['velocity']), 'velocity.jar', SERV_DIR)
 
 check_dir(PLUG_DIR)
-check_dir(PLUG_DIR+"/Geyser-Velocity/extentions")
+check_dir(PLUG_DIR+"/Geyser-Velocity/extensions")
 check_dir(PLUG_DIR+"/Geyser-Velocity/packs")
 
 def download_plugins(main_group: str, override_group: str):
