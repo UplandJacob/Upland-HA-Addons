@@ -2,13 +2,21 @@ configuration:
   logLevel:
     name: Log Level
     description: Amount of logging during startup. 1 for least logging; 5 for most.
+  allocatedRAM:
+    name: Allocated RAM (MB)
+    description: Amount of RAM the server is immediately given. It will always use at least this much.
+  maxRAM:
+    name: Max RAM (MB)
+    description: The max amount of RAM the server CAN use. 
   max_players:
     name: Max Players
     description: Displayed for all clients.
   server_name:
     name: Server Name
-  motd:
-    name: MOTD
+  motd1:
+    name: MOTD line 1
+  motd2:
+    name: MOTD line 2
 
   rootConfig:
     name: Velocity Config
@@ -40,7 +48,7 @@ configuration:
     description: Sends a message if the EaglerXServer plugin has an update available.
   eagListener:
     name: Eaglercraft listeners
-    description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener0 in that file.
+    description: "Most listener settings are available in the addon's config folder. The settings defined here will ALWAYS overwrite changes you make to listener0 in that file."
 
   floodgate:
     name: Floodgate config
