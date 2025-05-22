@@ -240,8 +240,7 @@ def download_plugins(main_group: str, override_group: str):
     log_finest(f"Plugin data: {plugin_data}")
 
     over_group = vers_data[override_group] if override_group != '' else {}
-    if over_group is None: over_group = {}
-    over_data = {} if plugin not in over_group or over_group is None else over_group[plugin]
+    over_data = {} if over_group is None or plugin not in over_group else over_group[plugin]
     log_finest(f"Override data: {over_data}")
 
     for key in over_data:
@@ -250,8 +249,7 @@ def download_plugins(main_group: str, override_group: str):
     log_finer(f"Plugin data: {plugin_data}")
 
     if plugin_data is None: continue
-    elif 'enabled' in plugin_data:
-      enabled = plugin_data['enabled']
+    elif 'enabled' in plugin_data: enabled = plugin_data['enabled']
     else: enabled = True
     if not enabled:
       log_norm(f"Plugin '{plugin}' is disabled, skipping...")
@@ -262,21 +260,15 @@ def download_plugins(main_group: str, override_group: str):
       path = plugin_data['path']
       if not path.startswith("/"): path = "/"+path
       if not path.endswith("/"): path += "/"
-
     log_finer(f"Path: {path}")
 
     url = plug_placeholders(plugin_data['url'], plugin_data)
     urls = vers_data['current_installed_urls']
+    if urls is None: urls = {}
     f_nm = plug_placeholders(plugin_data['file'], plugin_data)
 
-    plugin_outdated = urls is None or plugin not in urls or urls[plugin] != url
-
-    if plugin_outdated or not file_exists(PLUG_DIR+path+f_nm):
-      success = download_file(url, f_nm, PLUG_DIR+path)
-      if success:
-        if vers_data['current_installed_urls'] is None:
-          vers_data['current_installed_urls'] = {}
-        vers_data['current_installed_urls'][plugin] = url
+    if plugin not in urls or urls[plugin] != url or not file_exists(PLUG_DIR+path+f_nm):
+      if download_file(url, f_nm, PLUG_DIR+path): urls[plugin] = url
 
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
 download_plugins('custom_plugins', '')
@@ -295,10 +287,8 @@ EAG_UP_CHECKER = addon_conf['eagUpdateChecker']
 
 check_dir(PLUG_DIR+"/eaglerxserver")
 if not file_exists(PLUG_DIR+"/eaglerxserver/settings.toml"):
-  log_norm("No eaglerxserver settings.toml found, copying from default config...")
-  shutil.copy(
-    DEF_CONF+"/eag_settings.toml",
-    PLUG_DIR+"/eaglerxserver/settings.toml")
+  log_norm("No EaglerXServer settings.toml found, copying from default config...")
+  shutil.copy(DEF_CONF+"/eag_settings.toml", PLUG_DIR+"/eaglerxserver/settings.toml")
 
 eag_toml = tomlkit.parse(read_file(PLUG_DIR+"/eaglerxserver/settings.toml"))
 
@@ -334,10 +324,8 @@ write_file_w(PLUG_DIR+"/eaglerxserver/settings.toml", tomlkit.dumps(eag_toml))
 EAG_LISTENER = addon_conf['eagListener']
 
 if not file_exists(PLUG_DIR+"/eaglerxserver/listeners.toml"):
-  log_norm("No eaglerxserver listeners.toml found, copying from default config...")
-  shutil.copy(
-    DEF_CONF+"/eag_listeners.toml",
-    PLUG_DIR+"/eaglerxserver/listeners.toml")
+  log_norm("No EaglerXServer listeners.toml found, copying from default config...")
+  shutil.copy(DEF_CONF+"/eag_listeners.toml", PLUG_DIR+"/eaglerxserver/listeners.toml")
 
 eag_list_toml = tomlkit.parse(read_file(PLUG_DIR+"/eaglerxserver/listeners.toml"))
 
@@ -386,7 +374,7 @@ with open(PLUG_DIR+"/floodgate/config.yml", "w") as file:
 check_dir(PLUG_DIR+"/Geyser-Velocity")
 
 if not file_exists(PLUG_DIR+"/floodgate/key.pem"):
-  log_norm("No Flodgate key.pem found, generating one...")
+  log_norm("No Floodgate key.pem found, generating one...")
   key = os.urandom(16)
   with open(PLUG_DIR+"/floodgate/key.pem", "wb") as f:
     f.write(key)
