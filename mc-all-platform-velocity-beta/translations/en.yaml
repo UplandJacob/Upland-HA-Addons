@@ -10,13 +10,16 @@ configuration:
     description: The max amount of RAM the server CAN use. 
   max_players:
     name: Max Players
-    description: Displayed for all clients.
+    description: "Displayed for all clients. Also sets the placeholder '{max_players}' for use in your MOTD. See the docs for more info."
   server_name:
     name: Server Name
+    description: "Also sets the placeholder '{server_name}' for use in your MOTD. See the docs for more info."
   motd1:
-    name: MOTD (Message of the Day, shown in the Multiplayer screen) line 1
+    name: MOTD line 1
+    description: Message of the Day, shown in the Multiplayer screen
   motd2:
-    name: MOTD line 2. On Bedrock clients, this line is only visible on the Friends tab.
+    name: MOTD line 2
+    description: On Bedrock clients, this line is only visible on the Friends tab.
 
   rootConfig:
     name: Velocity Config
