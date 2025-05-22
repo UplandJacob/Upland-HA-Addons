@@ -14,7 +14,7 @@ import tomlkit
 import uuid
 from ruamel.yaml import YAML
 
-ROOT_DIR = '
+ROOT_DIR = ''
 CONF_DIR = ROOT_DIR + '/config'
 SERV_DIR = CONF_DIR + '/server'
 PLUG_DIR = SERV_DIR + '/plugins'
