@@ -2,7 +2,7 @@
 packaged_plugins_overrides: # (or you want to lock to an older version)
   # eaglerxserver: # (example)
   #   version: 1.0.3 # only override the version, the rest will be the packaged_plugins section
-  # geyser_extras: # (example: enabling Geyser Extras))
+  # geyser_extras: # (example: enabling Geyser Extras)
   #   enabled: true
 
 # same idea as packaged_plugins_overrides but only for velocity
@@ -22,7 +22,7 @@ custom_plugins: # add your own plugins here
 packaged_plugins:
   eaglerxserver:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
-    version: 1.0.4
+    version: 1.0.5
     file: "EaglerXServer.jar"
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
@@ -58,6 +58,21 @@ packaged_plugins:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
     version: 4.0.7
     file: "ViaRewind.jar"
+  skinsrestorer:
+    url: "https://cdn.modrinth.com/data/TsLS8Py5/versions/{version}/SkinsRestorer.jar"
+    version: "JnmH0rte"
+    file: "SkinsRestorer.jar"
+    enabled: false
+  authme_velocity:
+    url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Velocity-{version}.jar"
+    version: 4.1.2
+    file: "AuthMeVelocity.jar"
+    enabled: false
+  vpacket_events:
+    url: "https://github.com/4drian3d/VPacketEvents/releases/download/{version}/VPacketEvents-{version}.jar"
+    version: 1.1.0
+    file: "VPacketEvents.jar"
+    enabled: false
 
 velocity: 
   url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
