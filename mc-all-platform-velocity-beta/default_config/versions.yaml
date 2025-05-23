@@ -29,6 +29,11 @@ packaged_plugins:
     version: 1.0.6
     file: "EaglerXRewind.jar"
     enabled: false
+  eaglermotd:
+    url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerMOTD.jar"
+    version: 1.0.6
+    file: "EaglerMOTD.jar"
+    enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.7.1
