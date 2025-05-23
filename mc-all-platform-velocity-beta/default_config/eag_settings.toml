@@ -33,6 +33,12 @@ http_websocket_compression_level = 6 # OVERRIDDEN BY ADDON CONFIG
 http_websocket_fragment_size = 65536
 # Default value is 2097151, sets the max size for websocket frames
 http_websocket_max_frame_length = 2097151
+# Default value is false, can be used to make EaglerXServer \"intervene\" when "
+# it detects a connection about to time out due to inactivity, by sending a "
+# WebSocket ping frame to try and get a response from the client. Chrome has "
+# been shown to ignore WebSocket ping frames on an inactive tab, so this "
+# won't do anything to prevent the game from timing out when switching tabs."
+http_websocket_ping_intervention = true
 # Default value is 60, how often in seconds to check if any listener TLS
 # certificates have been changed and need to be reloaded.
 tls_certificate_refresh_rate = 60
