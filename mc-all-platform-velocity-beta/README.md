@@ -22,7 +22,9 @@ Run a proxy for a Minecraft Paper server to allow java, bedrock, and Eaglercraft
 - Auto download Floodgage database drivers
 - `versions.yaml` allows you to define any plugin to be automatically downloaded and update any plugins packaged with the addon
 - Any custom files for the proxy (the old version only supported certain folders)
-- Updated config in the UI - Trimmed out some advanced options; you can still change them in their respective cofig files  
+- Updated config in the UI - Trimmed out some advanced options; you can still change them in their respective cofig files
+- Automatically set the Server Name, Max Players, and MOTD in all 3 places: Velocity, EaglerXServer, and Geyser (with automatically converting MOTD from MiniMessage)
+- Better startup logging (with a Log Level option as well)
 
 ## Install
 
