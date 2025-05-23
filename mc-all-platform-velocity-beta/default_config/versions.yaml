@@ -22,12 +22,17 @@ custom_plugins: # add your own plugins here
 packaged_plugins:
   eaglerxserver:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
-    version: 1.0.5
+    version: 1.0.6
     file: "EaglerXServer.jar"
+  eaglerxrewind:
+    url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXRewind.jar"
+    version: 1.0.6
+    file: "EaglerXRewind.jar"
+    enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.7.1
-    build: 830
+    build: 834
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Extension.jar"
@@ -40,6 +45,12 @@ packaged_plugins:
     build: 83
     path: "Geyser-Velocity/extensions"  
     file: "MCXboxBroadcastExtension.jar"
+    enabled: false
+  third_party_cosmetics:
+    url: "https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/{version}/builds/{build}/downloads/velocity"
+    version: 1.0.0
+    build: 7
+    file: "ThirdPartyCosmetics.jar"
     enabled: false
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
@@ -77,6 +88,6 @@ packaged_plugins:
 velocity: 
   url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
   version: 3.4.0-SNAPSHOT
-  build: 503
+  build: 506
 
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
