@@ -47,9 +47,10 @@ packaged_plugins:
     file: "MCXboxBroadcastExtension.jar"
     enabled: false
   third_party_cosmetics:
-    url: "https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/{version}/builds/{build}/downloads/velocity"
+    url: "https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/{version}/builds/{build}/downloads/thirdpartycosmetics"
     version: 1.0.0
     build: 7
+    path: "Geyser-Velocity/extensions"
     file: "ThirdPartyCosmetics.jar"
     enabled: false
   floodgate:
