@@ -6,7 +6,7 @@ getConfig() {
 
 bashio::log.green "Starting app..."
 
-cd /server
+cd /config/server
 tmpfile=$(mktemp)
 
 RAM_ALLOCATE=$(getConfig '.allocatedRAM')
