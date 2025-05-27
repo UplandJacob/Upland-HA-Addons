@@ -13,6 +13,8 @@
 
 Run a proxy for a Minecraft Paper server to allow java, bedrock, and Eaglercraft(unofficial web browser) clients to join.
 
+**The [beta version of this addon](/mc-all-platform-velocity-beta) is now available!**
+
 ## Install
 
 **Add repository**
