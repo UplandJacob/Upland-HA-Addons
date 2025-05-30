@@ -1,0 +1,99 @@
+# set these if there is a newer version that the addon doesn't know about 
+packaged_plugins_overrides: # (or you want to lock to an older version)
+  # eaglerxserver: # (example)
+  #   version: 1.0.3 # only override the version, the rest will be the packaged_plugins section
+  # geyser_extras: # (example: enabling Geyser Extras)
+  #   enabled: true
+
+# same idea as packaged_plugins_overrides but only for velocity
+velocity_overrides: # (don't include the velocity tag)
+  # build: 500 # (example)
+
+custom_plugins: # add your own plugins here
+  # example: # DO NOT REUSE IDENTIFIERS! the current_installed_urls section will have conflicts
+  #   url: "https://example.com/myplugin-{custom_placeholder}-{version}.jar"
+  #   custom_placeholder: "custom_value"  # only needed if you have a custom placeholder in your url
+  #   version: 1.0.0  # also optional, only if needed in your url
+  #   file: "myplugin-{custom_placeholder}-{version}.jar"  # REQUIRED
+
+
+############ EVERYTHING BELOW THIS LINE IS AUTO-GENERATED AND SHOULD NOT BE CHANGED ############
+# this is the version info that is packaged with the addon
+packaged_plugins:
+  eaglerxserver:
+    url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
+    version: 1.0.6
+    file: "EaglerXServer.jar"
+  eaglerxrewind:
+    url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXRewind.jar"
+    version: 1.0.6
+    file: "EaglerXRewind.jar"
+    enabled: false
+  eaglermotd:
+    url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerMOTD.jar"
+    version: 1.0.6
+    file: "EaglerMOTD.jar"
+    enabled: false
+  geyser:
+    url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
+    version: 2.7.1
+    build: 834
+    file: "Geyser.jar"
+  geyser_extras:
+    url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Extension.jar"
+    version: 2.0.0-BETA-5
+    path: "Geyser-Velocity/extensions"
+    file: "GeyserExtras-Extension.jar"
+    enabled: false
+  xbox_broadcast:
+    url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
+    build: 83
+    path: "Geyser-Velocity/extensions"  
+    file: "MCXboxBroadcastExtension.jar"
+    enabled: false
+  third_party_cosmetics:
+    url: "https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/{version}/builds/{build}/downloads/thirdpartycosmetics"
+    version: 1.0.0
+    build: 7
+    path: "Geyser-Velocity/extensions"
+    file: "ThirdPartyCosmetics.jar"
+    enabled: false
+  floodgate:
+    url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
+    version: 2.2.4
+    build: 116
+    file: "Floodgate.jar"
+  viaversion:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
+    version: 5.3.2
+    file: "ViaVersion.jar"
+  viabackwards:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
+    version: 5.3.2
+    file: "ViaBackwards.jar"
+  viarewind:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
+    version: 4.0.7
+    file: "ViaRewind.jar"
+  skinsrestorer:
+    url: "https://cdn.modrinth.com/data/TsLS8Py5/versions/{version}/SkinsRestorer.jar"
+    version: "JnmH0rte"
+    file: "SkinsRestorer.jar"
+    enabled: false
+  authme_velocity:
+    url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Velocity-{version}.jar"
+    version: 4.1.2
+    file: "AuthMeVelocity.jar"
+    enabled: false
+  vpacket_events:
+    url: "https://github.com/4drian3d/VPacketEvents/releases/download/{version}/VPacketEvents-{version}.jar"
+    version: 1.1.0
+    file: "VPacketEvents.jar"
+    enabled: false
+
+velocity: 
+  url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
+  version: 3.4.0-SNAPSHOT
+  build: 506
+
+current_installed_urls: # keeps track of the last download url of velocity and each plugin

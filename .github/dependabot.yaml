@@ -5,3 +5,8 @@ updates:
     schedule:
       interval: daily
       time: "06:00"
+  - package-ecosystem: "pip"
+    directories: ["/mc-all-platform-velocity-beta"]
+    schedule:
+      interval: daily
+      time: "06:00"
