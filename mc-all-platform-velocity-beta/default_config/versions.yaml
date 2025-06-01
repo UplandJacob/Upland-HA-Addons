@@ -1,20 +1,20 @@
 # set these if there is a newer version that the addon doesn't know about 
 packaged_plugins_overrides: # (or you want to lock to an older version)
-  # eaglerxserver: # (example)
-  #   version: 1.0.3 # only override the version, the rest will be the packaged_plugins section
-  # geyser_extras: # (example: enabling Geyser Extras)
-  #   enabled: true
+#   eaglerxserver: # (example)
+#     version: 1.0.3 # only override the version, the rest will be the packaged_plugins section
+#   geyser_extras: # (example: enabling Geyser Extras)
+#     enabled: true
 
 # same idea as packaged_plugins_overrides but only for velocity
 velocity_overrides: # (don't include the velocity tag)
-  # build: 500 # (example)
+#   build: 500 # (example)
 
 custom_plugins: # add your own plugins here
-  # example: # DO NOT REUSE IDENTIFIERS! the current_installed_urls section will have conflicts
-  #   url: "https://example.com/myplugin-{custom_placeholder}-{version}.jar"
-  #   custom_placeholder: "custom_value"  # only needed if you have a custom placeholder in your url
-  #   version: 1.0.0  # also optional, only if needed in your url
-  #   file: "myplugin-{custom_placeholder}-{version}.jar"  # REQUIRED
+#.  example: # DO NOT REUSE IDENTIFIERS! the current_installed_urls section will have conflicts
+#     url: "https://example.com/myplugin-{custom_placeholder}-{version}.jar"
+#     custom_placeholder: "custom_value"  # only needed if you have a custom placeholder in your url
+#     version: 1.0.0  # also optional, only if needed in your url
+#     file: "myplugin-{custom_placeholder}-{version}.jar"  # REQUIRED
 
 
 ############ EVERYTHING BELOW THIS LINE IS AUTO-GENERATED AND SHOULD NOT BE CHANGED ############
@@ -48,7 +48,7 @@ packaged_plugins:
   xbox_broadcast:
     url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
     build: 83
-    path: "Geyser-Velocity/extensions"  
+    path: "Geyser-Velocity/extensions"
     file: "MCXboxBroadcastExtension.jar"
     enabled: false
   third_party_cosmetics:
@@ -76,8 +76,8 @@ packaged_plugins:
     version: 4.0.7
     file: "ViaRewind.jar"
   skinsrestorer:
-    url: "https://cdn.modrinth.com/data/TsLS8Py5/versions/{version}/SkinsRestorer.jar"
-    version: "JnmH0rte"
+    url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
+    version: 15.6.3
     file: "SkinsRestorer.jar"
     enabled: false
   authme_velocity:
