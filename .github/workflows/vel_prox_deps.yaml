@@ -255,7 +255,7 @@ jobs:
                 title: `${ pullRequest.title }${{ env.changed }}`
               });
             } else {
-              console.log("No open PR found for update-deps.");
+              console.log("No open PR found for vel-prox-deps.");
             }
 
       - name: Create Pull Request
@@ -266,7 +266,7 @@ jobs:
             AUTO-update deps:${{ env.changed }}
 
             Dependency updates detected.
-          branch: update-deps
+          branch: vel-prox-deps
           delete-branch: true
           branch-suffix: short-commit-hash
           title: "AUTO-Update deps:${{ env.changed }}"
