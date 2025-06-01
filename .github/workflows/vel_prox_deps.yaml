@@ -1,0 +1,277 @@
+name: All-Platform Velocity Proxy deps
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+
+jobs:
+  check_for_updates:
+    runs-on: ubuntu-latest
+    name: Check for updates
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.HA_GITHUB_TOKEN }}
+      - name: Create empty "changed" env variable and check for existimg branch
+        run: |
+          echo "changed=" >> $GITHUB_ENV;
+
+          REGEX_PATTERN="vel-prox-deps-[a-f0-9]{7}"
+          BRANCHES=$(git branch -r)
+          echo "Branches: $BRANCHES"
+          BRANCH_NAME=$(echo "$BRANCHES" | grep -E "$REGEX_PATTERN" | sed 's|origin/||' | head -n 1 | xargs )
+          echo "Found branch: $BRANCH_NAME"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+          if [ "$BRANCH_NAME" != "" ]; then
+            echo "fetching and checking out..."
+            git fetch --all
+            git checkout $BRANCH_NAME
+            echo "done"
+          fi
+
+          echo "VERS_FILE=./mc-all-platform-velocity-beta/default_config/versions.yaml" >> $GITHUB_ENV
+
+      - name: Velocity
+        run: |
+          resp=$(curl --silent -X 'GET' "https://api.papermc.io/v2/projects/velocity" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          echo "latest version: $latestVers"
+          resp2=$(curl --silent -X 'GET' "https://api.papermc.io/v2/projects/velocity/versions/$latestVers" -H 'accept: application/json')
+          echo "$resp2"
+          latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
+          echo "latest build: $latestBuild"
+          
+          currentVers=$(yq '.velocity.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          currentBuild=$(yq '.velocity.build' ${{ env.VERS_FILE }})
+          echo "current build: $currentBuild"
+
+          if [ $latestVers != $currentVers -o $latestBuild != $currentBuild ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} Velocity" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+            yq -i ".velocity.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+          fi
+          if [ $latestBuild != $currentBuild ]; then
+            echo "BUILD update"
+            yq -i ".velocity.build = \"$latestBuild\"" ${{ env.VERS_FILE }}
+          fi
+
+      - name: SkinsRestorer
+        run: |
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://api.github.com/repos/SkinsRestorer/SkinsRestorer/releases")
+          
+          latestVers=$(echo "$resp" | jq -r .[0].tag_name)
+          echo "latest version: $latestVers"
+
+          currentVers=$(yq '.packaged_plugins.skinsrestorer.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
+            yq -i ".packaged_plugins.skinsrestorer.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+          fi
+      
+      # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
+      - name: Geyser
+        run: |
+          resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          echo "latest version: $latestVers"
+          resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/geyser/versions/$latestVers" -H 'accept: application/json')
+          echo "$resp2"
+          latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
+          echo "latest build: $latestBuild"
+          
+          currentVers=$(yq '.packaged_plugins.geyser.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          currentBuild=$(yq '.packaged_plugins.geyser.build' ${{ env.VERS_FILE }})
+          echo "current build: $currentBuild"
+
+          if [ $latestVers != $currentVers -o $latestBuild != $currentBuild ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} Geyser" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+             yq -i ".packaged_plugins.geyser.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+          fi
+          if [ $latestBuild != $currentBuild ]; then
+            echo "BUILD update"
+            yq -i ".packaged_plugins.geyser.build = \"$latestBuild\"" ${{ env.VERS_FILE }}
+          fi
+          
+      - name: Floodgate
+        run: |
+          resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          echo "latest version: $latestVers"
+          resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/floodgate/versions/$latestVers" -H 'accept: application/json')
+          echo "$resp2"
+          latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
+          echo "latest build: $latestBuild"
+
+          currentVers=$(yq '.packaged_plugins.floodgate.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          currentBuild=$(yq '.packaged_plugins.floodgate.version' ${{ env.VERS_FILE }})
+          echo "current build: $currentBuild"
+
+          if [ "$latestVers" != "$currentVers" -o "$latestBuild" != "$currentBuild" ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} Floodgate" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+             yq -i ".packaged_plugins.geyser.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+          fi
+          if [ $latestBuild != $currentBuild ]; then
+            echo "BUILD update"
+            yq -i ".packaged_plugins.geyser.build = \"$latestBuild\"" ${{ env.VERS_FILE }}
+          fi
+      
+      - name: ViaVersion
+        run: |
+          latestVers=$(curl --silent -X 'GET' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaVersion/latestrelease")
+          echo "latest version: $latestVers"
+
+          currentVers=$(yq '.packaged_plugins.viaversion.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} ViaVersion" >> $GITHUB_ENV;
+            yq -i ".packaged_plugins.viaversion.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+          fi
+
+      - name: ViaBackwards
+        run: |
+          latestVers=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaBackwards/latestrelease")
+          echo "latest version: $latestVers"
+
+          currentVers=$(yq '.packaged_plugins.viabackwards.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} ViaBackwards" >> $GITHUB_ENV;
+            yq -i ".packaged_plugins.viabackwards.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+          fi
+
+      - name: ViaRewind
+        run: |
+          latestVers=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://hangar.papermc.io/api/v1/projects/ViaRewind/latestrelease")
+          echo "latest version: $latestVers"
+
+          currentVers=$(yq '.packaged_plugins.viarewind.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} ViaRewind" >> $GITHUB_ENV;
+            yq -i ".packaged_plugins.viarewind.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+          fi
+
+      - name: EaglercraftXServer
+        run: |
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://api.github.com/repos/lax1dude/eaglerxserver/releases")
+          
+          latestVers=$(echo "$resp" | jq -r .[0].tag_name)
+          latestVers=${latestVers#v}
+          echo "latest version: $latestID"
+
+          currentVers=$(yq '.packaged_plugins.eaglerxserver.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+
+          if [ "$latestID" != "$currentVers" ] && [ "$latestID" != "" ]; then
+            echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
+            yq -i ".packaged_plugins.eaglerxserver.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+          fi
+
+      - name: "Check what needs to be done"
+        run: | 
+          echo ${{ env.changed }}
+          if [ "${{ env.changed }}" != "" ]; then
+            if [ -z "${{ env.BRANCH_NAME }}" ]; then
+              echo "No branch matching the pattern found."
+              echo "need_pr=true" >> $GITHUB_ENV;
+              exit 0
+            fi
+            echo "Branch ${{ env.BRANCH_NAME }} exists."
+            git config --local user.name "github-actions[bot]"
+            git config --local user.email "github-actions[bot]@users.noreply.github.com"
+            git add .
+            
+            git commit -m "AUTO-update deps:${{ env.changed }}"
+            echo "need_pr_update=true" >> $GITHUB_ENV;
+          fi
+
+      - name: Push changes to exiting PR branch
+        if: ${{ env.need_pr_update }}
+        uses: ad-m/github-push-action@master
+        with:
+          branch: ${{ env.BRANCH_NAME }}
+          force: false
+
+      - name: Find and update PR title
+        if: ${{ env.need_pr_update }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.HA_GITHUB_TOKEN }}
+          script: |
+            
+            // Fetch the open PR for the branch
+            const { data: pullRequests } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${{ env.BRANCH_NAME }}`,
+              state: "open"
+            });
+            if (pullRequests.length > 0) {
+              const pullRequest = pullRequests[0]; // Assuming the first result is the right PR
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pullRequest.number,
+                title: `${ pullRequest.title }${{ env.changed }}`
+              });
+            } else {
+              console.log("No open PR found for update-deps.");
+            }
+
+      - name: Create Pull Request
+        if: ${{ env.need_pr }}
+        uses: peter-evans/create-pull-request@v7.0.8
+        with:
+          commit-message: |
+            AUTO-update deps:${{ env.changed }}
+
+            Dependency updates detected.
+          branch: update-deps
+          delete-branch: true
+          branch-suffix: short-commit-hash
+          title: "AUTO-Update deps:${{ env.changed }}"
+          body: "This pull request was created automatically by a GitHub Action."
+          labels: dependencies
+          maintainer-can-modify: true
+          token: ${{ secrets.HA_GITHUB_TOKEN }}
+
