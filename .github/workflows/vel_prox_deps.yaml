@@ -63,7 +63,7 @@ jobs:
           fi
           if [ $latestVers != $currentVers ]; then
             echo "VERSION update"
-            yq eval -i '.velocity.version = "$latestVers" | .velocity.version style=""' ${{ env.VERS_FILE }}
+            yq eval -i ".velocity.version = \"$latestVers\" | .velocity.version style=\"\"" ${{ env.VERS_FILE }}
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
@@ -83,7 +83,7 @@ jobs:
           echo "current version: $currentVers"
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
-            yq eval -i '${{ env.PLs }}.skinsrestorer.version = "$latestVers" | ${{ env.PLs }}.skinsrestorer.version style=""' ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.skinsrestorer.version = \"$latestVers\" | ${{ env.PLs }}.skinsrestorer.version style=\"\"" ${{ env.VERS_FILE }}
           fi
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
@@ -109,7 +109,7 @@ jobs:
           fi
           if [ $latestVers != $currentVers ]; then
             echo "VERSION update"
-            yq eval -i '${{ env.PLs }}.geyser.version = "$latestVers" | ${{ env.PLs }}.geyser.version style=""' ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.geyser.version = \"$latestVers\" | ${{ env.PLs }}.geyser.version style=\"\"" ${{ env.VERS_FILE }}
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
@@ -138,11 +138,11 @@ jobs:
           fi
           if [ $latestVers != $currentVers ]; then
             echo "VERSION update"
-            yq eval -i '${{ env.PLs }}.floodgate.version = "$latestVers" | ${{ env.PLs }}.floodgate.version style=""' ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.floodgate.version = \"$latestVers\" | ${{ env.PLs }}.floodgate.version style=\"\"" ${{ env.VERS_FILE }}
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
-            yq -i "${{ env.PLs }}.geyser.build = $latestBuild" ${{ env.VERS_FILE }}
+            yq -i "${{ env.PLs }}.floodgate.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
       
       - name: ViaVersion
@@ -157,7 +157,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaVersion" >> $GITHUB_ENV;
-            yq eval -i '${{ env.PLs }}.viaversion.version = "$latestVers" | ${{ env.PLs }}.viaversion.version style=""' ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.viaversion.version = \"$latestVers\" | ${{ env.PLs }}.viaversion.version style=\"\"" ${{ env.VERS_FILE }}
           fi
 
       - name: ViaBackwards
@@ -172,7 +172,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaBackwards" >> $GITHUB_ENV;
-            yq eval -i '${{ env.PLs }}.viabackwards.version = "$latestVers" | ${{ env.PLs }}.viabackwards.version style=""' ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.viabackwards.version = \"$latestVers\" | ${{ env.PLs }}.viabackwards.version style=\"\"" ${{ env.VERS_FILE }}
           fi
 
       - name: ViaRewind
@@ -187,7 +187,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaRewind" >> $GITHUB_ENV;
-            yq eval -i '${{ env.PLs }}.viarewind.version = "$latestVers" | ${{ env.PLs }}.viarewind.version style=""' ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.viarewind.version = \"$latestVers\" | ${{ env.PLs }}.viarewind.version style=\"\"" ${{ env.VERS_FILE }}
           fi
 
       - name: EaglercraftXServer
@@ -205,7 +205,7 @@ jobs:
 
           if [ "$latestID" != "$currentVers" ] && [ "$latestID" != "" ]; then
             echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
-            yq eval -i '${{ env.PLs }}.eaglerxserver.version = "$latestVers" | ${{ env.PLs }}.eaglerxserver.version style=""' ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.eaglerxserver.version = \"$latestVers\" | ${{ env.PLs }}.eaglerxserver.version style=\"\"" ${{ env.VERS_FILE }}
           fi
 
       - name: "Check what needs to be done"
