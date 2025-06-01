@@ -62,11 +62,11 @@ jobs:
           fi
           if [ $latestVers != $currentVers ]; then
             echo "VERSION update"
-            yq -i ".velocity.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+            yq -i ".velocity.version = $latestVers" ${{ env.VERS_FILE }}
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
-            yq -i ".velocity.build = \"$latestBuild\"" ${{ env.VERS_FILE }}
+            yq -i ".velocity.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
 
       - name: SkinsRestorer
@@ -82,7 +82,7 @@ jobs:
           echo "current version: $currentVers"
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
-            yq -i ".packaged_plugins.skinsrestorer.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+            yq -i ".packaged_plugins.skinsrestorer.version = $latestVers" ${{ env.VERS_FILE }}
           fi
       
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
@@ -108,11 +108,11 @@ jobs:
           fi
           if [ $latestVers != $currentVers ]; then
             echo "VERSION update"
-             yq -i ".packaged_plugins.geyser.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+             yq -i ".packaged_plugins.geyser.version = $latestVers" ${{ env.VERS_FILE }}
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
-            yq -i ".packaged_plugins.geyser.build = \"$latestBuild\"" ${{ env.VERS_FILE }}
+            yq -i ".packaged_plugins.geyser.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
           
       - name: Floodgate
@@ -137,11 +137,11 @@ jobs:
           fi
           if [ $latestVers != $currentVers ]; then
             echo "VERSION update"
-             yq -i ".packaged_plugins.geyser.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+             yq -i ".packaged_plugins.geyser.version = $latestVers" ${{ env.VERS_FILE }}
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
-            yq -i ".packaged_plugins.geyser.build = \"$latestBuild\"" ${{ env.VERS_FILE }}
+            yq -i ".packaged_plugins.geyser.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
       
       - name: ViaVersion
@@ -156,7 +156,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaVersion" >> $GITHUB_ENV;
-            yq -i ".packaged_plugins.viaversion.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+            yq -i ".packaged_plugins.viaversion.version = $latestVers" ${{ env.VERS_FILE }}
           fi
 
       - name: ViaBackwards
@@ -171,7 +171,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaBackwards" >> $GITHUB_ENV;
-            yq -i ".packaged_plugins.viabackwards.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+            yq -i ".packaged_plugins.viabackwards.version = $latestVers" ${{ env.VERS_FILE }}
           fi
 
       - name: ViaRewind
@@ -186,7 +186,7 @@ jobs:
 
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} ViaRewind" >> $GITHUB_ENV;
-            yq -i ".packaged_plugins.viarewind.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+            yq -i ".packaged_plugins.viarewind.version = $latestVers" ${{ env.VERS_FILE }}
           fi
 
       - name: EaglercraftXServer
@@ -204,7 +204,7 @@ jobs:
 
           if [ "$latestID" != "$currentVers" ] && [ "$latestID" != "" ]; then
             echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
-            yq -i ".packaged_plugins.eaglerxserver.version = \"$latestVers\"" ${{ env.VERS_FILE }}
+            yq -i ".packaged_plugins.eaglerxserver.version = $latestVers" ${{ env.VERS_FILE }}
           fi
 
       - name: "Check what needs to be done"
