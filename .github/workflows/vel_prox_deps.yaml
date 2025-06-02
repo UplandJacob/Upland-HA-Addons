@@ -198,12 +198,12 @@ jobs:
           
           latestVers=$(echo "$resp" | jq -r .[0].tag_name)
           latestVers=${latestVers#v}
-          echo "latest version: $latestID"
+          echo "latest version: $latestVers"
 
           currentVers=$(yq '${{ env.PLs }}.eaglerxserver.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
 
-          if [ "$latestID" != "$currentVers" ] && [ "$latestID" != "" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "" ]; then
             echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.eaglerxserver.version = \"$latestVers\" | ${{ env.PLs }}.eaglerxserver.version style=\"\"" ${{ env.VERS_FILE }}
           fi
