@@ -204,7 +204,7 @@ jobs:
           echo "current version: $currentVers"
 
           if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "" ]; then
-            echo "changed=${{ env.changed }} EaglercraftXVelocity" >> $GITHUB_ENV;
+            echo "changed=${{ env.changed }} EaglercraftXServer" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.eaglerxserver.version = \"$latestVers\" | ${{ env.PLs }}.eaglerxserver.version style=\"\"" ${{ env.VERS_FILE }}
           fi
 
