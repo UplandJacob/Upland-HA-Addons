@@ -20,7 +20,7 @@ custom_plugins: # add your own plugins here
 packaged_plugins:
   eaglerxserver:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
-    version: 1.0.6
+    version: 1.0.7
     file: "EaglerXServer.jar"
   eaglerxrewind:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXRewind.jar"
