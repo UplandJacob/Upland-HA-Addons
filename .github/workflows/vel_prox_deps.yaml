@@ -129,7 +129,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.floodgate.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          currentBuild=$(yq '${{ env.PLs }}.floodgate.version' ${{ env.VERS_FILE }})
+          currentBuild=$(yq '${{ env.PLs }}.floodgate.build' ${{ env.VERS_FILE }})
           echo "current build: $currentBuild"
 
           if [ "$latestVers" != "$currentVers" -o "$latestBuild" != "$currentBuild" ]; then
