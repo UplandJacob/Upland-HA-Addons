@@ -9,7 +9,7 @@ packaged_plugins_overrides: # (or you want to lock to an older version)
 velocity_overrides: # (don't include the velocity tag)
 #   build: 500 # (example)
 custom_plugins: # add your own plugins here
-#.  example: # DO NOT REUSE IDENTIFIERS! the current_installed_urls section will have conflicts
+#   example: # DO NOT REUSE IDENTIFIERS! the current_installed_urls section will have conflicts
 #     url: "https://example.com/myplugin-{custom_placeholder}-{version}.jar"
 #     custom_placeholder: "custom_value"  # only needed if you have a custom placeholder in your url
 #     version: 1.0.0  # also optional, only if needed in your url
