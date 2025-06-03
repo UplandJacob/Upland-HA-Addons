@@ -239,7 +239,7 @@ jobs:
           echo "current version: $currentBuild"
           if [ "$latestBuild" != "$currentBuild" ]; then
             echo "changed=${{ env.changed }} MCXboxBroadcaster" >> $GITHUB_ENV;
-            yq -i "${{ env.PLs }}.xbox_broadcast.build = $latestVers" ${{ env.VERS_FILE }}
+            yq -i "${{ env.PLs }}.xbox_broadcast.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
 
 
