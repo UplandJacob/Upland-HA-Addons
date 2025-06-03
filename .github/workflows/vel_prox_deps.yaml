@@ -70,22 +70,6 @@ jobs:
             yq -i ".velocity.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
 
-      - name: SkinsRestorer
-        run: |
-          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
-            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-            "https://api.github.com/repos/SkinsRestorer/SkinsRestorer/releases")
-          
-          latestVers=$(echo "$resp" | jq -r .[0].tag_name)
-          echo "latest version: $latestVers"
-
-          currentVers=$(yq '${{ env.PLs }}.skinsrestorer.version' ${{ env.VERS_FILE }})
-          echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ]; then
-            echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
-            yq eval -i "${{ env.PLs }}.skinsrestorer.version = \"$latestVers\" | ${{ env.PLs }}.skinsrestorer.version style=\"\"" ${{ env.VERS_FILE }}
-          fi
-      
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
       - name: Geyser
         run: |
@@ -206,7 +190,59 @@ jobs:
           if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "" ]; then
             echo "changed=${{ env.changed }} EaglercraftXServer" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.eaglerxserver.version = \"$latestVers\" | ${{ env.PLs }}.eaglerxserver.version style=\"\"" ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.eaglerxrewind.version = \"$latestVers\" | ${{ env.PLs }}.eaglerxrewind.version style=\"\"" ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.eaglermotd.version = \"$latestVers\" | ${{ env.PLs }}.eaglermotd.version style=\"\"" ${{ env.VERS_FILE }}
           fi
+
+      - name: SkinsRestorer
+        run: |
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://api.github.com/repos/SkinsRestorer/SkinsRestorer/releases")
+          
+          latestVers=$(echo "$resp" | jq -r .[0].tag_name)
+          echo "latest version: $latestVers"
+
+          currentVers=$(yq '${{ env.PLs }}.skinsrestorer.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
+            yq eval -i "${{ env.PLs }}.skinsrestorer.version = \"$latestVers\" | ${{ env.PLs }}.skinsrestorer.version style=\"\"" ${{ env.VERS_FILE }}
+          fi
+
+      - name: GeyserExtras
+        run: |
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://api.github.com/repos/GeyserExtras/GeyserExtras/releases")
+          
+          latestVers=$(echo "$resp" | jq -r .[0].tag_name)
+          echo "latest version: $latestVers"
+
+          currentVers=$(yq '${{ env.PLs }}.geyser_extras.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} GeyserExtras" >> $GITHUB_ENV;
+            yq eval -i "${{ env.PLs }}.geyser_extras.version = \"$latestVers\" | ${{ env.PLs }}.geyser_extras.version style=\"\"" ${{ env.VERS_FILE }}
+          fi
+
+      - name: MCXboxBroadcast
+        run: |
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://api.github.com/repos/MCXboxBroadcast/Broadcaster/releases")
+          
+          latestBuild=$(echo "$resp" | jq -r .[0].tag_name)
+          echo "latest build: $latestBuild"
+
+          currentBuild=$(yq '${{ env.PLs }}.xbox_broadcast.build' ${{ env.VERS_FILE }})
+          echo "current version: $currentBuild"
+          if [ "$latestBuild" != "$currentBuild" ]; then
+            echo "changed=${{ env.changed }} MCXboxBroadcaster" >> $GITHUB_ENV;
+            yq -i "${{ env.PLs }}.xbox_broadcast.build = $latestVers" ${{ env.VERS_FILE }}
+          fi
+
+
 
       - name: "Check what needs to be done"
         run: | 
