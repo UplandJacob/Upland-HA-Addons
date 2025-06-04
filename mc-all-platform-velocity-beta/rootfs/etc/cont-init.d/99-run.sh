@@ -19,24 +19,19 @@ screen -dmS velocity bash -c "java -Xms${RAM_ALLOCATE}M -Xmx${RAM_MAX}M -XX:+Use
 
 running=true
 
-# Function to stop the process when the specific string is found in the log
-filter() {
-  while IFS= read -r line; do
+
+tail -f $tmpfile | while IFS= read -r line; do
+  if [[ "$line" != *"ERROR]: SLF4J:"* ]]; then
     echo "$line"
-    #if [[ "$line" == *"something to filter"* ]]; then
-      # TODO - LOG FILTER
-      # This is a long-term goal. I just want to have this here ready.
-    #fi
-    if  [[ "$running" == "false" ]]; then
-      bashio::log.green "Stopping log tail..."
-      break
-    fi
-  done
-}
-filter < <(tail -f $tmpfile)
+  fi
+  if [[ "$running" == "false" ]]; then
+    bashio::log.green "Stopping log tail..."
+    break
+  fi
+done &
+
 
 # Wait for the process to finish
 screen -S velocity -X quit
 running=false
 bashio::log.green "End detected"
-
