@@ -1,4 +1,4 @@
-# Minecraft All-Platform Velocity Proxy
+# Minecraft All-Platform Velocity Proxy Beta
 
 ![Addon Stage](https://img.shields.io/badge/Addon%20stage-experimental-yellow.svg)
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
@@ -11,9 +11,20 @@
 
 ## About
 
+Beta version of the Minecraft All-Platform Velocity Proxy that used the new EaglerXServer plugin.
+
 Run a proxy for a Minecraft Paper server to allow java, bedrock, and Eaglercraft(unofficial web browser) clients to join.
 
-**The [beta version of this addon](/mc-all-platform-velocity-beta) is now available!**
+### New in the beta version
+- Scripts written in python
+- Updated to EaglerXServer (new config files)
+- Updated Velocity (Now that EaglerXServer supports it)
+- Auto download Floodgage database drivers
+- `versions.yaml` allows you to define any plugin to be automatically downloaded and update any plugins packaged with the addon
+- Any custom files for the proxy (the old version only supported certain folders)
+- Updated config in the UI - Trimmed out some advanced options; you can still change them in their respective config files
+- Automatically set the Server Name, Max Players, and MOTD in all 3 places: Velocity, EaglerXServer, and Geyser (with automatically converting MOTD from MiniMessage)
+- Better startup logging (with a Log Level option as well)
 
 ## Install
 
@@ -25,7 +36,7 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 **Then install:**
 
-[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity-beta)
 
 ## Setup
 

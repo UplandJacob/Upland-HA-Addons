@@ -1,0 +1,314 @@
+name: Minecraft All-Platform Velocity Proxy Beta
+version: 0.2.2
+slug: mc-all-platform-velocity-beta
+description: Proxy to allow players with any client to join the server.
+url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity-beta
+stage: experimental
+hassio_api: true
+arch:
+  - aarch64
+  - amd64
+  - i386
+init: false
+image: ghcr.io/uplandjacob/upland-ha-addons-mc-all-platform-velocity-beta-{arch}
+
+map:
+  - config
+options:
+  logLevel: 3
+  allocatedRAM: 1024
+  maxRAM: 1536
+  max_players: 64
+  server_name: "A Cool Server"
+  motd1: "<red>{srv_name}"
+  motd2: "<gray>We can have <b>{maxPlayers} players!"
+  rootConfig:
+    online-mode: false
+    force-key-authentication: true
+    prevent-client-proxy-connections: false
+    player-info-forwarding-mode: "NONE"
+    announce-forge: false
+    kick-existing-players: false
+    ping-passthrough: "DISABLED"
+    enable-player-address-logging: true
+  servers: 
+    - name: "main"
+      address: "127.0.0.1:25565"
+    - name: "test"
+      address: "192.168.1.55:25565"
+    - name: "backup"
+      address: "backup.example.com:25575"
+  serverAttemptJoinOrder:
+    - "main"
+    - "backup"
+  forcedHosts:
+    - hostname: "example.com"
+      servNames: 
+        - "main"
+        - "backup"
+    - hostname: "test.example.com"
+      servNames:
+        - "test"
+  adv:
+    compression-threshold: 256
+    compression-level: -1
+    login-ratelimit: 3000
+    connection-timeout: 5000
+    read-timeout: 30000
+    haproxy-protocol: false
+    tcp-fast-open: false
+    bungee-plugin-message-channel: true
+    show-ping-requests: false
+    failover-on-unexpected-server-disconnect: true
+    announce-proxy-commands: true
+    log-command-executions: false
+    log-player-connections: true
+    accepts-transfers: false
+
+  eagConfig: 
+    eagler_login_timeout: 10000
+    http_websocket_compression_level: 6
+    http_websocket_ping_intervention: true
+    enable_is_eagler_player_property: true
+    eagler_players_vanilla_skin: ''
+    enable_authentication_events: false
+    enable_backend_rpc_api: false
+    use_modernized_channel_names: false
+    eagler_players_view_distance: -1
+    protocol_v4_defrag_send_delay: 10
+    brand_lookup_ratepimit: 240
+    webview_download_ratelimit: 8
+    webview_message_ratelimit: 120
+  
+  eagSkins:
+    download_vanilla_skins_to_clients: true
+    valid_skin_download_urls:
+    - 'textures.minecraft.net'
+    enable_fnaw_skin_models_global: false
+    enable_fnaw_skin_models_servers: []
+    enable_skinsrestorer_apply_hook: true
+  
+  eagVoice:
+    enable_voice_service: true
+    enable_voice_all_servers: true
+    enable_voice_on_servers: []
+    separate_server_voice_channels: true
+    voice_backend_relayed_mode: false
+    voice_connect_ratelimit: 20
+    voice_request_ratelimit: 120
+    voice_ice_ratelimit: 600
+  
+  eagUpdateService:
+    enable_update_system: true
+    download_latest_certs: true
+    check_for_update_every: 28800
+  
+  eagUpdateChecker:
+    enable_update_checker: true
+    check_for_update_every: 86400
+    print_chat_messages: true
+  
+  eagListener:
+    forward_ip: false
+    spoof_player_address_forwarded: true
+    show_motd_player_list: false
+    allow_query: true
+    allow_motd: true
+
+  floodgate:
+    username-prefix: '.'
+    replace-spaces: true
+    default-locale: en_US
+    send-floodgate-data: false
+
+  floodDisconnect:
+    invalid-key: 'Please connect through the official Geyser'
+    invalid-arguments-length: 'Expected {} arguments, got {}. Is Geyser up-to-date? Please contact the server owner.'
+
+  floodPlayerLink:
+    enabled: true
+    require-link: false
+    enable-own-linking: false
+    allowed: true
+    link-code-timeout: 300
+    type: sqlite
+    enable-global-linking: true
+
+  geyserBedrock:
+    compression-level: 6
+    enable-proxy-protocol: false
+
+  geyserRemote:
+    auth-type: floodgate
+    use-proxy-protocol: false
+    forward-hostname: false
+
+  geyser:
+    command-suggestions: true
+    passthrough-player-counts: true
+    ping-passthrough-interval: 3
+    forward-player-ping: false
+    show-cooldown: title
+    show-coordinates: true
+    disable-bedrock-scaffolding: false
+    emote-offhand-workaround: "disabled"
+    allow-custom-skulls: true
+    max-visible-custom-skulls: 128
+    custom-skull-render-distance: 32
+    add-non-bedrock-items: true
+    above-bedrock-nether-building: false
+    force-resource-packs: true
+    xbox-achievements-enabled: false
+    log-player-ip-addresses: true
+
+
+schema:
+  logLevel: int(1,5)
+  allocatedRAM: int
+  maxRAM: int
+  max_players: int
+  server_name: str
+  motd1: str
+  motd2: str
+  rootConfig:
+    online-mode: bool
+    force-key-authentication: bool
+    prevent-client-proxy-connections: bool
+    player-info-forwarding-mode: match(NONE|LEGACY|BUNGEEGUARD|MODERN)
+    announce-forge: bool
+    kick-existing-players: bool
+    ping-passthrough: match(DISABLED|MODS|DESCRIPTION|ALL)
+    enable-player-address-logging: bool
+  servers: 
+    - name: str
+      address: str
+  serverAttemptJoinOrder:
+    - str
+  forcedHosts:
+    - hostname: str
+      servNames:
+        - str
+  adv:
+    compression-threshold: int
+    compression-level: int
+    login-ratelimit: int
+    connection-timeout: int
+    read-timeout: int
+    haproxy-protocol: bool
+    tcp-fast-open: bool
+    bungee-plugin-message-channel: bool
+    show-ping-requests: bool
+    failover-on-unexpected-server-disconnect: bool
+    announce-proxy-commands: bool
+    log-command-executions: bool
+    log-player-connections: bool
+    accepts-transfers: bool
+
+  eagConfig: 
+    eagler_login_timeout: int
+    http_websocket_compression_level: int
+    http_websocket_ping_intervention: bool
+    enable_is_eagler_player_property: bool
+    eagler_players_vanilla_skin: str
+    enable_authentication_events: bool
+    enable_backend_rpc_api: bool
+    use_modernized_channel_names: bool
+    eagler_players_view_distance: int
+    protocol_v4_defrag_send_delay: int
+    brand_lookup_ratepimit: int
+    webview_download_ratelimit: int
+    webview_message_ratelimit: int
+
+  eagSkins:
+    download_vanilla_skins_to_clients: bool
+    valid_skin_download_urls:
+      - str
+    enable_fnaw_skin_models_global: bool
+    enable_fnaw_skin_models_servers:
+      - str?
+    enable_skinsrestorer_apply_hook: bool
+
+  eagVoice:
+    enable_voice_service: bool
+    enable_voice_all_servers: bool
+    enable_voice_on_servers:
+      - str?
+    separate_server_voice_channels: bool
+    voice_backend_relayed_mode: bool
+    voice_connect_ratelimit: int
+    voice_request_ratelimit: int
+    voice_ice_ratelimit: int
+
+  eagUpdateService:
+    enable_update_system: bool
+    download_latest_certs: bool
+    check_for_update_every: int
+
+  eagUpdateChecker:
+    enable_update_checker: bool
+    check_for_update_every: int
+    print_chat_messages: bool
+
+  eagListener:
+    forward_ip: bool
+    spoof_player_address_forwarded: bool
+    allow_query: bool
+    allow_motd: bool
+
+
+  floodgate:
+    username-prefix: str
+    replace-spaces: bool
+    default-locale: str
+    send-floodgate-data: bool
+
+  floodDisconnect:
+    invalid-key: str
+    invalid-arguments-length: str
+
+  floodPlayerLink:
+    enabled: bool
+    require-link: bool
+    enable-own-linking: bool
+    allowed: bool
+    link-code-timeout: int
+    type: str
+    enable-global-linking: bool
+
+  geyserBedrock:
+    compression-level: int
+    enable-proxy-protocol: bool
+
+  geyserRemote:
+    auth-type: match(online|offline|floodgate)
+    use-proxy-protocol: bool
+    forward-hostname: bool
+
+  geyser:
+    command-suggestions: bool
+    passthrough-player-counts: bool
+    ping-passthrough-interval: int
+    forward-player-ping: bool
+    show-cooldown: match(title|actionbar|false)
+    show-coordinates: bool
+    disable-bedrock-scaffolding: bool
+    emote-offhand-workaround: match(disabled|no-emotes|emotes-and-offhand)
+    allow-custom-skulls: bool
+    max-visible-custom-skulls: int
+    custom-skull-render-distance: int
+    add-non-bedrock-items: bool
+    above-bedrock-nether-building: bool
+    force-resource-packs: bool
+    xbox-achievements-enabled: bool
+    log-player-ip-addresses: bool
+
+
+map:
+  - addon_config:rw
+
+ports:
+  "25565/tcp": 25565
+  "19132/udp": 19132
+ports_description:
+  "25565/tcp": "Java Edition and Eaglercraft port"
+  "19132/udp": "Bedrock Edition port"

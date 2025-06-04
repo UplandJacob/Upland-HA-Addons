@@ -3,9 +3,7 @@
 
 # Upland-HA-Addons
 
-A repository for all my Home Assistant addons.
-
-**extremely experimental** I have never created a HA addon.
+A repository for all my Home Assistant addons. Since I host a Minecraft server, many of these are related to hosting one.
 
 ## Install
 
@@ -26,6 +24,15 @@ Run and Eaglerctaft relay server from Home Assistant, allowing players connected
 Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser) clients to join your Minecraft server(s).
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
+
+### [MC All-Platform Velocity Proxy Beta](/mc-all-platform-velocity-beta)
+
+Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including 1.5 if enabled) clients to join your Minecraft server(s).
+
+This beta version includes many new features and improvements. The full list is available on the addon page.
+
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity-beta)
+
 
 ### [Playit.gg](/playit-gg)
 
