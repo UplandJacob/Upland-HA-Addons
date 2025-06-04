@@ -11,7 +11,7 @@
 
 ## About
 
-Minecraft auth server for proxy setups that use AuthMe.
+Minecraft Paper auth server for proxy setups that use AuthMe.
 
 ## Install
 
