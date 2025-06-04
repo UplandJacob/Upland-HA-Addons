@@ -149,7 +149,7 @@ eag_config=$(echo "$EAG_CONFIG" | jq -r '
 
 logLine
 # -------   SAVE --------
-echo -e "skin_cache_db_uri: jdbc:sqlite:/config/eaglercraft_skins_cache.db\n$eag_config" > plugins/eaglerxvelocity/settings.yml
+echo -e "$eag_config" > plugins/eaglerxvelocity/settings.yml
 logGreen "plugins/eaglerxvelocity/settings.yml:"
 cat plugins/eaglerxvelocity/settings.yml
 logLine
