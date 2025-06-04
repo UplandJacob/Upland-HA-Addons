@@ -224,26 +224,21 @@ check_dir(PLUG_DIR+"/Geyser-Velocity/packs")
 def download_plugins(main_group: str, override_group: str):
   log.info(f"Downloading plugins from '{main_group}' with overrides from '{override_group}'")
   if vers_data[main_group] is None: return
-  for plugin in vers_data[main_group]:
+
+  plug_group = dict(vers_data[main_group])
+  over_group = {} if override_group == '' or vers_data[override_group] is None else vers_data[override_group]
+  for plugin in plug_group:
     log_info_x(f"Plugin: {plugin}")
-    plugin_data = dict(vers_data[main_group][plugin])
+    plugin_data = plug_group[plugin]
     log_debug_x(f"Plugin data: {plugin_data}")
 
-    over_group = vers_data[override_group] if override_group != '' else {}
-    over_data = {} if over_group is None or plugin not in over_group else over_group[plugin]
+    over_data = {} if plugin not in over_group else over_group[plugin]
     log_debug_x(f"Override data: {over_data}")
-
     for key in over_data:
       log.debug(f"Overriding {key} with {over_data[key]}")
       plugin_data[key] = over_data[key]
     log.debug(f"Plugin data: {plugin_data}")
-
     if plugin_data is None: continue
-    elif 'enabled' in plugin_data: enabled = plugin_data['enabled']
-    else: enabled = True
-    if not enabled:
-      log.info(f"Plugin '{plugin}' is disabled, skipping...")
-      continue
 
     path = "/"
     if 'path' in plugin_data and plugin_data['path'] is not None:
@@ -252,13 +247,29 @@ def download_plugins(main_group: str, override_group: str):
       if not path.endswith("/"): path += "/"
     log.debug(f"Path: {path}")
 
+    f_nm = plug_placeholders(plugin_data['file'], plugin_data)
+    full_jar_nm = PLUG_DIR+path+f_nm
+    jar_present = file_exists(full_jar_nm)
+    enabled = True if not 'enabled' in plugin_data else enabled = plugin_data['enabled']
+    if not enabled:
+      log.info(f"Plugin '{plugin}' is disabled, skipping...")
+      if jar_present:
+        log_info_x("Disabling existing jar...")
+        os.rename(full_jar_nm, full_jar_nm+".disabled")
+      continue
+    if file_exists(full_jar_nm+".disabled"):
+      log_info_x("Enabling existing jar...")
+      os.rename(full_jar_nm+".disabled", full_jar_nm)
+      jar_present = True
+
     url = plug_placeholders(plugin_data['url'], plugin_data)
     if vers_data['current_installed_urls'] is None: vers_data['current_installed_urls'] = {}
     urls = vers_data['current_installed_urls']
-    f_nm = plug_placeholders(plugin_data['file'], plugin_data)
 
-    if plugin not in urls or urls[plugin] != url or not file_exists(PLUG_DIR+path+f_nm):
-      if download_file(url, f_nm, PLUG_DIR+path): vers_data['current_installed_urls'][plugin] = url
+    if plugin in urls and urls[plugin] == url and jar_present:
+      log_info_x("Plugin up to date")
+      continue
+    if download_file(url, f_nm, PLUG_DIR+path): vers_data['current_installed_urls'][plugin] = url
 
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
 download_plugins('custom_plugins', '')
