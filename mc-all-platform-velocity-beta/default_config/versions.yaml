@@ -35,7 +35,7 @@ packaged_plugins:
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.7.1
-    build: 843
+    build: 844
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Extension.jar"
@@ -75,7 +75,7 @@ packaged_plugins:
     file: "ViaRewind.jar"
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.6.4
+    version: 15.6.5
     file: "SkinsRestorer.jar"
     enabled: false
   authme_velocity:
