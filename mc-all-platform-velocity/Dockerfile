@@ -41,7 +41,10 @@ RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language:
 WORKDIR /plugins
 
 # for Eaglercraft
-ADD "https://gitea.uplandustries.com/uplandustries/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar" EaglerXVelocity.jar
+# ADD "https://gitea.uplandustries.com/uplandustries/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar" EaglerXVelocity.jar
+
+# TEMP until merge with beta:
+ADD "https://uplandustries.com/cdn/EaglerXVelocity.jar" EaglerXVelocity.jar 
 
 # for older and newer clients (compared to backend servers) including Eaglercraft
 ADD "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/$VIAVERSION_VERS/PAPER/ViaVersion-$VIAVERSION_VERS.jar" ViaVersion.jar
