@@ -1,0 +1,50 @@
+#!/usr/bin/with-contenv bashio
+
+set -euo pipefail
+
+getConfig() {
+  jq --raw-output "$1" /data/options.json
+}
+
+bashio::log.green "Starting app..."
+
+cd /config/server
+
+tmpfile="/tmp/velocity.log"
+exitcodefile="/tmp/velocity_exit_code.txt"
+
+rm -f "$tmpfile" "$exitcodefile"
+
+RAM_ALLOCATE=$(getConfig '.allocatedRAM')
+RAM_MAX=$(getConfig '.maxRAM')
+bashio::log.green "Allocated RAM: $RAM_ALLOCATE MB"
+bashio::log.green "Max RAM: $RAM_MAX MB"
+
+echo "Starting velocity process in tmux..."
+tmux new-session -d -s velocity "java -Xms${RAM_ALLOCATE}M -Xmx${RAM_MAX}M \
+    -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions \
+    -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15 \
+    -jar velocity.jar > ${tmpfile} 2>&1; echo \$? > ${exitcodefile}"
+
+tail -n 0 -F "$tmpfile" | while read -r line; do
+    if [[ "$line" != *"ERROR]: SLF4J:"* ]]; then
+        echo "$line"
+    fi
+done &
+tail_pid=$!
+
+while tmux has-session -t velocity 2>/dev/null; do
+   sleep 1
+done
+
+kill $tail_pid 2>/dev/null
+
+# If available, use the exit code from the java command.
+if [ -f "$exitcodefile" ]; then
+   exitcode=$(cat "$exitcodefile")
+   bashio::log.green "Velocity process exited with code: $exitcode"
+   exit $exitcode
+else
+   bashio::warn "No exit code available. Exiting with error."
+   exit 1
+fi

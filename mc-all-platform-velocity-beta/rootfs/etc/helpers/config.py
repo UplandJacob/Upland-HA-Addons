@@ -250,7 +250,7 @@ def download_plugins(main_group: str, override_group: str):
     f_nm = plug_placeholders(plugin_data['file'], plugin_data)
     full_jar_nm = PLUG_DIR+path+f_nm
     jar_present = file_exists(full_jar_nm)
-    enabled = True if not 'enabled' in plugin_data else enabled = plugin_data['enabled']
+    enabled = True if 'enabled' not in plugin_data else plugin_data['enabled']
     if not enabled:
       log.info(f"Plugin '{plugin}' is disabled, skipping...")
       if jar_present:
