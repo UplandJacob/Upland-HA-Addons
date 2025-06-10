@@ -38,7 +38,7 @@ jobs:
             echo "done"
           fi
 
-          echo "VERS_FILE=./mc-all-platform-velocity-beta/default_config/versions.yaml" >> $GITHUB_ENV
+          echo "VERS_FILE=./mc-all-platform-velocity-beta/default_config/plugins.yaml" >> $GITHUB_ENV
           echo "PLs=.packaged_plugins" >> $GITHUB_ENV
 
       - name: Velocity
