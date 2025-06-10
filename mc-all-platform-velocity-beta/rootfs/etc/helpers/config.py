@@ -109,14 +109,14 @@ if not file_exists(SERV_DIR+"/forwarding.secret.txt"):
   log_info_x(f"Generated forwarding secret: {new_secret}")
   write_file_a(SERV_DIR+"/forwarding.secret.txt", new_secret)
 
-if not file_exists(CONF_DIR+"/versions.yaml"):
-  log.warning("No versions.yaml found, copying from default config...")
-  shutil.copy(DEF_CONF+"/versions.yaml", CONF_DIR+"/versions.yaml")
+if not file_exists(CONF_DIR+"/plugins.yaml"):
+  log.warning("No plugins.yaml found, copying from default config...")
+  shutil.copy(DEF_CONF+"/plugins.yaml", CONF_DIR+"/plugins.yaml")
 
-vers_data = yaml.load(read_file(CONF_DIR+"/versions.yaml"))
+vers_data = yaml.load(read_file(CONF_DIR+"/plugins.yaml"))
 
-# load default versions.yaml to update the packaged_plugins section
-vers_default = yaml.load(read_file(DEF_CONF+"/versions.yaml"))
+# load default plugins.yaml to update the packaged_plugins section
+vers_default = yaml.load(read_file(DEF_CONF+"/plugins.yaml"))
 vers_data['packaged_plugins'] = vers_default['packaged_plugins']
 vers_data['velocity'] = vers_default['velocity']
 
@@ -274,9 +274,9 @@ def download_plugins(main_group: str, override_group: str):
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
 download_plugins('custom_plugins', '')
 
-with open(CONF_DIR+"/versions.yaml", "w") as file:
+with open(CONF_DIR+"/plugins.yaml", "w") as file:
   yaml.dump(vers_data, file)
-  log.info("Updated versions.yaml")
+  log.info("Updated plugins.yaml")
 
 ## ----------------------------------- ##
 
