@@ -8,7 +8,7 @@ ENV VIAVERSION_VERS="5.3.2"
 ENV VIABACKWARDS_VERS="5.3.2"
 ENV VIAREWIND_VERS="4.0.7"
 ENV GEYSER_VERS="2.7.1"
-ENV GEYSER_BUILD="840"
+ENV GEYSER_BUILD="851"
 ENV FLOOD_VERS="2.2.4"
 ENV FLOOD_BUILD="116"
 
@@ -41,7 +41,10 @@ RUN curl --no-progress-meter -H "Accept-Encoding: identity" -H "Accept-Language:
 WORKDIR /plugins
 
 # for Eaglercraft
-ADD "https://gitea.uplandustries.com/uplandustries/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar" EaglerXVelocity.jar
+# ADD "https://gitea.uplandustries.com/uplandustries/eaglercraft-1.8/raw/commit/$EAGLER_COMMIT_ID/gateway/EaglercraftXVelocity/EaglerXVelocity-Latest.jar" EaglerXVelocity.jar
+
+# TEMP until merge with beta:
+ADD "https://uplandustries.com/cdn/EaglerXVelocity.jar" EaglerXVelocity.jar 
 
 # for older and newer clients (compared to backend servers) including Eaglercraft
 ADD "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/$VIAVERSION_VERS/PAPER/ViaVersion-$VIAVERSION_VERS.jar" ViaVersion.jar

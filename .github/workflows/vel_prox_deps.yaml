@@ -38,7 +38,7 @@ jobs:
             echo "done"
           fi
 
-          echo "VERS_FILE=./mc-all-platform-velocity-beta/default_config/versions.yaml" >> $GITHUB_ENV
+          echo "VERS_FILE=./mc-all-platform-velocity-beta/default_config/plugins.yaml" >> $GITHUB_ENV
           echo "PLs=.packaged_plugins" >> $GITHUB_ENV
 
       - name: Velocity
@@ -178,7 +178,7 @@ jobs:
         run: |
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-            "https://api.github.com/repos/lax1dude/eaglerxserver/releases")
+            "https://api.github.com/repos/lax1dude/eaglerxserver/releases?per_page=1")
           
           latestVers=$(echo "$resp" | jq -r .[0].tag_name)
           latestVers=${latestVers#v}
@@ -198,7 +198,7 @@ jobs:
         run: |
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-            "https://api.github.com/repos/SkinsRestorer/SkinsRestorer/releases")
+            "https://api.github.com/repos/SkinsRestorer/SkinsRestorer/releases?per_page=1")
           
           latestVers=$(echo "$resp" | jq -r .[0].tag_name)
           echo "latest version: $latestVers"
@@ -214,7 +214,7 @@ jobs:
         run: |
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-            "https://api.github.com/repos/GeyserExtras/GeyserExtras/releases")
+            "https://api.github.com/repos/GeyserExtras/GeyserExtras/releases?per_page=1")
           
           latestVers=$(echo "$resp" | jq -r .[0].tag_name)
           echo "latest version: $latestVers"
@@ -230,7 +230,7 @@ jobs:
         run: |
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
             -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-            "https://api.github.com/repos/MCXboxBroadcast/Broadcaster/releases")
+            "https://api.github.com/repos/MCXboxBroadcast/Broadcaster/releases?per_page=1")
           
           latestBuild=$(echo "$resp" | jq -r .[0].tag_name)
           echo "latest build: $latestBuild"
@@ -242,6 +242,66 @@ jobs:
             yq -i "${{ env.PLs }}.xbox_broadcast.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
 
+      - name: ThirdPartyCosmetics
+        run: |
+          resp=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/thirdpartycosmetics" -H 'accept: application/json')
+          echo "$resp"
+          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          echo "latest version: $latestVers"
+          resp2=$(curl --silent -X 'GET' "https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/$latestVers" -H 'accept: application/json')
+          echo "$resp2"
+          latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
+          echo "latest build: $latestBuild"
+          
+          currentVers=$(yq '${{ env.PLs }}.third_party_cosmetics.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          currentBuild=$(yq '${{ env.PLs }}.third_party_cosmetics.build' ${{ env.VERS_FILE }})
+          echo "current build: $currentBuild"
+
+          if [ $latestVers != $currentVers -o $latestBuild != $currentBuild ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} ThirdPartyCosmetics" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+            yq eval -i "${{ env.PLs }}.third_party_cosmetics.version = \"$latestVers\" | ${{ env.PLs }}.third_party_cosmetics.version style=\"\"" ${{ env.VERS_FILE }}
+          fi
+          if [ $latestBuild != $currentBuild ]; then
+            echo "BUILD update"
+            yq -i "${{ env.PLs }}.third_party_cosmetics.build = $(echo $latestBuild)" ${{ env.VERS_FILE }}
+          fi
+
+      - name: AuthMeVelocity
+        run: |
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://api.github.com/repos/4drian3d/AuthMeVelocity/releases?per_page=1")
+          
+          latestVers=$(echo "$resp" | jq -r .[0].tag_name)
+          echo "latest build: $latestVers"
+
+          currentVers=$(yq '${{ env.PLs }}.authme_velocity.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} AuthMeVelocity" >> $GITHUB_ENV;
+            yq -i "${{ env.PLs }}.authme_velocity.version = $latestVers" ${{ env.VERS_FILE }}
+          fi
+
+      - name: VPacketEvents
+        run: |
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
+            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
+            "https://api.github.com/repos/4drian3d/VPacketEvents/releases?per_page=1")
+          
+          latestVers=$(echo "$resp" | jq -r .[0].tag_name)
+          echo "latest build: $latestVers"
+
+          currentVers=$(yq '${{ env.PLs }}.vpacket_events.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} VPacketEvents" >> $GITHUB_ENV;
+            yq -i "${{ env.PLs }}.vpacket_events.version = $latestVers" ${{ env.VERS_FILE }}
+          fi
 
 
       - name: "Check what needs to be done"
