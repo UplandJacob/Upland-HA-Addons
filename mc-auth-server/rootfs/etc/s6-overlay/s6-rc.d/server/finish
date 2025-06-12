@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.green "FINISH: Sending graceful stop command..."
+if tmux has-session -t server 2>/dev/null; then
+  tmux send-keys -t server "stop" C-m
+  bashio::log.green "FINISH: stop command sent. Waiting for server process to exit..."
+  while tmux has-session -t server 2>/dev/null; do
+    sleep 1
+  done
+  bashio::log.green "FINISH: Server has fully stopped."
+else
+  bashio::log.green "FINISH: No active tmux session 'server' found."
+fi
+exit 0

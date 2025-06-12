@@ -1,0 +1,92 @@
+# In this file, plugins (or any other addons) can be defined to be automatically downloaded on addon startup.
+#
+# Ones in the 'packaged_plugins' section I (UplandJacob) update in the repository so you don't have to.
+#   If thosee versions are behind, you can override any part of those with the 'packaged_plugins_overrides' section.
+# If Velocity is out of date, or you want another version (you could technically use a different proxy software altogether), you can do that as well with 'velocity_overrides'.
+# The 'custom_plugins' section works the same way, but YOU are responsible for updating them yourself.
+#
+# You can enabled plugins that are disabled by default by using the overrides and setting 'enabled' to 'true'
+#   If a plugin was previously enabled and you disable it, '.disabled' will automatically be added to the filename.
+#   If you then re-enabled it, '.disabled' will be removed again.
+#   If you delete an addon's information entirely (only workes with 'custom_plugins'), it will stay.
+############ ---------------------------------------------------------------------- ############
+
+# set these if there is a newer version that the addon doesn't know about 
+packaged_plugins_overrides: # (or you want to lock to an older version)
+# uncomment these lines if you want to use the official version instead (AuthMeVelocity is then required)
+#  authme:
+#    url: "https://github.com/AuthMe/AuthMeReloaded/releases/download/{version}/AuthMe-{version}.jar"
+#    version: 5.6.0
+#  authme_velocity:
+#    enabled: true
+# If you don't have Via* plugins installed on the proxy, enabled them here:
+#  viaversion:
+#    enabled: true
+#  viabackwards
+#    enabled: true
+#  viarewind:
+#    enabled: true
+#  vialegacy:
+#    enabled: true
+
+
+# same idea as packaged_plugins_overrides but only for the server
+server_overrides: # (don't include the 'server' tag)
+#   build: 500 # (example)
+custom_plugins: # add your own plugins here
+#   example: # DO NOT REUSE IDENTIFIERS! - the current_installed_urls section will have conflicts
+#     url: "https://example.com/myplugin-{custom_placeholder}-{version}.jar"
+#     custom_placeholder: "custom_value"  # only needed if you have a custom placeholder in the 'url' or 'file'
+#     version: 1.0.0  # also optional, only if needed in the 'url'
+#     file: "myplugin-{custom_placeholder}.jar"  # REQUIRED - placeholders work here, but if a placeholder changes, the old file WILL NOT be removed.
+
+############ EVERYTHING BELOW THIS LINE IS AUTO-GENERATED AND SHOULD NOT BE CHANGED ############
+# this is the version info that is packaged with the addon
+packaged_plugins:
+  floodgate:
+    url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
+    version: 2.2.4
+    build: 116
+    file: "Floodgate.jar"
+  viaversion:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
+    version: 5.3.2
+    file: "ViaVersion.jar"
+    enabled: false
+  viabackwards:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
+    version: 5.3.2
+    file: "ViaBackwards.jar"
+    enabled: false
+  viarewind:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
+    version: 4.0.7
+    file: "ViaRewind.jar"
+    enabled: false
+  vialegacy:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewindLegacySupport/versions/{version}/PAPER/ViaRewind-Legacy-Support-{version}.jar"
+    version: 1.5.2
+    file: "ViaRewind-Legacy-Support.jar"
+    enabled: false
+  skinsrestorer:
+    url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
+    version: 15.6.5
+    file: "SkinsRestorer.jar"
+    enabled: false
+  authme_velocity:
+    url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Paper-{version}.jar"
+    version: 4.1.2
+    file: "AuthMeVelocity.jar"
+    enabled: false # since we're using HaHaWTH's AuthMeReReloaded instead, which has built in Velocity support, we don't need this
+  authme:
+    url: "https://cdn.modrinth.com/data/3IEZ9vol/versions/{versionID}/AuthMe-{version}-FORK-Universal.jar"
+    versionID: "oezVemzR"
+    version: 5.7.0
+    file: "AuthMe.jar"
+server:
+# we have to include the run an artifact from Leaf's CI so the startup script knows when to re-download it
+  url: "https://github.com/Winds-Studio/Leaf/releases/download/ver-{version}/leaf-{version}.jar?a={run}&b={artifact}"
+  version: 1.21.1
+  run: 15453282735
+  artifact: 3263061443
+current_installed_urls: # keeps track of the last download url of the server and each plugin

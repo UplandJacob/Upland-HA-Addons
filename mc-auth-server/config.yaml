@@ -1,0 +1,59 @@
+name: MC Auth Server
+version: 1.6.0
+slug: mc-auth-server
+description: Minecraft Paper server for handling logins in a proxy environment
+url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-auth-server
+arch:
+  - aarch64
+  - amd64
+init: false
+image: ghcr.io/uplandjacob/upland-ha-addons-mc-auth-server-{arch}
+hassio_api: true
+startup: application
+map:
+  - config
+options:
+  eula: false
+  logLevel: 3
+  allocatedRAM: 1024
+  maxRAM: 1536
+  max_players: 64
+  server_name: "A Cool Server"
+  motd1: "<red>{srv_name}"
+  motd2: "<gray>We can have <b>{maxPlayers} players!"
+  forwaringSecret: "COPY FROM PROXY"
+  server:
+    allow-nether: false
+    online-mode: false
+    enforce-secure-profile: false
+    simulation-distance: 3
+    view-distance: 5
+    enforce-whitelist: false
+    white-list: false
+
+schema:
+  eula: bool
+  logLevel: int(1,5)
+  allocatedRAM: int
+  maxRAM: int
+  max_players: int
+  server_name: str
+  motd1: str
+  motd2: str
+  forwaringSecret: str
+  server:
+    allow-nether: bool
+    online-mode: bool
+    enforce-secure-profile: bool
+    simulation-distance: int
+    view-distance: int
+    enforce-whitelist: bool
+    white-list: bool
+
+map:
+  - addon_config:rw
+
+ports:
+  "6699/tcp": 25565
+ports_description:
+  "6699/tcp": "port for Minecraft"
