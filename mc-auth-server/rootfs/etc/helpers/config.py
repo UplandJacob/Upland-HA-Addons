@@ -303,8 +303,13 @@ if FLOOD_PLAYER_LINK['enable-own-linking']:
 
 ## ----------------------------------- ##
 
+check_dir(PLUG_DIR+"/viaversion")
 check_dir(PLUG_DIR+"/viabackwards")
 check_dir(PLUG_DIR+"/viarewind")
+
+if not file_exists(PLUG_DIR+"/viaversion/config.yml"):
+  log.warning("No ViaVersion config.yml found, copying from default config...")
+  shutil.copy(DEF_CONF+"/viaversion.yml", PLUG_DIR+"/viaversion/config.yml")
 
 if not file_exists(PLUG_DIR+"/viabackwards/config.yml"):
   log.warning("No ViaBackwards config.yml found, copying from default config...")

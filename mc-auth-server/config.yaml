@@ -22,6 +22,7 @@ options:
   motd1: "<red>{srv_name}"
   motd2: "<gray>We can have <b>{maxPlayers} players!"
   forwaringSecret: "COPY FROM PROXY"
+
   server:
     allow-nether: false
     online-mode: false
@@ -30,6 +31,25 @@ options:
     view-distance: 5
     enforce-whitelist: false
     white-list: false
+  
+  floodgate:
+    username-prefix: '.'
+    replace-spaces: true
+    default-locale: en_US
+    send-floodgate-data: false
+
+  floodDisconnect:
+    invalid-key: 'Please connect through the official Geyser'
+    invalid-arguments-length: 'Expected {} arguments, got {}. Is Geyser up-to-date? Please contact the server owner.'
+
+  floodPlayerLink:
+    enabled: true
+    require-link: false
+    enable-own-linking: false
+    allowed: true
+    link-code-timeout: 300
+    type: sqlite
+    enable-global-linking: true
 
 schema:
   eula: bool
@@ -41,6 +61,7 @@ schema:
   motd1: str
   motd2: str
   forwaringSecret: str
+
   server:
     allow-nether: bool
     online-mode: bool
@@ -49,6 +70,25 @@ schema:
     view-distance: int
     enforce-whitelist: bool
     white-list: bool
+  
+  floodgate:
+    username-prefix: str
+    replace-spaces: bool
+    default-locale: str
+    send-floodgate-data: bool
+
+  floodDisconnect:
+    invalid-key: str
+    invalid-arguments-length: str
+
+  floodPlayerLink:
+    enabled: bool
+    require-link: bool
+    enable-own-linking: bool
+    allowed: bool
+    link-code-timeout: int
+    type: str
+    enable-global-linking: bool
 
 map:
   - addon_config:rw
@@ -56,4 +96,4 @@ map:
 ports:
   "6699/tcp": 25565
 ports_description:
-  "6699/tcp": "port for Minecraft"
+  "6699/tcp": "Port for Minecraft"
