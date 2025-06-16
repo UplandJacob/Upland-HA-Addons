@@ -362,7 +362,6 @@ FLOOD_DBS = {
 
 
 FLOOD = addon_conf["floodgate"]
-FLOOD_DISCONNECT = addon_conf["floodDisconnect"]
 FLOOD_PLAYER_LINK = addon_conf["floodPlayerLink"]
 
 check_dir(PLUG_DIR+"/floodgate")
@@ -376,10 +375,6 @@ flood_yaml = yaml.load(read_file(PLUG_DIR+"/floodgate/config.yml"))
 for setting in FLOOD:
   log.debug(f"{setting}: {FLOOD[setting]}")
   flood_yaml[setting] = FLOOD[setting]
-
-for setting in FLOOD_DISCONNECT:
-  log.debug(f"{setting}: {FLOOD_DISCONNECT[setting]}")
-  flood_yaml['disconnect'][setting] = FLOOD_DISCONNECT[setting]
 
 for setting in FLOOD_PLAYER_LINK:
   log.debug(f"{setting}: {FLOOD_PLAYER_LINK[setting]}")

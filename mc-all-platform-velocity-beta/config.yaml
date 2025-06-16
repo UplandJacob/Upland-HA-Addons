@@ -121,10 +121,6 @@ options:
     default-locale: en_US
     send-floodgate-data: false
 
-  floodDisconnect:
-    invalid-key: 'Please connect through the official Geyser'
-    invalid-arguments-length: 'Expected {} arguments, got {}. Is Geyser up-to-date? Please contact the server owner.'
-
   floodPlayerLink:
     enabled: true
     require-link: false
@@ -261,10 +257,6 @@ schema:
     replace-spaces: bool
     default-locale: str
     send-floodgate-data: bool
-
-  floodDisconnect:
-    invalid-key: str
-    invalid-arguments-length: str
 
   floodPlayerLink:
     enabled: bool
