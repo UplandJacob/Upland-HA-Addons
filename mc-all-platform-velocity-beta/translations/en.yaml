@@ -19,7 +19,7 @@ configuration:
     description: Message of the Day, shown in the Multiplayer screen
   motd2:
     name: MOTD line 2
-    description: On Bedrock clients, this line is only visible on the Friends tab.
+    description: This line is not visible on newer Bedrock clients.
 
   rootConfig:
     name: Velocity Config
@@ -36,13 +36,16 @@ configuration:
   adv:
     name: Velocity advanced config
     description: Make sure you know what these settings do before you change them.
-
+  eagVoice:
+    name: Eaglercraft Voice
+    description: Settings for Eaglercraft voice chat.
   eagConfig:
     name: Eaglercraft config
     description: Basic EaglercraftXServer config
   eagSkins:
     name: Eaglercraft Skin Database
     description: Settings for the Eaglercraft skins database.
+  
   eagUpdateService:
     name: Eaglercraft Update Service
     description: Loads the latest Eaglercraft version from eaglercraft.com and sends it to clients in case of an available update.
@@ -56,9 +59,6 @@ configuration:
   floodgate:
     name: Floodgate config
     description: Basic Floodgate config
-  floodDisconnect:
-    name: Floodgate Disconnect
-    description: Messages when players get disconnected by Floodgate
   floodPlayerLink:
     name: Floodgate player link
     description: Local and global player link settings
