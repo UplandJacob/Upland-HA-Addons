@@ -29,7 +29,6 @@ packaged_plugins_overrides: # (or you want to lock to an older version)
 #  vialegacy:
 #    enabled: true
 
-
 # same idea as packaged_plugins_overrides but only for the server
 server_overrides: # (don't include the 'server' tag)
 #   build: 500 # (example)
@@ -70,7 +69,7 @@ packaged_plugins:
     enabled: false
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.6.5
+    version: 15.6.8
     file: "SkinsRestorer.jar"
     enabled: false
   authme_velocity:
@@ -84,7 +83,7 @@ packaged_plugins:
     version: 5.7.0
     file: "AuthMe.jar"
 server:
-# we have to include the run an artifact from Leaf's CI so the startup script knows when to re-download it
+  # we have to include the run an artifact from Leaf's CI so the startup script knows when to re-download it
   url: "https://github.com/Winds-Studio/Leaf/releases/download/ver-{version}/leaf-{version}.jar?a={run}&b={artifact}"
   version: 1.21.1
   run: 15453282735
