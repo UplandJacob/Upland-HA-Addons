@@ -83,9 +83,7 @@ packaged_plugins:
     version: 5.7.0
     file: "AuthMe.jar"
 server:
-  # we have to include the run an artifact from Leaf's CI so the startup script knows when to re-download it
-  url: "https://github.com/Winds-Studio/Leaf/releases/download/ver-{version}/leaf-{version}.jar?a={run}&b={artifact}"
-  version: 1.21.1
-  run: 15453282735
-  artifact: 3263061443
+  url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
+  version: 1.21.5
+  build: 36
 current_installed_urls: # keeps track of the last download url of the server and each plugin
