@@ -44,32 +44,18 @@ jobs:
       - name: Leaf server
         run: |
           version=$(yq '.server.version' ${{ env.VERS_FILE }})
-          echo "Server version: $version -- no dots: ${version//./}"
-          resp=$(curl --silent -X 'GET' "https://api.github.com/repos/Winds-Studio/Leaf/actions/workflows/build-${version//./}.yml/runs?per_page=1" -H 'accept: application/json')
+          echo "Server version: $version"
+          resp=$(curl --silent -X 'GET' "https://api.leafmc.one/v2/projects/leaf/versions/$version" -H 'accept: application/json')
           echo "$resp"
-          latestRun=$(echo "$resp" | jq -r .workflow_runs.[0].id)
-          echo "latest run: $latestRun"
-          resp2=$(curl --silent -X 'GET' "https://api.github.com/repos/Winds-Studio/Leaf/actions/runs/$latestRun/artifacts" -H 'accept: application/json')
-          echo "$resp2"
-          latestArt=$(echo "$resp2" | jq -r .artifacts.[0].id)
-          echo "latest artifact: $latestArt"
+          latestBuild=$(echo "$resp" | jq -r .builds.[-1])
           
-          currentRun=$(yq '.server.run' ${{ env.VERS_FILE }})
-          echo "current run: $currentRun"
-          currentArt=$(yq '.server.artifact' ${{ env.VERS_FILE }})
-          echo "current artifact: $currentArt"
-
-          if [ $latestRun != $currentRun -o $latestArt != $currentArt ]; then
+          currentBuild=$(yq '.server.build' ${{ env.VERS_FILE }})
+          echo "current build: $currentBuild"
+          
+          if [ $latestBuild != $currentBuild ]; then
             echo "UPDATE"
             echo "changed=${{ env.changed }} Leaf" >> $GITHUB_ENV;
-          fi
-          if [ $latestRun != $currentRun ]; then
-            echo "RUN update"
-            yq -i ".server.run = $latestRun" ${{ env.VERS_FILE }}
-          fi
-          if [ $latestArt != $currentArt ]; then
-            echo "ARTIFACT update"
-            yq -i ".server.artifact = $latestArt" ${{ env.VERS_FILE }}
+            yq -i ".server.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
 
       - name: Floodgate
