@@ -173,7 +173,7 @@ jobs:
           latestVers="${full_version%%-*}"
           echo "ID: $latestID - Full vers: $full_version - Vers: $latestVers"
 
-          currentID=$(yq '${{ env.PLs }}.authme_velocity.versionID' ${{ env.VERS_FILE }})
+          currentID=$(yq '${{ env.PLs }}.authme.versionID' ${{ env.VERS_FILE }})
           echo "current ID: $currentID"
           currentVers=$(yq '${{ env.PLs }}.authme.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
@@ -188,7 +188,7 @@ jobs:
           fi
           if [ $latestID != $currentID ]; then
             echo "ID update"
-            yq -i "${{ env.PLs }}.authme.versionID = $latestID" ${{ env.VERS_FILE }}
+            yq -i "${{ env.PLs }}.authme.versionID = \"$latestID\"" ${{ env.VERS_FILE }}
           fi
 
 
