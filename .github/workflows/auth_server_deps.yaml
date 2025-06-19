@@ -48,7 +48,7 @@ jobs:
           resp=$(curl --silent -X 'GET' "https://api.leafmc.one/v2/projects/leaf/versions/$version" -H 'accept: application/json')
           echo "$resp"
           latestBuild=$(echo "$resp" | jq -r .builds.[-1])
-          echo "$latestBuild"
+          echo "latest build: $latestBuild"
 
           currentBuild=$(yq '.server.build' ${{ env.VERS_FILE }})
           echo "current build: $currentBuild"
@@ -163,6 +163,32 @@ jobs:
           if [ "$latestVers" != "$currentVers" ]; then
             echo "changed=${{ env.changed }} AuthMeVelocity" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.authme_velocity.version = $latestVers" ${{ env.VERS_FILE }}
+          fi
+
+      - name: AuthMeReReloaded
+        run: |
+          resp=$(curl --silent -X 'GET' "https://api.modrinth.com/v2/project/authmerereloaded/version" -H 'accept: application/json')
+          latestID=$(echo "$resp" | jq -r .[0].id)
+          full_version=$(echo "$resp" | jq -r .[0].version_number)
+          latestVers="${full_version%%-*}"
+          echo "ID: $latestID - Full vers: $full_version - Vers: $latestVers"
+
+          currentID=$(yq '${{ env.PLs }}.authme_velocity.versionID' ${{ env.VERS_FILE }})
+          echo "current ID: $currentID"
+          currentVers=$(yq '${{ env.PLs }}.authme.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+
+          if [ "$latestVers" != "$currentVers" -o "$latestID" != "$currentID" ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} AuthMe" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+            yq eval -i "${{ env.PLs }}.authme.version = \"$latestVers\" | ${{ env.PLs }}.authme.version style=\"\"" ${{ env.VERS_FILE }}
+          fi
+          if [ $latestID != $currentID ]; then
+            echo "ID update"
+            yq -i "${{ env.PLs }}.authme.versionID = $latestID" ${{ env.VERS_FILE }}
           fi
 
 
