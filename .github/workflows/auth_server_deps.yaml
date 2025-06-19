@@ -48,10 +48,11 @@ jobs:
           resp=$(curl --silent -X 'GET' "https://api.leafmc.one/v2/projects/leaf/versions/$version" -H 'accept: application/json')
           echo "$resp"
           latestBuild=$(echo "$resp" | jq -r .builds.[-1])
-          
+          echo "$latestBuild"
+
           currentBuild=$(yq '.server.build' ${{ env.VERS_FILE }})
           echo "current build: $currentBuild"
-          
+
           if [ $latestBuild != $currentBuild ]; then
             echo "UPDATE"
             echo "changed=${{ env.changed }} Leaf" >> $GITHUB_ENV;
