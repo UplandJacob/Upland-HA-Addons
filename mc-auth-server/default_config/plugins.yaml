@@ -69,7 +69,7 @@ packaged_plugins:
     enabled: false
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.7.4
+    version: 15.7.5
     file: "SkinsRestorer.jar"
     enabled: false
   authme_velocity:
