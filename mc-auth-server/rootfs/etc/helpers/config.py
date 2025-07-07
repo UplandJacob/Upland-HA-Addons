@@ -173,10 +173,19 @@ def download_file(url: str, f_name: str, path=PLUG_DIR):
     log.warning("Failed to download the file.")
     return False
 
+if vers_data['current_installed_urls'] is None: vers_data['current_installed_urls'] = {}
+serv_url = plug_placeholders(vers_data['server']['url'], vers_data['server'])
+
 # server download
-if not file_exists(SERV_DIR+"/server.jar"):
-  log.warning("No server.jar found, downloading...")
-  download_file(plug_placeholders(vers_data['server']['url'], vers_data['server']), 'server.jar', SERV_DIR)
+if not file_exists(SERV_DIR+"/server.jar") or 'server' not in vers_data['current_installed_urls'] or vers_data['current_installed_urls']['server'] != serv_url:
+  log.warning("Downloading server...")
+  if download_file(serv_url, 'server.jar', SERV_DIR):
+    log_info_x("Server downloaded successfully!")
+    vers_data['current_installed_urls']['server'] = serv_url
+  else:
+    log.error("Failed to download server")
+    exit(1)
+
 
 def download_plugins(main_group: str, override_group: str):
   log.info(f"Downloading plugins from '{main_group}' with overrides from '{override_group}'")
@@ -226,7 +235,11 @@ def download_plugins(main_group: str, override_group: str):
     if plugin in urls and urls[plugin] == url and jar_present:
       log_info_x("Plugin up to date")
       continue
-    if download_file(url, f_nm, PLUG_DIR+path): vers_data['current_installed_urls'][plugin] = url
+    if download_file(url, f_nm, PLUG_DIR+path):
+      vers_data['current_installed_urls'][plugin] = url
+    else: 
+      log.error(f"Failed to download plugin {plugin}")
+      continue
 
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
 download_plugins('custom_plugins', '')

@@ -212,10 +212,19 @@ def download_file(url: str, f_name: str, path=PLUG_DIR):
     log.warning("Failed to download the file.")
     return False
 
+if vers_data['current_installed_urls'] is None: vers_data['current_installed_urls'] = {}
+vel_url = plug_placeholders(vers_data['velocity']['url'], vers_data['velocity'])
+
 # velocity download
-if not file_exists(SERV_DIR+"/velocity.jar"):
-  log.warning("No velocity.jar found, downloading...")
-  download_file(plug_placeholders(vers_data['velocity']['url'], vers_data['velocity']), 'velocity.jar', SERV_DIR)
+if not file_exists(SERV_DIR+"/velocity.jar") or 'velocity' not in vers_data['current_installed_urls'] or vers_data['current_installed_urls']['velocity'] != vel_url:
+  log.warning("Downloading Velocity...")
+  if download_file(vel_url, 'velocity.jar', SERV_DIR):
+    log_info_x("Velocity downloaded successfully!")
+    vers_data['current_installed_urls']['velocity'] = vel_url
+  else:
+    log.error("Failed to download Velocity")
+    exit(1)
+
 
 check_dir(PLUG_DIR)
 check_dir(PLUG_DIR+"/Geyser-Velocity/extensions")
@@ -269,7 +278,11 @@ def download_plugins(main_group: str, override_group: str):
     if plugin in urls and urls[plugin] == url and jar_present:
       log_info_x("Plugin up to date")
       continue
-    if download_file(url, f_nm, PLUG_DIR+path): vers_data['current_installed_urls'][plugin] = url
+    if download_file(url, f_nm, PLUG_DIR+path):
+      vers_data['current_installed_urls'][plugin] = url
+    else: 
+      log.error(f"Failed to download plugin {plugin}")
+      continue
 
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
 download_plugins('custom_plugins', '')
