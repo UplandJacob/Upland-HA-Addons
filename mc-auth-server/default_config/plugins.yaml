@@ -87,7 +87,7 @@ packaged_plugins:
     version: 1.4.0
     file: "BungeeGuard.jar"
   luckperms:
-    url: "https://cdn.modrinth.com/data/Vebnzrzj/versions/{VersionID}/LuckPerms-Bukkit-{version}.jar"
+    url: "https://cdn.modrinth.com/data/Vebnzrzj/versions/{versionID}/LuckPerms-Bukkit-{version}.jar"
     versionID: "ZPtLedoF"
     version: 5.5.0
     file: "LuckPerms.jar"
