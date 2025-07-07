@@ -246,6 +246,7 @@ schema:
   eagListener:
     forward_ip: bool
     spoof_player_address_forwarded: bool
+    show_motd_player_list: bool
     allow_query: bool
     allow_motd: bool
 
