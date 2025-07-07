@@ -121,6 +121,14 @@ log.info("Updated eula.txt")
 
 ## ----------------------------------- ##
 
+if not file_exists(SERV_DIR+"/server.properties"):
+  log.warning("server.properties not found, copying from default_config...")
+  shutil.copy(DEF_CONF+"/server.properties", SERV_DIR+"/server.properties")
+
+if not file_exists(SERV_DIR+"/spigot.yml"):
+  log.warning("spigot.yml not found. Copying from default_config...")
+  shutil.copy(DEF_CONF+"/spigot.yml", SERV_DIR+"/spigot.yml")
+
 SERV_SET = addon_conf["server"]
 SERV_SET["max-players"] = MAX_PLAYERS
 SERV_SET["motd"] = '"'+MOTD1+"\\n"+MOTD2+'"'
@@ -223,17 +231,59 @@ def download_plugins(main_group: str, override_group: str):
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
 download_plugins('custom_plugins', '')
 
+## ----------------------------------- ##
+
+if not file_exists(SERV_DIR+"/spigot.yml"):
+  log.warning("spigot.yml doesn't exist. Copying from default_config...")
+  shutil.copy(DEF_CONF+"/spigot.yml", SERV_DIR+"/spigot.yml")
+
+check_dir(SERV_DIR+"/config")
+if not file_exists(SERV_DIR+"/config/paper-global.yml"):
+  log.warning("paper-global.yml doesn't exist. Copying from default_config...")
+  shutil.copy(DEF_CONF+"/paper-global.yml", SERV_DIR+"/config/paper-global.yml")
+
+check_dir(PLUG_DIR+"/BungeeGuard")
+if not file_exists(PLUG_DIR+"/BungeeGuard/config.yml"):
+  log.warning("Bungeeguard config.yml doesn't exist. Copying from default_config...")
+  shutil.copy(DEF_CONF+"/bungeeguard.yml", PLUG_DIR+"/BungeeGuard/config.yml")
+
+spigot_yaml = yaml.load(read_file(SERV_DIR+"/spigot.yml"))
+paper_yaml = yaml.load(read_file(SERV_DIR+"/config/paper-global.yml"))
+bungee_guard = yaml.load(read_file(PLUG_DIR+"/BungeeGuard/config.yml"))
+
+FOR_EN = addon_conf["enableForward"]; BUNGUARD = addon_conf["useBungeeGuard"]; BUNCORD = addon_conf["bungeecordMode"]
+proxy_set_bungee = "using BungeeCord mode NOT RECOMMENDED-NOT SECURE" if not BUNCORD else "Velocity mode"
+proxy_set_guard = "enabled" if BUNGUARD else f"disabled-NOT recommended - {proxy_set_bungee}"
+log_info_x("Forwarding disabled" if not FOR_EN else f"Forwarding enabled -- BungeeGuard: {proxy_set_guard}")
+
+if vers_data["packaged_plugins_overrides"] is None: vers_data["packaged_plugins_overrides"] = {}
+if "bungeeguard" not in vers_data["packaged_plugins_overrides"]: vers_data["packaged_plugins_overrides"]["bungeeguard"] = {}
+
+vers_data["packaged_plugins_overrides"]["bungeeguard"]["enabled"] = FOR_EN and BUNGUARD
+spigot_yaml["settings"]["bungeecord"] = FOR_EN and (BUNGUARD or BUNCORD)
+paper_yaml["proxies"]["velocity"]["enabled"] = FOR_EN and not BUNGUARD and not BUNCORD
+
+paper_yaml["proxies"]["bungee-cord"]["online-mode"] = addon_conf["proxyOnlineMode"]
+paper_yaml["proxies"]["velocity"]["online-mode"] = addon_conf["proxyOnlineMode"]
+paper_yaml["proxies"]["velocity"]["secret"] = addon_conf["forwardingSecret"]
+bungee_guard["allowed-tokens"][0] = addon_conf["forwardingSecret"]
+
+with open(SERV_DIR+"/spigot.yml", "w") as file:
+  yaml.dump(spigot_yaml, file)
+  log.info("Updated spigot.yml")
+
+with open(SERV_DIR+"/config/paper-global.yml", "w") as file:
+  yaml.dump(paper_yaml, file)
+  log.info("Updated config/paper-global.yml")
+
+with open(PLUG_DIR+"/BungeeGuard/config.yml", "w") as file:
+  yaml.dump(bungee_guard, file)
+  log.info("Updated BungeeGuard config.yml")
+
+
 with open(CONF_DIR+"/plugins.yaml", "w") as file:
   yaml.dump(vers_data, file)
   log.info("Updated plugins.yaml")
-
-## ----------------------------------- ##
-
-
-
-# ------------------- #
-
-
 
 ## ----------------------------------- ##
 

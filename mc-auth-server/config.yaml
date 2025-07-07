@@ -10,8 +10,7 @@ init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-mc-auth-server-{arch}
 hassio_api: true
 startup: application
-map:
-  - config
+
 options:
   eula: false
   logLevel: 3
@@ -21,7 +20,11 @@ options:
   server_name: "A Cool Server"
   motd1: "<red>{srv_name}"
   motd2: "<gray>We can have <b>{maxPlayers} players!"
-  forwaringSecret: "COPY FROM PROXY"
+  enableForward: true
+  forwardingSecret: "COPY FROM PROXY"
+  proxyOnlineMode: false
+  useBungeeGuard: true
+  bungeecordMode: false
 
   server:
     allow-nether: false
@@ -56,7 +59,11 @@ schema:
   server_name: str
   motd1: str
   motd2: str
-  forwaringSecret: str
+  enableForward: bool
+  forwardingSecret: str
+  proxyOnlineMode: bool
+  useBungeeGuard: bool
+  bungeecordMode: bool
 
   server:
     allow-nether: bool

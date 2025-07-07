@@ -1,0 +1,52 @@
+configuration:
+  eula:
+    name: End User License Agreement
+    description: "Agree to the Mojang/Minecraft EULA - required to run the server."
+
+  logLevel:
+    name: Log Level
+    description: Amount of logging during startup. 1 for least logging; 5 for most.
+  allocatedRAM:
+    name: Allocated RAM (MB)
+    description: Amount of RAM the server is immediately given. It will always use at least this much.
+  maxRAM:
+    name: Max RAM (MB)
+    description: The max amount of RAM the server CAN use. 
+  max_players:
+    name: Max Players
+    description: "Displayed for all clients. Also sets the placeholder '{max_players}' for use in your MOTD. See the docs for more info."
+  server_name:
+    name: Server Name
+    description: "Also sets the placeholder '{server_name}' for use in your MOTD. See the docs for more info."
+  motd1:
+    name: MOTD line 1
+    description: Message of the Day, shown in the Multiplayer screen
+  motd2:
+    name: MOTD line 2
+    description: This line is not visible on newer Bedrock clients.
+  enableForward:
+    name: Enable Forwarding
+    description: "Whether to enable player info forwarding from the proxy."
+  forwardingSecret:
+    name: Forwarding Secret
+    description: "In my All-Platform Velocity Proxy addon, it can be found in the 'forwarding.secret.txt' file."
+  proxyOnlineMode:
+    name: Proxy Online Mode
+    description: "Whether the proxy is in online mode."
+  useBungeeGuard:
+    name: Use BungeeGuard
+    description: "Whether to use BungeeGuard for player info forwarding."
+  bungeecordMode:
+    name: BungeeCord Mode
+    description: "Whether to use BungeeCord player info forwarding (when NOT using BungeeGuard). THIS IS THE LEAST SECURE FORWARDING MODE! DO NOT USE!!!"
+
+  server:
+    name: Server Config
+    description: Main configuration for the server
+  
+  floodgate:
+    name: Floodgate config
+    description: Basic Floodgate config
+  floodPlayerLink:
+    name: Floodgate player link
+    description: Local and global player link settings

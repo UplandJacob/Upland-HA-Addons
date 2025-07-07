@@ -190,6 +190,50 @@ jobs:
             echo "ID update"
             yq -i "${{ env.PLs }}.authme.versionID = \"$latestID\"" ${{ env.VERS_FILE }}
           fi
+      
+      - name: BungeeGuard
+        run: |
+          resp=$(curl --silent -X 'GET' "https://api.github.com/repos/lucko/BungeeGuard/releases?per_page=1" -H 'accept: application/json')
+          
+          latestVers=$(echo "$resp" | jq -r .[0].tag_name)
+          latestVers=${latestVers#v}
+          echo "latest build: $latestVers"
+
+          currentVers=$(yq '${{ env.PLs }}.bungeeguard.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+          if [ "$latestVers" != "$currentVers" ]; then
+            echo "changed=${{ env.changed }} BungeeGuard" >> $GITHUB_ENV;
+            yq -i "${{ env.PLs }}.bungeeguard.version = $latestVers" ${{ env.VERS_FILE }}
+          fi
+      - name: LuckPerms
+        run: |
+          resp=$(curl --silent -X 'GET' "https://api.modrinth.com/v2/project/luckperms/version?loaders=[\"bukkit\"]" -H 'accept: application/json')
+          latestID=$(echo "$resp" | jq -r .[0].id)
+          full_version=$(echo "$resp" | jq -r .[0].version_number)
+          latestVers="${full_version#v}"
+          latestVers="${full_version%%-*}"
+          echo "ID: $latestID - Full vers: $full_version - Vers: $latestVers"
+
+          currentID=$(yq '${{ env.PLs }}.luckperms.versionID' ${{ env.VERS_FILE }})
+          echo "current ID: $currentID"
+          currentVers=$(yq '${{ env.PLs }}.luckperms.version' ${{ env.VERS_FILE }})
+          echo "current version: $currentVers"
+
+          if [ "$latestVers" != "$currentVers" -o "$latestID" != "$currentID" ]; then
+            echo "UPDATE"
+            echo "changed=${{ env.changed }} LuckPerms" >> $GITHUB_ENV;
+          fi
+          if [ $latestVers != $currentVers ]; then
+            echo "VERSION update"
+            yq eval -i "${{ env.PLs }}.luckperms.version = \"$latestVers\" | ${{ env.PLs }}.luckperms.version style=\"\"" ${{ env.VERS_FILE }}
+          fi
+          if [ $latestID != $currentID ]; then
+            echo "ID update"
+            yq -i "${{ env.PLs }}.luckperms.versionID = \"$latestID\"" ${{ env.VERS_FILE }}
+          fi
+
+
+
 
 
       - name: "Check what needs to be done"

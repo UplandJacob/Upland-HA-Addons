@@ -43,7 +43,7 @@ custom_plugins: # add your own plugins here
 # this is the version info that is packaged with the addon
 packaged_plugins:
   floodgate:
-    url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
+    url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/spigot"
     version: 2.2.4
     build: 116
     file: "Floodgate.jar"
@@ -82,6 +82,16 @@ packaged_plugins:
     versionID: "oezVemzR"
     version: 5.7.0
     file: "AuthMe.jar"
+  bungeeguard:
+    url: "https://github.com/lucko/BungeeGuard/releases/download/v{version}/BungeeGuard.jar"
+    version: 1.4.0
+    file: "BungeeGuard.jar"
+  luckperms:
+    url: "https://cdn.modrinth.com/data/Vebnzrzj/versions/{VersionID}/LuckPerms-Bukkit-{version}.jar"
+    versionID: "ZPtLedoF"
+    version: 5.5.0
+    file: "LuckPerms.jar"
+    enabled: false
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.5
