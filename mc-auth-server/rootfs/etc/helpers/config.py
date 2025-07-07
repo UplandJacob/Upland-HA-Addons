@@ -241,9 +241,6 @@ def download_plugins(main_group: str, override_group: str):
       log.error(f"Failed to download plugin {plugin}")
       continue
 
-download_plugins('packaged_plugins', 'packaged_plugins_overrides')
-download_plugins('custom_plugins', '')
-
 ## ----------------------------------- ##
 
 if not file_exists(SERV_DIR+"/spigot.yml"):
@@ -293,6 +290,8 @@ with open(PLUG_DIR+"/BungeeGuard/config.yml", "w") as file:
   yaml.dump(bungee_guard, file)
   log.info("Updated BungeeGuard config.yml")
 
+download_plugins('packaged_plugins', 'packaged_plugins_overrides')
+download_plugins('custom_plugins', '')
 
 with open(CONF_DIR+"/plugins.yaml", "w") as file:
   yaml.dump(vers_data, file)
