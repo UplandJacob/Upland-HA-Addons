@@ -1,5 +1,5 @@
 name: MC Auth Server
-version: 1.7.1
+version: 1.7.2
 slug: mc-auth-server
 description: Minecraft Paper server for handling logins in a proxy environment
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-auth-server
@@ -93,6 +93,6 @@ map:
   - addon_config:rw
 
 ports:
-  "6699/tcp": 25565
+  "25565/tcp": 25565
 ports_description:
-  "6699/tcp": "Port for Minecraft"
+  "25565/tcp": "Port for Minecraft"
