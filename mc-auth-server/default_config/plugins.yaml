@@ -89,7 +89,7 @@ packaged_plugins:
   luckperms:
     url: "https://cdn.modrinth.com/data/Vebnzrzj/versions/{versionID}/LuckPerms-Bukkit-{version}.jar"
     versionID: "ZPtLedoF"
-    version: v5.5.0
+    version: 5.5.0
     file: "LuckPerms.jar"
     enabled: false
 server:
