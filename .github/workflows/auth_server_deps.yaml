@@ -208,6 +208,7 @@ jobs:
       - name: LuckPerms
         run: |
           resp=$(curl --silent -X 'GET' "https://api.modrinth.com/v2/project/luckperms/version?loaders=[\"bukkit\"]" -H 'accept: application/json')
+          echo "$resp"
           latestID=$(echo "$resp" | jq -r .[0].id)
           full_version=$(echo "$resp" | jq -r .[0].version_number)
           latestVers="${full_version#v}"
