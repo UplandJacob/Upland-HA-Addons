@@ -96,6 +96,11 @@ packaged_plugins:
     version: 4.1.2
     file: "AuthMeVelocity.jar"
     enabled: false
+  authme_velocity_lastserver:
+    url: "https://github.com/4drian3d/AuthMeVelocity-LastServerAddon/releases/download/{version}/AuthMeVelocity-LastServerAddon-{version}.jar"
+    version: 1.1.0
+    file: "AuthMeVelocity-LastServerAddon.jar"
+    enabled: false
   vpacket_events:
     url: "https://github.com/4drian3d/VPacketEvents/releases/download/{version}/VPacketEvents-{version}.jar"
     version: 1.1.0
