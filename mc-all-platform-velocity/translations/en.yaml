@@ -1,4 +1,26 @@
 configuration:
+  logLevel:
+    name: Log Level
+    description: Amount of logging during startup. 1 for least logging; 5 for most.
+  allocatedRAM:
+    name: Allocated RAM (MB)
+    description: Amount of RAM the server is immediately given. It will always use at least this much.
+  maxRAM:
+    name: Max RAM (MB)
+    description: The max amount of RAM the server CAN use. 
+  max_players:
+    name: Max Players
+    description: "Displayed for all clients. Also sets the placeholder '{max_players}' for use in your MOTD. See the docs for more info."
+  server_name:
+    name: Server Name
+    description: "Also sets the placeholder '{server_name}' for use in your MOTD. See the docs for more info."
+  motd1:
+    name: MOTD Line 1
+    description: Message of the Day, shown in the Multiplayer screen
+  motd2:
+    name: MOTD Line 2
+    description: This line is not visible on newer Bedrock clients.
+
   rootConfig:
     name: Velocity Config
     description: Main configuration for the proxy
@@ -11,33 +33,36 @@ configuration:
   forcedHosts:
     name: Forced Hosts
     description: Servers associated with specific hostnames
-  advanced:
+  adv:
     name: Velocity Advanced Config
     description: Make sure you know what these settings do before you change them.
   
   eagConfig:
     name: Eaglercraft
-    description: Basic EaglercraftXVelocity config
-  eagAuth:
-    name: Eaglercraft - Authentication
-    description: Authentication for Eaglercraft clients. You don't need this if you use another plugin such as AuthMe.
+    description: Basic EaglercraftXServer config
+  eagSkins:
+    name: Eaglercraft - Skin Database
+    description: Settings for the Eaglercraft skins database.
+  eagVoice:
+    name: Eaglercraft - Voice
+    description: Settings for Eaglercraft voice chat.
+  eagUpdateService:
+    name: Eaglercraft - Update Service
+    description: Loads the latest Eaglercraft version from eaglercraft.com and sends it to clients in case of an available update.
+  eagUpdateChecker:
+    name: Eaglercraft - Update Checker
+    description: Sends a message if the EaglerXServer plugin has an update available.
   eagListener:
     name: Eaglercraft - Listeners
-    description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener_01 in that file.
-  eagRelays:
-    name: Eaglercraft - ICE relay servers
-    description: Used for in-game voice chat
-  
+    description: "Most listener settings are available in the addon's config folder. The settings defined here will ALWAYS overwrite changes you make to listener0 in that file."
+
   floodgate:
     name: Floodgate
     description: Basic Floodgate config
-  floodDisconnect:
-    name: Floodgate - Disconnect
-    description: Messages when players get disconnected by Floodgate
   floodPlayerLink:
     name: Floodgate - Player Link
     description: Local and global player link settings
-  
+
   geyserBedrock:
     name: Geyser - Bedrock
     description: Basic Geyser client connection config
@@ -47,8 +72,4 @@ configuration:
   geyser:
     name: Geyser 
     description: General Geyser config
-  geyserAdvanced:
-    name: Geyser - Advanced
-    description: Make sure you know what these settings do before you change them.
-  
-    
+

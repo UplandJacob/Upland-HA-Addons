@@ -19,7 +19,7 @@ replace-adventure: false
 #
 # Whether similar ones should replace 1.9 particles in
 # 1.8 and lower
-replace-particles: true
+replace-particles: false
 #
 # Max number of pages for written books before a client gets kicked
 max-book-pages: 100

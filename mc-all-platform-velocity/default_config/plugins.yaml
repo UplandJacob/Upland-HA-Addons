@@ -1,0 +1,113 @@
+# In this file, plugins (or any other addons) can be defined to be automatically downloaded on addon startup.
+#
+# Ones in the 'packaged_plugins' section I (UplandJacob) update in the repository so you don't have to.
+#   If thosee versions are behind, you can override any part of those with the 'packaged_plugins_overrides' section.
+# If Velocity is out of date, or you want another version (you could technically use a different proxy software altogether), you can do that as well with 'velocity_overrides'.
+# The 'custom_plugins' section works the same way, but YOU are responsible for updating them yourself.
+#
+# You can enabled plugins that are disabled by default by using the overrides and setting 'enabled' to 'true'
+#   If a plugin was previously enabled and you disable it, '.disabled' will automatically be added to the filename.
+#   If you then re-enabled it, '.disabled' will be removed again.
+#   If you delete an addon's information entirely (only workes with 'custom_plugins'), it will stay.
+############ ---------------------------------------------------------------------- ############
+
+# set these if there is a newer version that the addon doesn't know about 
+packaged_plugins_overrides: # (or you want to lock to an older version)
+#   eaglerxserver: # (example)
+#     version: 1.0.3 # only override the version, the rest will be the packaged_plugins section
+#   geyser_extras: # (example: enabling Geyser Extras)
+#     enabled: true
+
+# same idea as packaged_plugins_overrides but only for velocity
+velocity_overrides: # (don't include the velocity tag)
+#   build: 500 # (example)
+custom_plugins: # add your own plugins here
+#   example: # DO NOT REUSE IDENTIFIERS! - the current_installed_urls section will have conflicts
+#     url: "https://example.com/myplugin-{custom_placeholder}-{version}.jar"
+#     custom_placeholder: "custom_value"  # only needed if you have a custom placeholder in the 'url' or 'file'
+#     version: 1.0.0  # also optional, only if needed in the 'url'
+#     file: "myplugin-{custom_placeholder}.jar"  # REQUIRED - placeholders work here, but if a placeholder changes, the old file WILL NOT be removed.
+
+############ EVERYTHING BELOW THIS LINE IS AUTO-GENERATED AND SHOULD NOT BE CHANGED ############
+# this is the version info that is packaged with the addon
+packaged_plugins:
+  eaglerxserver:
+    url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
+    version: 1.0.7
+    file: "EaglerXServer.jar"
+  eaglerxrewind:
+    url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXRewind.jar"
+    version: 1.0.7
+    file: "EaglerXRewind.jar"
+    enabled: false
+  eaglermotd:
+    url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerMOTD.jar"
+    version: 1.0.7
+    file: "EaglerMOTD.jar"
+    enabled: false
+  geyser:
+    url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
+    version: 2.8.2
+    build: 877
+    file: "Geyser.jar"
+  geyser_extras:
+    url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Extension.jar"
+    version: 2.0.0-BETA-6
+    path: "Geyser-Velocity/extensions"
+    file: "GeyserExtras-Extension.jar"
+    enabled: false
+  xbox_broadcast:
+    url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
+    build: 89
+    path: "Geyser-Velocity/extensions"
+    file: "MCXboxBroadcastExtension.jar"
+    enabled: false
+  third_party_cosmetics:
+    url: "https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/{version}/builds/{build}/downloads/thirdpartycosmetics"
+    version: 1.0.0
+    build: 7
+    path: "Geyser-Velocity/extensions"
+    file: "ThirdPartyCosmetics.jar"
+    enabled: false
+  floodgate:
+    url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
+    version: 2.2.4
+    build: 116
+    file: "Floodgate.jar"
+  viaversion:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
+    version: 5.4.1
+    file: "ViaVersion.jar"
+  viabackwards:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
+    version: 5.4.1
+    file: "ViaBackwards.jar"
+  viarewind:
+    url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
+    version: 4.0.8
+    file: "ViaRewind.jar"
+  skinsrestorer:
+    url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
+    version: 15.7.5
+    file: "SkinsRestorer.jar"
+    enabled: false
+  authme_velocity:
+    url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Velocity-{version}.jar"
+    version: 4.1.2
+    file: "AuthMeVelocity.jar"
+    enabled: false
+  authme_velocity_lastserver:
+    url: "https://github.com/4drian3d/AuthMeVelocity-LastServerAddon/releases/download/{version}/AuthMeVelocity-LastServerAddon-{version}.jar"
+    version: 1.1.0
+    file: "AuthMeVelocity-LastServerAddon.jar"
+    enabled: false
+  vpacket_events:
+    url: "https://github.com/4drian3d/VPacketEvents/releases/download/{version}/VPacketEvents-{version}.jar"
+    version: 1.1.0
+    file: "VPacketEvents.jar"
+    enabled: false
+velocity:
+  url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
+  version: 3.4.0-SNAPSHOT
+  build: 521
+current_installed_urls: # keeps track of the last download url of velocity and each plugin
