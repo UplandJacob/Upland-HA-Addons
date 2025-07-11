@@ -14,6 +14,9 @@ jobs:
   check_for_updates:
     runs-on: ubuntu-latest
     name: Check for updates
+    strategy:
+      matrix:
+        file: ["./mc-all-platform-velocity-beta/default_config/plugins.yaml", "./mc-all-platform-velocity/default_config/plugins.yaml"]
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4.2.2
@@ -38,7 +41,7 @@ jobs:
             echo "done"
           fi
 
-          echo "VERS_FILE=./mc-all-platform-velocity-beta/default_config/plugins.yaml" >> $GITHUB_ENV
+          echo "VERS_FILE=${{ matrix.file }}" >> $GITHUB_ENV
           echo "PLs=.packaged_plugins" >> $GITHUB_ENV
 
       - name: Velocity
