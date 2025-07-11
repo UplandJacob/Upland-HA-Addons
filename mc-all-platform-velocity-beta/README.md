@@ -1,6 +1,6 @@
 # Minecraft All-Platform Velocity Proxy Beta
 
-![Addon Stage](https://img.shields.io/badge/Addon%20stage-experimental-yellow.svg)
+![Addon Stage](https://img.shields.io/badge/Addon%20stage-beta_stable-green.svg)
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
 
 ![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
@@ -16,11 +16,12 @@ Beta version of the Minecraft All-Platform Velocity Proxy that used the new Eagl
 Run a proxy for a Minecraft Paper server to allow java, bedrock, and Eaglercraft(unofficial web browser) clients to join.
 
 ### New in the beta version
+
 - Scripts written in python
 - Updated to EaglerXServer (new config files)
 - Updated Velocity (Now that EaglerXServer supports it)
-- Auto download Floodgage database drivers
-- `versions.yaml` allows you to define any plugin to be automatically downloaded and update any plugins packaged with the addon
+- Auto download Floodgate database drivers
+- `plugins.yaml` allows you to define any plugin to be automatically downloaded and update any plugins packaged with the addon
 - Any custom files for the proxy (the old version only supported certain folders)
 - Updated config in the UI - Trimmed out some advanced options; you can still change them in their respective config files
 - Automatically set the Server Name, Max Players, and MOTD in all 3 places: Velocity, EaglerXServer, and Geyser (with automatically converting MOTD from MiniMessage)
