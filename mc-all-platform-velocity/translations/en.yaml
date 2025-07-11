@@ -6,36 +6,36 @@ configuration:
     name: Backend Servers
     description: All servers connected to the proxy
   serverAttemptJoinOrder:
-    name: Server attempt join order
+    name: Server attempt to join order
     description: Order of servers to attempt to connect players to
   forcedHosts:
-    name: Forced hosts
+    name: Forced Hosts
     description: Servers associated with specific hostnames
   advanced:
-    name: Velocity advanced config
+    name: Velocity Advanced Config
     description: Make sure you know what these settings do before you change them.
   
   eagConfig:
-    name: Eaglercraft config
+    name: Eaglercraft
     description: Basic EaglercraftXVelocity config
   eagAuth:
-    name: Eaglercraft Authentication
+    name: Eaglercraft - Authentication
     description: Authentication for Eaglercraft clients. You don't need this if you use another plugin such as AuthMe.
   eagListener:
-    name: Eaglercraft listeners
+    name: Eaglercraft - Listeners
     description: Most listener settings are availible in the config folder of the addon. The settings defined here will ALWAYS overwrite changes you make to listener_01 in that file.
   eagRelays:
-    name: Eaglercraft ICE relay servers
+    name: Eaglercraft - ICE relay servers
     description: Used for in-game voice chat
   
   floodgate:
-    name: Floodgate config
+    name: Floodgate
     description: Basic Floodgate config
   floodDisconnect:
-    name: Floodgate Disconnect
+    name: Floodgate - Disconnect
     description: Messages when players get disconnected by Floodgate
   floodPlayerLink:
-    name: Floodgate player link
+    name: Floodgate - Player Link
     description: Local and global player link settings
   
   geyserBedrock:
@@ -49,6 +49,6 @@ configuration:
     description: General Geyser config
   geyserAdvanced:
     name: Geyser - Advanced
-    description: Make sure you know what these settings de before you change them.
+    description: Make sure you know what these settings do before you change them.
   
     

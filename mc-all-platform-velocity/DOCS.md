@@ -28,8 +28,6 @@ An address is a pairing of an IP address or hostname, and a port, separated by a
 
 ***
 
-From <https://docs.papermc.io/velocity/configuration> with modifications for this addon:
-
 ## Configuring Velocity
 
 Settings not shown here for UI configuration can be set by editing the `velocity.toml` file found in `addon_configs/d78ad65c_mc-all-platform-velocity/server` through something like [Filebrowser](https://github.com/alexbelgium/hassio-addons). These options can be found at [docs.papermc.io](https://docs.papermc.io/velocity/configuration).
@@ -113,14 +111,7 @@ In this addon, this option will be a list with a `hostname` with another list of
 | `log-player-connections` | Boolean | Enables logging of player connections when connecting to the proxy, switching servers and disconnecting from the proxy. |
 | `accepts-transfers` | Boolean | Determines whether or not the proxy accepts incoming transfers from other servers. If disabled, the proxy will disconnect transferred clients. |
 
-### `query` section (not currently configurable in this addon)
-
-|Setting Name|Type|Description|
-|-|-|-|
-| `enabled` | Boolean | Whether or not Velocity should reply to Minecraft query protocol requests. You can usually leave this false. |
-| `port` | Number | Specifies which port that Velocity should listen on for GameSpy 4 (Minecraft query protocol) requests. |
-| `map` | String | Specifies the map name to be shown to clients. |
-| `show-plugins` | Boolean | Whether or not Velocity plugins are included in the query responses. |
+### `query` section is not configurable in the UI
 
 ***
 
