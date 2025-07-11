@@ -9,7 +9,7 @@ arch:
   - amd64
   - i386
 init: false
-image: ghcr.io/uplandjacob/upland-ha-addons-mc-all-platform-velocity-beta-{arch}
+image: ghcr.io/uplandjacob/upland-ha-addons-mc-all-platform-velocity-{arch}
 
 options:
   logLevel: 3
