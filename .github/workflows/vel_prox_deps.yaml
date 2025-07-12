@@ -17,6 +17,7 @@ jobs:
     strategy:
       matrix:
         file: ["./mc-all-platform-velocity-beta/default_config/plugins.yaml", "./mc-all-platform-velocity/default_config/plugins.yaml"]
+      max-parallel: 1
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4.2.2
