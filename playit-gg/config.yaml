@@ -7,7 +7,7 @@ stage: experimental
 host_network: true
 hassio_api: true
 init: false
-image: ghcr.io/uplandjacob/upland-ha-addons-playitgg-{arch}
+image: ghcr.io/uplandjacob/upland-ha-addons-playit-gg-{arch}
 arch:
   - amd64
   - aarch64
