@@ -1,15 +1,16 @@
-name: "Playit.gg Agent"
-slug: "playitgg"
-description: "Addon to run the Playit.gg tunnel service in Home Assistant"
-version: 0.93
-image: alex33856/playitgg-docker
-init: false
-legacy: true
+name: Playit.gg Agent
+version: 1.0.0
+slug: playitgg
+description: Addon to run the Playit.gg tunnel service in Home Assistant
+url: https://github.com/uplandjacob/upland-ha-addons/tree/main/playit-gg
+stage: experimental
 host_network: true
+hassio_api: true
+init: false
+image: ghcr.io/uplandjacob/upland-ha-addons-playitgg-{arch}
 arch:
   - amd64
   - aarch64
-  - armv7
 map:
   - type: addon_config
     read_only: false

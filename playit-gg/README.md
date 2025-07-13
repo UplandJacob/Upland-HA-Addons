@@ -13,9 +13,7 @@
 
 Playit.gg is a global proxy that allows anyone to host a server without port forwarding.
 
-Thanks to [Benjamin589](https://github.com/benjamin5896/hassio-addons) for the PR in `williamcorsel/hassio-addons` for a playit.gg addon.
-
-This addon uses the `alex33856/playitgg-docker` image.
+Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamcorsel/hassio-addons/pull/26) `williamcorsel/hassio-addons` that used the `alex33856/playitgg-docker` image. The Dockerfile for this addon uses the majority of that Dockerfile.
 
 ## Install
 
@@ -34,4 +32,5 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 1. If you don't already have a Playit.gg account, head over to [Playit.gg](https://playit.gg) and sign up.
 2. Follow the install instructions above and start it, then go to the "Log" tab.
 3. Find the claim link, copy and paste it into a browser, and go through the claim process to add your node to your Playit.gg account.
-4. Finally, check the add-on logs to ensure the add-on has successfully connected to your Playit.gg account.
+4. Check the add-on logs to ensure the add-on has successfully connected to your Playit.gg account.
+5. Back [on the website](https://playit.gg/account/agents), click on the agent, then "+Add Tunnel" to expose whatever services you want to the internet.
