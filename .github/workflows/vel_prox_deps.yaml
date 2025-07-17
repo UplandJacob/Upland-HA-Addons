@@ -221,7 +221,7 @@ jobs:
       - name: MCXboxBroadcast
         run: |
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://api.github.com/repos/MCXboxBroadcast/Broadcaster/releases?per_page=1")
-          exho "$resp"
+          echo "$resp"
           latestBuild=$(echo "$resp" | jq -r .[0].tag_name)
           echo "latest build: $latestBuild"
 
