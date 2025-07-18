@@ -135,9 +135,7 @@ jobs:
 
       - name: SkinsRestorer
         run: |
-          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
-            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-            "https://api.github.com/repos/SkinsRestorer/SkinsRestorer/releases?per_page=1")
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" "https://api.github.com/repos/SkinsRestorer/SkinsRestorer/releases?per_page=1")
           
           latestVers=$(echo "$resp" | jq -r .[0].tag_name)
           echo "latest version: $latestVers"
@@ -151,9 +149,7 @@ jobs:
 
       - name: AuthMeVelocity
         run: |
-          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' \
-            -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-            "https://api.github.com/repos/4drian3d/AuthMeVelocity/releases?per_page=1")
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" "https://api.github.com/repos/4drian3d/AuthMeVelocity/releases?per_page=1")
           
           latestVers=$(echo "$resp" | jq -r .[0].tag_name)
           echo "latest build: $latestVers"
@@ -193,7 +189,7 @@ jobs:
       
       - name: BungeeGuard
         run: |
-          resp=$(curl --silent -X 'GET' "https://api.github.com/repos/lucko/BungeeGuard/releases?per_page=1" -H 'accept: application/json')
+          resp=$(curl --silent -X 'GET' -H 'accept: application/json' -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" "https://api.github.com/repos/lucko/BungeeGuard/releases?per_page=1")
           
           latestVers=$(echo "$resp" | jq -r .[0].tag_name)
           latestVers=${latestVers#v}
