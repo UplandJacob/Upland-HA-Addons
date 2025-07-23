@@ -47,6 +47,24 @@ packaged_plugins:
     version: 2.2.4
     build: 118
     file: "Floodgate.jar"
+  authme:
+    url: "https://cdn.modrinth.com/data/3IEZ9vol/versions/{versionID}/AuthMe-{version}-FORK-Universal.jar"
+    versionID: "oezVemzR"
+    version: 5.7.0
+    file: "AuthMe.jar"
+  authme_velocity:
+    url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Paper-{version}.jar"
+    version: 4.1.2
+    file: "AuthMeVelocity.jar"
+    enabled: false # since we're using HaHaWTH's AuthMeReReloaded instead, which has built in Velocity support, we don't need this
+  bungeeguard:
+    url: "https://github.com/lucko/BungeeGuard/releases/download/v{version}/BungeeGuard.jar"
+    version: 1.4.0
+    file: "BungeeGuard.jar"
+  webconsole:
+    url: "https://github.com/mesacarlos/WebConsole/releases/download/v{version}/WebConsole-{version}.jar"
+    version: 2.8
+    file: WebConsole.jar
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
     version: 5.4.1
@@ -72,26 +90,22 @@ packaged_plugins:
     version: 15.7.7
     file: "SkinsRestorer.jar"
     enabled: false
-  authme_velocity:
-    url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Paper-{version}.jar"
-    version: 4.1.2
-    file: "AuthMeVelocity.jar"
-    enabled: false # since we're using HaHaWTH's AuthMeReReloaded instead, which has built in Velocity support, we don't need this
-  authme:
-    url: "https://cdn.modrinth.com/data/3IEZ9vol/versions/{versionID}/AuthMe-{version}-FORK-Universal.jar"
-    versionID: "oezVemzR"
-    version: 5.7.0
-    file: "AuthMe.jar"
-  bungeeguard:
-    url: "https://github.com/lucko/BungeeGuard/releases/download/v{version}/BungeeGuard.jar"
-    version: 1.4.0
-    file: "BungeeGuard.jar"
   luckperms:
     url: "https://cdn.modrinth.com/data/Vebnzrzj/versions/{versionID}/LuckPerms-Bukkit-{version}.jar"
     versionID: "ZPtLedoF"
     version: 5.5.0
     file: "LuckPerms.jar"
     enabled: false
+  fawe:
+    url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
+    version: 2.13.1
+    build: 1130
+    file: "FastAsyncWorldEdit-Paper-SNAPSHOT.jar"
+  worldguard:
+    url: "https://cdn.modrinth.com/data/DKY9btbd/versions/{versionID}/worldguard-bukkit-{version}-dist.jar"
+    versionID: "PO4MKx7e"
+    version: 7.0.14
+    file: "worldguard-bukkit-dist.jar"
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.5
