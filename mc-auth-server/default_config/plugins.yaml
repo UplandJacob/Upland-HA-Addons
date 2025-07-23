@@ -61,10 +61,15 @@ packaged_plugins:
     url: "https://github.com/lucko/BungeeGuard/releases/download/v{version}/BungeeGuard.jar"
     version: 1.4.0
     file: "BungeeGuard.jar"
+  serverSwitcher:
+    url: "https://cdn.modrinth.com/data/CT9Wx3tx/versions/{versionID}/serverswitcher-{version}.jar"
+    versionID: "r675FrAE"
+    version: 1.0
+    version: "serverswitcher.jar"
   webconsole:
     url: "https://github.com/mesacarlos/WebConsole/releases/download/v{version}/WebConsole-{version}.jar"
     version: 2.8
-    file: WebConsole.jar
+    file: "WebConsole.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
     version: 5.4.1
@@ -101,11 +106,13 @@ packaged_plugins:
     version: 2.13.1
     build: 1130
     file: "FastAsyncWorldEdit-Paper-SNAPSHOT.jar"
+    enabled: false
   worldguard:
     url: "https://cdn.modrinth.com/data/DKY9btbd/versions/{versionID}/worldguard-bukkit-{version}-dist.jar"
     versionID: "PO4MKx7e"
     version: 7.0.14
     file: "worldguard-bukkit-dist.jar"
+    enabled: false
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.5
