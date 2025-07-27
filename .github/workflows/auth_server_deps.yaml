@@ -256,7 +256,7 @@ jobs:
           fi
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
-            yq -i "${{ env.PLs }}.fawe.build = \"$latestBuild\"" ${{ env.VERS_FILE }}
+            yq -i "${{ env.PLs }}.fawe.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
 
 
