@@ -234,7 +234,7 @@ jobs:
         run: |
           resp=$(curl --silent -X 'GET' -H 'accept: application/json' "https://ci.athion.net/job/FastAsyncWorldEdit/lastBuild/api/json")
           echo "$resp"
-          latestVers=$(echo "$resp" | jq -r .ratifacts.[0].filename)
+          latestVers=$(echo "$resp" | jq -r .artifacts.[0].filename)
           latestVers="${filename#*-*-}"
           latestVers="${version%%-*}"
           latestBuild=$(echo "$resp" | jq -r .id)
