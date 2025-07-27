@@ -82,7 +82,7 @@ packaged_plugins:
     enabled: false
   viarewind:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
-    version: 4.0.8
+    version: 4.0.9
     file: "ViaRewind.jar"
     enabled: false
   vialegacy:
