@@ -37,7 +37,7 @@ This beta version includes many new features and improvements. The full list is 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity-beta)
 
 
-### MC auth server
+### [MC auth server](/mc-auth-server)
 
 Minecraft Leaf (Paper fork) auth server for proxy setups that use AuthMe.
 
