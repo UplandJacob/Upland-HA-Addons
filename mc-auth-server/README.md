@@ -1,6 +1,6 @@
 # MC auth server
 
-![Addon Stage](https://img.shields.io/badge/Addon%20stage-in_progress-red.svg)
+![Addon Stage](https://img.shields.io/badge/Addon%20stage-ready-green.svg)
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
 
 ![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
@@ -11,7 +11,7 @@
 
 ## About
 
-Minecraft Paper auth server for proxy setups that use AuthMe.
+Minecraft Leaf (Paper fork) auth server for proxy setups that use AuthMe.
 
 ## Install
 
@@ -27,4 +27,6 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 ## Setup
 
-No idea yet
+1. Install the addon (see above).
+2. Configure proxy forwarding mode and any other settings you want in the 'Configuration' tab.
+3. Use something like Filebrowser to open 'addon_configs/d78ad65c_mc-auth-server/plugins.yaml' and use the overrides to enable any optional plugins you want for your proxy setup.
