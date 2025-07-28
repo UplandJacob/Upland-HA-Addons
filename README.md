@@ -13,17 +13,20 @@ or go to the **Add-on Store -> repositories** and add: https://github.com/Upland
 
 ## Fully (mostly) Functional Addons
 
+
 ### [Eaglercraft Relay](/eag-relay)
 
 Run and Eaglerctaft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_eag-relay)
 
+
 ### [MC All-Platform Velocity Proxy](/mc-all-platform-velocity)
 
 Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser) clients to join your Minecraft server(s).
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
+
 
 ### [MC All-Platform Velocity Proxy Beta](/mc-all-platform-velocity-beta)
 
@@ -32,6 +35,13 @@ Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft
 This beta version includes many new features and improvements. The full list is available on the addon page.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity-beta)
+
+
+### MC auth server
+
+Minecraft Leaf (Paper fork) auth server for proxy setups that use AuthMe.
+
+[![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-auth-server)
 
 
 ### [Playit.gg](/playit-gg)
