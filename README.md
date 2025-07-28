@@ -48,8 +48,6 @@ Minecraft Leaf (Paper fork) auth server for proxy setups that use AuthMe.
 
 Playit.gg is a global proxy that allows anyone to host a server without port forwarding.
 
-Thanks to [Benjamin589](https://github.com/benjamin5896/hassio-addons) for the PR in `williamcorsel/hassio-addons` for a playit.gg addon.
-
-This addon uses the `alex33856/playitgg-docker` image.
+Original inspiration thanks to the Benjamin589 PR williamcorsel/hassio-addons that used the alex33856/playitgg-docker image. The Dockerfile for this addon uses the majority of that Dockerfile.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_playitgg)
