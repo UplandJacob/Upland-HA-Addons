@@ -1,32 +1,31 @@
 # In this file, plugins (or any other addons) can be defined to be automatically downloaded on addon startup.
 #
-# Ones in the 'packaged_plugins' section I (UplandJacob) update in the repository so you don't have to.
-#   If thosee versions are behind, you can override any part of those with the 'packaged_plugins_overrides' section.
+# Ones in the 'packaged_plugins' section, I (UplandJacob) update in the repository (with the help of a bot) so you don't have to.
+#   If you want to change them for any reason, such as being out of date, you can override any part of them with the 'packaged_plugins_overrides' section.
 # If Velocity is out of date, or you want another version (you could technically use a different proxy software altogether), you can do that as well with 'velocity_overrides'.
 # The 'custom_plugins' section works the same way, but YOU are responsible for updating them yourself.
 #
-# You can enabled plugins that are disabled by default by using the overrides and setting 'enabled' to 'true'
-#   If a plugin was previously enabled and you disable it, '.disabled' will automatically be added to the filename.
+# You can enable plugins that are disabled by default by using the overrides and setting 'enabled' to 'true'
+#   If a plugin was previously enabled and you disable it, '.disabled' will automatically be added to the file name.
 #   If you then re-enabled it, '.disabled' will be removed again.
 #   If you delete an addon's information entirely (only workes with 'custom_plugins'), it will stay.
 ############ ---------------------------------------------------------------------- ############
 
-# set these if there is a newer version that the addon doesn't know about 
-packaged_plugins_overrides: # (or you want to lock to an older version)
+packaged_plugins_overrides:
 #   eaglerxserver: # (example)
 #     version: 1.0.3 # only override the version, the rest will be the packaged_plugins section
 #   geyser_extras: # (example: enabling Geyser Extras)
 #     enabled: true
 
-# same idea as packaged_plugins_overrides but only for velocity
+# same idea as packaged_plugins_overrides but only for Velocity
 velocity_overrides: # (don't include the velocity tag)
 #   build: 500 # (example)
 custom_plugins: # add your own plugins here
-#   example: # DO NOT REUSE IDENTIFIERS! - the current_installed_urls section will have conflicts
+#   example: # DO NOT REUSE IDENTIFIERS! - duplicates will not be loaded
 #     url: "https://example.com/myplugin-{custom_placeholder}-{version}.jar"
 #     custom_placeholder: "custom_value"  # only needed if you have a custom placeholder in the 'url' or 'file'
-#     version: 1.0.0  # also optional, only if needed in the 'url'
-#     file: "myplugin-{custom_placeholder}.jar"  # REQUIRED - placeholders work here, but if a placeholder changes, the old file WILL NOT be removed.
+#     version: 1.0.0  # another optional placeholder
+#     file: "myplugin-{custom_placeholder}-{version}.jar"  # REQUIRED - placeholders work here, if a placeholder changes, the old file will be removed.
 
 ############ EVERYTHING BELOW THIS LINE IS AUTO-GENERATED AND SHOULD NOT BE CHANGED ############
 # this is the version info that is packaged with the addon
@@ -111,3 +110,4 @@ velocity:
   version: 3.4.0-SNAPSHOT
   build: 522
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
+current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
