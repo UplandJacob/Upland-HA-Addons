@@ -18,11 +18,13 @@ This addon uses the `gitea/act-runner` image.
 
 ## Install
 
+<!-- markdownlint-disable MD036 -->
 **Add repository**
+<!-- markdownlint-enable MD036 -->
 
 [![Add repo](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https://github.com/UplandJacob/Upland-HA-Addons)
 
-or go to the **Add-on Store -> repositories** and add: https://github.com/UplandJacob/Upland-HA-Addons
+or go to the **Add-on Store -> repositories** and add: <https://github.com/UplandJacob/Upland-HA-Addons>
 
 **Then install:**
 
