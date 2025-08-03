@@ -52,7 +52,7 @@ packaged_plugins:
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Extension.jar"
-    version: 2.0.0-BETA-6
+    version: 2.0.0-BETA-7
     path: "Geyser-Velocity/extensions"
     file: "GeyserExtras-Extension.jar"
     enabled: false
