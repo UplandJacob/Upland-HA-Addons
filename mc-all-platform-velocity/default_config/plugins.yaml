@@ -33,16 +33,16 @@ custom_plugins: # add your own plugins here
 packaged_plugins:
   eaglerxserver:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
-    version: "null"
+    version: 1.0.7
     file: "EaglerXServer.jar"
   eaglerxrewind:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXRewind.jar"
-    version: "null"
+    version: 1.0.7
     file: "EaglerXRewind.jar"
     enabled: false
   eaglermotd:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerMOTD.jar"
-    version: "null"
+    version: 1.0.7
     file: "EaglerMOTD.jar"
     enabled: false
   geyser:
@@ -93,7 +93,7 @@ packaged_plugins:
     enabled: false
   authme_velocity:
     url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Velocity-{version}.jar"
-    version: null
+    version: 4.1.2
     file: "AuthMeVelocity.jar"
     enabled: false
   authme_velocity_lastserver:
@@ -103,7 +103,7 @@ packaged_plugins:
     enabled: false
   vpacket_events:
     url: "https://github.com/4drian3d/VPacketEvents/releases/download/{version}/VPacketEvents-{version}.jar"
-    version: null
+    version: 1.1.0
     file: "VPacketEvents.jar"
     enabled: false
 velocity:
