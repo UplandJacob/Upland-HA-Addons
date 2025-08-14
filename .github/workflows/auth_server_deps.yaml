@@ -16,7 +16,7 @@ jobs:
     name: Check for updates
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           token: ${{ secrets.HA_GITHUB_TOKEN }}
