@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+
 name=$(bashio::config 'name')
 ghLogin=$(bashio::config 'ghLogin')
 
@@ -14,6 +15,6 @@ tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms 
 
 if [ "$ghLogin" != "" ]; then
     tmux send-keys -t vscode "$(printf '\033[B')" # press down arrow to select GitHub login
-tmux send-keys -t vscode C-m # press enter to lock in Microsoft or GitHub login
+tmux send-keys -t vscode "" C-m # press enter to lock in Microsoft or GitHub login
 
 tmux attach-session -t vscode
