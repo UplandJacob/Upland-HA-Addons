@@ -1,5 +1,5 @@
 #!/usr/bin/with-contenv bashio
 
-bashio::log.green "FINISH: PlayIt stopped."
+bashio::log.green "FINISH: VSCode Tunnel stopped."
 
 exit 0

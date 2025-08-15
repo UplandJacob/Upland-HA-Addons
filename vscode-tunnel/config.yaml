@@ -1,5 +1,5 @@
 name: VSCode Tunnel
-version: 0.1.0
+version: 0.2.0
 slug: vscode-tunnel
 description: VSCode Tunnel to have a full experience at vscode.dev.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/vscode-tunnel
@@ -16,7 +16,9 @@ hassio_api: true
 map:
   - config
 options:
-  test: ''
+  name: ''
+  ghLogin: ''
 
 schema:
-  test: match([a-z]+)
+  name: match([0-9a-zA-Z_-]*)
+  ghLogin: bool
