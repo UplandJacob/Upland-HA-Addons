@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bashio
+
+code tunnel --accept-server-license-terms
