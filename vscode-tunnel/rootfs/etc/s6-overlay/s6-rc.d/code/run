@@ -3,6 +3,8 @@
 name=$(bashio::config 'name')
 ghLogin=$(bashio::config 'ghLogin')
 
+bashio::log.green "Name: $name, GitHub Login: $ghLogin"
+
 args=""
 
 if ["$name" = ""]; then
@@ -11,11 +13,19 @@ else
     args="--name $name"
 fi
 
-tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms $args"
+bashio::log.green "Starting VSCode Tunnel with args: $args"
 
-if [ "$ghLogin" != "" ]; then
+tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms $args > /tmp/log.txt 2>&1"
+
+sleep 1 # delay for interactive prompt
+if [ "$ghLogin" == "true" ]; then
+    bashio::log.green "Sending down arrow to select GitHub login"
     tmux send-keys -t vscode "$(printf '\033[B')" # press down arrow to select GitHub login
 fi
+sleep 1
+bashio::log.green "Sending enter to confirm login method"
 tmux send-keys -t vscode "" C-m # press enter to lock in Microsoft or GitHub login
 
-tmux attach-session -t vscode
+bashio::log.green "Attaching to log"
+
+tail -f /tmp/log.txt
