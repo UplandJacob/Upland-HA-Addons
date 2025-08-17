@@ -24,7 +24,7 @@ if [ "$ghLogin" == "true" ]; then
 fi
 sleep 1
 bashio::log.green "Sending enter to confirm login method"
-tmux send-keys -t vscode "" C-m # press enter to lock in Microsoft or GitHub login
+tmux send-keys -t vscode "$(printf '\n')" C-m # press enter to lock in Microsoft or GitHub login
 
 bashio::log.green "Attaching to log"
 
