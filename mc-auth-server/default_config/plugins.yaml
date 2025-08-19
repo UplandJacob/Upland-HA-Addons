@@ -59,7 +59,7 @@ packaged_plugins:
     enabled: false # since we're using HaHaWTH's AuthMeReReloaded instead, which has built in Velocity support, we don't need this
   bungeeguard:
     url: "https://github.com/lucko/BungeeGuard/releases/download/v{version}/BungeeGuard.jar"
-    version: 1.4.0
+    version: null
     file: "BungeeGuard.jar"
   serverSwitcher:
     url: "https://cdn.modrinth.com/data/CT9Wx3tx/versions/{versionID}/serverswitcher-{version}.jar"
