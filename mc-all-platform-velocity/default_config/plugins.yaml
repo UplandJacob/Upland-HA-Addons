@@ -88,7 +88,7 @@ packaged_plugins:
     file: "ViaRewind.jar"
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: "null"
+    version: 15.7.9
     file: "SkinsRestorer.jar"
     enabled: false
   authme_velocity:
