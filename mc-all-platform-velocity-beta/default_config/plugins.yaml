@@ -32,16 +32,16 @@ custom_plugins: # add your own plugins here
 packaged_plugins:
   eaglerxserver:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
-    version: 1.0.7
+    version: "null"
     file: "EaglerXServer.jar"
   eaglerxrewind:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXRewind.jar"
-    version: 1.0.7
+    version: "null"
     file: "EaglerXRewind.jar"
     enabled: false
   eaglermotd:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerMOTD.jar"
-    version: 1.0.7
+    version: "null"
     file: "EaglerMOTD.jar"
     enabled: false
   geyser:
