@@ -16,7 +16,7 @@ checkDir () {
 checkDir "/config"
 checkDir "/config/cli"
 checkDir "/code"
-checkDir "~/.vscode"
+checkDir "/root/.vscode"
 
 if [ ! -L "~/.vscode/cli" ]; then
     bashio::log.green "Creating ~/.vscode/cli symlink"
@@ -30,18 +30,18 @@ fi
 
 args=""
 
-if ["$ghLogin" = "true"]; then
+if [ "$ghLogin" = "true" ]; then
     args="github"
 else
     args="microsoft"
 fi
 
-if [ ! -f "/config/cli/token.json"]; then
+if [ ! -f "/config/cli/token.json" ]; then
     bashio::log.green "No token found, initiating log in with type: $args"
     /code/.code tunnel user login --provider $args
 fi
 
-if ["$name" = ""]; then
+if [ "$name" = "" ]; then
     args="--random-name"
 else
     args="--name $name"
@@ -51,7 +51,7 @@ bashio::log.green "Starting VSCode Tunnel with args: $args"
 
 tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms $args > /tmp/log.txt 2>&1; tmux wait-for -S done"
 
-if ["$doTail" = "true"]; then
+if [ "$doTail" = "true" ]; then
     bashio::log.green "Attaching to log"
     tail -f /tmp/log.txt
 else
