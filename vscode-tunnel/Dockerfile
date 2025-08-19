@@ -42,6 +42,10 @@ RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.
 
 RUN rm /etc/cont-init.d/00-global_var.sh
 
+# Set environment variables for VS Code CLI
+ENV VSCODE_CLI_USE_FILE_KEYCHAIN=true
+ENV VSCODE_CLI_DATA_DIR=/config
+
 
 ARG BUILD_ARCH
 #ARG BUILD_DATE

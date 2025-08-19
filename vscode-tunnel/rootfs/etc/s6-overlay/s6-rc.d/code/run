@@ -5,7 +5,38 @@ ghLogin=$(bashio::config 'ghLogin')
 
 bashio::log.green "Name: $name, GitHub Login: $ghLogin"
 
+checkDir () {
+    if [ ! -d "$1" ]; then
+        bashio::log.warning "Directory $1 does not exist. Creating..."
+        mkdir -p "$1"
+    fi
+}
+
+checkDir "/config"
+checkDir "/config/cli"
+
+checkDir "/code"
+
+if [ ! -d "~/.vscode/cli"]; then
+    bashio::log.green "Creating ~/.vscode/cli symlink"
+    ln -s /config/cli ~/.vscode/
+fi
+
+ln -s /config/workspace /code/WORKSPACE/
+checkDir "/config/workspace"
+
 args=""
+
+if ["$ghLogin" = "true"]; then
+    args="github"
+else
+    args="microsoft"
+fi
+
+if [ ! -f "/config/cli/token.json"]; then
+    bashio::log.green "No token found, initiating log in with type: $args"
+    /code/.code tunnel user login --provider $args
+fi
 
 if ["$name" = ""]; then
     args="--random-name"
@@ -16,15 +47,6 @@ fi
 bashio::log.green "Starting VSCode Tunnel with args: $args"
 
 tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms $args > /tmp/log.txt 2>&1"
-
-sleep 1 # delay for interactive prompt
-if [ "$ghLogin" == "true" ]; then
-    bashio::log.green "Sending down arrow to select GitHub login"
-    tmux send-keys -t vscode "$(printf '\033[B')" # press down arrow to select GitHub login
-fi
-sleep 1
-bashio::log.green "Sending enter to confirm login method"
-tmux send-keys -t vscode "$(printf '\n')" C-m # press enter to lock in Microsoft or GitHub login
 
 bashio::log.green "Attaching to log"
 
