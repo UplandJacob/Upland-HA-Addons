@@ -17,13 +17,12 @@ checkDir "/config/cli"
 
 checkDir "/code"
 
-if [ ! -d "~/.vscode/cli"]; then
+if [ ! -d "~/.vscode/cli" ]; then
     bashio::log.green "Creating ~/.vscode/cli symlink"
     ln -s /config/cli ~/.vscode/
 fi
 
-ln -s /config/workspace /code/WORKSPACE/
-checkDir "/config/workspace"
+ln -s /config/WORKSPACE /code/
 
 args=""
 
