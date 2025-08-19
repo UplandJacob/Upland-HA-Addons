@@ -2,8 +2,9 @@
 
 name=$(bashio::config 'name')
 ghLogin=$(bashio::config 'ghLogin')
+doTail=$(bashio::config 'tail')
 
-bashio::log.green "Name: $name, GitHub Login: $ghLogin"
+bashio::log.green "Name: '$name', GitHub Login: $ghLogin"
 
 checkDir () {
     if [ ! -d "$1" ]; then
@@ -14,8 +15,8 @@ checkDir () {
 
 checkDir "/config"
 checkDir "/config/cli"
-
 checkDir "/code"
+checkDir "~/.vscode"
 
 if [ ! -d "~/.vscode/cli" ]; then
     bashio::log.green "Creating ~/.vscode/cli symlink"
@@ -47,6 +48,10 @@ bashio::log.green "Starting VSCode Tunnel with args: $args"
 
 tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms $args > /tmp/log.txt 2>&1"
 
-bashio::log.green "Attaching to log"
+if ["$doTail" = "true"]; then
+    bashio::log.green "Attaching to log"
 
-tail -f /tmp/log.txt
+    tail -f /tmp/log.txt
+else
+    bashio::log.green "Not attaching to log"
+fi
