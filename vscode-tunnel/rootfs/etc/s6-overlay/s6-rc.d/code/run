@@ -18,12 +18,15 @@ checkDir "/config/cli"
 checkDir "/code"
 checkDir "~/.vscode"
 
-if [ ! -d "~/.vscode/cli" ]; then
+if [ ! -L "~/.vscode/cli" ]; then
     bashio::log.green "Creating ~/.vscode/cli symlink"
     ln -s /config/cli ~/.vscode/
 fi
 
-ln -s /config/WORKSPACE /code/
+if [ ! -L "/code/WORKSPACE" ]; then
+    bashio::log.green "Creating /code/WORKSPACE symlink"
+    ln -s /config/WORKSPACE /code/
+fi
 
 args=""
 
@@ -46,12 +49,12 @@ fi
 
 bashio::log.green "Starting VSCode Tunnel with args: $args"
 
-tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms $args > /tmp/log.txt 2>&1"
+tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms $args > /tmp/log.txt 2>&1; tmux wait-for -S done"
 
 if ["$doTail" = "true"]; then
     bashio::log.green "Attaching to log"
-
     tail -f /tmp/log.txt
 else
     bashio::log.green "Not attaching to log"
+    tmux wait-for done
 fi
