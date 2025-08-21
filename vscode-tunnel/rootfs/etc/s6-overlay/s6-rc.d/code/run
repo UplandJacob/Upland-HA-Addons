@@ -2,7 +2,6 @@
 
 name=$(bashio::config 'name')
 ghLogin=$(bashio::config 'ghLogin')
-doTail=$(bashio::config 'tail')
 
 bashio::log.green "Name: '$name', GitHub Login: $ghLogin"
 
@@ -13,20 +12,8 @@ checkDir () {
     fi
 }
 
-checkDir "/config"
-checkDir "/config/cli"
-checkDir "/code"
+checkDir "/config/workspace"
 checkDir "/root/.vscode"
-
-if [ ! -L "~/.vscode/cli" ]; then
-    bashio::log.green "Creating ~/.vscode/cli symlink"
-    ln -s /config/cli ~/.vscode/
-fi
-
-if [ ! -L "/code/WORKSPACE" ]; then
-    bashio::log.green "Creating /code/WORKSPACE symlink"
-    ln -s /config/WORKSPACE /code/
-fi
 
 args=""
 
@@ -36,9 +23,9 @@ else
     args="microsoft"
 fi
 
-if [ ! -f "/config/cli/token.json" ]; then
+if [ ! -f "/config/token.json" ]; then
     bashio::log.green "No token found, initiating log in with type: $args"
-    /code/.code tunnel user login --provider $args
+    code tunnel user login --provider $args
 fi
 
 if [ "$name" = "" ]; then
@@ -48,13 +35,6 @@ else
 fi
 
 bashio::log.green "Starting VSCode Tunnel with args: $args"
+cd /config/workspace
 
-tmux new-session -d -s vscode "/code/.code tunnel --accept-server-license-terms $args > /tmp/log.txt 2>&1; tmux wait-for -S done"
-
-if [ "$doTail" = "true" ]; then
-    bashio::log.green "Attaching to log"
-    tail -f /tmp/log.txt
-else
-    bashio::log.green "Not attaching to log"
-    tmux wait-for done
-fi
+code tunnel --accept-server-license-terms $args
