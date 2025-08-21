@@ -14,6 +14,6 @@ map:
   - addon_config:rw
 
 ports:
-  - "5000/tcp": 5000
+  "5000/tcp": 5000
 ports_description:
-  - "5000/tcp": "Flask server port"
+  "5000/tcp": "Flask server port"
