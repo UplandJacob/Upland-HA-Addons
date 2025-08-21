@@ -13,11 +13,9 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    curl tar tmux git && \
+    curl tar git && \
     curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz && \
-    mkdir code && \
-    tar -xf vscode_cli.tar.gz -C /code && \
-    mv /code/code /code/.code
+    tar -xf vscode_cli.tar.gz -C /bin
 
 # Modules
 ARG MODULES="00-banner.sh"
@@ -41,6 +39,10 @@ ADD "https://raw.githubusercontent.com/alexbelgium/hassio-addons/master/.templat
 RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.sh && rm /ha_entrypoint_modif.sh
 
 RUN rm /etc/cont-init.d/00-global_var.sh
+
+# Set environment variables for VS Code CLI
+ENV VSCODE_CLI_USE_FILE_KEYCHAIN=true
+ENV VSCODE_CLI_DATA_DIR=/config
 
 
 ARG BUILD_ARCH

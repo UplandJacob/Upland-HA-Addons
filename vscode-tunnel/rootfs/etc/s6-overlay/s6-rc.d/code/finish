@@ -1,5 +1,6 @@
 #!/usr/bin/with-contenv bashio
 
+code tunnel kill
 bashio::log.green "FINISH: VSCode Tunnel stopped."
 
 exit 0
