@@ -142,7 +142,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.skinsrestorer.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
             echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.skinsrestorer.version = \"$latestVers\" | ${{ env.PLs }}.skinsrestorer.version style=\"\"" ${{ env.VERS_FILE }}
           fi
@@ -156,7 +156,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.authme_velocity.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
             echo "changed=${{ env.changed }} AuthMeVelocity" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.authme_velocity.version = $latestVers" ${{ env.VERS_FILE }}
           fi
@@ -197,7 +197,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.bungeeguard.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
             echo "changed=${{ env.changed }} BungeeGuard" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.bungeeguard.version = $latestVers" ${{ env.VERS_FILE }}
           fi

@@ -183,7 +183,7 @@ jobs:
           currentVers=$(yq '${{ env.PLs }}.eaglerxserver.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
 
-          if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "null" ]; then
             echo "changed=${{ env.changed }} EaglercraftXServer" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.eaglerxserver.version = \"$latestVers\" | ${{ env.PLs }}.eaglerxserver.version style=\"\"" ${{ env.VERS_FILE }}
             yq eval -i "${{ env.PLs }}.eaglerxrewind.version = \"$latestVers\" | ${{ env.PLs }}.eaglerxrewind.version style=\"\"" ${{ env.VERS_FILE }}
@@ -199,7 +199,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.skinsrestorer.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
             echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.skinsrestorer.version = \"$latestVers\" | ${{ env.PLs }}.skinsrestorer.version style=\"\"" ${{ env.VERS_FILE }}
           fi
@@ -213,7 +213,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.geyser_extras.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
             echo "changed=${{ env.changed }} GeyserExtras" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.geyser_extras.version = \"$latestVers\" | ${{ env.PLs }}.geyser_extras.version style=\"\"" ${{ env.VERS_FILE }}
           fi
@@ -227,7 +227,7 @@ jobs:
 
           currentBuild=$(yq '${{ env.PLs }}.xbox_broadcast.build' ${{ env.VERS_FILE }})
           echo "current version: $currentBuild"
-          if [ "$latestBuild" != "$currentBuild" ]; then
+          if [ "$latestBuild" != "$currentBuild" ] && [ "$latesetBuild" != "null" ]; then
             echo "changed=${{ env.changed }} MCXboxBroadcaster" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.xbox_broadcast.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
@@ -270,7 +270,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.authme_velocity.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
             echo "changed=${{ env.changed }} AuthMeVelocity" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.authme_velocity.version = $latestVers" ${{ env.VERS_FILE }}
           fi
@@ -284,7 +284,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.vpacket_events.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
             echo "changed=${{ env.changed }} VPacketEvents" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.vpacket_events.version = $latestVers" ${{ env.VERS_FILE }}
           fi
