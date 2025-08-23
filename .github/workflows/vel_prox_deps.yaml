@@ -199,7 +199,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.skinsrestorer.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "null" ]; then
             echo "changed=${{ env.changed }} SkinsRestorer" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.skinsrestorer.version = \"$latestVers\" | ${{ env.PLs }}.skinsrestorer.version style=\"\"" ${{ env.VERS_FILE }}
           fi
@@ -213,7 +213,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.geyser_extras.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "null" ]; then
             echo "changed=${{ env.changed }} GeyserExtras" >> $GITHUB_ENV;
             yq eval -i "${{ env.PLs }}.geyser_extras.version = \"$latestVers\" | ${{ env.PLs }}.geyser_extras.version style=\"\"" ${{ env.VERS_FILE }}
           fi
@@ -227,7 +227,7 @@ jobs:
 
           currentBuild=$(yq '${{ env.PLs }}.xbox_broadcast.build' ${{ env.VERS_FILE }})
           echo "current version: $currentBuild"
-          if [ "$latestBuild" != "$currentBuild" ] && [ "$latesetBuild" != "null" ]; then
+          if [ "$latestBuild" != "$currentBuild" ] && [ "$latestBuild" != "null" ]; then
             echo "changed=${{ env.changed }} MCXboxBroadcaster" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.xbox_broadcast.build = $latestBuild" ${{ env.VERS_FILE }}
           fi
@@ -266,11 +266,11 @@ jobs:
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' -H "Authorization: Bearer ${{ secrets.HA_GITHUB_TOKEN }}" "https://api.github.com/repos/4drian3d/AuthMeVelocity/releases?per_page=1")
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .[0].tag_name)
-          echo "latest build: $latestVers"
+          echo "latest version: $latestVers"
 
           currentVers=$(yq '${{ env.PLs }}.authme_velocity.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "null" ]; then
             echo "changed=${{ env.changed }} AuthMeVelocity" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.authme_velocity.version = $latestVers" ${{ env.VERS_FILE }}
           fi
@@ -284,7 +284,7 @@ jobs:
 
           currentVers=$(yq '${{ env.PLs }}.vpacket_events.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
-          if [ "$latestVers" != "$currentVers" ] && [ "$latesetVers" != "null" ]; then
+          if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "null" ]; then
             echo "changed=${{ env.changed }} VPacketEvents" >> $GITHUB_ENV;
             yq -i "${{ env.PLs }}.vpacket_events.version = $latestVers" ${{ env.VERS_FILE }}
           fi
