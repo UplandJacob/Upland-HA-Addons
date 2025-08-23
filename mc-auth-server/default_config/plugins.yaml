@@ -54,7 +54,7 @@ packaged_plugins:
     file: "AuthMe.jar"
   authme_velocity:
     url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Paper-{version}.jar"
-    version: 4.1.2
+    version: 4.2.0
     file: "AuthMeVelocity.jar"
     enabled: false # since we're using HaHaWTH's AuthMeReReloaded instead, which has built in Velocity support, we don't need this
   bungeeguard:
