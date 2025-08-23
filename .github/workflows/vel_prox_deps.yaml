@@ -272,7 +272,7 @@ jobs:
           echo "current version: $currentVers"
           if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "null" ]; then
             echo "changed=${{ env.changed }} AuthMeVelocity" >> $GITHUB_ENV;
-            yq -i "${{ env.PLs }}.authme_velocity.version = $latestVers" ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.authme_velocity.version = \"$latestVers\" | ${{ env.PLs }}.authme_velocity.version style=\"\"" ${{ env.VERS_FILE }}
           fi
 
       - name: VPacketEvents
