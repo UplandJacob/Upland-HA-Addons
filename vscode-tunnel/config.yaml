@@ -12,9 +12,16 @@ init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-vscode-tunnel-{arch}
 hassio_api: true
 map:
-  - addon_config: rw
-  - share: rw
-  - media: rw
+  - type: addon_config
+    read_only: false
+  - type: share
+    read_only: false
+  - type: media
+    read_only: false
+  - type: homeassistant_config
+    read_only: false
+  - type: all_addon_configs
+    read_only: false
 
 options:
   name: ''
