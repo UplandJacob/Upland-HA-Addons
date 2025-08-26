@@ -6,6 +6,10 @@ getConfig() {
   jq --raw-output "$1" /data/options.json
 }
 
+# Activate the virtual environment
+bashio::log.green "Activating virtual environment in /config/flask"
+source /config/flask/bin/activate
+
 bashio::log.green "Starting app..."
 
 # Start Flask app
