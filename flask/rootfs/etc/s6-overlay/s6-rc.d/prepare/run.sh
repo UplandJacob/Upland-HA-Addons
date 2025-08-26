@@ -1,5 +1,12 @@
 #!/usr/bin/with-contenv bashio
 
+set -euo pipefail
+
+if [ ! -f /config ]; then
+    bashio::log.green "Creating /config folder"
+    mkdir /config
+fi
+
 if [ ! -f /config/requirements.txt ]; then
     bashio::log.green "Copying default requirements.txt to /config"
     cp /default_config/requirements.txt /config/requirements.txt
@@ -9,6 +16,7 @@ if [ ! -d /config/flask ]; then
     bashio::log.green "Creating folder 'flask' in /config"
     mkdir -p /config/flask
 fi
+
 if [ ! -d /config/flask/bin ]; then
     bashio::log.green "Creating virtual environment in /config/flask"
     python3 -m venv /config/flask
@@ -25,3 +33,5 @@ if [ ! -f /config/flask/main.py ]; then
     bashio::log.green "Copying default main.py to /config/flask"
     cp /default_config/main.py /config/flask/main.py
 fi
+
+bashio::log.green "Finished preparing Flask application"

@@ -1,1 +1,1 @@
-python3 ./run.sh
+bash /etc/s6-overlay/s6-rc.d/prepare/run.sh

@@ -42,6 +42,7 @@ RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.
 RUN rm /etc/cont-init.d/00-global_var.sh
 
 
+
 ARG BUILD_ARCH
 #ARG BUILD_DATE
 #ARG BUILD_REF
