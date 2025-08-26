@@ -1,7 +1,7 @@
 name: Flask Server
 version: 1.0.0
 slug: flask
-description: Addon to run a Flash web server in Home Assistant
+description: Addon to run a Flask web server in Home Assistant
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/flask
 stage: experimental
 hassio_api: true
@@ -11,7 +11,10 @@ arch:
   - amd64
   - aarch64
 map:
-  - addon_config:rw
+  - type: addon_config
+    read_only: false
+  - type: share
+    read_only: false
 
 ports:
   "5000/tcp": 5000

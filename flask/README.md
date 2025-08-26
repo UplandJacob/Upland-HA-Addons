@@ -31,4 +31,4 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 
 1. Install the addon and start it to generate the environment.
 2. Any Python libraries you need, you can add to 'requirements.txt' in 'addon_configs/d78ad65c_flask'
-3. You may then edit the app using the VS Code Server addon or even SFTP+VS Code on another computer.
+3. You may then edit the app using the VS Code Server addon or even SFTP+VSCode on another computer.
