@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-if [ ! -f /config ]; then
+if [ ! -d /config ]; then
     bashio::log.green "Creating /config folder"
     mkdir /config
 fi
