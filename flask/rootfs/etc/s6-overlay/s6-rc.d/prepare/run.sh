@@ -7,14 +7,14 @@ if [ ! -d /config ]; then
     mkdir /config
 fi
 
-if [ ! -f /config/requirements.txt ]; then
-    bashio::log.green "Copying default requirements.txt to /config"
-    cp /default_config/requirements.txt /config/requirements.txt
-fi
-
 if [ ! -d /config/flask ]; then
     bashio::log.green "Creating folder 'flask' in /config"
     mkdir -p /config/flask
+fi
+
+if [ ! -f /config/flask/requirements.txt ]; then
+    bashio::log.green "Copying default requirements.txt to /config/flask"
+    cp /default_config/requirements.txt /config/flask/requirements.txt
 fi
 
 if [ ! -d /config/flask/bin ]; then
@@ -26,8 +26,8 @@ bashio::log.green "Activating virtual environment in /config/flask"
 source /config/flask/bin/activate
 
 # Install the required packages from the user's requirements.txt
-bashio::log.green "Installing required packages from /config/requirements.txt"
-python3 -m pip install --no-cache-dir --break-system-packages -r /config/requirements.txt
+bashio::log.green "Installing required packages from /config/flask/requirements.txt"
+python3 -m pip install --no-cache-dir --break-system-packages -r /config/flask/requirements.txt
 
 if [ ! -f /config/flask/main.py ]; then
     bashio::log.green "Copying default main.py to /config/flask"

@@ -11,6 +11,6 @@ bashio::log.green "Activating virtual environment in /config/flask"
 source /config/flask/bin/activate
 
 bashio::log.green "Starting app..."
+cd /config/flask
 
-# Start Flask app
-python3 /config/flask/main.py
+python3 ./main.py
