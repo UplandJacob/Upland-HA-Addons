@@ -6,14 +6,14 @@
 ![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
 ![Supports amd64 Architecture](https://img.shields.io/badge/amd64-yes-green.svg?style=flat)
 ![Supports armhf Architecture](https://img.shields.io/badge/armhf-no-red.svg?style=flat)
-![Supports armv7 Architecture](https://img.shields.io/badge/armv7-yes-green.svg)
+![Supports armv7 Architecture](https://img.shields.io/badge/armv7-deprecated-orange.svg)
 ![Supports i386 Architecture](https://img.shields.io/badge/i386-no-red.svg)
 
 ## About
 
 Playit.gg is a global proxy that allows anyone to host a server without port forwarding.
 
-Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamcorsel/hassio-addons/pull/26) `williamcorsel/hassio-addons` that used the `alex33856/playitgg-docker` image. The Dockerfile for this addon uses the majority of that Dockerfile.
+Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamcorsel/hassio-addons/pull/26) `williamcorsel/hassio-addons` that used the `alex33856/playitgg-docker` image. The Dockerfile for this addon uses the majority of alex33856's Dockerfile.
 
 ## Install
 
@@ -33,6 +33,6 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 
 1. If you don't already have a Playit.gg account, head over to [Playit.gg](https://playit.gg) and sign up.
 2. Follow the install instructions above and start it, then go to the "Log" tab.
-3. Find the claim link, copy and paste it into a browser, and go through the claim process to add your node to your Playit.gg account.
+3. Find the claim link, copy and paste it into a browser, and go through the claim process to add your agent to your Playit.gg account.
 4. Check the add-on logs to ensure the add-on has successfully connected to your Playit.gg account.
 5. Back [on the website](https://playit.gg/account/agents), click on the agent, then "+Add Tunnel" to expose whatever services you want to the internet.
