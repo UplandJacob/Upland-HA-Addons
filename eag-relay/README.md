@@ -1,13 +1,13 @@
 # Eaglercraft Relay
 
-![Addon Stage](https://img.shields.io/badge/Addon%20stage-experimental-yellow.svg)
+![Addon Stage](https://img.shields.io/badge/Addon%20stage-functional-green.svg)
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
 
 ![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
 ![Supports amd64 Architecture](https://img.shields.io/badge/amd64-yes-green.svg?style=flat)
 ![Supports armhf Architecture](https://img.shields.io/badge/armhf-no-red.svg?style=flat)
 ![Supports armv7 Architecture](https://img.shields.io/badge/armv7-no-red.svg)
-![Supports i386 Architecture](https://img.shields.io/badge/i386-yes-green.svg)
+![Supports i386 Architecture](https://img.shields.io/badge/i386-deprecated-orange.svg)
 
 ## About
 
