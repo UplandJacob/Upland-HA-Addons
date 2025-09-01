@@ -13,7 +13,10 @@ checkDir () {
 }
 
 checkDir "/config/workspace"
-checkDir "/root/.vscode"
+checkDir "/config/.vscode"
+checkDir "/config/.vscode-server"
+rm -R /root
+ln -s /config/root /
 
 args=""
 

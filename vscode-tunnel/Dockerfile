@@ -42,7 +42,8 @@ RUN rm /etc/cont-init.d/00-global_var.sh
 
 # Set environment variables for VS Code CLI
 ENV VSCODE_CLI_USE_FILE_KEYCHAIN=true
-ENV VSCODE_CLI_DATA_DIR=/config
+ENV VSCODE_CLI_DATA_DIR=/config/.vscode
+ENV VSCODE_AGENT_FOLDER=/config/.vscode-server
 
 
 ARG BUILD_ARCH
