@@ -26,7 +26,7 @@ else
     args="microsoft"
 fi
 
-if [ ! -f "/config/token.json" ]; then
+if [ ! -f "/config/.vscode/token.json" ]; then
     bashio::log.green "No token found, initiating log in with type: $args"
     code tunnel user login --provider $args
 fi
