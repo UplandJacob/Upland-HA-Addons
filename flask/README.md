@@ -1,6 +1,6 @@
 # Flask Server
 
-![Addon Stage](https://img.shields.io/badge/Addon%20stage-in_progess-yellow.svg)
+![Addon Stage](https://img.shields.io/badge/Addon%20stage-ready-green.svg)
 ![GitHub License](https://img.shields.io/github/license/Uplandjacob/Upland-ha-addons)
 
 ![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
@@ -11,7 +11,7 @@
 
 ## About
 
-Flask is a Python webserver primarily used for testing web applications with APIs, but is an great server for any sort of simple API you need.
+Flask is a Python webserver primarily used for testing web applications with APIs, but is an great server for any sort of simple site or API you need.
 
 ## Install
 
@@ -30,5 +30,6 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 ## Setup
 
 1. Install the addon and start it to generate the environment.
-2. Any Python libraries you need, you can add to 'requirements.txt' in 'addon_configs/d78ad65c_flask'
-3. You may then edit the app using the VS Code Server addon or even SFTP+VSCode on another computer.
+2. Any Python libraries you need, you can add to 'requirements.txt' in 'addon_configs/d78ad65c_flask' (to get the version, run `pip install --dry-run PACKAGE` [requires `--break-system-packages` flag inside addon] and look at the first version on the 'Would install...' line)
+3. You may then edit the app using the VS Code Server addon, SFTP+VSCode on another computer, or by opening <https://vscode.dev/tunnel/TUNNEL_NAME/addon_configs/d78ad65c_flask/flask> with my [VSCode Tunnel addon](/vscode-tunnel/).
+4. Anytime `main.py` is saved, Flask will detect it and automatically restart the server.

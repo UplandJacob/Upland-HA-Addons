@@ -1,0 +1,7 @@
+configuration:
+  name:
+    name: Tunnel name
+    description: Leave blank for random name.
+  ghLogin:
+    name: GitHub login
+    description: Disable for Microsoft login.
