@@ -6,12 +6,12 @@
 ![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg?style=flat)
 ![Supports amd64 Architecture](https://img.shields.io/badge/amd64-yes-green.svg?style=flat)
 ![Supports armhf Architecture](https://img.shields.io/badge/armhf-no-red.svg?style=flat)
-![Supports armv7 Architecture](https://img.shields.io/badge/armv7-np-red.svg)
+![Supports armv7 Architecture](https://img.shields.io/badge/armv7-no-red.svg)
 ![Supports i386 Architecture](https://img.shields.io/badge/i386-no-red.svg)
 
 ## About
 
-The VSCode Tunnel addon runs a fully featured VSCode tunnel server that can be accessed from [vscode.dev](https://vscode.dev) and supports all extentions (at least all I have tested with a bit of work). 
+The VSCode Tunnel addon runs a fully featured VSCode tunnel server that can be accessed from [vscode.dev](https://vscode.dev) and supports all extentions (at least all I have tested with a bit of work).
 
 `git`, `ssh`, and `docker-cli` come pre-installed, supporting anything with Docker ('Protection Mode' must be disabled for Docker. It uses HA's `docker.sock`) Anything that is stored in `~` (including ssh keys, git configs, etc.) are saved. If you want to install other features, you may use the `vscode-tunnel.sh` file in the config to auto-run on addon startup (see below for the Hadolint example).
 
@@ -42,18 +42,23 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 - To reset the tunnel name, delete the `.vscode/code_tunnel.json` file.
 
 ### Hadolint example
+
 *You must disable 'Protection Mode' for this to work (uses Docker).*
 
 I added the following to `vscode-tunnel.sh`:
+
 ```bash
 cp /config/hadolint /bin/hadolint
 chmod +x /bin/hadolint
 ```
+
 Then created a file named just `hadolint` (per [Hadolint install recommendations](https://github.com/hadolint/hadolint/#:~:text=VS%20Code%20Hadolint%20extension%20to%20use%20Hadolint%20in%20a%20container)) that the script above copies into `/bin`:
+
 ```bash
 #!/bin/bash
 dockerfile="$1"
 shift
 docker run --rm -i hadolint/hadolint hadolint "$@" - < "$dockerfile"
 ```
+
 Then I simply ran `docker pull hadolint/hadolint`. Anytime the Hadolint extention requests, the container is started in HA.
