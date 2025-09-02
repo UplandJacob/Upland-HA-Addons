@@ -18,13 +18,11 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     yq curl && \
-    apt-get autoremove && apt-get clean
+    apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN curl --no-progress-meter -H "Accept-Encoding: identity" \
     -H "Accept-Language: en" -L -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4.212 Safari/537.36" \
-    -o /EaglerSPRelay.jar "https://git.eaglercraft.rip/eaglercraft/eaglercraft-1.8/raw/commit/${RELAY_DL_COMMIT}/sp-relay/SharedWorldRelay/SharedWorldRelay-Latest.jar"
-
-RUN chmod +x run.sh
+    -o /EaglerSPRelay.jar "https://github.com/Eaglercraft-Archive/Eaglercraftx-1.8.8-src/raw/${RELAY_DL_COMMIT}/sp-relay/SharedWorldRelay/SharedWorldRelay-Latest.jar"
 
 # entrypoint
 CMD [ "/start.sh" ]

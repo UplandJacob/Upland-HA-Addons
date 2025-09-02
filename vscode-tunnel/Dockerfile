@@ -2,6 +2,7 @@ ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
 
 WORKDIR /
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY rootfs .
 
@@ -9,12 +10,13 @@ COPY rootfs .
 # hadolint ignore=DL4005
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
-
+# hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     curl tar git ssh && \
     curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz && \
-    tar -xf vscode_cli.tar.gz -C /bin
+    tar -xf vscode_cli.tar.gz -C /bin && \
+    apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV DOCKER_VERS=28.3.3
 RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERS.tgz | tar zxvf - --strip 1 -C /usr/bin docker/docker
