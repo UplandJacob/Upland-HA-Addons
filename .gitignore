@@ -1,0 +1,5 @@
+.venv/
+
+/*/data
+/*/config
+/*/default_config/config.yaml

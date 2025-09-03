@@ -6,6 +6,7 @@ WORKDIR /
 COPY rootfs .
 COPY default_config default_config
 COPY requirements.txt requirements.txt
+COPY config.yaml /default_config
 
 
 # Uses /bin for compatibility purposes

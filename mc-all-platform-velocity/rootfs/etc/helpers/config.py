@@ -7,6 +7,7 @@ from colorlog import ColoredFormatter
 import os
 import random
 import re
+from typing import Any
 import requests
 import shutil
 import string
@@ -19,15 +20,17 @@ CONF_DIR = ROOT_DIR + '/config'
 SERV_DIR = CONF_DIR + '/server'
 PLUG_DIR = SERV_DIR + '/plugins'
 DEF_CONF = ROOT_DIR + '/default_config'
-with open(ROOT_DIR+"/data/options.json", "r") as file:
-  addon_conf = json.load(file)
 
-LOG_LEVEL = addon_conf['logLevel']
+LOG_LEVEL = 2
 log = logging.getLogger()
-if LOG_LEVEL >= 4: log.setLevel(logging.DEBUG)
-elif LOG_LEVEL >= 2: log.setLevel(logging.INFO)
-elif LOG_LEVEL == 1: log.setLevel(logging.WARNING)
-else: log.setLevel(logging.ERROR)
+def set_log_level(level: int):
+  global LOG_LEVEL
+  LOG_LEVEL = level
+  if level >= 4: log.setLevel(logging.DEBUG)
+  elif level >= 2: log.setLevel(logging.INFO)
+  elif level == 1: log.setLevel(logging.WARNING)
+  else: log.setLevel(logging.ERROR)
+set_log_level(2)
 
 formatter = ColoredFormatter("%(log_color)s%(levelname)s: %(message)s", log_colors={
   "DEBUG":"white","INFO":"green","WARNING":"yellow","ERROR":"red","CRITICAL":"bold_red"
@@ -45,7 +48,7 @@ def check_dir(path: str):
     log.warning(f"Directory {path} does not exist, creating...")
     os.makedirs(path, exist_ok=True)
 
-def file_exists(path):
+def file_exists(path: str) -> bool:
   log_debug_x(f"Checking if file {path} exists...")
   return os.path.isfile(path)
 
@@ -59,37 +62,48 @@ def write_file_w(path: str, to_write: str):
   with open(path, 'w', encoding='utf-8') as file:
     return file.write(to_write)
 
-def log_debug_x(msg: str):
+def log_debug_x(msg: Any):
   if LOG_LEVEL >= 5: log.debug(msg)
-def log_info_x(msg: str):
+def log_info_x(msg: Any):
   if LOG_LEVEL >= 3: log.info("\033[0m"+msg)
 
 
-def minimsg_to_leg(minimessage):
-    colors = {
-        "<black>": "&0", "<dark_blue>": "&1", "<dark_green>": "&2", "<dark_aqua>": "&3", "<dark_red>": "&4", "<dark_purple>": "&5",
-        "<gold>": "&6", "<gray>": "&7", "<dark_gray>": "&8", "<blue>": "&9", "<green>": "&a", "<aqua>": "&b",
-        "<red>": "&c", "<light_purple>": "&d", "<yellow>": "&e", "<white>": "&f", "<reset>": "&r"
-    }
-    formats = {
-        "<obfuscated>": "&k", "<obf>": "&k", "<bold>": "&l", "<b>": "&l", "<strikethrough>": "&m", "<st>": "&m",
-        "<underline>": "&n", "<u>": "&n", "<italic>": "&o", "<i>": "&o"
-    }
-    result = minimessage
-    # Handle hex colors with closest legacy match
-    hex_pattern = r'<#([0-9a-fA-F]{6})>'
-    for match in re.finditer(hex_pattern, result):
-        hex_color = match.group(1)
-        result = result.replace(f'<#{hex_color}>', "&b")
-    # Handle gradients
-    gradient_pattern = r'<gradient[^>]*>.*?</gradient>'
-    result = re.sub(gradient_pattern, lambda m: "&b" + re.sub(r'<[^>]+>', '', m.group(0)), result)
-    for mini, legacy in {**colors, **formats}.items():
-        result = result.replace(mini, legacy)
-    result = re.sub(r'<click[^>]*>.*?</click>', lambda m: re.sub(r'<[^>]+>', '', m.group(0)), result)
-    result = re.sub(r'<hover[^>]*>.*?</hover>', lambda m: re.sub(r'<[^>]+>', '', m.group(0)), result)
-    result = re.sub(r'<[^>]+>', '', result)
-    return result
+if not file_exists(ROOT_DIR+"/data/options.json"):
+  log.warning("options.json file not found. Is this addon running outside of Home Assistant? Converting YAML to JSON...")
+  ymlConf = yaml.load(read_file(DEF_CONF+"/config.yaml"))
+  write_file_w(ROOT_DIR+"/data/options.json", json.dumps(ymlConf["options"], indent=2))
+
+with open(ROOT_DIR+"/data/options.json", "r") as file:
+  addon_conf = json.load(file)
+
+set_log_level(addon_conf['logLevel'])
+
+
+def minimsg_to_leg(minimessage: str):
+  colors = {
+    "<black>": "&0", "<dark_blue>": "&1", "<dark_green>": "&2", "<dark_aqua>": "&3", "<dark_red>": "&4", "<dark_purple>": "&5",
+    "<gold>": "&6", "<gray>": "&7", "<dark_gray>": "&8", "<blue>": "&9", "<green>": "&a", "<aqua>": "&b",
+    "<red>": "&c", "<light_purple>": "&d", "<yellow>": "&e", "<white>": "&f", "<reset>": "&r"
+  }
+  formats = {
+    "<obfuscated>": "&k", "<obf>": "&k", "<bold>": "&l", "<b>": "&l", "<strikethrough>": "&m", "<st>": "&m",
+    "<underline>": "&n", "<u>": "&n", "<italic>": "&o", "<i>": "&o"
+  }
+  result = minimessage
+  # Handle hex colors with closest legacy match
+  hex_pattern = r'<#([0-9a-fA-F]{6})>'
+  for match in re.finditer(hex_pattern, result):
+    hex_color = match.group(1)
+    result = result.replace(f'<#{hex_color}>', "&b")
+  # Handle gradients
+  gradient_pattern = r'<gradient[^>]*>.*?</gradient>'
+  result = re.sub(gradient_pattern, lambda m: "&b" + re.sub(r'<[^>]+>', '', m.group(0)), result)
+  for mini, legacy in {**colors, **formats}.items():
+    result = result.replace(mini, legacy)
+  result = re.sub(r'<click[^>]*>.*?</click>', lambda m: re.sub(r'<[^>]+>', '', m.group(0)), result)
+  result = re.sub(r'<hover[^>]*>.*?</hover>', lambda m: re.sub(r'<[^>]+>', '', m.group(0)), result)
+  result = re.sub(r'<[^>]+>', '', result)
+  return result
 
 ## ------------------ ##
 
@@ -124,7 +138,7 @@ vers_data['velocity'] = vers_default['velocity']
 MAX_PLAYERS = addon_conf['max_players']
 SERVER_NAME = addon_conf['server_name']
 
-def parse_pl_holds(inp):
+def parse_pl_holds(inp: str):
   inp = re.sub(r"{se?rv(er)?(_?na?me?)?}", SERVER_NAME, inp, flags=re.IGNORECASE)
   inp = re.sub(r"{max_?pl(a?ye?)?r?s}", str(MAX_PLAYERS), inp, flags=re.IGNORECASE)
   return inp
@@ -200,7 +214,7 @@ def plug_placeholders(txt: str, data: dict) -> str:
   return txt
 
 
-def download_file(url: str, f_name: str, path=PLUG_DIR):
+def download_file(url: str, f_name: str, path: str=PLUG_DIR):
   log.info(f"Downloading {f_name} from {url}...")
   response = requests.get(url)
   if response.status_code == 200:
@@ -230,7 +244,9 @@ check_dir(PLUG_DIR)
 check_dir(PLUG_DIR+"/Geyser-Velocity/extensions")
 check_dir(PLUG_DIR+"/Geyser-Velocity/packs")
 
-def download_plugins(main_group: str, override_group: str):
+all_plug_nms = []
+
+def download_plugins(main_group: str, override_group: str = ''):
   log.info(f"Downloading plugins from '{main_group}' with overrides from '{override_group}'")
   if vers_data[main_group] is None: return
 
@@ -238,6 +254,10 @@ def download_plugins(main_group: str, override_group: str):
   over_group = {} if override_group == '' or vers_data[override_group] is None else vers_data[override_group]
   for plugin in plug_group:
     log_info_x(f"Plugin: {plugin}")
+    if plugin in all_plug_nms:
+      log.error(f"Plugin name '{plugin}' already used. If you are trying to override a plugin's settings, use the override section.")
+      continue
+    all_plug_nms.append(plugin)
     plugin_data = plug_group[plugin]
     log_debug_x(f"Plugin data: {plugin_data}")
 
@@ -251,7 +271,7 @@ def download_plugins(main_group: str, override_group: str):
 
     path = "/"
     if 'path' in plugin_data and plugin_data['path'] is not None:
-      path = plugin_data['path']
+      path = str(plugin_data['path'])
       if not path.startswith("/"): path = "/"+path
       if not path.endswith("/"): path += "/"
     log.debug(f"Path: {path}")
@@ -272,7 +292,6 @@ def download_plugins(main_group: str, override_group: str):
       jar_present = True
 
     url = plug_placeholders(plugin_data['url'], plugin_data)
-    if vers_data['current_installed_urls'] is None: vers_data['current_installed_urls'] = {}
     urls = vers_data['current_installed_urls']
 
     if plugin in urls and urls[plugin] == url and jar_present:
@@ -280,12 +299,20 @@ def download_plugins(main_group: str, override_group: str):
       continue
     if download_file(url, f_nm, PLUG_DIR+path):
       vers_data['current_installed_urls'][plugin] = url
+      old_fl = vers_data['current_installed_files'].get(plugin, None)
+      if old_fl is not None and old_fl != f_nm and file_exists(PLUG_DIR+path+old_fl):
+        log_info_x(f"Removing old jar ('{old_fl}') for '{plugin}' because it is now '{f_nm}'")
+        os.remove(PLUG_DIR+path+old_fl)
+      vers_data['current_installed_files'][plugin] = f_nm
     else: 
       log.error(f"Failed to download plugin {plugin}")
       continue
 
+if 'current_installed_urls' not in vers_data or vers_data['current_installed_urls'] is None: vers_data['current_installed_urls'] = {}
+if 'current_installed_files' not in vers_data or vers_data['current_installed_files'] is None: vers_data['current_installed_files'] = {}
+
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
-download_plugins('custom_plugins', '')
+download_plugins('custom_plugins')
 
 with open(CONF_DIR+"/plugins.yaml", "w") as file:
   yaml.dump(vers_data, file)
@@ -345,11 +372,11 @@ if not file_exists(PLUG_DIR+"/eaglerxserver/listeners.toml"):
 eag_list_toml = tomlkit.parse(read_file(PLUG_DIR+"/eaglerxserver/listeners.toml"))
 eag_motd = [minimsg_to_leg(MOTD1), minimsg_to_leg(MOTD2)]
 log_info_x(f"EaglerXServer MOTD: {eag_motd}")
-eag_list_toml['listener_list'][0]['server_motd'] = eag_motd
+eag_list_toml['listener_list'][0]['server_motd'] = eag_motd # pyright: ignore[reportArgumentType]
 
 for setting in EAG_LISTENER:
   log.debug(f"{setting}: {EAG_LISTENER[setting]}")
-  eag_list_toml['listener_list'][0][setting] = EAG_LISTENER[setting]
+  eag_list_toml['listener_list'][0][setting] = EAG_LISTENER[setting] # pyright: ignore[reportArgumentType]
 
 
 log_debug_x(eag_list_toml)
