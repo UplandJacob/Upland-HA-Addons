@@ -1,6 +1,12 @@
 # Changelog
 
-## 2.0.0 (07/10/2025)
+## 2.1.x (09/02/2025)
+- Save and update jar file names dynamically
+- Support running outside of Home Assistant
+- Update plugins and Velocity
+- Behind the scenes cleanup
+
+## 2.0.x (07/10/2025)
 
 - merge beta:
 - Scripts written in python
