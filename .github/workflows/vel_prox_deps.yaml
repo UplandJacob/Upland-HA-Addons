@@ -317,7 +317,7 @@ jobs:
 
       - name: Find and update PR title
         if: ${{ env.need_pr_update }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.HA_GITHUB_TOKEN }}
           script: |
