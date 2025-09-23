@@ -25,7 +25,7 @@ LOG_LEVEL = 2
 log = logging.getLogger()
 def set_log_level(level: int):
   global LOG_LEVEL
-  LOG_LEVEL = level
+  LOG_LEVEL = level # pyright: ignore[reportConstantRedefinition]
   if level >= 4: log.setLevel(logging.DEBUG)
   elif level >= 2: log.setLevel(logging.INFO)
   elif level == 1: log.setLevel(logging.WARNING)
@@ -207,7 +207,7 @@ log.info("Updated velocity.toml")
 
 ## ----------------------------------- ##
 
-def plug_placeholders(txt: str, data: dict) -> str:
+def plug_placeholders(txt: str, data: dict[str, str]) -> str:
   for placeholder in re.findall(r'\{(\w+)\}', txt):
     log.debug(f"Found placeholder: {placeholder}")
     txt = txt.replace(f"{{{placeholder}}}", str(data[placeholder]))
