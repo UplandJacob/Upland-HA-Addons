@@ -1,4 +1,4 @@
-ARG BUILD_FROM=gitea/act_runner:nightly-dind
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
 
 # Set S6 wait time
@@ -15,6 +15,14 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl yq \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/0.2.13/act_runner-0.2.13-linux-amd64 && \
+    chmod +x /usr/local/bin/act_runner
+ 
 ENV CONFIG_FILE=/config/config.yaml
 
 # Modules

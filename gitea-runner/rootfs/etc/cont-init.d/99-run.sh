@@ -2,4 +2,4 @@
 
 bashio::log.info "Starting app..."
 
-/usr/local/bin/run.sh
+/usr/local/bin/act_runner 
