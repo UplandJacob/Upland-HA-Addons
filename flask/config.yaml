@@ -1,5 +1,5 @@
 name: Flask Server
-version: 1.2.0
+version: 1.2.1
 slug: flask
 description: Addon to run a Flask web server in Home Assistant
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/flask
