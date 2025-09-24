@@ -21,9 +21,8 @@ RUN apt-get update && \
     curl wget \
     && rm -rf /var/lib/apt/lists/*
 
-ENV VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
-
-RUN wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${BUILD_ARCH} -O /usr/local/bin/yq && \
+RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${BUILD_ARCH} -O /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
 
