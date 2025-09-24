@@ -22,7 +22,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
-    [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="${BUILD_ARCH}"
+    [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="${BUILD_ARCH}" && \
     wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
