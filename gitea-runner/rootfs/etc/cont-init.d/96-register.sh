@@ -14,7 +14,7 @@ if [ ! -f /config/.runner ]; then
         bashio::log.fatal "GITEA_RUNNER_NAME is not set."
         exit 1
     fi
-    $extra_args=""
+    extra_args=""
     if [ -v $GITEA_RUNNER_LABELS ]; then
         extra_args="--labels $GITEA_RUNNER_LABELS"
     else
