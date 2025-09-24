@@ -87,7 +87,7 @@ packaged_plugins:
     file: "ViaRewind.jar"
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.7.10
+    version: 15.8.0
     file: "SkinsRestorer.jar"
     enabled: false
   authme_velocity:
@@ -108,6 +108,6 @@ packaged_plugins:
 velocity:
   url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
   version: 3.4.0-SNAPSHOT
-  build: 535
+  build: 537
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
