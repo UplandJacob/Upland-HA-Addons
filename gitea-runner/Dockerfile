@@ -1,5 +1,6 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
+ARG BUILD_ARCH=amd64
 
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
@@ -17,10 +18,16 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    curl yq \
+    curl wget \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/0.2.13/act_runner-0.2.13-linux-amd64 && \
+ENV VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+
+RUN wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${BUILD_ARCH} -O /usr/local/bin/yq && \
+    chmod +x /usr/local/bin/yq
+
+
+RUN curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/0.2.13/act_runner-0.2.13-linux-${BUILD_ARCH} && \
     chmod +x /usr/local/bin/act_runner
  
 ENV CONFIG_FILE=/config/config.yaml
