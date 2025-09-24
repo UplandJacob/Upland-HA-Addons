@@ -15,7 +15,7 @@ if [ ! -f /config/.runner ]; then
         exit 1
     fi
     extra_args=""
-    if [ -v $GITEA_RUNNER_LABELS ]; then
+    if [ ! -v $GITEA_RUNNER_LABELS ]; then
         extra_args="--labels $GITEA_RUNNER_LABELS"
     else
         bashio::log.warning "GITEA_RUNNER_LABELS is not set."
