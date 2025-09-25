@@ -2,6 +2,8 @@ ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Set S6 wait time
 ENV S6_CMD_WAIT_FOR_SERVICES=1 \
     S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0 \
@@ -15,15 +17,14 @@ COPY rootfs/ /
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
-
+# hadolint ignore=DL3008
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    curl wget \
-    && rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends curl \
+    && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
     [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="${BUILD_ARCH}" && \
-    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -O /usr/local/bin/yq && \
+    curl https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -o /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
 
