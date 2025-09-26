@@ -42,6 +42,6 @@ fi
 bashio::log.green "Starting VSCode Tunnel with args: $args"
 cd /config/workspace
 
-ulimit -v $memLimit
+# ulimit -v $memLimit
 
 code tunnel --accept-server-license-terms $args
