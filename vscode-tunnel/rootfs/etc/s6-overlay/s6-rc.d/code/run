@@ -2,6 +2,7 @@
 
 name=$(bashio::config 'name')
 ghLogin=$(bashio::config 'ghLogin')
+memLimit=$(bashio::config 'memLimit')
 
 bashio::log.green "Name: '$name', GitHub Login: $ghLogin"
 
@@ -40,5 +41,7 @@ fi
 
 bashio::log.green "Starting VSCode Tunnel with args: $args"
 cd /config/workspace
+
+ulimit -v $memLimit
 
 code tunnel --accept-server-license-terms $args

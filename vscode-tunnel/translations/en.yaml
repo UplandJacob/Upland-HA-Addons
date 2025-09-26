@@ -5,3 +5,6 @@ configuration:
   ghLogin:
     name: GitHub login
     description: Disable for Microsoft login.
+  memLimit:
+    name: RAM usage limit
+    description: Maximum memory (in KB) the tunnel can use. Default is 1.5GB (1572864 KB).
