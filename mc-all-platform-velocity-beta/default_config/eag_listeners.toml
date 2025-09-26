@@ -58,7 +58,7 @@
   # protocol header, and will automatically disable HAProxy for the channel if it is
   # not present. You must enable HAProxy on the underlying BungeeCord/Velocity
   # listener for this to work properly.
-  dual_stack_haproxy_detection = false
+  dual_stack_haproxy_detection = false # OVERRIDDEN BY ADDON CONFIG
   # Default value is false, if HAProxy should be forcefully disabled when its
   # detected on a channel from this listener. Can be useful if the underlying server
   # does not allow disabling HAProxy on a per-listener basis (like Velocity).

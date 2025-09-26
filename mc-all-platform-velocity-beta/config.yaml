@@ -20,6 +20,7 @@ options:
   server_name: "A Cool Server"
   motd1: "<red>{srv_name}"
   motd2: "<gray>We can have <b>{maxPlayers} players!"
+  haproxy: false
   rootConfig:
     online-mode: false
     force-key-authentication: true
@@ -53,7 +54,6 @@ options:
     login-ratelimit: 3000
     connection-timeout: 5000
     read-timeout: 30000
-    haproxy-protocol: false
     tcp-fast-open: false
     bungee-plugin-message-channel: true
     show-ping-requests: false
@@ -134,8 +134,7 @@ options:
 
   geyserRemote:
     auth-type: floodgate
-    use-proxy-protocol: false
-    forward-hostname: false
+    forward-hostname: true
 
   geyser:
     command-suggestions: true
@@ -164,6 +163,7 @@ schema:
   server_name: str
   motd1: str
   motd2: str
+  haproxy: bool
   rootConfig:
     online-mode: bool
     force-key-authentication: bool
@@ -188,7 +188,6 @@ schema:
     login-ratelimit: int
     connection-timeout: int
     read-timeout: int
-    haproxy-protocol: bool
     tcp-fast-open: bool
     bungee-plugin-message-channel: bool
     show-ping-requests: bool
@@ -272,7 +271,6 @@ schema:
 
   geyserRemote:
     auth-type: match(online|offline|floodgate)
-    use-proxy-protocol: bool
     forward-hostname: bool
 
   geyser:

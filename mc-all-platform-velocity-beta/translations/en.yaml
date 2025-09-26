@@ -68,7 +68,7 @@ configuration:
     description: Basic Geyser client connection config
   geyserRemote:
     name: Geyser - Remote
-    description: Basic Geyser connection settings
+    description: Basic Geyser-to-Velocity connection settings
   geyser:
     name: Geyser 
     description: General Geyser config

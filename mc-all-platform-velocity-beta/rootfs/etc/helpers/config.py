@@ -151,6 +151,8 @@ log_info_x(f"Server Name: {SERVER_NAME}")
 log_info_x(f"MOTD1: {MOTD1}")
 log_info_x(f"MOTD2: {MOTD2}")
 
+HAPROXY = addon_conf['haproxy']
+
 
 ## ----------------------------------- ##
 
@@ -174,6 +176,7 @@ for setting in VEL_ROOT_CONFIG:
 
 vel_toml['show-max-players'] = MAX_PLAYERS
 vel_toml['motd'] = MOTD1+"\n"+MOTD2
+vel_toml['haproxy-protocol'] = HAPROXY
 
 vel_toml['servers'] = {}
 for i in range(len(VEL_SERVERS)):
@@ -378,6 +381,7 @@ for setting in EAG_LISTENER:
   log.debug(f"{setting}: {EAG_LISTENER[setting]}")
   eag_list_toml['listener_list'][0][setting] = EAG_LISTENER[setting] # pyright: ignore[reportArgumentType]
 
+eag_list_toml['listener_list'][0]['dual_stack_haproxy_detection'] = HAPROXY # pyright: ignore[reportArgumentType]
 
 log_debug_x(eag_list_toml)
 write_file_w(PLUG_DIR+"/eaglerxserver/listeners.toml", tomlkit.dumps(eag_list_toml))
@@ -459,6 +463,7 @@ geyser_yaml['max-players'] = MAX_PLAYERS
 geyser_yaml['bedrock']['server-name'] = SERVER_NAME
 geyser_yaml['bedrock']['motd1'] = re.sub(r'<[^>]+>', '', MOTD1)
 geyser_yaml['bedrock']['motd2'] = re.sub(r'<[^>]+>', '', MOTD2)
+geyser_yaml['remote']['use-proxy-protocol'] = HAPROXY
 
 for setting in GEYSER_BEDROCK:
   log.debug(f"{setting}: {GEYSER_BEDROCK[setting]}")
