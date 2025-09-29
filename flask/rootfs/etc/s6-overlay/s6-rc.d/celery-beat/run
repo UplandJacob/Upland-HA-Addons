@@ -6,30 +6,26 @@ getConfig() {
   jq --raw-output "$1" /data/options.json
 }
 
-tmpfile="/tmp/celery_beat.log"
-
 cd /config/flask
 
-if [ "$(getConfig '.enableCeleryBeat')" = "true" ]; then
+if bashio::config.true 'enableCeleryBeat'; then
+  bashio::config.suggest.true 'enableCelery' 'Celery Beat requires Celery to be enabled.'
+
   bashio::log.green "Starting Celery Beat..."
   extraArgs=""
-  bashio::log "celeryApp exists: $(bashio::config.exists 'celeryApp')"
   if bashio::config.has_value 'celeryApp'; then
     extraArgs="-A $(getConfig '.celeryApp')"
   fi
   bashio::log "Celery Beat args: '${extraArgs}'"
 
-  bashio::log "celeryBeatLogLevel exists: $(bashio::config.exists 'celeryBeatLogLevel')"
   loglevel=$(getConfig '.celeryLogLevel')
-  if bashio::config.true 'celeryBeatLogLevel'; then
+  if bashio::config.has_value 'celeryBeatLogLevel'; then
     loglevel=$(getConfig '.celeryBeatLogLevel')
   fi
   bashio::log "Celery Beat log level set to '${loglevel}'"
 
-  celery beat --loglevel=${loglevel} ${extraArgs} > ${tmpfile} 2>&1
-  tail -n 0 -F "$tmpfile" | while read -r line; do
-      echo "[Celery Beat] $line"
-  done
+  (celery beat --loglevel=${loglevel} ${extraArgs} 2>&1 | sed 's/^/[Celery Beat] /') &
+  wait
 else
   bashio::log.info "Celery Beat disabled"
   tail -f /dev/null

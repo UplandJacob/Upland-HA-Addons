@@ -6,24 +6,19 @@ getConfig() {
   jq --raw-output "$1" /data/options.json
 }
 
-tmpfile="/tmp/celery.log"
-
 cd /config/flask
 
 if [ "$(getConfig '.enableCelery')" = "true" ]; then
   bashio::log.green "Starting Celery..."
   extraArgs=""
-  bashio::log "celeryApp exists: $(bashio::config.exists 'celeryApp')"
   if bashio::config.has_value 'celeryApp'; then
     extraArgs="-A $(getConfig '.celeryApp')"
   fi
   bashio::log "Celery args: '${extraArgs}'"
   bashio::log "Celery log level set to '$(getConfig '.celeryLogLevel')'"
 
-  celery worker --loglevel=$(getConfig '.celeryLogLevel') ${extraArgs} > ${tmpfile} 2>&1
-  tail -n 0 -F "$tmpfile" | while read -r line; do
-      echo "[Celery] $line"
-  done
+  (celery worker --loglevel=$(getConfig '.celeryLogLevel') ${extraArgs} 2>&1 | sed 's/^/[Celery] /') &
+  wait
 else
   bashio::log.info "Celery disabled"
   tail -f /dev/null
