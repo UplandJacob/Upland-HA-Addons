@@ -10,11 +10,12 @@ cd /config/flask
 
 if [ "$(getConfig '.enableCelery')" = "true" ]; then
   bashio::log.green "Starting Celery..."
-  extra-args=""
-  if [ "$(getConfig '.celeryApp')" != "" ]; then
-    extra-args="-A $(getConfig '.celeryApp')"
+  extraArgs=""
+  if [ bashio::config.exists 'celeryApp' ] && [ "$(getConfig '.celeryApp')" != "" ]; then
+    extraArgs="-A $(getConfig '.celeryApp')"
   fi
-  celery worker --loglevel=$(getConfig '.celeryLogLevel') ${extra-args} 2>&1 | sed 's/^/[Celery] /'
+  celery worker --loglevel=$(getConfig '.celeryLogLevel') ${extraArgs} 2>&1 | sed 's/^/[Celery] /'
 else
   bashio::log.info "Celery disabled"
+  tail -f /dev/null
 fi
