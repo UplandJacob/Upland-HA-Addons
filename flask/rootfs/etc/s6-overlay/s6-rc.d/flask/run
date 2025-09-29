@@ -8,7 +8,7 @@ getConfig() {
 
 # Activate the virtual environment
 bashio::log.green "Activating virtual environment in /config/flask"
-source /config/flask/bin/activate
+source /config/flask/.venv/bin/activate
 
 bashio::log.green "Starting app..."
 cd /config/flask

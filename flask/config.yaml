@@ -1,5 +1,5 @@
 name: Flask Server
-version: 1.2.1
+version: 1.3.0
 slug: flask
 description: Addon to run a Flask web server in Home Assistant
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/flask
@@ -15,6 +15,19 @@ map:
     read_only: false
   - type: share
     read_only: false
+
+options:
+  enableCelery: false
+  enableCeleryBeat: false
+  celeryApp: main
+  celeryLogLevel: info
+
+schema:
+  enableCelery: bool
+  enableCeleryBeat: bool
+  celeryApp: str
+  celeryLogLevel: list(debug|info|warning|error|critical|fatal)
+  celeryBeatLogLevel: list(debug|info|warning|error|critical|fatal)?
 
 ports:
   "5000/tcp": 5000

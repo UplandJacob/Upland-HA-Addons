@@ -17,13 +17,13 @@ if [ ! -f /config/flask/requirements.txt ]; then
     cp /default_config/requirements.txt /config/flask/requirements.txt
 fi
 
-if [ ! -d /config/flask/bin ]; then
+if [ ! -d /config/flask/.venv ]; then
     bashio::log.green "Creating virtual environment in /config/flask"
-    python3 -m venv /config/flask
+    python3 -m venv /config/flask/.venv
 fi
 # Activate the virtual environment
 bashio::log.green "Activating virtual environment in /config/flask"
-source /config/flask/bin/activate
+source /config/flask/.venv/bin/activate
 
 # Install the required packages from the user's requirements.txt
 bashio::log.green "Installing required packages from /config/flask/requirements.txt"

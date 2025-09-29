@@ -1,5 +1,7 @@
 .venv/
 
+__pycache__
+
 /*/data
 /*/config
 /*/default_config/config.yaml

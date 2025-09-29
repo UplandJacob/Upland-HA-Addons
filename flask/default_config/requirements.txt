@@ -1,1 +1,5 @@
 flask>=3.1.2
+
+#celery>=5.5.3
+
+#redis>=6.4.0 # required for celery if using Redis as the broker

@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bashio
+
+set -euo pipefail
+
+getConfig() {
+  jq --raw-output "$1" /data/options.json
+}
+
+cd /config/flask
+
+if [ "$(getConfig '.enableCelery')" = "true" ]; then
+  bashio::log.green "Starting Celery..."
+  extra-args=""
+  if [ "$(getConfig '.celeryApp')" != "" ]; then
+    extra-args="-A $(getConfig '.celeryApp')"
+  fi
+  celery worker --loglevel=$(getConfig '.celeryLogLevel') ${extra-args} 2>&1 | sed 's/^/[Celery] /'
+else
+  bashio::log.info "Celery disabled"
+fi
