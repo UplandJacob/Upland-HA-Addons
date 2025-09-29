@@ -11,11 +11,11 @@ cd /config/flask
 if [ "$(getConfig '.enableCeleryBeat')" = "true" ]; then
   bashio::log.green "Starting Celery Beat..."
   extraArgs=""
-  if [ bashio::config.exists 'celeryApp' ] && [ "$(getConfig '.celeryApp')" != "" ]; then
+  if [ $(bashio::config.exists 'celeryApp') = "true" ] && [ "$(getConfig '.celeryApp')" != "" ]; then
     extraArgs="-A $(getConfig '.celeryApp')"
   fi
   loglevel=$(getConfig '.celeryLogLevel')
-  if [ bashio::config.exists 'celeryBeatLogLevel' ]; then
+  if [ $(bashio::config.exists 'celeryBeatLogLevel') = "true" ]; then
     loglevel=$(getConfig '.celeryBeatLogLevel')
   fi
   celery beat --loglevel=${loglevel} ${extraArgs} 2>&1 | sed 's/^/[Celery Beat] /'
