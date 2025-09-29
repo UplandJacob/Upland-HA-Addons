@@ -24,6 +24,8 @@ if bashio::config.true 'enableCeleryBeat'; then
   fi
   bashio::log "Celery Beat log level set to '${loglevel}'"
 
+  source /config/flask/.venv/bin/activate
+
   (celery ${extraArgs} beat --loglevel=${loglevel} 2>&1 | sed 's/^/[Celery Beat] /') &
   wait
 else

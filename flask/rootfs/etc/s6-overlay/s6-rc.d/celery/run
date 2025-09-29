@@ -17,6 +17,8 @@ if [ "$(getConfig '.enableCelery')" = "true" ]; then
   bashio::log "Celery args: '${extraArgs}'"
   bashio::log "Celery log level set to '$(getConfig '.celeryLogLevel')'"
 
+  source /config/flask/.venv/bin/activate
+
   (celery ${extraArgs} worker --loglevel=$(getConfig '.celeryLogLevel') 2>&1 | sed 's/^/[Celery] /') &
   wait
 else
