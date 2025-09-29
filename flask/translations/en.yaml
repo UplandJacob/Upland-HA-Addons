@@ -7,7 +7,7 @@ configuration:
     description: Enable the Celery Beat scheduler for periodic tasks.
   celeryApp:
     name: Celery Application
-    description: The name of the Celery application instance. Leave blank let it find it automatically.
+    description: "The Celery application instance. Leave blank to find it automatically. (You may vary specificity - ex: 'pathonly' or 'path.file' or 'path.file:object' - If you have issues, be more specific)"
   celeryLogLevel:
     name: Celery Log Level
     description: The log level for the Celery worker.
