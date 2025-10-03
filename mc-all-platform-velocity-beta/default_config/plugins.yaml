@@ -70,8 +70,8 @@ packaged_plugins:
     enabled: false
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
-    version: 2.2.4
-    build: 119
+    version: 2.2.5
+    build: 120
     file: "Floodgate.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
