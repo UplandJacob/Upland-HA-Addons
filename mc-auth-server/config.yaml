@@ -1,5 +1,5 @@
 name: MC Auth Server
-version: 1.9.1
+version: 1.9.2
 slug: mc-auth-server
 description: Minecraft Paper server for handling logins in a proxy environment
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-auth-server

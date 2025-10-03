@@ -92,16 +92,16 @@ if not file_exists(UUID_FILE):
 UUID = read_file(UUID_FILE)
 log.info(f"Server UUID: {UUID}")
 
-CONF_FILE = path_join(CONF_DIR, "config.yaml")
-DEF_CONF_FILE = path_join(DEF_CONF, "config.yaml")
-if not file_exists(CONF_FILE):
+PLUG_FILE = path_join(CONF_DIR, "plugins.yaml")
+DEF_PLUG_FILE = path_join(DEF_CONF, "plugins.yaml")
+if not file_exists(PLUG_FILE):
   log.warning("No plugins.yaml found, copying from default config...")
-  shutil.copy(DEF_CONF_FILE, CONF_FILE)
+  shutil.copy(DEF_PLUG_FILE, DEF_PLUG_FILE)
 
-vers_data = yaml.load(CONF_FILE)
+vers_data = yaml.load(PLUG_FILE)
 
 # load default plugins.yaml to update the packaged_plugins section
-vers_default = yaml.load(DEF_CONF_FILE)
+vers_default = yaml.load(DEF_PLUG_FILE)
 vers_data['packaged_plugins'] = vers_default['packaged_plugins']
 vers_data['server'] = vers_default['server']
 
@@ -319,7 +319,7 @@ if 'current_installed_files' not in vers_data or vers_data['current_installed_fi
 download_plugins('packaged_plugins', 'packaged_plugins_overrides')
 download_plugins('custom_plugins')
 
-with open(CONF_FILE, "w") as file:
+with open(PLUG_FILE, "w") as file:
   yaml.dump(vers_data, file)
   log.info("Updated plugins.yaml")
 
