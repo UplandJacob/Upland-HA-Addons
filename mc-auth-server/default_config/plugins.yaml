@@ -43,8 +43,8 @@ custom_plugins: # add your own plugins here
 packaged_plugins:
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/spigot"
-    version: 2.2.4
-    build: 119
+    version: 2.2.5
+    build: 120
     file: "Floodgate.jar"
   authme:
     url: "https://cdn.modrinth.com/data/3IEZ9vol/versions/{versionID}/AuthMe-{version}-FORK-Universal.jar"
