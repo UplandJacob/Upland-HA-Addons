@@ -77,7 +77,7 @@ packaged_plugins:
     enabled: false
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
-    version: 5.4.2
+    version: 5.5.0
     file: "ViaBackwards.jar"
     enabled: false
   viarewind:
