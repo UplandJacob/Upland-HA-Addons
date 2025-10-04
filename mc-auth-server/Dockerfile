@@ -5,6 +5,7 @@ WORKDIR /
 
 COPY rootfs .
 COPY default_config default_config
+COPY config.yaml default_config/config.yaml
 COPY requirements.txt requirements.txt
 
 

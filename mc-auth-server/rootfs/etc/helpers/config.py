@@ -96,12 +96,12 @@ PLUG_FILE = path_join(CONF_DIR, "plugins.yaml")
 DEF_PLUG_FILE = path_join(DEF_CONF, "plugins.yaml")
 if not file_exists(PLUG_FILE):
   log.warning("No plugins.yaml found, copying from default config...")
-  shutil.copy(DEF_PLUG_FILE, DEF_PLUG_FILE)
+  shutil.copy(DEF_PLUG_FILE, PLUG_FILE)
 
-vers_data = yaml.load(PLUG_FILE)
+vers_data = yaml.load(read_file(PLUG_FILE))
 
 # load default plugins.yaml to update the packaged_plugins section
-vers_default = yaml.load(DEF_PLUG_FILE)
+vers_default = yaml.load(read_file(DEF_PLUG_FILE))
 vers_data['packaged_plugins'] = vers_default['packaged_plugins']
 vers_data['server'] = vers_default['server']
 
