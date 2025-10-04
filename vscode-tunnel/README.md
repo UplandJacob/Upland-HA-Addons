@@ -34,9 +34,9 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 1. Install the addon. If you wish to use anything with docker, you must disable 'Protection Mode'.
 2. If you want your tunnel registered with GitHub, enable 'GitHub login', leave off for Microsoft.
 3. Start the addon. Check the logs to open the login link and enter the code.
-4. Open the link in a browser: <https://vscode.dev/tunnel/TUNNEL_NAME/config/workspace>. You can open any other folder including other addon configs and HA's configs (<https://vscode.dev/tunnel/TUNNEL_NAME> for literally everything).
+4. Open the link in a browser: <https://vscode.dev/tunnel/TUNNEL_NAME/config/workspace>. You can open any other folder including other addon configs and HA's configs (<https://vscode.dev/tunnel/TUNNEL_NAME> for literally everything). Or <https://vscode.dev/tunnel/TUNNEL_NAME/addons> for local addons.
 
-## Other use
+## Other uses
 
 - To reset the login, delete the `.vscode/token.json` file in the config dir.
 - To reset the tunnel name, delete the `.vscode/code_tunnel.json` file.

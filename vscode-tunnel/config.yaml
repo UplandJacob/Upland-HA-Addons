@@ -1,5 +1,5 @@
 name: VSCode Tunnel
-version: 1.1.1
+version: 1.1.2
 slug: vscode-tunnel
 description: VSCode Tunnel to have a full experience at vscode.dev.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/vscode-tunnel
@@ -22,6 +22,8 @@ map:
   - type: homeassistant_config
     read_only: false
   - type: all_addon_configs
+    read_only: false
+  - type: addons
     read_only: false
 
 options:
