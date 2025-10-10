@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bashio
+
+set -euo pipefail
+
+getConfig() {
+  jq --raw-output "$1" /data/options.json
+}
+
+source /config/flask/.venv/bin/activate
+
+bashio::log.green "Starting app..."
+cd /config/flask
+
+python3 ./main.py

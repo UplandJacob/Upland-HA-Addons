@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.green "FINISH: Celery stopped."
