@@ -41,6 +41,7 @@ RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.
 
 RUN rm /etc/cont-init.d/00-global_var.sh
 
+RUN chmod -R +x /etc/s6-overlay/
 
 
 ARG BUILD_ARCH

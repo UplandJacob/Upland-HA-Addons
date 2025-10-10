@@ -1,5 +1,5 @@
 name: Flask Dev Server
-version: 1.3.13-dev-1.4.0-1
+version: 1.3.13-dev-1.4.0-2
 slug: flask-dev
 description: Developer version of the Flask Addon to have a second server seperate from your production server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/flask-dev
