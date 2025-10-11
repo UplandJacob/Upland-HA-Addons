@@ -1,0 +1,16 @@
+configuration:
+  enableCelery:
+    name: Enable Celery
+    description: Enable the Celery worker for background tasks.
+  enableCeleryBeat:
+    name: Enable Celery Beat
+    description: Enable the Celery Beat scheduler for periodic tasks.
+  celeryApp:
+    name: Celery Application
+    description: "The Celery application instance. Leave blank to find it automatically. (You may vary specificity - ex: 'pathonly' or 'path.file' or 'path.file:object' - If you have issues, be more specific)"
+  celeryLogLevel:
+    name: Celery Log Level
+    description: The log level for the Celery worker.
+  celeryBeatLogLevel:
+    name: Celery Beat Log Level
+    description: Override the log level for Celery Beat. If not set, it will use the same log level as Celery.
