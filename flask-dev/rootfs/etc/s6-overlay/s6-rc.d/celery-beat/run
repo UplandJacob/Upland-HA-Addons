@@ -1,0 +1,31 @@
+#!/usr/bin/with-contenv bashio
+
+set -euo pipefail
+
+getConfig() {
+  jq --raw-output "$1" /data/options.json
+}
+
+cd /config/flask
+
+if bashio::config.true 'enableCeleryBeat'; then
+  bashio::config.suggest.true 'enableCelery' 'Celery Beat requires Celery to be enabled.'
+
+  bashio::log.green "Starting Celery Beat..."
+  extraArgs=""
+  if bashio::config.has_value 'celeryApp'; then
+    extraArgs="-A $(getConfig '.celeryApp')"
+  fi
+  bashio::log "Celery Beat args: '${extraArgs}'"
+
+  loglevel=$(getConfig '.celeryLogLevel')
+  if bashio::config.has_value 'celeryBeatLogLevel'; then
+    loglevel=$(getConfig '.celeryBeatLogLevel')
+  fi
+  bashio::log "Celery Beat log level set to '${loglevel}'"
+
+  (./.venv/bin/python3 -m celery ${extraArgs} beat --loglevel=${loglevel}) 2>&1 | sed 's/^/[Celery Beat] /'
+else
+  bashio::log.info "Celery Beat disabled"
+  tail -f /dev/null
+fi

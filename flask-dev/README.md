@@ -15,6 +15,8 @@ Flask is a Python webserver primarily used for testing web applications with API
 
 This addon provides a full Python environment with Flask installed, and a simple "Hello World" app to get you started. You can add any other Python libraries you need by adding them to `requirements.txt` in the addon config folder.
 
+**This is the dev version. It has debug mode enabled by default and will get new features before the production version.**
+
 ## Install
 
 <!-- markdownlint-disable MD036 -->
@@ -32,6 +34,6 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 ## Setup
 
 1. Install the addon and start it to generate the environment.
-2. Any Python libraries you need, you can add to 'requirements.txt' in 'addon_configs/d78ad65c_flask'. (To get the version, run `pip install --dry-run PACKAGE` [requires `--break-system-packages` flag inside addon] and look at the first version on the 'Would install...' line.) Restart the addon to let them automatically download.
-3. You may then edit the app using the VS Code Server addon, SFTP+VSCode on another computer, or by opening <https://vscode.dev/tunnel/TUNNEL_NAME/addon_configs/d78ad65c_flask/flask> with my [VSCode Tunnel addon](/vscode-tunnel/).
+2. Any Python libraries you need, you can add to 'requirements.txt' in 'addon_configs/d78ad65c_flask-dev'. (To get the version, run `pip install --dry-run PACKAGE` [requires `--break-system-packages` flag inside addon] and look at the first version on the 'Would install...' line.) Restart the addon to let them automatically download.
+3. You may then edit the app using the VS Code Server addon, SFTP+VSCode on another computer, or by opening <https://vscode.dev/tunnel/TUNNEL_NAME/addon_configs/d78ad65c_flask-dev/flask> with my [VSCode Tunnel addon](/vscode-tunnel/).
 4. While `debug=True`, anytime `main.py` is saved, Flask will detect it and automatically restart the server.

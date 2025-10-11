@@ -1,0 +1,24 @@
+#!/usr/bin/with-contenv bashio
+
+set -euo pipefail
+
+getConfig() {
+  jq --raw-output "$1" /data/options.json
+}
+
+cd /config/flask
+
+if [ "$(getConfig '.enableCelery')" = "true" ]; then
+  bashio::log.green "Starting Celery..."
+  extraArgs=""
+  if bashio::config.has_value 'celeryApp'; then
+    extraArgs="-A $(getConfig '.celeryApp')"
+  fi
+  bashio::log "Celery args: '${extraArgs}'"
+  bashio::log "Celery log level set to '$(getConfig '.celeryLogLevel')'"
+
+  (./.venv/bin/python3 -m celery ${extraArgs} worker --loglevel=$(getConfig '.celeryLogLevel')) 2>&1 | sed 's/^/[Celery] /'
+else
+  bashio::log.info "Celery disabled"
+  tail -f /dev/null
+fi
