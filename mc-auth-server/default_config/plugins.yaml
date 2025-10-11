@@ -96,14 +96,14 @@ packaged_plugins:
     enabled: false
   luckperms:
     url: "https://cdn.modrinth.com/data/Vebnzrzj/versions/{versionID}/LuckPerms-Bukkit-{version}.jar"
-    versionID: "ZPtLedoF"
-    version: 5.5.0
+    versionID: "OrIs0S6b"
+    version: 5.5.17
     file: "LuckPerms.jar"
     enabled: false
   fawe:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
-    version: "null"
-    build: 1181
+    version: 2.13.3
+    build: 1182
     file: "FastAsyncWorldEdit-Paper-SNAPSHOT.jar"
     enabled: false
   worldguard:
