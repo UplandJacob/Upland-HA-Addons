@@ -71,7 +71,7 @@ packaged_plugins:
     file: "WebConsole.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
-    version: 5.5.0
+    version: 5.5.1
     file: "ViaVersion.jar"
     enabled: false
   viabackwards:
