@@ -7,7 +7,7 @@ configuration:
     description: Stun/Turn relays. You may want to host your own Coturn server for this.
   autoRestart:
     name: Auto restart relay on crash
-    description: Seperate from "Watchdog"; This option will be faster.
+    description: Separate from "Watchdog"; This option will be faster.
   debugMode:
     name: Debug Logging
     description: Extra logging of traffic. (Recommended for small amounts of traffic. NOT recommended for lots of traffic.)
