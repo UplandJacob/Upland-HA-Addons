@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.HA_GITHUB_TOKEN }}
-      - name: Create empty "changed" env variable and check for existimg branch
+      - name: Create empty "changed" env variable and check for existing branch
         run: |
           echo "changed=" >> $GITHUB_ENV;
 
