@@ -218,7 +218,7 @@ webview_message_ratelimit = 120 # OVERRIDDEN BY ADDON CONFIG
   # should be enabled.
   enable_update_system = true # OVERRIDDEN BY ADDON CONFIG
   # Default value is false, can be used to prevent the server from relaying random
-  # crowdsourced update certificates that were recieved from players who joined the
+  # crowdsourced update certificates that were received from players who joined the
   # server using signed clients.
   discard_login_packet_certs = false
   # Default value is 524288, can be used to set the global rate limit for how many
@@ -227,7 +227,7 @@ webview_message_ratelimit = 120 # OVERRIDDEN BY ADDON CONFIG
   # Default value is true, can be used to enable or disable the "eagcert" folder
   # used for distributing specific certificates as locally provided .cert files.
   enable_eagcert_folder = true
-  # Default value is true, can be used to automaticlly download the latest
+  # Default value is true, can be used to automatically download the latest
   # certificates to the "eagcert" folder.
   download_latest_certs = true # OVERRIDDEN BY ADDON CONFIG
   # List of strings, defines the URLs to download the certificates from if

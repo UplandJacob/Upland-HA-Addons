@@ -27,7 +27,7 @@ An address is a pairing of an IP address or hostname, and a port, separated by a
 |`logLevel` - Log Level|Integer (1-5)|Amount of logs to be shown on startup.|
 |`allocatedRAM` - Allocated RAM (MB)|Integer|MiB of RAM to be allocated to the Java process.|
 |`maxRAM` - Max RAM (MB)|Integer|Max MiB of RAM the Java process can use.|
-|`max_players` - Max Players|Integer|Max number of players can connecto to the server. *This value will be copied to the config locations of all plugins that use it.*|
+|`max_players` - Max Players|Integer|Max number of players can connect to the server. *This value will be copied to the config locations of all plugins that use it.*|
 |`server_name` - Server Name|String|Name of the server. *This value will be copied to the config locations of all plugins that use it.*|
 |`motd1` - MOTD Line 1|Chat|Line 1 of the Message of the Day shown in players' server lists.|
 |`motd2` - MOTD Line 2|Chat|Line 2 of the MOTD. - not visible for most Bedrock players.|
@@ -194,7 +194,7 @@ Most listener settings are available in the addon's config folder. The settings 
 |-|-|-|
 |`forward_ip`|Boolean|Forward the real IP address of connecting players to the backend server.|
 |`spoof_player_address_forwarded`|Boolean|Spoof the player address using the forwarded IP for compatibility such as with antibot or auth plugins.|
-|`show_motd_player_list`|Boolean|Show the player list to clinets in the server's MOTD.|
+|`show_motd_player_list`|Boolean|Show the player list to clients in the server's MOTD.|
 |`allow_query`|Boolean|Allow server status queries from external tools.|
 |`allow_motd`|Boolean|Allow the server MOTD to be displayed to clients.|
 
@@ -217,7 +217,7 @@ Basic Floodgate config
 
 Local and global player link settings: See <https://geysermc.org/wiki/floodgate/linking>.
 
-If you enable local linking, the database driver will automattically be downloaded. After the first starup, Floodgate will generate the config file that can then be configured at `addon_configs/d78ad65c_mc-all-platform-velocity/server/plugins/floodgate/{type}/{type}.yml`.
+If you enable local linking, the database driver will automattically be downloaded. After the first startup, Floodgate will generate the config file that can then be configured at `addon_configs/d78ad65c_mc-all-platform-velocity/server/plugins/floodgate/{type}/{type}.yml`.
 
 |Setting Name|Type|Description|
 |-|-|-|

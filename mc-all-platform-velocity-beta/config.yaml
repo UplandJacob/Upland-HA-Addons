@@ -74,7 +74,7 @@ options:
     use_modernized_channel_names: false
     eagler_players_view_distance: -1
     protocol_v4_defrag_send_delay: 10
-    brand_lookup_ratepimit: 240
+    brand_lookup_ratelimit: 240
     webview_download_ratelimit: 8
     webview_message_ratelimit: 120
   
@@ -208,7 +208,7 @@ schema:
     use_modernized_channel_names: bool
     eagler_players_view_distance: int
     protocol_v4_defrag_send_delay: int
-    brand_lookup_ratepimit: int
+    brand_lookup_ratelimit: int
     webview_download_ratelimit: int
     webview_message_ratelimit: int
 
