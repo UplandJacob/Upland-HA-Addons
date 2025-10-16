@@ -25,7 +25,8 @@ RUN apt-get update && \
 ENV ARCH="${BUILD_ARCH}"
 RUN if [ "$BUILD_ARCH" = "aarch64" ]; \
         then export ARCH="arm64"; \
-        else export ARCH="${BUILD_ARCH}"
+        else export ARCH="${BUILD_ARCH}"; \
+        fi
 
 RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
     curl https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -o /usr/local/bin/yq && \
