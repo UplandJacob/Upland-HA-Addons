@@ -1,5 +1,7 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
+ARG BUILD_ARCH=amd64
+ARG VERSION=1.105.1
 
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -14,7 +16,8 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     curl tar git ssh && \
-    curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz && \
+    [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="x64" && \
+    curl -Lk https://update.code.visualstudio.com/${VERSION}/cli-linux-${ARCH}/stable -o vscode_cli.tar.gz && \
     tar -xf vscode_cli.tar.gz -C /bin && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -50,7 +53,6 @@ ENV VSCODE_CLI_DATA_DIR=/config/.vscode
 ENV VSCODE_AGENT_FOLDER=/config/.vscode-server
 
 
-ARG BUILD_ARCH
 #ARG BUILD_DATE
 #ARG BUILD_REF
 ARG BUILD_NAME
