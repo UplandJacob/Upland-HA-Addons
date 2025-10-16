@@ -22,13 +22,17 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends curl \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+ENV ARCH="${BUILD_ARCH}"
+RUN if [ "$BUILD_ARCH" = "aarch64" ]; \
+        then export ARCH="arm64"; \
+        else export ARCH="${BUILD_ARCH}"
+
 RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
-    [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="${BUILD_ARCH}" && \
     curl https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -o /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
 
-RUN curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/0.2.13/act_runner-0.2.13-linux-${BUILD_ARCH} && \
+RUN curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/0.2.13/act_runner-0.2.13-linux-${ARCH} && \
     chmod +x /usr/local/bin/act_runner
  
 ENV CONFIG_FILE=/config/config.yaml
