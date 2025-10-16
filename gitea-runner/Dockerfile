@@ -23,11 +23,11 @@ RUN apt-get update && \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN if [ "$BUILD_ARCH" = "aarch64" ]; then \
-        echo "arm64" > /tmp/arch.env; \
+        echo "arm64" > /tmp/arch; \
     else \
-        echo "${BUILD_ARCH}" > /tmp/arch.env; \
+        echo "${BUILD_ARCH}" > /tmp/arch; \
     fi
-ENV ARCH=$(cat /tmp/arch.env)
+ENV ARCH=$(cat /tmp/arch)
 
 RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
     curl https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -o /usr/local/bin/yq && \
