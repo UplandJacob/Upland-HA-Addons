@@ -22,11 +22,11 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends curl \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN if [ "$BUILD_ARCH" = "aarch64" ]; \
-        then export ARCH="arm64"; \
-        else export ARCH="${BUILD_ARCH}"; \
-        fi && \
-      echo "${ARCH}" > /tmp/arch.env
+RUN if [ "$BUILD_ARCH" = "aarch64" ]; then \
+        echo "arm64" > /tmp/arch.env; \
+    else \
+        echo "${BUILD_ARCH}" > /tmp/arch.env; \
+    fi
 ENV ARCH=$(cat /tmp/arch.env)
 
 RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
