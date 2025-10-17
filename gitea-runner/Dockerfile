@@ -26,15 +26,19 @@ RUN if [ "$BUILD_ARCH" = "aarch64" ]; then \
         echo "arm64" > /tmp/arch; \
     else \
         echo "${BUILD_ARCH}" > /tmp/arch; \
-    fi
-ENV ARCH=$(cat /tmp/arch)
+    fi && \
+    echo "$(cat /tmp/arch)"
 
 RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    ARCH=$(cat /tmp/arch) && \
+    echo "ARCH = ${ARCH}" && \
     curl https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -o /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
 
-RUN curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/0.2.13/act_runner-0.2.13-linux-${ARCH} && \
+RUN ARCH=$(cat /tmp/arch) && \
+    echo "ARCH = ${ARCH}" && \
+    curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/0.2.13/act_runner-0.2.13-linux-${ARCH} && \
     chmod +x /usr/local/bin/act_runner
  
 ENV CONFIG_FILE=/config/config.yaml
