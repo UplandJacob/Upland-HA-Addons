@@ -118,7 +118,7 @@ jobs:
         if: steps.check.outputs.build_arch == 'true'
         run: |
           BUILD_FROM=$(yq e ".build_from.${{ matrix.arch }}" ./${{ matrix.addon }}/build.yaml)
-          [ "${{ matrix.arch }}" == "armv7"] && PLATFORM="arm/v7" || PLATFORM="${{ matrix.arch }}"
+          [ "${{ matrix.arch }}" == "armv7" ] && PLATFORM="arm/v7" || PLATFORM="${{ matrix.arch }}"
           VERSION=$(yq e ".version" ./${{ matrix.addon }}/config.yaml)
           LICENSE=$(head -n1 LICENSE)
           NAME=$(yq e ".name" ./${{ matrix.addon }}/config.yaml)
