@@ -12,7 +12,7 @@
 ## About
 
 Playit.gg is a global proxy that allows anyone to host a server without port forwarding.
-
+<!-- CSpell: words williamcorsel -->
 Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamcorsel/hassio-addons/pull/26) `williamcorsel/hassio-addons` that used the `alex33856/playitgg-docker` image. The Dockerfile for this addon uses the majority of alex33856's Dockerfile.
 
 ## Install

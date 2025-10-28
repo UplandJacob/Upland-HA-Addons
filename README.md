@@ -31,7 +31,7 @@ The VSCode Tunnel addon runs a fully featured VSCode tunnel server that can be a
 ### [Playit.gg](/playit-gg)
 
 Playit.gg is a global proxy that allows anyone to host a server without port forwarding.
-
+<!-- CSpell: words williamcorsel -->
 Original inspiration thanks to the Benjamin589 PR williamcorsel/hassio-addons that used the alex33856/playitgg-docker image. The Dockerfile for this addon uses the majority of that Dockerfile.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_playitgg)
@@ -50,7 +50,7 @@ Minecraft Leaf (Paper fork) auth server for proxy setups that use AuthMe.
 
 ### [Eaglercraft Relay](/eag-relay)
 
-Run and Eaglerctaft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
+Run and Eaglercraft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_eag-relay)
 

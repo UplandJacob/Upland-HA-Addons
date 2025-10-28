@@ -73,7 +73,7 @@ options:
     use_modernized_channel_names: false
     eagler_players_view_distance: -1
     protocol_v4_defrag_send_delay: 10
-    brand_lookup_ratepimit: 240
+    brand_lookup_ratelimit: 240
     webview_download_ratelimit: 8
     webview_message_ratelimit: 120
   
@@ -167,10 +167,10 @@ schema:
     online-mode: bool
     force-key-authentication: bool
     prevent-client-proxy-connections: bool
-    player-info-forwarding-mode: match(NONE|LEGACY|BUNGEEGUARD|MODERN)
+    player-info-forwarding-mode: list(NONE|LEGACY|BUNGEEGUARD|MODERN)
     announce-forge: bool
     kick-existing-players: bool
-    ping-passthrough: match(DISABLED|MODS|DESCRIPTION|ALL)
+    ping-passthrough: list(DISABLED|MODS|DESCRIPTION|ALL)
     enable-player-address-logging: bool
   servers: 
     - name: str
@@ -208,7 +208,7 @@ schema:
     use_modernized_channel_names: bool
     eagler_players_view_distance: int
     protocol_v4_defrag_send_delay: int
-    brand_lookup_ratepimit: int
+    brand_lookup_ratelimit: int
     webview_download_ratelimit: int
     webview_message_ratelimit: int
 
@@ -270,7 +270,7 @@ schema:
     enable-proxy-protocol: bool
 
   geyserRemote:
-    auth-type: match(online|offline|floodgate)
+    auth-type: list(online|offline|floodgate)
     use-proxy-protocol: bool
     forward-hostname: bool
 
@@ -279,10 +279,10 @@ schema:
     passthrough-player-counts: bool
     ping-passthrough-interval: int
     forward-player-ping: bool
-    show-cooldown: match(title|actionbar|false)
+    show-cooldown: list(title|actionbar|false)
     show-coordinates: bool
     disable-bedrock-scaffolding: bool
-    emote-offhand-workaround: match(disabled|no-emotes|emotes-and-offhand)
+    emote-offhand-workaround: list(disabled|no-emotes|emotes-and-offhand)
     allow-custom-skulls: bool
     max-visible-custom-skulls: int
     custom-skull-render-distance: int

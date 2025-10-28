@@ -3,8 +3,3 @@ build_from:
   aarch64: ghcr.io/uplandjacob/ha-base-debian-java-aarch64:latest
   amd64: ghcr.io/uplandjacob/ha-base-debian-java-amd64:latest
   i386: ghcr.io/uplandjacob/ha-base-debian-java-i386:latest
-platform:
-  armv7: arm/v7
-  aarch64: aarch64
-  amd64: amd64
-  i386: i386

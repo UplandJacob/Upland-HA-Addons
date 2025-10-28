@@ -14,8 +14,6 @@
 This addon allows you to run actions
 in your Gitea instance.
 
-This addon uses the `gitea/act-runner` image.
-
 ## Install
 
 <!-- markdownlint-disable MD036 -->
@@ -32,4 +30,9 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 
 ## Setup
 
-WIP
+1. Open your Gitea instance and paste its URL into the addons's config. (A local option is faster if available. ex: `http://homeassistant.local:3000`)
+2. Go to `Site Administration -> Actions -> Runners`, click "Create New Runner" and copy the token. (You can also do this in an Organization's or repo's settings. [See the official docs](https://docs.gitea.com/usage/actions/act-runner#obtain-a-registration-token))
+3. Paste the token in this addon's configuration.
+4. Change the runner's name and labels ([see here](https://docs.gitea.com/usage/actions/act-runner#labels)) if you wish.
+5. Start the addon. Watch the logs for errors.
+6. Go back to the Runners page in your Gitea instance and confirm it shows 'Idle'.

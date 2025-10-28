@@ -2,7 +2,3 @@ build_from:
   armv7: twingate/connector:1
   aarch64: twingate/connector:1
   amd64: twingate/connector:1
-platform:
-  armv7: arm/v7
-  aarch64: aarch64
-  amd64: amd64

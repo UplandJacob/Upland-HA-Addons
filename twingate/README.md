@@ -34,6 +34,6 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 3. Create a connector, choose 'docker', generate tokens and input the extra options however you want.
 4. in the 'Configuration' tab of this addon, copy in the information from the Twingate website.
 
+<!-- Other style of badges:
 [install-badge]: https://img.shields.io/badge/Install%20on%20my-Home%20Assistant-41BDF5?logo=home-assistant
-[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant
-[repo-badge]: https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg
+[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant -->
