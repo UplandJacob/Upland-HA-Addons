@@ -51,13 +51,13 @@ packaged_plugins:
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Extension.jar"
-    version: 2.0.0-BETA-8
+    version: 2.0.0-BETA-9
     path: "Geyser-Velocity/extensions"
     file: "GeyserExtras-Extension.jar"
     enabled: false
   xbox_broadcast:
     url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
-    build: 109
+    build: 110
     path: "Geyser-Velocity/extensions"
     file: "MCXboxBroadcastExtension.jar"
     enabled: false
