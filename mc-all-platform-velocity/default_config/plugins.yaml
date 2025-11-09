@@ -47,7 +47,7 @@ packaged_plugins:
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.9.0
-    build: 979
+    build: 980
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Extension.jar"
@@ -64,7 +64,7 @@ packaged_plugins:
   third_party_cosmetics:
     url: "https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/{version}/builds/{build}/downloads/thirdpartycosmetics"
     version: 1.0.0
-    build: 7
+    build: 8
     path: "Geyser-Velocity/extensions"
     file: "ThirdPartyCosmetics.jar"
     enabled: false
