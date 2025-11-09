@@ -108,6 +108,6 @@ packaged_plugins:
 velocity:
   url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
   version: 3.4.0-SNAPSHOT
-  build: 555
+  build: 556
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
