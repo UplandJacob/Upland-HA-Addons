@@ -46,8 +46,8 @@ packaged_plugins:
     enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
-    version: 2.9.0
-    build: 984
+    version: 2.9.1
+    build: 999
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
@@ -56,7 +56,7 @@ packaged_plugins:
     enabled: false
   xbox_broadcast:
     url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
-    build: 112
+    build: 116
     path: "Geyser-Velocity/extensions"
     file: "MCXboxBroadcastExtension.jar"
     enabled: false
