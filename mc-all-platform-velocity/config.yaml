@@ -1,5 +1,5 @@
 name: Minecraft All-Platform Velocity Proxy
-version: 2.2.0
+version: 2.2.1
 slug: mc-all-platform-velocity
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity
@@ -161,6 +161,7 @@ schema:
   server_name: str
   motd1: str
   motd2: str
+  haproxy: bool
   rootConfig:
     online-mode: bool
     force-key-authentication: bool
