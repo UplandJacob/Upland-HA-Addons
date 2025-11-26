@@ -51,7 +51,7 @@ packaged_plugins:
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
-    version: 2.0.0-BETA-10
+    version: 2.0.0-BETA-11
     file: "GeyserExtras-Velocity.jar"
     enabled: false
   xbox_broadcast:
