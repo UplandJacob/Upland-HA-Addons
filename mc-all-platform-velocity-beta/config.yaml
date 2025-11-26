@@ -1,5 +1,5 @@
 name: Minecraft All-Platform Velocity Proxy Beta
-version: 2.1.21-beta-2.2.0-1
+version: 2.2.0-beta-2.2.0-0
 slug: mc-all-platform-velocity-beta
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity-beta
@@ -128,31 +128,29 @@ options:
     type: sqlite
     enable-global-linking: true
 
+  geyserAuthType: floodgate
+
   geyserBedrock:
     compression-level: 6
-    enable-proxy-protocol: false
+    use-haproxy-protocol: false
 
-  geyserRemote:
-    auth-type: floodgate
-    forward-hostname: true
+  geyserJava:
+    use-direct-connection: true
+    disable-compression: true
 
   geyser:
-    command-suggestions: true
-    passthrough-player-counts: true
-    ping-passthrough-interval: 3
-    forward-player-ping: false
     show-cooldown: title
+    command-suggestions: true
     show-coordinates: true
     disable-bedrock-scaffolding: false
-    emote-offhand-workaround: "disabled"
-    allow-custom-skulls: true
+    nether-roof-workaround: true
+    emotes-enabled: true
+    enable-custom-content: true
+    force-resource-packs: true
+    forward-player-ping: false
+    xbox-achievements-enabled: false
     max-visible-custom-skulls: 128
     custom-skull-render-distance: 32
-    add-non-bedrock-items: true
-    above-bedrock-nether-building: false
-    force-resource-packs: true
-    xbox-achievements-enabled: false
-    log-player-ip-addresses: true
 
 
 schema:
@@ -265,31 +263,29 @@ schema:
     type: str
     enable-global-linking: bool
 
+  geyserAuthType: list(floodgate|online|offline)
+
   geyserBedrock:
     compression-level: int
-    enable-proxy-protocol: bool
+    use-haproxy-protocol: bool
 
-  geyserRemote:
-    auth-type: list(online|offline|floodgate)
-    forward-hostname: bool
+  geyserJava:
+    use-direct-connection: bool
+    disable-compression: bool
 
   geyser:
-    command-suggestions: bool
-    passthrough-player-counts: bool
-    ping-passthrough-interval: int
-    forward-player-ping: bool
     show-cooldown: list(title|actionbar|false)
+    command-suggestions: bool
     show-coordinates: bool
     disable-bedrock-scaffolding: bool
-    emote-offhand-workaround: list(disabled|no-emotes|emotes-and-offhand)
-    allow-custom-skulls: bool
+    nether-roof-workaround: bool
+    emotes-enabled: bool
+    enable-custom-content: bool
+    force-resource-packs: bool
+    forward-player-ping: bool
+    xbox-achievements-enabled: bool
     max-visible-custom-skulls: int
     custom-skull-render-distance: int
-    add-non-bedrock-items: bool
-    above-bedrock-nether-building: bool
-    force-resource-packs: bool
-    xbox-achievements-enabled: bool
-    log-player-ip-addresses: bool
 
 
 map:
