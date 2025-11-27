@@ -449,7 +449,7 @@ if FLOOD_PLAYER_LINK['enable-own-linking']:
 ## ------------------------ ##
 
 GEYSER_BEDROCK = addon_conf['geyserBedrock']
-GEYSER_REMOTE = addon_conf['geyserRemote']
+GEYSER_JAVA = addon_conf['geyserJava']
 GEYSER = addon_conf['geyser']
 
 if not file_exists(PLUG_DIR+"/Geyser-Velocity/config.yml"):
@@ -458,24 +458,25 @@ if not file_exists(PLUG_DIR+"/Geyser-Velocity/config.yml"):
 
 geyser_yaml = yaml.load(read_file(PLUG_DIR+"/Geyser-Velocity/config.yml"))
 
-geyser_yaml['metrics']['uuid'] = UUID
-geyser_yaml['max-players'] = MAX_PLAYERS
-geyser_yaml['bedrock']['server-name'] = SERVER_NAME
-geyser_yaml['bedrock']['motd1'] = re.sub(r'<[^>]+>', '', MOTD1)
-geyser_yaml['bedrock']['motd2'] = re.sub(r'<[^>]+>', '', MOTD2)
-geyser_yaml['remote']['use-proxy-protocol'] = HAPROXY
+geyser_yaml['motd']['max-players'] = MAX_PLAYERS
+geyser_yaml['motd']['primary-motd'] = re.sub(r'<[^>]+>', '', MOTD1)
+geyser_yaml['motd']['secondary-motd'] = re.sub(r'<[^>]+>', '', MOTD2)
+
+geyser_yaml['gameplay']['server-name'] = SERVER_NAME
+geyser_yaml['java']['auth-type'] = addon_conf['geyserAuthType']
+geyser_yaml['advanced']['java']['use-haproxy-protocol'] = HAPROXY
 
 for setting in GEYSER_BEDROCK:
   log.debug(f"{setting}: {GEYSER_BEDROCK[setting]}")
-  geyser_yaml['bedrock'][setting] = GEYSER_BEDROCK[setting]
+  geyser_yaml['advanced']['bedrock'][setting] = GEYSER_BEDROCK[setting]
 
-for setting in GEYSER_REMOTE:
-  log.debug(f"{setting}: {GEYSER_REMOTE[setting]}")
-  geyser_yaml['remote'][setting] = GEYSER_REMOTE[setting]
+for setting in GEYSER_JAVA:
+  log.debug(f"{setting}: {GEYSER_JAVA[setting]}")
+  geyser_yaml['advanced']['java'][setting] = GEYSER_JAVA[setting]
 
 for setting in GEYSER:
   log.debug(f"{setting}: {GEYSER[setting]}")
-  geyser_yaml[setting] = GEYSER[setting]
+  geyser_yaml['gameplay'][setting] = GEYSER[setting]
 
 with open(PLUG_DIR+"/Geyser-Velocity/config.yml", "w") as file:
   yaml.dump(geyser_yaml, file)

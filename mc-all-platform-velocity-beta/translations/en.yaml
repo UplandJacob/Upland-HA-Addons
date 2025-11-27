@@ -20,6 +20,9 @@ configuration:
   motd2:
     name: MOTD Line 2
     description: This line is not visible on newer Bedrock clients.
+  haproxy:
+    name: Java HAProxy Support
+    description: Enable if you are using HAProxy to forward Java connections to Velocity. DO NOT USE UNLESS YOU KNOW WHAT THIS IS! (Geyser and EaglerXServer configs will be adjusted automatically.)
 
   rootConfig:
     name: Velocity Config
@@ -63,13 +66,16 @@ configuration:
     name: Floodgate - Player Link
     description: Local and global player link settings
 
+  geyserAuthType:
+    name: Geyser - Auth Type
+    description: Authentication type for Bedrock players. USE FLOODGATE!!
   geyserBedrock:
     name: Geyser - Bedrock
     description: Basic Geyser client connection config
-  geyserRemote:
-    name: Geyser - Remote
-    description: Basic Geyser-to-Velocity connection settings
+  geyserJava:
+    name: Geyser - Java
+    description: Advanced Geyser-to-Velocity connection settings. The rest are handled by main configs automatically or
   geyser:
-    name: Geyser 
-    description: General Geyser config
+    name: Geyser - Gameplay
+    description: General Geyser gameplay config
 
