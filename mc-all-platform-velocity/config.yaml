@@ -1,5 +1,5 @@
 name: Minecraft All-Platform Velocity Proxy
-version: 2.1.21
+version: 2.2.2
 slug: mc-all-platform-velocity
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity
@@ -19,6 +19,7 @@ options:
   server_name: "A Cool Server"
   motd1: "<red>{srv_name}"
   motd2: "<gray>We can have <b>{maxPlayers} players!"
+  haproxy: false
   rootConfig:
     online-mode: false
     force-key-authentication: true
@@ -52,7 +53,6 @@ options:
     login-ratelimit: 3000
     connection-timeout: 5000
     read-timeout: 30000
-    haproxy-protocol: false
     tcp-fast-open: false
     bungee-plugin-message-channel: true
     show-ping-requests: false
@@ -127,32 +127,31 @@ options:
     type: sqlite
     enable-global-linking: true
 
+  geyserAuthType: floodgate
+
   geyserBedrock:
     compression-level: 6
-    enable-proxy-protocol: false
+    use-haproxy-protocol: false
 
-  geyserRemote:
-    auth-type: floodgate
-    use-proxy-protocol: false
-    forward-hostname: false
+  geyserJava:
+    use-direct-connection: true
+    disable-compression: true
 
   geyser:
-    command-suggestions: true
-    passthrough-player-counts: true
-    ping-passthrough-interval: 3
-    forward-player-ping: false
     show-cooldown: title
+    command-suggestions: true
     show-coordinates: true
     disable-bedrock-scaffolding: false
-    emote-offhand-workaround: "disabled"
-    allow-custom-skulls: true
+    nether-roof-workaround: true
+    unusable-space-block: minecraft:barrier
+    emotes-enabled: true
+    enable-custom-content: true
+    force-resource-packs: true
+    enable-integrated-pack: true
+    forward-player-ping: false
+    xbox-achievements-enabled: false
     max-visible-custom-skulls: 128
     custom-skull-render-distance: 32
-    add-non-bedrock-items: true
-    above-bedrock-nether-building: false
-    force-resource-packs: true
-    xbox-achievements-enabled: false
-    log-player-ip-addresses: true
 
 
 schema:
@@ -163,6 +162,7 @@ schema:
   server_name: str
   motd1: str
   motd2: str
+  haproxy: bool
   rootConfig:
     online-mode: bool
     force-key-authentication: bool
@@ -187,7 +187,6 @@ schema:
     login-ratelimit: int
     connection-timeout: int
     read-timeout: int
-    haproxy-protocol: bool
     tcp-fast-open: bool
     bungee-plugin-message-channel: bool
     show-ping-requests: bool
@@ -265,32 +264,31 @@ schema:
     type: str
     enable-global-linking: bool
 
+  geyserAuthType: list(floodgate|online|offline)
+
   geyserBedrock:
     compression-level: int
-    enable-proxy-protocol: bool
+    use-haproxy-protocol: bool
 
-  geyserRemote:
-    auth-type: list(online|offline|floodgate)
-    use-proxy-protocol: bool
-    forward-hostname: bool
+  geyserJava:
+    use-direct-connection: bool
+    disable-compression: bool
 
   geyser:
+    show-cooldown: list(title|actionbar|disabled)
     command-suggestions: bool
-    passthrough-player-counts: bool
-    ping-passthrough-interval: int
-    forward-player-ping: bool
-    show-cooldown: list(title|actionbar|false)
     show-coordinates: bool
     disable-bedrock-scaffolding: bool
-    emote-offhand-workaround: list(disabled|no-emotes|emotes-and-offhand)
-    allow-custom-skulls: bool
+    nether-roof-workaround: bool
+    unusable-space-block: str
+    emotes-enabled: bool
+    enable-custom-content: bool
+    force-resource-packs: bool
+    enable-integrated-pack: bool
+    forward-player-ping: bool
+    xbox-achievements-enabled: bool
     max-visible-custom-skulls: int
     custom-skull-render-distance: int
-    add-non-bedrock-items: bool
-    above-bedrock-nether-building: bool
-    force-resource-packs: bool
-    xbox-achievements-enabled: bool
-    log-player-ip-addresses: bool
 
 
 map:
