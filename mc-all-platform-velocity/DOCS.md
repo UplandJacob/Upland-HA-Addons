@@ -22,16 +22,16 @@ An address is a pairing of an IP address or hostname, and a port, separated by a
 
 ## Addon configuration
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`logLevel` - Log Level|Integer (1-5)|Amount of logs to be shown on startup.|
-|`allocatedRAM` - Allocated RAM (MB)|Integer|MiB of RAM to be allocated to the Java process.|
-|`maxRAM` - Max RAM (MB)|Integer|Max MiB of RAM the Java process can use.|
-|`max_players` - Max Players|Integer|Max number of players can connecto to the server. *This value will be copied to the config locations of all plugins that use it.*|
-|`server_name` - Server Name|String|Name of the server. *This value will be copied to the config locations of all plugins that use it.*|
-|`motd1` - MOTD Line 1|Chat|Line 1 of the Message of the Day shown in players' server lists.|
-|`motd2` - MOTD Line 2|Chat|Line 2 of the MOTD. - not visible for most Bedrock players.|
-|`haproxy` - Java HAProxy Support|Boolean|Enable if you are using HAProxy to forward Java connections to Velocity. DO NOT USE UNLESS YOU KNOW WHAT THIS IS! *Geyser and EaglerXServer configs will be adjusted automatically.*
+| `logLevel` - Log Level | Integer (1-5) | Amount of logs to be shown on startup. |
+| `allocatedRAM` - Allocated RAM (MB) | Integer | MiB of RAM to be allocated to the Java process. |
+| `maxRAM` - Max RAM (MB) | Integer | Max MiB of RAM the Java process can use. |
+| `max_players` - Max Players | Integer | Max number of players can connect to the server. *This value will be copied to the config locations of all plugins that use it.* |
+| `server_name` - Server Name | String | Name of the server. *This value will be copied to the config locations of all plugins that use it.* |
+| `motd1` - MOTD Line 1 | Chat | Line 1 of the Message of the Day shown in players' server lists. |
+| `motd2` - MOTD Line 2 | Chat | Line 2 of the MOTD. - not visible for most Bedrock players. |
+| `haproxy` - Java HAProxy Support | Boolean | Enable if you are using HAProxy to forward Java connections to Velocity. DO NOT USE UNLESS YOU KNOW WHAT THIS IS! *Geyser and EaglerXServer configs will be adjusted automatically.*
 
 ***
 
@@ -43,15 +43,15 @@ Settings not shown here for UI configuration can be set by editing the `velocity
 
 These settings mostly cover the basic, most essential settings of the proxy.
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
 | `online-mode` | Boolean | Should we authenticate players with Mojang? By default, this is on. |
 | `force-key-authentication` | Boolean | Should the proxy enforce the new public key security standard? By default, this is on. |
 | `prevent-client-proxy-connections` | Boolean | If client's ISP/AS sent from this proxy is different from the one from Mojang's authentication server, the player is kicked. This disallows some VPN and proxy connections but is a weak form of protection. |
-| `player-info-forwarding-mode` | Enum(NONE|LEGACY|BUNGEEGUARD|MODERN) | See [Configuring player information forwarding](/velocity/player-information-forwarding) for more information. |
+| `player-info-forwarding-mode` | Enum(NONE | LEGACY | BUNGEEGUARD | MODERN) | See [Configuring player information forwarding](/velocity/player-information-forwarding) for more information. |
 | `announce-forge` | Boolean | This setting determines whether Velocity should present itself as a Forge/FML-compatible server. By default, this is disabled. |
 | `kick-existing-players` | Boolean | Allows restoring the Vanilla behavior of kicking users on the proxy if they try to reconnect (e.g. lost internet connection briefly). |
-| `ping-passthrough` | String(DISABLED|MODS|DESCRIPTION|ALL) | Allows forwarding nothing (the default), the `MODS` (for Forge), the `DESCRIPTION`, or everything (`ALL`) from the `try` list (or forced host server connection order). |
+| `ping-passthrough` | String(DISABLED | MODS | DESCRIPTION | ALL) | Allows forwarding nothing (the default), the `MODS` (for Forge), the `DESCRIPTION`, or everything (`ALL`) from the `try` list (or forced host server connection order). |
 | `enable-player-address-logging` | Boolean | If disabled (default is true), player IP addresses will be replaced by " " in logs. |
 
 ### `servers` section (seperated in 2 parts for the addon)
@@ -60,10 +60,10 @@ These settings mostly cover the basic, most essential settings of the proxy.
 
 Each list value:
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-| name | String | The name the proxy gives a server it can connect to. These names will be reference later. |
-| address | Address | The address given to that name. |
+| `name` | String | The name the proxy gives a server it can connect to. These names will be reference later. |
+| `address` | Address | The address given to that name. |
 
 ```yaml
 - name: lobby
@@ -96,7 +96,7 @@ In this addon, this option will be a list with a `hostname` with another list of
 
 ### Velocity Advanced Config - `advanced` section
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
 | `compression-threshold` | Integer | This is the minimum size (in bytes) that a packet must be before the proxy compresses it. Minecraft uses 256 bytes by default. |
 | `compression-level` | Integer | This setting indicates what `zlib` compression level the proxy should use to compress packets. The default value uses the default zlib level. |
@@ -124,80 +124,80 @@ The EaglercraftXServer plugin allows Eaglercraft clients to connect to the serve
 
 Basic EaglercraftXServer configuration.
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`eagler_login_timeout`|Integer|Timeout (in milliseconds) for Eaglercraft client logins.|
-|`http_websocket_compression_level`|Integer|Compression level for WebSocket connections.|
-|`http_websocket_ping_intervention`|Boolean|Enable intervention if WebSocket pings are not received in time. (Helps reduce "Stream has ended" messages)|
-|`enable_is_eagler_player_property`|Boolean|Enable the `is_eagler` property for player identification.|
-|`eagler_players_vanilla_skin`|String|Default skin username to use for Eaglercraft players. (Leave empty for Steve)|
-|`enable_authentication_events`|Boolean|Enable events related to player authentication.|
-|`enable_backend_rpc_api`|Boolean|Enable the backend RPC API. Only needed if you add the backend RPC APT plugin to your backend servers.|
-|`use_modernized_channel_names`|Boolean|Use updated channel names for plugin messaging.|
-|`eagler_players_view_distance`|Integer|Default view distance for Eaglercraft players.|
-|`protocol_v4_defrag_send_delay`|Integer|Delay (in ms) for sending defragmented protocol v4 packets.|
-|`brand_lookup_ratelimit`|Integer|Rate limit for client brand lookups (requests per second).|
-|`webview_download_ratelimit`|Integer|Rate limit for webview downloads (bytes per second).|
-|`webview_message_ratelimit`|Integer|Rate limit for webview messages (messages per second).|
+| `eagler_login_timeout` | Integer | Timeout (in milliseconds) for Eaglercraft client logins. |
+| `http_websocket_compression_level` | Integer | Compression level for WebSocket connections. |
+| `http_websocket_ping_intervention` | Boolean | Enable intervention if WebSocket pings are not received in time. (Helps reduce "Stream has ended" messages) |
+| `enable_is_eagler_player_property` | Boolean | Enable the `is_eagler` property for player identification. |
+| `eagler_players_vanilla_skin` | String | Default skin username to use for Eaglercraft players. (Leave empty for Steve) |
+| `enable_authentication_events` | Boolean | Enable events related to player authentication. |
+| `enable_backend_rpc_api` | Boolean | Enable the backend RPC API. Only needed if you add the backend RPC APT plugin to your backend servers. |
+| `use_modernized_channel_names` | Boolean | Use updated channel names for plugin messaging. |
+| `eagler_players_view_distance` | Integer | Default view distance for Eaglercraft players. |
+| `protocol_v4_defrag_send_delay` | Integer | Delay (in ms) for sending defragmented protocol v4 packets. |
+| `brand_lookup_ratelimit` | Integer | Rate limit for client brand lookups (requests per second). |
+| `webview_download_ratelimit` | Integer | Rate limit for webview downloads (bytes per second). |
+| `webview_message_ratelimit` | Integer | Rate limit for webview messages (messages per second). |
 
 ### Eaglercraft - Skin Database
 
 Settings for the Eaglercraft skins database.
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`download_vanilla_skins_to_clients`|Boolean|Download vanilla Minecraft skins to Eaglercraft clients.|
-|`valid_skin_download_urls`|List(Strings)|URLs permitted to download skins.|
-|`enable_fnaw_skin_models_global`|Boolean|Globally allow Five Nights at Winstons (FNAW) skin models for all players.|
-|`enable_fnaw_skin_models_servers`|List(Strings)|Server names where FNAW skin models are enabled.|
-|`enable_skinsrestorer_apply_hook`|Boolean|Apply the SkinsRestorer plugin hook for Eaglercraft clients to see non-Eaglercraft player's skins.|
+| `download_vanilla_skins_to_clients` | Boolean | Download vanilla Minecraft skins to Eaglercraft clients. |
+| `valid_skin_download_urls` | List(Strings) | URLs permitted to download skins. |
+| `enable_fnaw_skin_models_global` | Boolean | Globally allow Five Nights at Winstons (FNAW) skin models for all players. |
+| `enable_fnaw_skin_models_servers` | List(Strings) | Server names where FNAW skin models are enabled. |
+| `enable_skinsrestorer_apply_hook` | Boolean | Apply the SkinsRestorer plugin hook for Eaglercraft clients to see non-Eaglercraft player's skins. |
 
 ### Eaglercraft - Voice
 
 Settings for Eaglercraft voice chat.
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`enable_voice_service`|Boolean|Enable the Eaglercraft voice chat service.|
-|`enable_voice_all_servers`|Boolean|Enable voice chat on all servers.|
-|`enable_voice_on_servers`|List(Strings)|List of server names where voice chat is enabled (ignored if `enable_voice_all_servers` is true).|
-|`separate_server_voice_channels`|Boolean|Use separate voice channels for each server.|
-|`voice_backend_relayed_mode`|Boolean|Use relayed mode for the voice backend (improves NAT traversal, may increase latency).|
-|`voice_connect_ratelimit`|Integer|Maximum number of voice connection attempts per minute per client.|
-|`voice_request_ratelimit`|Integer|Maximum number of voice requests per minute per client.|
-|`voice_ice_ratelimit`|Integer|Maximum number of ICE (Interactive Connectivity Establishment) messages per minute per client.|
+| `enable_voice_service` | Boolean | Enable the Eaglercraft voice chat service. |
+| `enable_voice_all_servers` | Boolean | Enable voice chat on all servers. |
+| `enable_voice_on_servers` | List(Strings) | List of server names where voice chat is enabled (ignored if `enable_voice_all_servers` is true). |
+| `separate_server_voice_channels` | Boolean | Use separate voice channels for each server. |
+| `voice_backend_relayed_mode` | Boolean | Use relayed mode for the voice backend (improves NAT traversal, may increase latency). |
+| `voice_connect_ratelimit` | Integer | Maximum number of voice connection attempts per minute per client. |
+| `voice_request_ratelimit` | Integer | Maximum number of voice requests per minute per client. |
+| `voice_ice_ratelimit` | Integer | Maximum number of ICE (Interactive Connectivity Establishment) messages per minute per client. |
 
 ### Eaglercraft - Update Service
 
 Loads the latest Eaglercraft version from eaglercraft.com and sends it to clients in case of an available update.
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`enable_update_system`|Boolean|Enable or disable the Eaglercraft update system.|
-|`download_latest_certs`|Boolean|Automatically download the latest certificates from eaglercraft.com for secure updates.|
-|`check_for_update_every`|Integer|Interval (in seconds) to check for updates.|
+| `enable_update_system` | Boolean | Enable or disable the Eaglercraft update system. |
+| `download_latest_certs` | Boolean | Automatically download the latest certificates from eaglercraft.com for secure updates. |
+| `check_for_update_every` | Integer | Interval (in seconds) to check for updates. |
 
 ### Eaglercraft - Update Checker
 
 Sends a message if the EaglerXServer plugin has an update available.
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`enable_update_checker`|Boolean|Enable or disable the EaglerXServer plugin update checker.|
-|`check_for_update_every`|Integer|Interval (in seconds) to check for plugin updates.|
-|`print_chat_messages`|Boolean|Print update checker messages in chat when an update is available.|
+| `enable_update_checker` | Boolean | Enable or disable the EaglerXServer plugin update checker. |
+| `check_for_update_every` | Integer | Interval (in seconds) to check for plugin updates. |
+| `print_chat_messages` | Boolean | Print update checker messages in chat when an update is available. |
 
 ### Eaglercraft - Listeners
 
 Most listener settings are available in the addon's config folder. The settings defined here will ALWAYS overwrite changes you make to listener0 in that file.
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`forward_ip`|Boolean|Forward the real IP address of connecting players to the backend server.|
-|`spoof_player_address_forwarded`|Boolean|Spoof the player address using the forwarded IP for compatibility such as with antibot or auth plugins.|
-|`show_motd_player_list`|Boolean|Show the player list to clinets in the server's MOTD.|
-|`allow_query`|Boolean|Allow server status queries from external tools.|
-|`allow_motd`|Boolean|Allow the server MOTD to be displayed to clients.|
+| `forward_ip` | Boolean | Forward the real IP address of connecting players to the backend server. |
+| `spoof_player_address_forwarded` | Boolean | Spoof the player address using the forwarded IP for compatibility such as with antibot or auth plugins. |
+| `show_motd_player_list` | Boolean | Show the player list to clinets in the server's MOTD. |
+| `allow_query` | Boolean | Allow server status queries from external tools. |
+| `allow_motd` | Boolean | Allow the server MOTD to be displayed to clients. |
 
 ***
 
@@ -207,12 +207,12 @@ Most listener settings are available in the addon's config folder. The settings 
 
 Basic Floodgate config
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`username-prefix`|String|Prefix added to Bedrock player usernames. "." recommended|
-|`replace-spaces`|Boolean|Replace spaces in Bedrock usernames with underscores.|
-|`default-locale`|String|Default locale for Bedrock players.|
-|`send-floodgate-data`|Boolean|Send Floodgate-specific data to the backend servers.|
+| `username-prefix` | String | Prefix added to Bedrock player usernames. "." recommended |
+| `replace-spaces` | Boolean | Replace spaces in Bedrock usernames with underscores. |
+| `default-locale` | String | Default locale for Bedrock players. |
+| `send-floodgate-data` | Boolean | Send Floodgate-specific data to the backend servers. |
 
 ### Floodgate - Player Link
 
@@ -220,15 +220,15 @@ Local and global player link settings: See <https://geysermc.org/wiki/floodgate/
 
 If you enable local linking, the database driver will automattically be downloaded. After the first starup, Floodgate will generate the config file that can then be configured at `addon_configs/d78ad65c_mc-all-platform-velocity/server/plugins/floodgate/{type}/{type}.yml`.
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`enabled`|Boolean|Enable player linking.|
-|`require-link`|Boolean|Require Bedrock players to link their accounts before joining.|
-|`enable-own-linking`|Boolean|Allow local linking with a database.|
-|`allowed`|Boolean|Allow players to use `/linkaccount` and `/unlinkaccount`.|
-|`link-code-timeout`|Integer|Time in seconds before a link code expires.|
-|`type`|String(sqlite|mysql|mongodb)|Storage type for player linking ("sqlite", "mysql", or "mongodb").|
-|`enable-global-linking`|Boolean|Enable global linking with `link.geysermc.org`.|
+| `enabled` | Boolean | Enable player linking. |
+| `require-link` | Boolean | Require Bedrock players to link their accounts before joining. |
+| `enable-own-linking` | Boolean | Allow local linking with a database. |
+| `allowed` | Boolean | Allow players to use `/linkaccount` and `/unlinkaccount`. |
+| `link-code-timeout` | Integer | Time in seconds before a link code expires. |
+| `type` | String(sqlite | mysql | mongodb) | Storage type for player linking ("sqlite", "mysql", or "mongodb"). |
+| `enable-global-linking` | Boolean | Enable global linking with `link.geysermc.org`. |
 
 ***
 
@@ -242,40 +242,40 @@ Detailed descriptions and more settings (can be edited at `addon_configs/d78ad65
 
 Basic Geyser client connection config
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`compression-level`|Integer|Compression level for Bedrock connections.|
-|`use-haproxy-protocol`|Boolean|Enable Proxy Protocol support for Bedrock connections.|
+| `compression-level` | Integer | Compression level for Bedrock connections. |
+| `use-haproxy-protocol` | Boolean | Enable Proxy Protocol support for Bedrock connections. |
 
 ### Geyser - Remote
 
 Basic Geyser connection settings
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`use-direct-connection`|Boolean|Connect directly to Velocity without creating TCP connection. Should only be disabled if plugsin with packet intervention have issues.|
-|`disable-compression`|Boolean|Disable compression for connections to Velocity. (Requires `use-direct-connection`)|
+| `use-direct-connection` | Boolean | Connect directly to Velocity without creating TCP connection. Should only be disabled if plugsin with packet intervention have issues. |
+| `disable-compression` | Boolean | Disable compression for connections to Velocity. (Requires `use-direct-connection`) |
 
 ### Geyser
 
 Geyser Gameplay config
 
-|Setting Name|Type|Description|
+| Setting Name | Type | Description |
 |-|-|-|
-|`show-cooldown`|String(title|actionbar|disabled)|Display type for cooldowns.|
-|`command-suggestions`|Boolean|Enable command suggestions for Bedrock players.|
-|`show-coordinates`|Boolean|Show coordinates to Bedrock players in the top left.|
-|`disable-bedrock-scaffolding`|Boolean|Disable scaffolding-style bridging for Bedrock players. (Prevents cheating compared to Java players)|
-|`nether-roof-workaround`|Boolean|Allow access to the nether ceiling for Bedrock players. (Makes the Nether act like the End - makes the Nether fog ALL red)|
-|`enable-emotes`|Boolean|Enable emotes for Bedrock players.|
-|`unusable-space-block`|String|Item to mark unavailable inventory slots for Bedrock players.|
-|`enable-custom-content`|Boolean|Add Java-only blocks and items for Bedrock players.|
-|`force-resource-packs`|Boolean|Force resource packs on Bedrock clients.|
-|`enable-integrated-packs`|Boolean|Automatically serve a resource pack that is required for some Geyser features.|
-|`forward-player-ping`|Boolean|Forward player ping to the server.|
-|`xbox-achievements-enabled`|Boolean|Enable Xbox achievements for Bedrock players.|
-|`max-visible-custom-skulls`|Integer|Maximum number of custom skulls visible to Bedrock players.|
-|`custom-skull-render-distance`|Integer|Render distance for custom skulls.|
+| `show-cooldown` | String(title | actionbar | disabled) | Display type for cooldowns. |
+| `command-suggestions` | Boolean | Enable command suggestions for Bedrock players. |
+| `show-coordinates` | Boolean | Show coordinates to Bedrock players in the top left. |
+| `disable-bedrock-scaffolding` | Boolean | Disable scaffolding-style bridging for Bedrock players. (Prevents cheating compared to Java players) |
+| `nether-roof-workaround` | Boolean | Allow access to the nether ceiling for Bedrock players. (Makes the Nether act like the End - makes the Nether fog ALL red) |
+| `enable-emotes` | Boolean | Enable emotes for Bedrock players. |
+| `unusable-space-block` | String | Item to mark unavailable inventory slots for Bedrock players. |
+| `enable-custom-content` | Boolean | Add Java-only blocks and items for Bedrock players. |
+| `force-resource-packs` | Boolean | Force resource packs on Bedrock clients. |
+| `enable-integrated-packs` | Boolean | Automatically serve a resource pack that is required for some Geyser features. |
+| `forward-player-ping` | Boolean | Forward player ping to the server. |
+| `xbox-achievements-enabled` | Boolean | Enable Xbox achievements for Bedrock players. |
+| `max-visible-custom-skulls` | Integer | Maximum number of custom skulls visible to Bedrock players. |
+| `custom-skull-render-distance` | Integer | Render distance for custom skulls. |
 
 ***
 
