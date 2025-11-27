@@ -120,7 +120,7 @@ log.info(f"Server UUID: {UUID}")
 if not file_exists(SERV_DIR+"/forwarding.secret.txt"):
   log.warning("No forwarding.secret.txt found, generating one...")
   new_secret = ''.join(random.choices(string.ascii_letters+string.digits, k=10))
-  log_info_x(f"Generated forwarding secret: {new_secret}")
+  log_info_x("Generated new forwarding secret in forwarding.secret.txt")
   write_file_a(SERV_DIR+"/forwarding.secret.txt", new_secret)
 
 if not file_exists(CONF_DIR+"/plugins.yaml"):
