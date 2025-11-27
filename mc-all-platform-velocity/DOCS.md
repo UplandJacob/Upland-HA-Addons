@@ -48,10 +48,10 @@ These settings mostly cover the basic, most essential settings of the proxy.
 | `online-mode` | Boolean | Should we authenticate players with Mojang? By default, this is on. |
 | `force-key-authentication` | Boolean | Should the proxy enforce the new public key security standard? By default, this is on. |
 | `prevent-client-proxy-connections` | Boolean | If client's ISP/AS sent from this proxy is different from the one from Mojang's authentication server, the player is kicked. This disallows some VPN and proxy connections but is a weak form of protection. |
-| `player-info-forwarding-mode` | Enum(NONE | LEGACY | BUNGEEGUARD | MODERN) | See [Configuring player information forwarding](/velocity/player-information-forwarding) for more information. |
+| `player-info-forwarding-mode` | String(NONE/LEGACY/BUNGEEGUARD/MODERN) | See [Configuring player information forwarding](/velocity/player-information-forwarding) for more information. |
 | `announce-forge` | Boolean | This setting determines whether Velocity should present itself as a Forge/FML-compatible server. By default, this is disabled. |
 | `kick-existing-players` | Boolean | Allows restoring the Vanilla behavior of kicking users on the proxy if they try to reconnect (e.g. lost internet connection briefly). |
-| `ping-passthrough` | String(DISABLED | MODS | DESCRIPTION | ALL) | Allows forwarding nothing (the default), the `MODS` (for Forge), the `DESCRIPTION`, or everything (`ALL`) from the `try` list (or forced host server connection order). |
+| `ping-passthrough` | String(DISABLED/MODS/DESCRIPTION/ALL) | Allows forwarding nothing (the default), the `MODS` (for Forge), the `DESCRIPTION`, or everything (`ALL`) from the `try` list (or forced host server connection order). |
 | `enable-player-address-logging` | Boolean | If disabled (default is true), player IP addresses will be replaced by " " in logs. |
 
 ### `servers` section (seperated in 2 parts for the addon)
@@ -227,7 +227,7 @@ If you enable local linking, the database driver will automattically be download
 | `enable-own-linking` | Boolean | Allow local linking with a database. |
 | `allowed` | Boolean | Allow players to use `/linkaccount` and `/unlinkaccount`. |
 | `link-code-timeout` | Integer | Time in seconds before a link code expires. |
-| `type` | String(sqlite | mysql | mongodb) | Storage type for player linking ("sqlite", "mysql", or "mongodb"). |
+| `type` | String(sqlite/mysql/mongodb) | Storage type for player linking ("sqlite", "mysql", or "mongodb"). |
 | `enable-global-linking` | Boolean | Enable global linking with `link.geysermc.org`. |
 
 ***
@@ -262,7 +262,7 @@ Geyser Gameplay config
 
 | Setting Name | Type | Description |
 |-|-|-|
-| `show-cooldown` | String(title | actionbar | disabled) | Display type for cooldowns. |
+| `show-cooldown` | String(title/actionbar/disabled) | Display type for cooldowns. |
 | `command-suggestions` | Boolean | Enable command suggestions for Bedrock players. |
 | `show-coordinates` | Boolean | Show coordinates to Bedrock players in the top left. |
 | `disable-bedrock-scaffolding` | Boolean | Disable scaffolding-style bridging for Bedrock players. (Prevents cheating compared to Java players) |
