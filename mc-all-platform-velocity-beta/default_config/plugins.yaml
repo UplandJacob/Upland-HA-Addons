@@ -46,8 +46,8 @@ packaged_plugins:
     enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
-    version: 2.9.1
-    build: 1002
+    version: 2.9.2
+    build: 1006
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
@@ -56,37 +56,37 @@ packaged_plugins:
     enabled: false
   xbox_broadcast:
     url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
-    build: 117
+    build: 118
     path: "Geyser-Velocity/extensions"
     file: "MCXboxBroadcastExtension.jar"
     enabled: false
   third_party_cosmetics:
     url: "https://download.geysermc.org/v2/projects/thirdpartycosmetics/versions/{version}/builds/{build}/downloads/thirdpartycosmetics"
     version: 1.0.0
-    build: 8
+    build: 9
     path: "Geyser-Velocity/extensions"
     file: "ThirdPartyCosmetics.jar"
     enabled: false
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.2.5
-    build: 121
+    build: 123
     file: "Floodgate.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
-    version: 5.5.1
+    version: 5.6.0
     file: "ViaVersion.jar"
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
-    version: 5.5.1
+    version: 5.6.0
     file: "ViaBackwards.jar"
   viarewind:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
-    version: 4.0.11
+    version: 4.0.12
     file: "ViaRewind.jar"
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.9.0
+    version: 15.9.1
     file: "SkinsRestorer.jar"
     enabled: false
   authme_velocity:
