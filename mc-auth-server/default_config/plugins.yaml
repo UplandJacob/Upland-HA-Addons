@@ -71,12 +71,12 @@ packaged_plugins:
     file: "WebConsole.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
-    version: 5.6.0
+    version: 5.7.0
     file: "ViaVersion.jar"
     enabled: false
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
-    version: 5.6.0
+    version: 5.7.0
     file: "ViaBackwards.jar"
     enabled: false
   viarewind:
