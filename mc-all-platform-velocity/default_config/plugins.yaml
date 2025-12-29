@@ -47,7 +47,7 @@ packaged_plugins:
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.9.2
-    build: 1014
+    build: 1015
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
@@ -74,15 +74,15 @@ packaged_plugins:
     file: "Floodgate.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
-    version: 5.6.0
+    version: 5.7.0
     file: "ViaVersion.jar"
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
-    version: 5.6.0
+    version: 5.7.0
     file: "ViaBackwards.jar"
   viarewind:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
-    version: 4.0.12
+    version: 4.0.13
     file: "ViaRewind.jar"
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
@@ -107,6 +107,6 @@ packaged_plugins:
 velocity:
   url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
   version: 3.4.0-SNAPSHOT
-  build: 558
+  build: 559
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
