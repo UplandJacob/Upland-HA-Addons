@@ -1,7 +1,7 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
-ARG VERSION=1.105.1
+ARG VERSION=1.107.1
 
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -21,7 +21,7 @@ RUN apt-get update && \
     tar -xf vscode_cli.tar.gz -C /bin && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV DOCKER_VERS=28.3.3
+ENV DOCKER_VERS=29.1.3
 RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERS.tgz | tar zxvf - --strip 1 -C /usr/bin docker/docker
 
 # Modules
