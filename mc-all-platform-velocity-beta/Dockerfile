@@ -17,10 +17,11 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 # hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    tmux python3-full python3-pip python3-dev && \
+    tmux python3-full python3-pip && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --no-cache-dir --break-system-packages -r requirements.txt
+RUN python3 -m pip install --no-cache-dir --break-system-packages -r requirements.txt && \
+    python3 -m pip install --no-cache-dir --break-system-packages --no-deps ruamel.yaml
 
 # Modules
 ARG MODULES="00-banner.sh"
