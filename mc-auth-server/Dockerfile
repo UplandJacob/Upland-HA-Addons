@@ -21,7 +21,7 @@ RUN apt-get update && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install --no-cache-dir --break-system-packages -r requirements.txt && \
-    python3 -m pip install --no-cache-dir --break-system-packages --no-deps ruamel.yaml=0.19.0
+    python3 -m pip install --no-cache-dir --break-system-packages --no-deps ruamel.yaml==0.19.0
 
 
 # Modules
