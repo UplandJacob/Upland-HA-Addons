@@ -70,7 +70,7 @@ packaged_plugins:
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.2.5
-    build: 125
+    build: 126
     file: "Floodgate.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
@@ -86,7 +86,7 @@ packaged_plugins:
     file: "ViaRewind.jar"
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.9.1
+    version: 15.9.2
     file: "SkinsRestorer.jar"
     enabled: false
   authme_velocity:
