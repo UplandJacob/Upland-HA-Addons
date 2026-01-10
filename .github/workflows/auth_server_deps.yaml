@@ -238,6 +238,7 @@ jobs:
           echo "filename: $filename"
           latestVers="${filename#*-*-}"
           latestVers="${latestVers%%-*}"
+          latestVers="${latestVers%.jar}"
           latestBuild=$(echo "$resp" | jq -r .id)
           echo "latest version: $latestVers - latest build: $latestBuild"
 
