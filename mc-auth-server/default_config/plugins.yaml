@@ -91,7 +91,7 @@ packaged_plugins:
     enabled: false
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.9.2
+    version: 15.9.3
     file: "SkinsRestorer.jar"
     enabled: false
   luckperms:
@@ -102,8 +102,8 @@ packaged_plugins:
     enabled: false
   fawe:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
-    version: 2.14.4
-    build: 1261
+    version: 2.15.1
+    build: 1264
     file: "FastAsyncWorldEdit-Paper-SNAPSHOT.jar"
     enabled: false
   worldguard:
