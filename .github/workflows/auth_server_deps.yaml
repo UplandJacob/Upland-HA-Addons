@@ -232,7 +232,7 @@ jobs:
 
       - name: FastAsyncWorldEdit
         run: |
-          resp=$(curl --silent -X 'GET' -H 'accept: application/json' "https://ci.athion.net/job/FastAsyncWorldEdit/lastBuild/api/json")
+          resp=$(curl --silent -X 'GET' -H 'accept: application/json' "https://ci.athion.net/job/FastAsyncWorldEdit/lastSuccessfulBuild/api/json")
           echo "$resp"
           filename=$(echo "$resp" | jq -r .artifacts.[0].fileName)
           echo "filename: $filename"
