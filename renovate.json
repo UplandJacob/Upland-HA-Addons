@@ -32,8 +32,7 @@
         "/(^|/)Dockerfile$/"
       ],
       "matchStrings": [
-        "(?<runStatement>RUN(?:[^\\n]+\\\\\\n)*(?:[^\\n]+))",
-        "(?:apt(?:-get)?)\\s+.*?install[\\S\\s]*?(?<packagesAndVersions>(?:[a-z0-9.-]+=[^\\s]+(?:[\\s\\\\])*)+)",
+        "RUN(?s:.*?)(?:apt(?:-get)?)\\s+.*?install[\\S\\s]*?(?<packagesAndVersions>(?:[a-z0-9.-]+=[^\\s]+(?:[\\s\\\\\\n])*)+)",
         "(?<depName>[a-z0-9-]+)=(?<currentValue>[^\\s]+)"
       ],
       "matchStringsStrategy": "combination",
