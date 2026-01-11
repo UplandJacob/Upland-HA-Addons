@@ -10,15 +10,16 @@ COPY rootfs .
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
+# renovate: datasource=github-releases depName=playit-cloud/playit-agent
+ENV PLAYIT_AGENT_VERSION=v0.16.5
+
 # hadolint ignore=DL3008
 RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
     apt-get update \
-    && apt-get --no-install-recommends install -y curl ca-certificates \
-    && curl -SsL https://playit-cloud.github.io/ppa/key.gpg -o /etc/apt/trusted.gpg.d/playit.asc \
-    && curl -SsL https://playit-cloud.github.io/ppa/playit-cloud.list -o /etc/apt/sources.list.d/playit-cloud.list \
-    && apt-get update \
-    && apt-get --no-install-recommends install -y playit \
+    && apt-get --no-install-recommends install -y curl \
+    && curl -SsL https://github.com/playit-cloud/playit-agent/releases/download/${PLAYIT_AGENT_VERSION}/playit_amd64.deb -o ./playit_amd64.deb \
+    && apt-get --no-install-recommends install -y ./playit_amd64.deb \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Modules
