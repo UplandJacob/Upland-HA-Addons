@@ -14,10 +14,13 @@ COPY rootfs .
 # hadolint ignore=DL4005
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
-# hadolint ignore=DL3008
+
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    curl tar git ssh && \
+    curl=7.88.1-10+deb12u14 \
+    tar=1.34+dfsg-1.2+deb12u1 \
+    git=1:2.39.5-0+deb12u3 \
+    ssh=1:9.2p1-2+deb12u7 && \
     [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="x64" && \
     curl -Lk https://update.code.visualstudio.com/${VSCODE_CLI_VERSION}/cli-linux-${ARCH}/stable -o vscode_cli.tar.gz && \
     tar -xf vscode_cli.tar.gz -C /bin && \
