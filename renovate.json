@@ -3,8 +3,9 @@
   "extends": [
     "config:recommended"
   ],
-  "addLabels": ["dependencies"],
-  
+  "addLabels": [
+    "dependencies"
+  ],
   "customDatasources": {
     "vscode-cli": {
       "defaultRegistryUrlTemplate": "https://update.code.visualstudio.com/api/releases/stable",
@@ -14,7 +15,6 @@
       ]
     }
   },
-
   "customManagers": [
     {
       "customType": "regex",
@@ -28,7 +28,9 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["(^|/)Dockerfile$"],
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/"
+      ],
       "matchStrings": [
         "RUN\\s+(?:apt-get|apt)\\s+.*?install\\s+.*?(?<packagesAndVersions>(?:[a-z0-9.-]+=[^\\s]+\\s+)+)",
         "(?<depName>[a-z0-9-]+)=(?<currentValue>[^\\s]+)"
@@ -38,5 +40,4 @@
       "versioningTemplate": "deb"
     }
   ]
-  
 }
