@@ -15,10 +15,12 @@
       ]
     }
   },
-  {
-    "matchPackageNames": ["playit-cloud/playit-agent"],
-    "allowedVersions": "/^v0\\./"
-  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["playit-cloud/playit-agent"],
+      "allowedVersions": "/^v0\\./"
+    }
+  ],
   "customManagers": [
     {
       "customType": "regex",
