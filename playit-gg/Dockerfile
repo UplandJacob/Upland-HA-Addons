@@ -1,5 +1,6 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
+ARG BUILD_ARCH
 
 WORKDIR /
 
@@ -18,7 +19,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
     --mount=type=cache,target=/var/lib/apt \
     apt-get update \
     && apt-get --no-install-recommends install -y curl \
-    && curl -SsL https://github.com/playit-cloud/playit-agent/releases/download/${PLAYIT_AGENT_VERSION}/playit_amd64.deb -o ./playit_amd64.deb \
+    && [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="amd64" \
+    && curl -SsL https://github.com/playit-cloud/playit-agent/releases/download/${PLAYIT_AGENT_VERSION}/playit_${ARCH}.deb -o ./playit_amd64.deb \
     && apt-get --no-install-recommends install -y ./playit_amd64.deb \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -46,7 +48,6 @@ RUN chmod 777 /ha_entrypoint.sh /ha_entrypoint_modif.sh && /ha_entrypoint_modif.
 RUN rm /etc/cont-init.d/00-global_var.sh
 
 
-ARG BUILD_ARCH
 #ARG BUILD_DATE
 #ARG BUILD_REF
 ARG BUILD_NAME
