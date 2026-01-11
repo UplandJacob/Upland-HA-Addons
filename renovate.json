@@ -3,6 +3,8 @@
   "extends": [
     "config:recommended"
   ],
+  "addLabels": ["dependencies"],
+  
   "customDatasources": {
     "vscode-cli": {
       "defaultRegistryUrlTemplate": "https://update.code.visualstudio.com/api/releases/stable",
