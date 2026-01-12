@@ -1,0 +1,49 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "addLabels": [
+    "dependencies"
+  ],
+  "customDatasources": {
+    "vscode-cli": {
+      "defaultRegistryUrlTemplate": "https://update.code.visualstudio.com/api/releases/stable",
+      "format": "json",
+      "transformTemplates": [
+        "{ \"releases\": [ { \"version\": $[0] } ] }"
+      ]
+    }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["playit-cloud/playit-agent"],
+      "allowedVersions": "/^v0\\./"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/|\\.)([Dd]ocker|[Cc]ontainer)file$/",
+        "/(^|/)([Dd]ocker|[Cc]ontainer)file[^/]*$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-zA-Z0-9-._]+?) depName=(?<depName>[^\\s]+?)(?: (lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?(?: registryUrl=(?<registryUrl>[^\\s]+?))?\\s(?:ENV|ARG)\\s+[A-Za-z0-9_]+?_VERSION[ =][\"']?(?<currentValue>.+?)[\"']?\\s"
+      ]
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/"
+      ],
+      "matchStrings": [
+        "RUN(?s:.*?)(?:apt(?:-get)?)\\s+.*?install[\\S\\s]*?(?<packagesAndVersions>(?:[a-z0-9.-]+=[^\\s]+(?:[\\s\\\\\\n])*)+)",
+        "(?<depName>[a-z0-9-]+)=(?<currentValue>[^\\s]+)"
+      ],
+      "matchStringsStrategy": "combination",
+      "datasourceTemplate": "repology",
+      "versioningTemplate": "deb"
+    }
+  ]
+}

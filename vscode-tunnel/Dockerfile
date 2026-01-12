@@ -1,7 +1,9 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
-ARG VERSION=1.107.1
+
+# renovate: datasource=custom.vscode-cli depName=vscode-cli
+ARG VSCODE_CLI_VERSION=1.108.0
 
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -12,17 +14,21 @@ COPY rootfs .
 # hadolint ignore=DL4005
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
-# hadolint ignore=DL3008
+
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    curl tar git ssh && \
+    curl=7.88.1-10+deb12u14 \
+    tar=1.34+dfsg-1.2+deb12u1 \
+    git=1:2.39.5-0+deb12u3 \
+    ssh=1:9.2p1-2+deb12u7 && \
     [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="x64" && \
-    curl -Lk https://update.code.visualstudio.com/${VERSION}/cli-linux-${ARCH}/stable -o vscode_cli.tar.gz && \
+    curl -Lk https://update.code.visualstudio.com/${VSCODE_CLI_VERSION}/cli-linux-${ARCH}/stable -o vscode_cli.tar.gz && \
     tar -xf vscode_cli.tar.gz -C /bin && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV DOCKER_VERS=29.1.3
-RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERS.tgz | tar zxvf - --strip 1 -C /usr/bin docker/docker
+# renovate: datasource=github-tags depName=docker/cli extractVersion=^v(?<version>.*)$
+ENV DOCKER_VERSION=29.1.4
+RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz | tar zxvf - --strip 1 -C /usr/bin docker/docker
 
 # Modules
 ARG MODULES="00-banner.sh"
