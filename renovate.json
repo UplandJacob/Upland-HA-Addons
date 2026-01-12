@@ -59,6 +59,6 @@
         "(aarch64|amd64):\\s[\"']?(?<depName>.*?):(?<currentValue>.*?)[\"']?\\s"
       ],
       "datasourceTemplate": "docker"
-    },
+    }
   ]
 }
