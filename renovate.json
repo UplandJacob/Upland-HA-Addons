@@ -3,9 +3,11 @@
   "extends": [
     "config:recommended"
   ],
+  "rebaseWhen": "conflicted",
   "addLabels": [
     "dependencies"
   ],
+  "commitMessagePrefix": "⬆️",
   "customDatasources": {
     "vscode-cli": {
       "defaultRegistryUrlTemplate": "https://update.code.visualstudio.com/api/releases/stable",
@@ -44,6 +46,19 @@
       "matchStringsStrategy": "combination",
       "datasourceTemplate": "repology",
       "versioningTemplate": "deb"
-    }
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/",
+        "/(^|/)build.yaml$/"
+      ],
+      "matchStringsStrategy": "any",
+      "matchStrings": [
+        "ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+",
+        "(aarch64|amd64):\\s[\"']?(?<depName>.*?):(?<currentValue>.*?)[\"']?\\s"
+      ],
+      "datasourceTemplate": "docker"
+    },
   ]
 }
