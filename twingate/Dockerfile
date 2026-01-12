@@ -15,7 +15,7 @@ USER root
 
 
 # we need /bin/sh
-COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
+COPY --from=busybox:1.37.0-uclibc /bin/sh /bin/sh
 
 COPY --from=0 /bin/bash /bin/bash
 
