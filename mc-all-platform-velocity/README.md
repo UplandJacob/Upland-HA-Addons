@@ -7,7 +7,7 @@
 ![Supports amd64 Architecture](https://img.shields.io/badge/amd64-yes-green.svg?style=flat)
 ![Supports armhf Architecture](https://img.shields.io/badge/armhf-no-red.svg?style=flat)
 ![Supports armv7 Architecture](https://img.shields.io/badge/armv7-no-red.svg)
-![Supports i386 Architecture](https://img.shields.io/badge/i386-deprecated-orange.svg)
+![Supports i386 Architecture](https://img.shields.io/badge/i386-no-red.svg)
 
 ## About
 

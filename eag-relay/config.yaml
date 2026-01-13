@@ -6,7 +6,6 @@ url: https://github.com/uplandjacob/upland-ha-addons/tree/main/eag-relay
 arch:
   - aarch64
   - amd64
-  - i386
 init: false
 image: ghcr.io/uplandjacob/upland-ha-addons-eag-relay-{arch}
 hassio_api: true
