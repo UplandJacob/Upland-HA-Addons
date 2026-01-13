@@ -5,7 +5,6 @@ description: Twingate VPN from Home Assistant.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/twingate
 stage: experimental
 arch:
-  - armv7
   - aarch64
   - amd64
 boot: manual
