@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2025.12.0
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:bookworm
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
 
@@ -19,21 +19,26 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 # hadolint ignore=DL3008
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    curl \
+    apt-get install -y --no-install-recommends curl \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# renovate: datasource=github-releases depName=mikefarah/yq
-ENV YQ_VERSION="v4.50.0"
-RUN [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="$BUILD_ARCH" \
+RUN if [ "$BUILD_ARCH" = "aarch64" ]; then \
+        echo "arm64" > /tmp/arch; \
+    else \
+        echo "${BUILD_ARCH}" > /tmp/arch; \
+    fi && \
+    echo "$(cat /tmp/arch)"
+
+RUN VERSION=$(curl --silent https://api.github.com/repos/mikefarah/yq/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    ARCH=$(cat /tmp/arch) && \
     echo "ARCH = ${ARCH}" && \
-    curl https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_${ARCH} -o /usr/local/bin/yq && \
+    curl https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_${ARCH} -o /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
-ENV ACT_RUNNER_VERSION="0.2.13"
-RUN [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="$BUILD_ARCH" \
+
+RUN ARCH=$(cat /tmp/arch) && \
     echo "ARCH = ${ARCH}" && \
-    curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/$ACT_RUNNER_VERSION/act_runner-$ACT_RUNNER_VERSION-linux-${ARCH} && \
+    curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/0.2.13/act_runner-0.2.13-linux-${ARCH} && \
     chmod +x /usr/local/bin/act_runner
  
 ENV CONFIG_FILE=/config/config.yaml
