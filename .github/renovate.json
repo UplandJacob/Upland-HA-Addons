@@ -21,6 +21,16 @@
     {
       "matchPackageNames": ["playit-cloud/playit-agent"],
       "allowedVersions": "/^v0\\./"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["^ghcr.io/home-assistant/[\\S]+-base-debian$"],
+      "groupName": "Home Assistant Base Java Images"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["^ghcr.io/uplandjacob/ha-base-debian-java-[\\S]+$"],
+      "groupName": "Home Assistant Base Images"
     }
   ],
   "customManagers": [
@@ -56,9 +66,10 @@
       "matchStringsStrategy": "any",
       "matchStrings": [
         "ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+",
-        "(aarch64|amd64):\\s[\"']?(?<depName>.*?):(?<currentValue>.*?)[\"']?\\s"
+        "\\s*(aarch64|amd64|armhf|armv7|i386):\\s*[\"']?(?<depName>.*?):(?<currentValue>[a-z]*-?[\\w\\.-]+?)[\"']?\\s"
       ],
-      "datasourceTemplate": "docker"
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "regex:^(?<compatibility>[a-z]+)?-?(?<major>\\d{1,4})\\.(?<minor>\\d{1,3})\\.(?<patch>\\d{1,3})$"
     }
   ]
 }
