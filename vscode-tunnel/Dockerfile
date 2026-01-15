@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2025.12.0
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2025.12.2
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
 
