@@ -21,13 +21,28 @@ if [ ! -d /config/flask/.venv ]; then
     bashio::log.green "Creating virtual environment in '/config/flask'..."
     python3 -m venv /config/flask/.venv
 fi
-# Activate the virtual environment
-bashio::log.green "Activating virtual environment in '/config/flask' (.venv)..."
-source /config/flask/.venv/bin/activate
 
-# Install the required packages from the user's requirements.txt
-bashio::log.green "Installing required packages from '/config/flask/requirements.txt'"
-python3 -m pip install --no-cache-dir --break-system-packages -r /config/flask/requirements.txt
+setup() {
+    # Activate the virtual environment
+    bashio::log.green "Activating virtual environment in '/config/flask' (.venv)..."
+    source /config/flask/.venv/bin/activate
+
+    # Install the required packages from the user's requirements.txt
+    bashio::log.green "Installing required packages from '/config/flask/requirements.txt'"
+    python3 -m pip install --no-cache-dir --break-system-packages -r /config/flask/requirements.txt
+}
+{
+    setup
+} || {
+    bashio::log.red "Failed to set up the Flask application environment."
+    bashio::log.yellow "Resetting virtual environment to allow re-setup on next start..."
+    rm -rf /config/flask/.venv
+    python3 -m venv /config/flask/.venv
+
+    bashio::log.green "Re-attempting setup..."
+    setup
+}
+
 
 if [ ! -f /config/flask/main.py ]; then
     bashio::log.green "Copying default 'main.py' to '/config/flask'"
