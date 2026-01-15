@@ -17,10 +17,10 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    curl=8.14.1 \
-    tar=1.35 \
-    git=2.47.3 \
-    ssh=9.2 && \
+    curl=8.14.1-2+deb13u2 \
+    tar=1.35+dfsg-3.1 \
+    git=1:2.47.3-0+deb13u1 \
+    openssh-client=1:10.0p1-7 && \
     [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="x64" && \
     curl -Lk https://update.code.visualstudio.com/${VSCODE_CLI_VERSION}/cli-linux-${ARCH}/stable -o vscode_cli.tar.gz && \
     tar -xf vscode_cli.tar.gz -C /bin && \
