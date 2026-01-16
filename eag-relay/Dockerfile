@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2025.12.2
+ARG BUILD_FROM=ghcr.io/uplandjacob/ha-base-debian-java-amd64:0.3.0
 FROM ${BUILD_FROM}
 
 COPY start.sh /
