@@ -27,7 +27,7 @@ RUN apt-get update && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-tags depName=docker/cli extractVersion=^v(?<version>.*)$
-ENV DOCKER_VERSION=29.1.4
+ENV DOCKER_VERSION=29.1.5
 RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz | tar zxvf - --strip 1 -C /usr/bin docker/docker
 
 # Modules
