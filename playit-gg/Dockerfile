@@ -15,13 +15,12 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 ENV PLAYIT_AGENT_VERSION=v0.17.1
 
 # hadolint ignore=DL3008
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/var/lib/apt \
-    apt-get update \
+RUN apt-get update \
     && apt-get --no-install-recommends install -y curl \
     && [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="amd64" \
-    && curl -SsL https://github.com/playit-cloud/playit-agent/releases/download/${PLAYIT_AGENT_VERSION}/playit_${ARCH}.deb -o ./playit_amd64.deb \
-    && apt-get --no-install-recommends install -y ./playit_amd64.deb \
+    && curl -SsL https://github.com/playit-cloud/playit-agent/releases/download/${PLAYIT_AGENT_VERSION}/playit_${ARCH}.deb -o ./playit.deb \
+    && apt-get --no-install-recommends install -y ./playit.deb \
+    && rm ./playit.deb \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Modules

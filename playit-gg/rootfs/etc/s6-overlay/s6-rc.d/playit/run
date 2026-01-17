@@ -1,3 +1,3 @@
 #!/usr/bin/with-contenv bashio
 
-playit
+playit --secret_path /config/playit.toml --stdout

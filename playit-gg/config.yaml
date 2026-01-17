@@ -1,5 +1,5 @@
 name: Playit.gg Agent
-version: 1.2.0
+version: 1.2.1
 slug: playitgg
 description: Addon to run the Playit.gg tunnel service in Home Assistant
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/playit-gg
