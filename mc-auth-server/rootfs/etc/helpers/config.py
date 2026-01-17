@@ -4,12 +4,10 @@
 import logging
 from colorlog import ColoredFormatter
 
-import os
-from os.path import join as path_join
-import re
 import requests
-import shutil
-import uuid
+import os, shutil
+from os.path import join as j_pth
+import re, uuid
 
 import json
 from ruamel.yaml import YAML
@@ -18,10 +16,10 @@ from typing import Any
 
 
 ROOT_DIR = '/'
-CONF_DIR = path_join(ROOT_DIR, 'config')
-SERV_DIR = path_join(CONF_DIR, 'server')
-PLUG_DIR = path_join(SERV_DIR, 'plugins')
-DEF_CONF = path_join(ROOT_DIR, 'default_config')
+CONF_DIR = j_pth(ROOT_DIR, 'config')
+SERV_DIR = j_pth(CONF_DIR, 'server')
+PLUG_DIR = j_pth(SERV_DIR, 'plugins')
+DEF_CONF = j_pth(ROOT_DIR, 'default_config')
 
 LOG_LEVEL = 2
 log = logging.getLogger()
@@ -69,10 +67,10 @@ def log_debug_x(msg: Any):
 def log_info_x(msg: Any):
   if LOG_LEVEL >= 3: log.info("\033[0m"+msg)
 
-OPT_FILE = path_join(ROOT_DIR, "data/options.json")
+OPT_FILE = j_pth(ROOT_DIR, "data/options.json")
 if not file_exists(OPT_FILE):
   log.warning("options.json file not found. Is this addon running outside of Home Assistant? Converting YAML to JSON...")
-  ymlConf = yaml.load(read_file(path_join(DEF_CONF, "config.yaml")))
+  ymlConf = yaml.load(read_file(j_pth(DEF_CONF, "config.yaml")))
   write_file_w(OPT_FILE, json.dumps(ymlConf["options"], indent=2))
 
 with open(OPT_FILE, "r") as file:
@@ -82,8 +80,8 @@ set_log_level(addon_conf['logLevel'])
 
 ## ------------------ ##
 
-check_dir(path_join(CONF_DIR, "server"))
-UUID_FILE = path_join(CONF_DIR, "uuid.txt")
+check_dir(SERV_DIR)
+UUID_FILE = j_pth(CONF_DIR, "uuid.txt")
 if not file_exists(UUID_FILE):
   log.warning("No uuid.txt found, generating one...")
   new_uuid = str(uuid.uuid4())
@@ -92,8 +90,8 @@ if not file_exists(UUID_FILE):
 UUID = read_file(UUID_FILE)
 log.info(f"Server UUID: {UUID}")
 
-PLUG_FILE = path_join(CONF_DIR, "plugins.yaml")
-DEF_PLUG_FILE = path_join(DEF_CONF, "plugins.yaml")
+PLUG_FILE = j_pth(CONF_DIR, "plugins.yaml")
+DEF_PLUG_FILE = j_pth(DEF_CONF, "plugins.yaml")
 if not file_exists(PLUG_FILE):
   log.warning("No plugins.yaml found, copying from default config...")
   shutil.copy(DEF_PLUG_FILE, PLUG_FILE)
@@ -122,9 +120,9 @@ log_info_x(f"Server Name: {SERVER_NAME}")
 log_info_x(f"MOTD1: {MOTD1}")
 log_info_x(f"MOTD2: {MOTD2}")
 
-EULA_FILE = path_join(SERV_DIR, "eula.txt")
+EULA_FILE = j_pth(SERV_DIR, "eula.txt")
 if not file_exists(EULA_FILE):
-  shutil.copy(path_join(DEF_CONF, "eula.txt"), EULA_FILE)
+  shutil.copy(j_pth(DEF_CONF, "eula.txt"), EULA_FILE)
 
 EULA = addon_conf['eula']
 log_info_x(f"EULA: {EULA}")
@@ -138,10 +136,10 @@ with open(EULA_FILE, "w") as file:
 log.info("Updated eula.txt")
 
 ## ----------------------------------- ##
-SERV_PROP_FILE = path_join(SERV_DIR, "server.properties")
+SERV_PROP_FILE = j_pth(SERV_DIR, "server.properties")
 if not file_exists(SERV_PROP_FILE):
   log.warning("server.properties not found, copying from default_config...")
-  shutil.copy(path_join(DEF_CONF, "server.properties"), SERV_PROP_FILE)
+  shutil.copy(j_pth(DEF_CONF, "server.properties"), SERV_PROP_FILE)
 
 SERV_SET = addon_conf["server"]
 SERV_SET["max-players"] = MAX_PLAYERS
@@ -178,7 +176,7 @@ def download_file(url: str, f_name: str, path: str = PLUG_DIR):
   log.info(f"Downloading {f_name} from {url}...")
   response = requests.get(url)
   if response.status_code == 200:
-    with open(path_join(path, f_name), "wb") as file:
+    with open(j_pth(path, f_name), "wb") as file:
       file.write(response.content)
     log_info_x("File downloaded successfully!")
     return True
@@ -190,7 +188,7 @@ if vers_data['current_installed_urls'] is None: vers_data['current_installed_url
 serv_url = plug_placeholders(vers_data['server']['url'], vers_data['server'])
 
 # server download
-if not file_exists(path_join(SERV_DIR, "server.jar")) or 'server' not in vers_data['current_installed_urls'] or vers_data['current_installed_urls']['server'] != serv_url:
+if not file_exists(j_pth(SERV_DIR, "server.jar")) or 'server' not in vers_data['current_installed_urls'] or vers_data['current_installed_urls']['server'] != serv_url:
   log.warning("Downloading server...")
   if download_file(serv_url, 'server.jar', SERV_DIR):
     log_info_x("Server downloaded successfully!")
@@ -230,7 +228,7 @@ def download_plugins(main_group: str, override_group: str = ''):
     log.debug(f"Path: {path}")
 
     f_nm = plug_placeholders(plugin_data['file'], plugin_data)
-    full_jar_nm = path_join(PLUG_DIR, path, f_nm)
+    full_jar_nm = j_pth(PLUG_DIR, path, f_nm)
     jar_present = file_exists(full_jar_nm)
     enabled = True if 'enabled' not in plugin_data else plugin_data['enabled']
     if not enabled:
@@ -250,12 +248,12 @@ def download_plugins(main_group: str, override_group: str = ''):
     if plugin in urls and urls[plugin] == url and jar_present:
       log_info_x("Plugin up to date")
       continue
-    if download_file(url, f_nm, path_join(PLUG_DIR, path)):
+    if download_file(url, f_nm, j_pth(PLUG_DIR, path)):
       vers_data['current_installed_urls'][plugin] = url
       old_fl = vers_data['current_installed_files'].get(plugin, None)
-      if old_fl is not None and old_fl != f_nm and file_exists(path_join(PLUG_DIR, path, old_fl)):
+      if old_fl is not None and old_fl != f_nm and file_exists(j_pth(PLUG_DIR, path, old_fl)):
         log_info_x(f"Removing old jar ('{old_fl}') for '{plugin}' because it is now '{f_nm}'")
-        os.remove(path_join(PLUG_DIR, path, old_fl))
+        os.remove(j_pth(PLUG_DIR, path, old_fl))
       vers_data['current_installed_files'][plugin] = f_nm
     else: 
       log.error(f"Failed to download plugin {plugin}")
@@ -263,22 +261,22 @@ def download_plugins(main_group: str, override_group: str = ''):
 
 ## ----------------------------------- ##
 
-SPIGOT_FILE = path_join(SERV_DIR, "spigot.yml")
+SPIGOT_FILE = j_pth(SERV_DIR, "spigot.yml")
 if not file_exists(SPIGOT_FILE):
   log.warning("spigot.yml doesn't exist. Copying from default_config...")
-  shutil.copy(path_join(DEF_CONF, "spigot.yml"), SPIGOT_FILE)
+  shutil.copy(j_pth(DEF_CONF, "spigot.yml"), SPIGOT_FILE)
 
-check_dir(path_join(SERV_DIR, "config"))
-PAPER_FILE = path_join(SERV_DIR, "config/paper-global.yml")
+check_dir(j_pth(SERV_DIR, "config"))
+PAPER_FILE = j_pth(SERV_DIR, "config/paper-global.yml")
 if not file_exists(PAPER_FILE):
   log.warning("paper-global.yml doesn't exist. Copying from default_config...")
   shutil.copy(DEF_CONF+"/paper-global.yml", PAPER_FILE)
 
-check_dir(PLUG_DIR+"/BungeeGuard")
-BUNGEE_GUARD_FILE = path_join(PLUG_DIR, "BungeeGuard/config.yaml")
+check_dir(j_pth(PLUG_DIR, "BungeeGuard"))
+BUNGEE_GUARD_FILE = j_pth(PLUG_DIR, "BungeeGuard/config.yaml")
 if not file_exists(BUNGEE_GUARD_FILE):
   log.warning("Bungeeguard config.yml doesn't exist. Copying from default_config...")
-  shutil.copy(DEF_CONF+"/bungeeguard.yml", BUNGEE_GUARD_FILE)
+  shutil.copy(j_pth(DEF_CONF, "bungeeguard.yml"), BUNGEE_GUARD_FILE)
 
 spigot_yaml = yaml.load(read_file(SPIGOT_FILE))
 paper_yaml = yaml.load(read_file(PAPER_FILE))
@@ -344,11 +342,11 @@ FLOOD_DBS = {
 FLOOD = addon_conf["floodgate"]
 FLOOD_PLAYER_LINK = addon_conf["floodPlayerLink"]
 
-check_dir(PLUG_DIR+"/floodgate")
-FLOOD_FILE = path_join(PLUG_DIR, "floodgate/config.yml")
+check_dir(j_pth(PLUG_DIR, "floodgate"))
+FLOOD_FILE = j_pth(PLUG_DIR, "floodgate/config.yml")
 if not file_exists(FLOOD_FILE):
   log.warning("No Floodgate config.yml found, copying from default config...")
-  shutil.copy(path_join(DEF_CONF, "floodgate.yml"), FLOOD_FILE)
+  shutil.copy(j_pth(DEF_CONF, "floodgate.yml"), FLOOD_FILE)
 
 flood_yaml = yaml.load(read_file(FLOOD_FILE))
 
@@ -366,34 +364,34 @@ with open(FLOOD_FILE, "w") as file:
   yaml.dump(flood_yaml, file)
   log.info("Updated Floodgate config.yml")
 
-# if not file_exists(PLUG_DIR+"/floodgate/key.pem"):
+# if not file_exists(j_pth(PLUG_DIR, "floodgate/key.pem")):
 #   log.info("No Floodgate key.pem found, generating one...")
 #   key = os.urandom(16)
-#   with open(PLUG_DIR+"/floodgate/key.pem", "wb") as f:
+#   with open(j_pth(PLUG_DIR, "floodgate/key.pem"), "wb") as f:
 #     f.write(key)
-#   shutil.copy(PLUG_DIR+"/floodgate/key.pem", PLUG_DIR+"/Geyser-Velocity/key.pem")
+#   shutil.copy(j_pth(PLUG_DIR, "floodgate/key.pem"), PLUG_DIR+"/Geyser-Velocity/key.pem")
 
 if FLOOD_PLAYER_LINK['enable-own-linking']:
   log.info("Floodgate local player linking is enabled, checking database jar...")
   type = FLOOD_PLAYER_LINK['type']
-  if not file_exists(path_join(PLUG_DIR, "floodgate", FLOOD_DBS[type]['file'])):
+  if not file_exists(j_pth(PLUG_DIR, "floodgate", FLOOD_DBS[type]['file'])):
     log.warning("No Floodgate database jar found, downloading...")
-    download_file(FLOOD_DBS[type]['url'], FLOOD_DBS[type]['file'], path_join(PLUG_DIR, "floodgate"))
+    download_file(FLOOD_DBS[type]['url'], FLOOD_DBS[type]['file'], j_pth(PLUG_DIR, "floodgate"))
 
 ## ----------------------------------- ##
 
-check_dir(path_join(PLUG_DIR, "ViaVersion"))
-check_dir(path_join(PLUG_DIR, "ViaBackwards"))
-check_dir(path_join(PLUG_DIR, "ViaRewind"))
+check_dir(j_pth(PLUG_DIR, "ViaVersion"))
+check_dir(j_pth(PLUG_DIR, "ViaBackwards"))
+check_dir(j_pth(PLUG_DIR, "ViaRewind"))
 
-if not file_exists(path_join(PLUG_DIR, "ViaVersion/config.yml")):
+if not file_exists(j_pth(PLUG_DIR, "ViaVersion/config.yml")):
   log.warning("No ViaVersion config.yml found, copying from default config...")
-  shutil.copy(path_join(DEF_CONF, "viaversion.yml"), path_join(PLUG_DIR, "ViaVersion/config.yml"))
+  shutil.copy(j_pth(DEF_CONF, "viaversion.yml"), j_pth(PLUG_DIR, "ViaVersion/config.yml"))
 
-if not file_exists(path_join(PLUG_DIR, "ViaBackwards/config.yml")):
+if not file_exists(j_pth(PLUG_DIR, "ViaBackwards/config.yml")):
   log.warning("No ViaBackwards config.yml found, copying from default config...")
-  shutil.copy(path_join(DEF_CONF, "viabackwards.yml"), path_join(PLUG_DIR, "ViaBackwards/config.yml"))
+  shutil.copy(j_pth(DEF_CONF, "viabackwards.yml"), j_pth(PLUG_DIR, "ViaBackwards/config.yml"))
 
-if not file_exists(path_join(PLUG_DIR, "ViaRewind/config.yml")):
+if not file_exists(j_pth(PLUG_DIR, "ViaRewind/config.yml")):
   log.warning("No ViaRewind config.yml found, copying from default config...")
-  shutil.copy(path_join(DEF_CONF, "viarewind.yml"), path_join(PLUG_DIR, "ViaRewind/config.yml"))
+  shutil.copy(j_pth(DEF_CONF, "viarewind.yml"), j_pth(PLUG_DIR, "ViaRewind/config.yml"))
