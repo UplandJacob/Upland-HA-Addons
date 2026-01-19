@@ -22,7 +22,7 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 
 ### [VSCode Tunnel](/vscode-tunnel)
 
-The VSCode Tunnel addon runs a fully featured VSCode tunnel server that can be accessed from [vscode.dev](https://vscode.dev) and supports all extentions (at least all I have tested with a bit of work).
+The VSCode Tunnel addon runs a fully featured [VSCode Tunnel](https://code.visualstudio.com/docs/remote/tunnels) server that can be accessed from [vscode.dev](https://vscode.dev) and supports all extentions (at least all I have tested with a bit of work).
 
 `git`, `ssh`, and anything `docker` is supported ('Protection Mode' must be disabled for Docker.) Anything that is stored in `~` (including ssh keys, git configs, etc.) are saved. If you want to install other features, you may use the `vscode-tunnel.sh` file in the config to auto-run on addon startup (this is how I got Hadolint to work).
 
