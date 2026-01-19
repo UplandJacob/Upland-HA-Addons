@@ -16,7 +16,7 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 
 ### [Flask Server](/vscode-tunnel)
 
-Flask is a Python webserver primarily used for testing web applications with APIs, but is an great server for any sort of simple site or API you need.
+[Flask](https://flask.palletsprojects.com/en/stable/) is a Python webserver primarily used for testing web applications with APIs, but is an great server for any sort of simple site or API you need.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_flask)
 
@@ -38,13 +38,13 @@ Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamco
 
 ### [MC All-Platform Velocity Proxy](/mc-all-platform-velocity)
 
-Run a [Velocity proxy] with [Geyser](), [EaglerXServer](), [AuthMe]() Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including v1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
+Run a [Velocity proxy](https://papermc.io/software/velocity) with [Geyser](https://geysermc.org), [EaglerXServer](https://github.com/lax1dude/eaglerxserver), [AuthMe](https://github.com/HaHaWTH/AuthMeReReloaded) Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including v1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
 
 ### [MC auth server](/mc-auth-server)
 
-Minecraft Leaf (Paper fork) auth server for proxy setups that use AuthMe.
+Minecraft [Leaf](https://leafmc.one) (Paper fork) auth server for proxy setups that use AuthMe.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-auth-server)
 
