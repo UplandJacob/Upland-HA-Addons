@@ -16,13 +16,13 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 
 ### [Flask Server](/vscode-tunnel)
 
-Flask is a Python webserver primarily used for testing web applications with APIs, but is an great server for any sort of simple site or API you need.
+[Flask](https://flask.palletsprojects.com/en/stable/) is a Python webserver primarily used for testing web applications with APIs, but is an great server for any sort of simple site or API you need.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_flask)
 
 ### [VSCode Tunnel](/vscode-tunnel)
 
-The VSCode Tunnel addon runs a fully featured VSCode tunnel server that can be accessed from [vscode.dev](https://vscode.dev) and supports all extentions (at least all I have tested with a bit of work).
+The VSCode Tunnel addon runs a fully featured [VSCode Tunnel](https://code.visualstudio.com/docs/remote/tunnels) server that can be accessed from [vscode.dev](https://vscode.dev) and supports all extentions (at least all I have tested with a bit of work).
 
 `git`, `ssh`, and anything `docker` is supported ('Protection Mode' must be disabled for Docker.) Anything that is stored in `~` (including ssh keys, git configs, etc.) are saved. If you want to install other features, you may use the `vscode-tunnel.sh` file in the config to auto-run on addon startup (this is how I got Hadolint to work).
 
@@ -30,21 +30,21 @@ The VSCode Tunnel addon runs a fully featured VSCode tunnel server that can be a
 
 ### [Playit.gg](/playit-gg)
 
-Playit.gg is a global proxy that allows anyone to host a server without port forwarding.
+[Playit.gg](https://playit.gg) is a global proxy that allows anyone to host a server without port forwarding.
 <!-- CSpell: words williamcorsel -->
-Original inspiration thanks to the Benjamin589 PR williamcorsel/hassio-addons that used the alex33856/playitgg-docker image. The Dockerfile for this addon uses the majority of that Dockerfile.
+Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamcorsel/hassio-addons/pull/26) in [williamcorsel/hassio-addons](https://github.com/williamcorsel/hassio-addons) that used the alex33856/playitgg-docker image. The Dockerfile for this addon uses the majority of that Dockerfile.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_playitgg)
 
 ### [MC All-Platform Velocity Proxy](/mc-all-platform-velocity)
 
-Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including v1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
+Run a [Velocity proxy](https://papermc.io/software/velocity) with [Geyser](https://geysermc.org), [EaglerXServer](https://github.com/lax1dude/eaglerxserver), [AuthMe](https://github.com/HaHaWTH/AuthMeReReloaded) Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including v1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
 
 ### [MC auth server](/mc-auth-server)
 
-Minecraft Leaf (Paper fork) auth server for proxy setups that use AuthMe.
+Minecraft [Leaf](https://leafmc.one) (Paper fork) auth server for proxy setups that use AuthMe.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-auth-server)
 
