@@ -30,15 +30,15 @@ The VSCode Tunnel addon runs a fully featured VSCode tunnel server that can be a
 
 ### [Playit.gg](/playit-gg)
 
-Playit.gg is a global proxy that allows anyone to host a server without port forwarding.
+[Playit.gg](https://playit.gg) is a global proxy that allows anyone to host a server without port forwarding.
 <!-- CSpell: words williamcorsel -->
-Original inspiration thanks to the Benjamin589 PR williamcorsel/hassio-addons that used the alex33856/playitgg-docker image. The Dockerfile for this addon uses the majority of that Dockerfile.
+Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamcorsel/hassio-addons/pull/26) in [williamcorsel/hassio-addons](https://github.com/williamcorsel/hassio-addons) that used the alex33856/playitgg-docker image. The Dockerfile for this addon uses the majority of that Dockerfile.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_playitgg)
 
 ### [MC All-Platform Velocity Proxy](/mc-all-platform-velocity)
 
-Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including v1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
+Run a [Velocity proxy] with [Geyser](), [EaglerXServer](), [AuthMe]() Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including v1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
 
