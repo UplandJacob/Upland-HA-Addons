@@ -176,7 +176,7 @@ for setting in VEL_ROOT_CONFIG:
 
 vel_toml['show-max-players'] = MAX_PLAYERS
 vel_toml['motd'] = MOTD1+"\n"+MOTD2
-vel_toml['haproxy-protocol'] = HAPROXY
+vel_toml['advanced']['haproxy-protocol'] = HAPROXY
 
 vel_toml['servers'] = {}
 for i in range(len(VEL_SERVERS)):
