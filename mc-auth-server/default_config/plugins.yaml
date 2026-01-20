@@ -64,7 +64,7 @@ packaged_plugins:
     url: "https://cdn.modrinth.com/data/CT9Wx3tx/versions/{versionID}/serverswitcher-{version}.jar"
     versionID: "r675FrAE"
     version: 1.0
-    file: "serverswitcher.jar"
+    file: "ServerSwitcher.jar"
   webconsole:
     url: "https://github.com/mesacarlos/WebConsole/releases/download/v{version}/WebConsole-{version}.jar"
     version: 2.8
@@ -104,13 +104,13 @@ packaged_plugins:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
     version: 2.15.1
     build: 1266
-    file: "FastAsyncWorldEdit-Paper-SNAPSHOT.jar"
+    file: "FastAsyncWorldEdit.jar"
     enabled: false
   worldguard:
     url: "https://cdn.modrinth.com/data/DKY9btbd/versions/{versionID}/worldguard-bukkit-{version}-dist.jar"
     versionID: "PO4MKx7e"
     version: 7.0.14
-    file: "worldguard-bukkit-dist.jar"
+    file: "WorldGuard.jar"
     enabled: false
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
