@@ -33,9 +33,9 @@ RUN [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="$BUILD_ARCH" \
 ENV ACT_RUNNER_VERSION="0.2.13"
 RUN [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="$BUILD_ARCH" \
     echo "ARCH = ${ARCH}" && \
-    curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/$ACT_RUNNER_VERSION/act_runner-$ACT_RUNNER_VERSION-linux-${ARCH} && \
+    curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/${ACT_RUNNER_VERSION}/act_runner-${ACT_RUNNER_VERSION}-linux-${ARCH} && \
     chmod +x /usr/local/bin/act_runner
- 
+
 ENV CONFIG_FILE=/config/config.yaml
 
 # Modules
