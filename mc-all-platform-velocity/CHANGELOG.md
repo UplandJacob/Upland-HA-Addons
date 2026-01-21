@@ -1,24 +1,32 @@
 # Changelog
 
+## 2.3.x (01/20/2026)
+
+- Config update error handling
+- Behind-the-scenes cleanup
+- Fix HAProxy setting not setting correct value in velocity.toml
+
 ## 2.2.x (11/26/2025)
+
 - Update to Geyser config version 5
 - Handle HAProxy settings automatically between plugin configs
 - (2.2.1) - Fix missing HAProxy schema
 - (2.2.2) - Add the rest of Geyser gameplay settings to the config UI, update translations and docs, clean up default Geyser config
-- (2.2.3) - Update GeyserExtras
+- (2.2.3+) - Plugin updates
 
 ## 2.1.x (09/02/2025)
+
 - Save and update jar file names dynamically
 - Support running outside of Home Assistant
 - Update plugins and Velocity
-- Behind the scenes cleanup
+- Behind-the-scenes cleanup
 - (2.1.1 - 2.1.2) - Bug fixes
 - (2.1.3 - 2.1.21) - PLugin Updates
 
 ## 2.0.x (07/10/2025)
 
-- merge beta:
-- Scripts written in python
+- **Merge beta:**
+- Scripts written in Python
 - Updated to EaglerXServer (new config files)
 - Updated Velocity (Now that EaglerXServer supports it)
 - Auto download Floodgate database drivers
