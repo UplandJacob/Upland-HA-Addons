@@ -14,7 +14,7 @@ from ruamel.yaml import YAML
 
 from typing import Any
 
-ROOT_DIR = ''
+ROOT_DIR = '/'
 CONF_DIR = j_pth(ROOT_DIR, 'config')
 SERV_DIR = j_pth(CONF_DIR, 'server')
 PLUG_DIR = j_pth(SERV_DIR, 'plugins')
@@ -187,7 +187,7 @@ try:
 
   vel_toml['show-max-players'] = MAX_PLAYERS
   vel_toml['motd'] = MOTD1+"\n"+MOTD2
-  vel_toml['haproxy-protocol'] = HAPROXY
+  vel_toml['advanced']['haproxy-protocol'] = HAPROXY
 
   vel_toml['servers'] = {}
   for i in range(len(VEL_SERVERS)):
