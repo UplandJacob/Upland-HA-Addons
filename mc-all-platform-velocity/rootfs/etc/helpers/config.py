@@ -14,7 +14,7 @@ from ruamel.yaml import YAML
 
 from typing import Any
 
-ROOT_DIR = ''
+ROOT_DIR = '/'
 CONF_DIR = j_pth(ROOT_DIR, 'config')
 SERV_DIR = j_pth(CONF_DIR, 'server')
 PLUG_DIR = j_pth(SERV_DIR, 'plugins')

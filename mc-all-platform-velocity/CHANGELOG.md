@@ -5,6 +5,7 @@
 - Config update error handling
 - Behind-the-scenes cleanup
 - Fix HAProxy setting not setting correct value in velocity.toml
+- Partial support for running outside of HA
 
 ## 2.2.x (11/26/2025)
 
