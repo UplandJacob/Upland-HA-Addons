@@ -19,18 +19,25 @@
   },
   "packageRules": [
     {
+      "matchPackageNames": ["vscode-cli", "docker/cli"],
+      "automerge": true
+    },
+    {
       "matchPackageNames": ["playit-cloud/playit-agent"],
-      "allowedVersions": "/^v0\\./"
+      "allowedVersions": "/^v0\\./",
+      "automerge": true
     },
     {
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["^ghcr.io/home-assistant/[\\S]+-base-debian$"],
-      "groupName": "Home Assistant Base Images"
+      "groupName": "Home Assistant Base Images",
+      "automerge": true
     },
     {
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["^ghcr.io/uplandjacob/ha-base-debian-java-[\\S]+$"],
-      "groupName": "Home Assistant Base Java Images"
+      "groupName": "Home Assistant Base Java Images",
+      "automerge": true
     }
   ],
   "customManagers": [
