@@ -4,7 +4,7 @@
 
 # Upland-HA-Addons
 
-A repository for all my Home Assistant addons. Since I host a Minecraft server, many of these are related to hosting one.
+A repository for all my Home Assistant addons. Since I host a Minecraft server and website, many of these are related hosting and developing.
 
 ## Install
 
@@ -22,7 +22,7 @@ or go to the **Add-on Store -> repositories** and add: <https://github.com/Uplan
 
 ### [VSCode Tunnel](/vscode-tunnel)
 
-The VSCode Tunnel addon runs a fully featured [VSCode Tunnel](https://code.visualstudio.com/docs/remote/tunnels) server that can be accessed from [vscode.dev](https://vscode.dev) and supports all extentions (at least all I have tested with a bit of work).
+The VSCode Tunnel addon runs a fully featured [VSCode Tunnel](https://code.visualstudio.com/docs/remote/tunnels) server that can be accessed from [vscode.dev](https://vscode.dev) and supports all extentions (at least all I have tested with a bit of work). This supports even more than the Community Addon: [Studio Code Server](https://github.com/hassio-addons/addon-vscode).
 
 `git`, `ssh`, and anything `docker` is supported ('Protection Mode' must be disabled for Docker.) Anything that is stored in `~` (including ssh keys, git configs, etc.) are saved. If you want to install other features, you may use the `vscode-tunnel.sh` file in the config to auto-run on addon startup (this is how I got Hadolint to work).
 
@@ -32,19 +32,19 @@ The VSCode Tunnel addon runs a fully featured [VSCode Tunnel](https://code.visua
 
 [Playit.gg](https://playit.gg) is a global proxy that allows anyone to host a server without port forwarding.
 <!-- CSpell: words williamcorsel -->
-Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamcorsel/hassio-addons/pull/26) in [williamcorsel/hassio-addons](https://github.com/williamcorsel/hassio-addons) that used the alex33856/playitgg-docker image. The Dockerfile for this addon uses the majority of that Dockerfile.
+Original inspiration thanks to the [Benjamin589 PR](https://github.com/williamcorsel/hassio-addons/pull/26) in [williamcorsel/hassio-addons](https://github.com/williamcorsel/hassio-addons) that used the `alex33856/playitgg-docker` image. The Dockerfile for this addon uses the majority of that Dockerfile.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_playitgg)
 
 ### [MC All-Platform Velocity Proxy](/mc-all-platform-velocity)
 
-Run a [Velocity proxy](https://papermc.io/software/velocity) with [Geyser](https://geysermc.org), [EaglerXServer](https://github.com/lax1dude/eaglerxserver), [AuthMe](https://github.com/HaHaWTH/AuthMeReReloaded) Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including v1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
+Run a [Velocity proxy](https://papermc.io/software/velocity) with [Geyser](https://geysermc.org), [EaglerXServer](https://github.com/lax1dude/eaglerxserver), [AuthMeVelocity](https://github.com/4drian3d/AuthMeVelocity), and more to allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including 1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity)
 
 ### [MC auth server](/mc-auth-server)
 
-Minecraft [Leaf](https://leafmc.one) (Paper fork) auth server for proxy setups that use AuthMe.
+Minecraft [Leaf](https://leafmc.one) (Paper fork) auth server for proxy setups that use [AuthMe](https://github.com/HaHaWTH/AuthMeReReloaded) (others supported with more configuration).
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-auth-server)
 
@@ -56,8 +56,6 @@ Run and Eaglercraft relay server from Home Assistant, allowing players connected
 
 ### [MC All-Platform Velocity Proxy Beta](/mc-all-platform-velocity-beta)
 
-Allow players on Java Edition (1.7.2 - latest), Bedrock Edition, and Eaglercraft (unofficial web browser, including v1.5 with EaglerXRewind if enabled) clients to join your Minecraft server(s).
-
-This beta version includes new features before they fully release. The list is available on the addon page.
+This is the beta version of [MC All-Platform Velocity Proxy](/mc-all-platform-velocity) that includes new features before they fully release. The list is available on the addon page.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_mc-all-platform-velocity-beta)
