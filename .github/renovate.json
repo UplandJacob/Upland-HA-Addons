@@ -19,7 +19,7 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": ["vscode-cli", "docker/cli"],
+      "matchPackageNames": ["vscode-cli", "docker/cli", "mikefarah/yq"],
       "automerge": true
     },
     {
