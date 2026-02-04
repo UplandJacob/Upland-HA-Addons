@@ -159,7 +159,7 @@ for i, line in enumerate(serv_props):
     serv_props[i] = f"{key}={SERV_SET[key]}\n"
 
 with open(SERV_PROP_FILE, "w") as file:
-    file.writelines(serv_props)
+  file.writelines(serv_props)
 
 ## ----------------------------------- ##
 
@@ -282,7 +282,7 @@ spigot_yaml = yaml.load(read_file(SPIGOT_FILE))
 paper_yaml = yaml.load(read_file(PAPER_FILE))
 bungee_guard = yaml.load(read_file(BUNGEE_GUARD_FILE))
 
-FOR_EN = addon_conf["enableForward"]; BUNGUARD = addon_conf["useBungeeGuard"]; BUNCORD = addon_conf["bungeecordMode"]
+FOR_EN, BUNGUARD, BUNCORD = addon_conf["enableForward"], addon_conf["useBungeeGuard"], addon_conf["bungeecordMode"]
 proxy_set_bungee = "using BungeeCord mode NOT RECOMMENDED-NOT SECURE" if not BUNCORD else "Velocity mode"
 proxy_set_guard = "enabled" if BUNGUARD else f"disabled-NOT recommended - {proxy_set_bungee}"
 log_info_x("Forwarding disabled" if not FOR_EN else f"Forwarding enabled -- BungeeGuard: {proxy_set_guard}")
