@@ -115,6 +115,6 @@ packaged_plugins:
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.11
-  build: 41
+  build: 42
 current_installed_urls: # keeps track of the last download url of the server and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
