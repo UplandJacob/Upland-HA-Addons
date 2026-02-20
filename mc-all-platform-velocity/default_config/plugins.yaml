@@ -46,8 +46,8 @@ packaged_plugins:
     enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
-    version: 2.9.3
-    build: 1072
+    version: 2.9.4
+    build: 1077
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
@@ -70,7 +70,7 @@ packaged_plugins:
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/velocity"
     version: 2.2.5
-    build: 126
+    build: 127
     file: "Floodgate.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
