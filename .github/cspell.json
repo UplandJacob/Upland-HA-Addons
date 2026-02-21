@@ -1,0 +1,34 @@
+{
+  "language": "en",
+  "words": [
+    "armhf",
+    "armv",
+    "bashio",
+    "Buildx",
+    "contenv",
+    "dearmor",
+    "dfsg",
+    "Eagler",
+    "eaglercraft",
+    "eaglerxserver",
+    "Gitea",
+    "hass",
+    "hassio",
+    "KHTML",
+    "modif",
+    "mosquitto",
+    "ontainer",
+    "playit",
+    "playitgg",
+    "rootfs",
+    "ruamel",
+    "SERV",
+    "trixie",
+    "urandom",
+    "venv",
+    "zxvf"
+  ],
+  "ignorePaths": [
+    ".git"
+  ]
+}
