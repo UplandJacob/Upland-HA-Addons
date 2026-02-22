@@ -25,15 +25,17 @@ RUN apt-get update && \
 
 # renovate: datasource=github-releases depName=mikefarah/yq
 ENV YQ_VERSION="v4.52.4"
-RUN [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="$BUILD_ARCH" \
+RUN ARCH="$BUILD_ARCH" && \
+    [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64"; \
     echo "ARCH = ${ARCH}" && \
-    curl https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_${ARCH} -o /usr/local/bin/yq && \
+    curl "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_${ARCH}" -o /usr/local/bin/yq && \
     chmod +x /usr/local/bin/yq
 
 ENV ACT_RUNNER_VERSION="0.2.13"
-RUN [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="$BUILD_ARCH" \
+RUN ARCH="$BUILD_ARCH" && \
+    [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64"; \
     echo "ARCH = ${ARCH}" && \
-    curl -sSL -o /usr/local/bin/act_runner https://dl.gitea.com/act_runner/${ACT_RUNNER_VERSION}/act_runner-${ACT_RUNNER_VERSION}-linux-${ARCH} && \
+    curl -sSL -o /usr/local/bin/act_runner "https://dl.gitea.com/act_runner/${ACT_RUNNER_VERSION}/act_runner-${ACT_RUNNER_VERSION}-linux-${ARCH}" && \
     chmod +x /usr/local/bin/act_runner
 
 ENV CONFIG_FILE=/config/config.yaml

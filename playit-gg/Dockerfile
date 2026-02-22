@@ -18,7 +18,7 @@ ENV PLAYIT_AGENT_VERSION=v0.17.1
 RUN apt-get update \
     && apt-get --no-install-recommends install -y curl \
     && [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="amd64" \
-    && curl -SsL https://github.com/playit-cloud/playit-agent/releases/download/${PLAYIT_AGENT_VERSION}/playit_${ARCH}.deb -o ./playit.deb \
+    && curl -SsL "https://github.com/playit-cloud/playit-agent/releases/download/${PLAYIT_AGENT_VERSION}/playit_${ARCH}.deb" -o ./playit.deb \
     && apt-get --no-install-recommends install -y ./playit.deb \
     && rm ./playit.deb \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
