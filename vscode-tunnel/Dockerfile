@@ -15,20 +15,29 @@ COPY rootfs .
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
     curl=8.14.1-2+deb13u2 \
     tar=1.35+dfsg-3.1 \
     git=1:2.47.3-0+deb13u1 \
     openssh-client=1:10.0p1-7 && \
     [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="x64" && \
-    curl -Lk https://update.code.visualstudio.com/${VSCODE_CLI_VERSION}/cli-linux-${ARCH}/stable -o vscode_cli.tar.gz && \
-    tar -xf vscode_cli.tar.gz -C /bin && \
+    curl -fsSL "https://update.code.visualstudio.com/${VSCODE_CLI_VERSION}/cli-linux-${ARCH}/stable" | tar -zxvf - -C /usr/bin && \
+    code --version && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-tags depName=docker/cli extractVersion=^v(?<version>.*)$
 ENV DOCKER_VERSION=29.2.1
-RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz | tar zxvf - --strip 1 -C /usr/bin docker/docker
+RUN [ "$BUILD_ARCH" = "amd64" ] && ARCH="x86_64" || ARCH="${BUILD_ARCH}" && \
+    curl -fsSL "https://download.docker.com/linux/static/stable/${ARCH}/docker-${DOCKER_VERSION}.tgz" | tar -zxvf - --strip 1 -C /usr/bin docker/docker && \
+    docker --version && \
+    apt-get update && apt-get install --no-install-recommends -y \
+    bash-completion=1:2.16.0-7 \
+    docker-buildx=0.13.1+ds1-3 && \
+    docker --version && \
+    echo -e "if [ -f /etc/bash_completion ]; then\n    . /etc/bash_completion\nfi" >> ~/.bashrc && \
+    docker completion bash | tee /etc/bash_completion.d/docker >/dev/null && \
+    docker buildx version && \
+    apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Modules
 ARG MODULES="00-banner.sh"
