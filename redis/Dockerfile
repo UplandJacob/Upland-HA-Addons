@@ -28,6 +28,7 @@ RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyri
     redis=6:8.6.0-1rl1~trixie1 && \
     apt-get remove -y lsb-release gpg && rm -rf /var/lib/apt/lists/*
 
+# renovate: datasource=github-releases depName=oliver006/redis_exporter
 ENV REDIS_EXPORTER_VERSION=v1.81.0
 RUN [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="$BUILD_ARCH" && \
     curl -fsSL "https://github.com/oliver006/redis_exporter/releases/download/${REDIS_EXPORTER_VERSION}/redis_exporter-${REDIS_EXPORTER_VERSION}.linux-${ARCH}.tar.gz" \
