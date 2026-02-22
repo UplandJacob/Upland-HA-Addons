@@ -1,0 +1,5 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.green "FINISH: Redis Exporter stopped."
+
+exit 0

@@ -1,0 +1,23 @@
+name: Redis
+version: 1.0.0
+slug: redis
+description: Redis DB, the world's fastest in-memory database, with Redis Exporter built in.
+url: https://github.com/uplandjacob/upland-ha-addons/tree/main/redis
+stage: experimental
+hassio_api: true
+init: false
+image: ghcr.io/uplandjacob/upland-ha-addons-redis-{arch}
+arch:
+  - amd64
+  - aarch64
+map:
+  - type: addon_config
+    read_only: false
+
+
+ports:
+  6379/tcp: null
+  9121/tcp: null
+ports_description:
+  6379/tcp: Database
+  9121/tcp: Redis Exporter
