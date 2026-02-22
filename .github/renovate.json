@@ -19,25 +19,39 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": ["vscode-cli", "docker/cli", "mikefarah/yq"],
+      "matchPackageNames": [
+        "vscode-cli",
+        "docker/cli",
+        "mikefarah/yq"
+      ],
       "automerge": true
     },
     {
-      "matchPackageNames": ["playit-cloud/playit-agent"],
+      "matchPackageNames": [
+        "playit-cloud/playit-agent"
+      ],
       "allowedVersions": "/^v0\\./",
       "automerge": true
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["^ghcr.io/home-assistant/[\\S]+-base-debian$"],
+      "matchDatasources": [
+        "docker"
+      ],
       "groupName": "Home Assistant Base Images",
-      "automerge": true
+      "automerge": true,
+      "matchPackageNames": [
+        "/^ghcr.io/home-assistant/[\\S]+-base-debian$/"
+      ]
     },
     {
-      "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["^ghcr.io/uplandjacob/ha-base-debian-java-[\\S]+$"],
+      "matchDatasources": [
+        "docker"
+      ],
       "groupName": "Home Assistant Base Java Images",
-      "automerge": true
+      "automerge": true,
+      "matchPackageNames": [
+        "/^ghcr.io/uplandjacob/ha-base-debian-java-[\\S]+$/"
+      ]
     }
   ],
   "customManagers": [
