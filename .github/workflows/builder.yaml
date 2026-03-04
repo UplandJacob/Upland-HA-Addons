@@ -159,7 +159,7 @@ jobs:
       - name: Authenticate GitHub Container Registry
         # if: env.BUILD_ARGS != '--test'
         if: env.VERSION != env.LATEST_VERSION
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
