@@ -17,7 +17,20 @@
       ]
     }
   },
+  "dockerfile": {
+    "enabled": true,
+    "fileMatch": [
+      "/(^|/|\\.)([Dd]ocker|[Cc]ontainer)file$/",
+      "/(^|/)([Dd]ocker|[Cc]ontainer)file[^/]*$/"
+    ],
+    "managers": ["regex", "dockerfile"]
+  },
   "packageRules": [
+    {
+      "matchManagers": ["dockerfile"],
+      "matchDatasources": ["deb"],
+      "groupName": "Debian Packages"
+    },
     {
       "matchPackageNames": [
         "vscode-cli",
@@ -62,7 +75,7 @@
         "/(^|/)([Dd]ocker|[Cc]ontainer)file[^/]*$/"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-zA-Z0-9-._]+?) depName=(?<depName>[^\\s]+?)(?: (lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?(?: registryUrl=(?<registryUrl>[^\\s]+?))?\\s(?:ENV|ARG)\\s+[A-Za-z0-9_]+?_VERSION[ =][\"']?(?<currentValue>.+?)[\"']?\\s"
+        "# renovate: ?datasource=(?<datasource>[a-zA-Z0-9-._]+?) depName=(?<depName>[^\\s]+?)(?: (lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?(?: registryUrl=(?<registryUrl>[^\\s]+?))?\\s(?:ENV|ARG)\\s+[A-Za-z0-9_]+?_VERSION[ =][\"']?(?<currentValue>.+?)[\"']?\\s"
       ]
     },
     {
@@ -71,12 +84,11 @@
         "/(^|/)Dockerfile$/"
       ],
       "matchStrings": [
-        "(?:apt(?:-get)?)\\s+.*?install[\\S\\s]*?(?<packagesAndVersions>(?:[a-z0-9.-]+=[^\\s]+(?:[\\s\\\\\\n])*)+)",
-        "(?<depName>[a-z0-9-]+)=(?<currentValue>[^\\s]+)"
+        "(?<depName>[a-zA-Z0-9.+-]+)=(?<currentValue>[^\\s]+)\\s+# renovate ?deb-source=(?<registryUrl>[^;\\s]+)(?:;codename=(?<codename>[^;\\s]+))?\\s"
       ],
-      "matchStringsStrategy": "combination",
-      "datasourceTemplate": "repology",
-      "versioningTemplate": "deb"
+      "datasourceTemplate": "deb",
+      "depNameTemplate": "{{depName}}",
+      "registryUrlTemplate": "{{registryUrl}}/dists/{{#if codename}}{{codename}}{{else}}trixie{{/if}}/main/binary-amd64"
     },
     {
       "customType": "regex",
