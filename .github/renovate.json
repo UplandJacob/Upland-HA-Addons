@@ -23,7 +23,7 @@
       "/(^|/|\\.)([Dd]ocker|[Cc]ontainer)file$/",
       "/(^|/)([Dd]ocker|[Cc]ontainer)file[^/]*$/"
     ],
-    "managerFilePatterns": ["regex", "dockerfile"]
+    "matchManagers": ["regex", "dockerfile"]
   },
   "packageRules": [
     {
