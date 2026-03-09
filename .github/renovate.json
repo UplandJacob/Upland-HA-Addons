@@ -19,16 +19,21 @@
   },
   "dockerfile": {
     "enabled": true,
-    "fileMatch": [
-      "/(^|/|\\.)([Dd]ocker|[Cc]ontainer)file$/",
-      "/(^|/)([Dd]ocker|[Cc]ontainer)file[^/]*$/"
-    ],
-    "managerFilePatterns": ["regex", "dockerfile"]
+    "managerFilePatterns": [
+      "regex",
+      "dockerfile",
+      "//(^|/|\\.)([Dd]ocker|[Cc]ontainer)file$//",
+      "//(^|/)([Dd]ocker|[Cc]ontainer)file[^/]*$//"
+    ]
   },
   "packageRules": [
     {
-      "matchManagers": ["dockerfile"],
-      "matchDatasources": ["deb"],
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchDatasources": [
+        "deb"
+      ],
       "groupName": "Debian Packages"
     },
     {
