@@ -80,7 +80,7 @@
       ],
       "datasourceTemplate": "deb",
       "depNameTemplate": "{{depName}}",
-      "registryUrlTemplate": "{{registryUrl}}/dists/{{#if codename}}{{codename}}{{else}}trixie{{/if}}/main/binary-amd64"
+      "registryUrlTemplate": "{{registryUrl}}"
     },
     {
       "customType": "regex",
