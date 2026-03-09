@@ -25,7 +25,7 @@ RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyri
     chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list && \
     apt-get update && apt-get install --no-install-recommends -y \
-    redis=6:8.6.0-1rl1~trixie1 && \
+    redis=6:8.6.0-1rl1~trixie1 && \ # renovate: deb-source=https://packages.redis.io/deb
     apt-get remove -y lsb-release gpg && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-releases depName=oliver006/redis_exporter
