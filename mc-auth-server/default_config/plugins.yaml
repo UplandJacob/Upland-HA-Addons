@@ -53,7 +53,7 @@ packaged_plugins:
     file: "AuthMe.jar"
   authme_velocity:
     url: "https://github.com/4drian3d/AuthMeVelocity/releases/download/{version}/AuthMeVelocity-Paper-{version}.jar"
-    version: 4.2.0
+    version: 4.3.0
     file: "AuthMeVelocity.jar"
     enabled: false # since we're using HaHaWTH's AuthMeReReloaded instead, which has built in Velocity support, we don't need this
   bungeeguard:
@@ -115,6 +115,6 @@ packaged_plugins:
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.11
-  build: 69
+  build: 71
 current_installed_urls: # keeps track of the last download url of the server and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
