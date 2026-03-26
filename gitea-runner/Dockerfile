@@ -24,7 +24,7 @@ RUN apt-get update && \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-releases depName=mikefarah/yq
-ENV YQ_VERSION="v4.52.4"
+ENV YQ_VERSION="v4.52.5"
 RUN ARCH="$BUILD_ARCH" && \
     [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64"; \
     echo "ARCH = ${ARCH}" && \
