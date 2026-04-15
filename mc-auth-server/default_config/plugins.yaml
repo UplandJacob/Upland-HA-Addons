@@ -44,7 +44,7 @@ packaged_plugins:
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/spigot"
     version: 2.2.5
-    build: 131
+    build: 132
     file: "Floodgate.jar"
   authme:
     url: "https://cdn.modrinth.com/data/3IEZ9vol/versions/{versionID}/AuthMe-{version}-FORK-Universal.jar"
@@ -91,7 +91,7 @@ packaged_plugins:
     enabled: false
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.11.1
+    version: 15.12.0
     file: "SkinsRestorer.jar"
     enabled: false
   luckperms:
@@ -103,7 +103,7 @@ packaged_plugins:
   fawe:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
     version: 2.15.1
-    build: 1291
+    build: 1300
     file: "FastAsyncWorldEdit.jar"
     enabled: false
   worldguard:
@@ -115,6 +115,6 @@ packaged_plugins:
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.11
-  build: 99
+  build: 111
 current_installed_urls: # keeps track of the last download url of the server and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
