@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/uplandjacob/ha-base-debian-java-amd64:0.3.3
+ARG BUILD_FROM=ghcr.io/uplandjacob/ha-base-debian-java-amd64:0.3.4
 FROM ${BUILD_FROM}
 
 COPY start.sh /
