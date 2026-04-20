@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-tags depName=docker/cli extractVersion=^v(?<version>.*)$
-ENV DOCKER_VERSION=29.4.0
+ENV DOCKER_VERSION=29.4.1
 RUN [ "$BUILD_ARCH" = "amd64" ] && ARCH="x86_64" || ARCH="${BUILD_ARCH}" && \
     curl -fsSL "https://download.docker.com/linux/static/stable/${ARCH}/docker-${DOCKER_VERSION}.tgz" | tar -zxvf - --strip 1 -C /usr/bin docker/docker && \
     docker --version && \
