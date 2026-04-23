@@ -71,17 +71,17 @@ packaged_plugins:
     file: "WebConsole.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
-    version: 5.8.1
+    version: 5.9.0
     file: "ViaVersion.jar"
     enabled: false
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
-    version: 5.8.1
+    version: 5.9.0
     file: "ViaBackwards.jar"
     enabled: false
   viarewind:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
-    version: 4.0.15
+    version: 4.1.0
     file: "ViaRewind.jar"
     enabled: false
   vialegacy:
@@ -103,7 +103,7 @@ packaged_plugins:
   fawe:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
     version: 2.15.1
-    build: 1300
+    build: 1303
     file: "FastAsyncWorldEdit.jar"
     enabled: false
   worldguard:
@@ -115,6 +115,6 @@ packaged_plugins:
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.11
-  build: 111
+  build: 115
 current_installed_urls: # keeps track of the last download url of the server and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
