@@ -51,15 +51,23 @@ jobs:
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .versions.[0].version.id)
           echo "latest version: $latestVers"
-          latestBuild=$(echo "$resp" | jq -r .versions.[0].builds.[-1])
+
+          resp2=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://fill.papermc.io/v3/projects/velocity/versions/$latestVers/builds")
+          echo "$resp2"
+          latestBuild=$(echo "$resp2" | jq -r .[0].id)
           echo "latest build: $latestBuild"
+          latestSha=$(echo "$resp2" | jq -r .[0].downloads."server:default".checksums.sha256)
+          echo "latest build: $latestSha"
+          
           
           currentVers=$(yq '.velocity.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
           currentBuild=$(yq '.velocity.build' ${{ env.VERS_FILE }})
           echo "current build: $currentBuild"
+          currentSha=$(yq '.velocity.sha' ${{ env.VERS_FILE }})
+          echo "current sha: $currentSha"
 
-          if [ $latestVers != $currentVers -o $latestBuild != $currentBuild ]; then
+          if [ $latestVers != $currentVers -o $latestBuild != $currentBuild -o $latestSha != $currentSha ]; then
             echo "UPDATE"
             echo "changed=${{ env.changed }} Velocity" >> $GITHUB_ENV;
           fi
@@ -70,6 +78,10 @@ jobs:
           if [ $latestBuild != $currentBuild ]; then
             echo "BUILD update"
             yq -i ".velocity.build = $latestBuild" ${{ env.VERS_FILE }}
+          fi
+          if [ $latestSha != $currentSha ]; then
+            echo "SHA update"
+            yq -i ".velocity.sha = $latestSha" ${{ env.VERS_FILE }}
           fi
 
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
