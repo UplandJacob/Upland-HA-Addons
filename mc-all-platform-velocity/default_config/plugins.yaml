@@ -105,7 +105,7 @@ packaged_plugins:
     file: "VPacketEvents.jar"
     enabled: false
 velocity:
-  url: "https://api.papermc.io/v2/projects/velocity/versions/{version}/builds/{build}/downloads/velocity-{version}-{build}.jar"
+  url: "https://fill-data.papermc.io/v1/objects/{sha}/velocity-{version}-{build}.jar"
   version: 3.5.0-SNAPSHOT
   build: 597
   sha: ff08e7cae29dea20fcdb4f14092d825add6d265d5b2599ea5d5dbf54cb43c2d6
