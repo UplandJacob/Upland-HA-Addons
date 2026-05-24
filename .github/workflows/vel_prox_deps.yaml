@@ -49,7 +49,7 @@ jobs:
         run: |
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://fill.papermc.io/v3/projects/velocity/versions")
           echo "$resp"
-          latestVers=$(echo "$resp" | jq -r .versions.version.id)
+          latestVers=$(echo "$resp" | jq -r .versions.[0].version.id)
           echo "latest version: $latestVers"
           latestBuild=$(echo "$resp" | jq -r .versions.builds.[-1])
           echo "latest build: $latestBuild"
