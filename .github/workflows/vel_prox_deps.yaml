@@ -47,13 +47,11 @@ jobs:
 
       - name: Velocity
         run: |
-          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://api.papermc.io/v2/projects/velocity")
+          resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://fill.papermc.io/v3/projects/velocity/versions")
           echo "$resp"
-          latestVers=$(echo "$resp" | jq -r .versions.[-1])
+          latestVers=$(echo "$resp" | jq -r .versions.version.id)
           echo "latest version: $latestVers"
-          resp2=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://api.papermc.io/v2/projects/velocity/versions/$latestVers")
-          echo "$resp2"
-          latestBuild=$(echo "$resp2" | jq -r .builds.[-1])
+          latestBuild=$(echo "$resp" | jq -r .versions.builds.[-1])
           echo "latest build: $latestBuild"
           
           currentVers=$(yq '.velocity.version' ${{ env.VERS_FILE }})
