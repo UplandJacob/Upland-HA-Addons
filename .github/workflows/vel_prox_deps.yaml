@@ -56,7 +56,7 @@ jobs:
           echo "$resp2"
           latestBuild=$(echo "$resp2" | jq -r .[0].id)
           echo "latest build: $latestBuild"
-          latestSha=$(echo "$resp2" | jq -r .[0].downloads."server:default".checksums.sha256)
+          latestSha=$(echo "$resp2" | jq -r '.[0].downloads."server:default".checksums.sha256')
           echo "latest build: $latestSha"
           
           
