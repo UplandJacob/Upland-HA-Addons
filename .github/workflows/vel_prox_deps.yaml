@@ -51,7 +51,7 @@ jobs:
           echo "$resp"
           latestVers=$(echo "$resp" | jq -r .versions.[0].version.id)
           echo "latest version: $latestVers"
-          latestBuild=$(echo "$resp" | jq -r .versions.builds.[-1])
+          latestBuild=$(echo "$resp" | jq -r .versions.[0].builds.[-1])
           echo "latest build: $latestBuild"
           
           currentVers=$(yq '.velocity.version' ${{ env.VERS_FILE }})
