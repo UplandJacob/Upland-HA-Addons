@@ -81,7 +81,7 @@ jobs:
           fi
           if [ $latestSha != $currentSha ]; then
             echo "SHA update"
-            yq -i ".velocity.sha = $latestSha" ${{ env.VERS_FILE }}
+            yq eval -i ".velocity.sha = \"$latestSha\" | .velocity.sha style=\"\"" ${{ env.VERS_FILE }}
           fi
 
       # https://download.geysermc.org/v2/projects/geyser/versions/$GEYSER_VERS/builds/$GEYSER_BUILD/downloads/velocity
