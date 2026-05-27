@@ -96,8 +96,8 @@ packaged_plugins:
     enabled: false
   luckperms:
     url: "https://cdn.modrinth.com/data/Vebnzrzj/versions/{versionID}/LuckPerms-Bukkit-{version}.jar"
-    versionID: "OrIs0S6b"
-    version: 5.5.17
+    versionID: "MBSY8toc"
+    version: 5.5.53
     file: "LuckPerms.jar"
     enabled: false
   fawe:
