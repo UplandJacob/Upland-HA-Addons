@@ -3,7 +3,7 @@ FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
 
 # renovate: datasource=custom.vscode-cli depName=vscode-cli
-ARG VSCODE_CLI_VERSION=1.121.0
+ARG VSCODE_CLI_VERSION=1.122.1
 
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
