@@ -96,14 +96,14 @@ packaged_plugins:
     enabled: false
   luckperms:
     url: "https://cdn.modrinth.com/data/Vebnzrzj/versions/{versionID}/LuckPerms-Bukkit-{version}.jar"
-    versionID: "OrIs0S6b"
-    version: 5.5.17
+    versionID: "MBSY8toc"
+    version: 5.5.53
     file: "LuckPerms.jar"
     enabled: false
   fawe:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
     version: 2.15.2
-    build: 1319
+    build: 1335
     file: "FastAsyncWorldEdit.jar"
     enabled: false
   worldguard:
@@ -115,6 +115,6 @@ packaged_plugins:
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.11
-  build: 147
+  build: 155
 current_installed_urls: # keeps track of the last download url of the server and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
