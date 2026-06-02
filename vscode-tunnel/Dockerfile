@@ -17,7 +17,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    curl=8.14.1-2+deb13u2 \
+    curl \
     tar=1.35+dfsg-3.1 \
     git=1:2.47.3-0+deb13u1 \
     openssh-client && \
