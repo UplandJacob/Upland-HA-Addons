@@ -91,7 +91,7 @@ packaged_plugins:
     enabled: false
   skinsrestorer:
     url: "https://github.com/SkinsRestorer/SkinsRestorer/releases/download/{version}/SkinsRestorer.jar"
-    version: 15.12.0
+    version: 15.12.2
     file: "SkinsRestorer.jar"
     enabled: false
   luckperms:
@@ -102,8 +102,8 @@ packaged_plugins:
     enabled: false
   fawe:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
-    version: 2.15.2
-    build: 1335
+    version: 2.15.3
+    build: 1340
     file: "FastAsyncWorldEdit.jar"
     enabled: false
   worldguard:
@@ -115,6 +115,6 @@ packaged_plugins:
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.11
-  build: 155
+  build: 163
 current_installed_urls: # keeps track of the last download url of the server and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
