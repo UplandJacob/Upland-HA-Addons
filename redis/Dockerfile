@@ -21,15 +21,17 @@ RUN apt-get update && \
     tar=1.35+dfsg-3.1 && \
     rm -rf /var/lib/apt/lists/*
 
+# renovate: depName=redis deb-source=https://redis.io
+ENV REDIS_VERSION=6:8.6.0-1rl1~trixie1
 RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg && \
     chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list && \
     apt-get update && apt-get install --no-install-recommends -y \
-    redis=6:8.6.0-1rl1~trixie1 && \ # renovate: deb-source=https://packages.redis.io/deb
+    redis=${REDIS_VERSION} && \ 
     apt-get remove -y lsb-release gpg && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-releases depName=oliver006/redis_exporter
-ENV REDIS_EXPORTER_VERSION=v1.81.0
+ENV REDIS_EXPORTER_VERSION=v1.86.0
 RUN [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="$BUILD_ARCH" && \
     curl -fsSL "https://github.com/oliver006/redis_exporter/releases/download/${REDIS_EXPORTER_VERSION}/redis_exporter-${REDIS_EXPORTER_VERSION}.linux-${ARCH}.tar.gz" \
         | tar zxvf - -C /usr/bin --strip-components=1 "redis_exporter-${REDIS_EXPORTER_VERSION}.linux-${ARCH}/redis_exporter" && \
