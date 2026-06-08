@@ -76,7 +76,7 @@
         "/(^|/)Dockerfile$/"
       ],
       "matchStrings": [
-        "(?<depName>[a-zA-Z0-9.+-]+)=(?<currentValue>[^\\s]+)[\\s&\\\\]+# ?renovate:? ?deb-source=(?<registryUrl>[^;\\s]+)(?:[;\\s]{,2}codename=(?<codename>[^;\\s]+))?"
+        "# ?renovate:? ?depName=(?<depName>[a-zA-Z0-9.+-]+) ?deb-source=(?<registryUrl>[^;\\s]+)(?:[;\\s]{,2}codename=(?<codename>[^;\\s]+))?\\s(?:ENV|ARG)\\s+[A-Za-z0-9_]+?_VERSION[ =][\"']?(?<currentValue>[^\\s]+)[\\s&\\\\]+[\"']?\\s"
       ],
       "datasourceTemplate": "deb",
       "depNameTemplate": "{{depName}}",
