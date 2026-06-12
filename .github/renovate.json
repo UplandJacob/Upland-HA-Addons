@@ -27,15 +27,9 @@
       "matchPackageNames": [
         "vscode-cli",
         "docker/cli",
-        "mikefarah/yq"
-      ],
-      "automerge": true
-    },
-    {
-      "matchPackageNames": [
+        "mikefarah/yq",
         "playit-cloud/playit-agent"
       ],
-      "allowedVersions": "/^v0\\./",
       "automerge": true
     },
     {
