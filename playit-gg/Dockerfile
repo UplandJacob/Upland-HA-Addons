@@ -12,7 +12,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # renovate: datasource=github-tags depName=playit-cloud/playit-agent versioning=loose
-ENV PLAYIT_AGENT_VERSION=v0.17.1
+ENV PLAYIT_AGENT_VERSION=v1.0.10
 
 # hadolint ignore=DL3008
 RUN apt-get update \
