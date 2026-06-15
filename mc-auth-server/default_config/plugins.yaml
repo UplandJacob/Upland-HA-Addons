@@ -103,7 +103,7 @@ packaged_plugins:
   fawe:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
     version: 2.15.3
-    build: 1341
+    build: 1342
     file: "FastAsyncWorldEdit.jar"
     enabled: false
   worldguard:
