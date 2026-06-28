@@ -50,7 +50,7 @@ Minecraft [Leaf](https://leafmc.one) (Paper fork) auth server for proxy setups t
 
 ### [Eaglercraft Relay](/eag-relay)
 
-Run and Eaglercraft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
+Run an Eaglercraft relay server from Home Assistant, allowing players connected to the same relay to join each other's shared worlds.
 
 [![Show dashboard of add-on.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=d78ad65c_eag-relay)
 
