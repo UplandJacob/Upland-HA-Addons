@@ -46,8 +46,8 @@ packaged_plugins:
     enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
-    version: 2.10.1
-    build: 1184
+    version: 2.11.0
+    build: 1185
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
@@ -107,7 +107,7 @@ packaged_plugins:
 velocity:
   url: "https://fill-data.papermc.io/v1/objects/{sha}/velocity-{version}-{build}.jar"
   version: 3.5.0-SNAPSHOT
-  build: 607
-  sha: 8f5bab011b9afdcb8f0efc4c0ea16cc621371678dd72c3ebb6e0245b67a0ab0f
+  build: 608
+  sha: 3b25292797526ce2f354f99bad42076014199c678c14a487220acaf97d07ef59
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
