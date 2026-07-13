@@ -49,17 +49,31 @@ jobs:
         run: |
           resp=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://fill.papermc.io/v3/projects/velocity/versions")
           echo "$resp"
-          latestVers=$(echo "$resp" | jq -r .versions.[0].version.id)
+
+          v=-1
+          i=0
+          while [ $i -lt $(echo "$resp" | jq '.versions | length') ]; do
+          build_count=$(echo "$resp" | jq ".versions[$i].builds | length")
+          if [ "$build_count" -gt 0 ]; then
+              v=$i
+              break
+          fi
+          i=$((i+1))
+          done
+
+          latestVers=$(echo "$resp" | jq -r .versions.[$i].version.id)
           echo "latest version: $latestVers"
 
-          resp2=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://fill.papermc.io/v3/projects/velocity/versions/$latestVers/builds")
-          echo "$resp2"
-          latestBuild=$(echo "$resp2" | jq -r .[0].id)
+          latestBuild=$(echo "$resp" | jq -r .versions.[$i].builds[-1])
           echo "latest build: $latestBuild"
-          latestSha=$(echo "$resp2" | jq -r '.[0].downloads."server:default".checksums.sha256')
-          echo "latest build: $latestSha"
+
+          resp2=$(curl --silent -X 'GET' -H "Accept-Encoding: identity" -H 'accept: application/json' "https://fill.papermc.io/v3/projects/velocity/versions/$latestVers/builds/$latestBuild")
+          echo "$resp2"
+
+          latestSha=$(echo "$resp2" | jq -r '.downloads."server:default".checksums.sha256')
+          echo "latest sha: $latestSha"
           
-          
+
           currentVers=$(yq '.velocity.version' ${{ env.VERS_FILE }})
           echo "current version: $currentVers"
           currentBuild=$(yq '.velocity.build' ${{ env.VERS_FILE }})
