@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/uplandjacob/ha-base-debian-java-amd64:0.3.4
+ARG BUILD_FROM=ghcr.io/uplandjacob/ha-base-debian-java-amd64:1.0.0
 FROM ${BUILD_FROM}
 
 WORKDIR /
