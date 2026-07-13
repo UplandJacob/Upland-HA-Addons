@@ -44,7 +44,7 @@ packaged_plugins:
   floodgate:
     url: "https://download.geysermc.org/v2/projects/floodgate/versions/{version}/builds/{build}/downloads/spigot"
     version: 2.2.5
-    build: 137
+    build: 138
     file: "Floodgate.jar"
   authme:
     url: "https://cdn.modrinth.com/data/3IEZ9vol/versions/{versionID}/AuthMe-{version}-FORK-Universal.jar"
@@ -71,17 +71,17 @@ packaged_plugins:
     file: "WebConsole.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
-    version: 5.10.0
+    version: 5.11.0
     file: "ViaVersion.jar"
     enabled: false
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
-    version: 5.10.0
+    version: 5.11.0
     file: "ViaBackwards.jar"
     enabled: false
   viarewind:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
-    version: 4.1.2
+    version: 4.1.3
     file: "ViaRewind.jar"
     enabled: false
   vialegacy:
@@ -103,7 +103,7 @@ packaged_plugins:
   fawe:
     url: "https://ci.athion.net/job/FastAsyncWorldEdit/{build}/artifact/artifacts/FastAsyncWorldEdit-Paper-{version}-SNAPSHOT-{build}.jar"
     version: 2.15.3
-    build: 1344
+    build: 1348
     file: "FastAsyncWorldEdit.jar"
     enabled: false
   worldguard:
@@ -115,6 +115,6 @@ packaged_plugins:
 server:
   url: "https://api.leafmc.one/v2/projects/leaf/versions/{version}/builds/{build}/downloads/leaf-{version}-{build}.jar"
   version: 1.21.11
-  build: 168
+  build: 170
 current_installed_urls: # keeps track of the last download url of the server and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
