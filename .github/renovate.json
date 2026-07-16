@@ -79,6 +79,17 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
+        "/(^|/)Dockerfile$/"
+      ],
+      "matchStrings": [
+        "# ?renovate:? ?deb=(?<depName>[a-zA-Z0-9.+-]+)\n(?:ENV|ARG)\\s+[A-Za-z0-9_]+?_VERSION[ =][\"']?(?<currentValue>[^\\s\"']+)"
+      ],
+      "datasourceTemplate": "deb",
+      "depNameTemplate": "{{depName}}"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
         "/(^|/)Dockerfile$/",
         "/(^|/)build.yaml$/"
       ],
