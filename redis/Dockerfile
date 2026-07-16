@@ -12,13 +12,23 @@ COPY rootfs .
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
+
+# renovate: deb=lsb-release
+ENV LSB_VERSION=12.1-1
+# renovate: deb=gpg
+ENV GPG_VERSION=2.4.7-21+deb13u1+b1
+# renovate: deb=curl
+ENV CURL_VERSION=8.14.1-2+deb13u4
+# renovate: deb=tar
+ENV TAR_VERSION=1.35+dfsg-3.1
+
 # Install packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    lsb-release=12.1-1 \
-    gpg=2.4.7-21+deb13u1+b1 \
-    curl=8.14.1-2+deb13u2 \
-    tar=1.35+dfsg-3.1 && \
+    lsb-release=${LSB_VERSION} \
+    gpg=${GPG_VERSION} \
+    curl=${CURL_VERSION} \
+    tar=${TAR_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
 # renovate: depName=redis-server deb-source=https://packages.redis.io/deb; codename=trixie
