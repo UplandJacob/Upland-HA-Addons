@@ -31,13 +31,13 @@ RUN apt-get update && \
     tar=${TAR_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
-# renovate: depName=redis-server deb-source=https://packages.redis.io/deb; codename=trixie
-ENV REDIS_VERSION=6:8.6.0-1rl1~trixie1
+# renovate: datasource=github-releases depName=redis/redis
+ENV REDIS_VERSION=8.6.0
 RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg && \
     chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list && \
     apt-get update && apt-get install --no-install-recommends -y \
-    redis-server=${REDIS_VERSION} && \ 
+    redis-server=6:${REDIS_VERSION}-1rl1~trixie1 && \ 
     apt-get remove -y lsb-release gpg && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-releases depName=oliver006/redis_exporter
