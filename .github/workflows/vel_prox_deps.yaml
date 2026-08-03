@@ -310,7 +310,7 @@ jobs:
           echo "current version: $currentVers"
           if [ "$latestVers" != "$currentVers" ] && [ "$latestVers" != "null" ]; then
             echo "changed=${{ env.changed }} VPacketEvents" >> $GITHUB_ENV;
-            yq -i "${{ env.PLs }}.vpacket_events.version = $latestVers" ${{ env.VERS_FILE }}
+            yq eval -i "${{ env.PLs }}.vpacket_events.version = \"$latestVers\" | ${{ env.PLs }}.vpacket_events.version style=\"\"" ${{ env.VERS_FILE }}
           fi
 
 
