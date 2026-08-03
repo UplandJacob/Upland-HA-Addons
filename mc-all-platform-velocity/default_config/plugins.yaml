@@ -32,16 +32,16 @@ custom_plugins: # add your own plugins here
 packaged_plugins:
   eaglerxserver:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
-    version: 1.1.0
+    version: 1.1.1
     file: "EaglerXServer.jar"
   eaglerxrewind:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXRewind.jar"
-    version: 1.1.0
+    version: 1.1.1
     file: "EaglerXRewind.jar"
     enabled: false
   eaglermotd:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerMOTD.jar"
-    version: 1.1.0
+    version: 1.1.1
     file: "EaglerMOTD.jar"
     enabled: false
   geyser:
@@ -101,13 +101,13 @@ packaged_plugins:
     enabled: false
   vpacket_events:
     url: "https://github.com/4drian3d/VPacketEvents/releases/download/{version}/VPacketEvents-{version}.jar"
-    version: 1.1.0
+    version: 1.2.0
     file: "VPacketEvents.jar"
     enabled: false
 velocity:
   url: "https://fill-data.papermc.io/v1/objects/{sha}/velocity-{version}-{build}.jar"
   version: 4.1.0-SNAPSHOT
-  build: 12
-  sha: 619031b094211f2732b7f223593a6c2c7b9152b1d28f5110e086b41a02d65d68
+  build: 14
+  sha: d94545b4fc9a7a7b7eae3e29999b1882f9ca3b5b30873b173d84199d3b84039b
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
