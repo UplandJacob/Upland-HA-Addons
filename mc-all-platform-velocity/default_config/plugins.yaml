@@ -32,22 +32,22 @@ custom_plugins: # add your own plugins here
 packaged_plugins:
   eaglerxserver:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXServer.jar"
-    version: 1.1.0
+    version: 1.1.1
     file: "EaglerXServer.jar"
   eaglerxrewind:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerXRewind.jar"
-    version: 1.1.0
+    version: 1.1.1
     file: "EaglerXRewind.jar"
     enabled: false
   eaglermotd:
     url: "https://github.com/lax1dude/eaglerxserver/releases/download/v{version}/EaglerMOTD.jar"
-    version: 1.1.0
+    version: 1.1.1
     file: "EaglerMOTD.jar"
     enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
-    version: 2.11.0
-    build: 1205
+    version: 2.11.1
+    build: 1210
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
@@ -56,7 +56,7 @@ packaged_plugins:
     enabled: false
   xbox_broadcast:
     url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
-    build: 147
+    build: 149
     path: "Geyser-Velocity/extensions"
     file: "MCXboxBroadcastExtension.jar"
     enabled: false
@@ -101,13 +101,13 @@ packaged_plugins:
     enabled: false
   vpacket_events:
     url: "https://github.com/4drian3d/VPacketEvents/releases/download/{version}/VPacketEvents-{version}.jar"
-    version: 1.1.0
+    version: 1.2.0
     file: "VPacketEvents.jar"
     enabled: false
 velocity:
   url: "https://fill-data.papermc.io/v1/objects/{sha}/velocity-{version}-{build}.jar"
   version: 4.1.0-SNAPSHOT
-  build: 11
-  sha: 8290bd8bb46135ad3b916ceb780bc117fe0c8a603e79016c37a1e74315714f94
+  build: 16
+  sha: aebade8be3b15d7c3c61514a50ce857cbf78ee87bd32e8d16d2352c6ca3e472f
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
