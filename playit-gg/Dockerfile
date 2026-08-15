@@ -13,10 +13,12 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 # renovate: datasource=github-tags depName=playit-cloud/playit-agent versioning=loose
 ENV PLAYIT_AGENT_VERSION=v1.0.10
+# renovate: deb=curl
+ENV CURL_VERSION=8.14.1-2+deb13u4
 
 # hadolint ignore=DL3008
 RUN apt-get update \
-    && apt-get --no-install-recommends install -y curl \
+    && apt-get --no-install-recommends install -y curl=${CURL_VERSION} \
     && [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="amd64" \
     && curl -SsL "https://github.com/playit-cloud/playit-agent/releases/download/${PLAYIT_AGENT_VERSION}/playit_${ARCH}.deb" -o ./playit.deb \
     && apt-get --no-install-recommends install -y ./playit.deb \
