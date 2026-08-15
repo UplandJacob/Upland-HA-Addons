@@ -3,7 +3,7 @@ FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
 
 # renovate: datasource=custom.vscode-cli depName=vscode-cli
-ARG VSCODE_CLI_VERSION=1.132.0
+ARG VSCODE_CLI_VERSION=1.133.0
 
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -15,11 +15,16 @@ COPY rootfs .
 RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; fi && \
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
+# renovate: deb=tar
+ENV TAR_VERSION=1.35+dfsg-3.1
+# renovate: deb=git
+ENV GIT_VERSION=1:2.47.3-0+deb13u1
+
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install --no-install-recommends -y \
     curl \
-    tar=1.35+dfsg-3.1 \
-    git=1:2.47.3-0+deb13u1 \
+    tar=${TAR_VERSION} \
+    git=${GIT_VERSION} \
     openssh-client && \
     [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64" || ARCH="x64" && \
     curl -fsSL "https://update.code.visualstudio.com/${VSCODE_CLI_VERSION}/cli-linux-${ARCH}/stable" | tar -zxvf - -C /usr/bin && \
@@ -28,14 +33,19 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 # renovate: datasource=github-tags depName=docker/cli extractVersion=^v(?<version>.*)$
 ENV DOCKER_VERSION=29.7.2
+# renovate: deb=docker-buildx
+ENV DOCKER_BUILDX_VERSION=0.13.1+ds1-3
+# renovate: deb=bash-completion
+ENV BASH_COMPLETION_VERSION=1:2.16.0-7
+
 RUN [ "$BUILD_ARCH" = "amd64" ] && ARCH="x86_64" || ARCH="${BUILD_ARCH}" && \
     curl -fsSL "https://download.docker.com/linux/static/stable/${ARCH}/docker-${DOCKER_VERSION}.tgz" | tar -zxvf - --strip 1 -C /usr/bin docker/docker && \
     docker --version && \
     apt-get update && apt-get install --no-install-recommends -y \
-    bash-completion=1:2.16.0-7 \
-    docker-buildx=0.13.1+ds1-3 && \
+    bash-completion=${BASH_COMPLETION_VERSION} \
+    docker-buildx=${DOCKER_BUILDX_VERSION} && \
     docker --version && \
-    echo -e "if [ -f /etc/bash_completion ]; then\n    . /etc/bash_completion\nfi" >> ~/.bashrc && \
+    printf "if [ -f /etc/bash_completion ]; then\n    . /etc/bash_completion\nfi\n" >> ~/.bashrc && \
     docker completion bash | tee /etc/bash_completion.d/docker >/dev/null && \
     docker buildx version && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
