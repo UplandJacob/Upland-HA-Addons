@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-tags depName=docker/cli extractVersion=^v(?<version>.*)$
-ENV DOCKER_VERSION=29.7.2
+ENV DOCKER_VERSION=29.8.0
 # renovate: deb=docker-buildx
 ENV DOCKER_BUILDX_VERSION=0.13.1+ds1-3
 # renovate: deb=bash-completion
