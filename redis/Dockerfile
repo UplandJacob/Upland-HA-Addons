@@ -18,7 +18,7 @@ ENV LSB_VERSION=12.1-1
 # renovate: deb=gpg
 ENV GPG_VERSION=2.4.7-21+deb13u1+b4
 # renovate: deb=curl
-ENV CURL_VERSION=8.14.1-2+deb13u4
+ENV CURL_VERSION=8.14.1-2+deb13u5
 # renovate: deb=tar
 ENV TAR_VERSION=1.35+dfsg-3.1
 
