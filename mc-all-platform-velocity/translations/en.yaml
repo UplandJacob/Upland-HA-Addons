@@ -36,6 +36,11 @@ configuration:
   forcedHosts:
     name: Forced Hosts
     description: Servers associated with specific hostnames
+  ping-pass:
+    name: Velocity Ping Passthrough Config
+    description: Send specific information to the client from the backend server instead of the proxy.
+  packet-limit:
+    name: Velocity Packet Limiter Config
   adv:
     name: Velocity Advanced Config
     description: Make sure you know what these settings do before you change them.

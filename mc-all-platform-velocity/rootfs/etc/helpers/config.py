@@ -172,6 +172,8 @@ VEL_ROOT_CONFIG = addon_conf['rootConfig']
 VEL_SERVERS = addon_conf['servers']
 VEL_SERV_ATT_JOIN_ORD = addon_conf['serverAttemptJoinOrder']
 VEL_FORCED_HOSTS = addon_conf['forcedHosts']
+VEL_PING = addon_conf['ping-pass']
+VEL_PACKET = addon_conf['packet-limit']
 VEL_ADVANCED = addon_conf['adv']
 
 try:
@@ -208,6 +210,14 @@ try:
       log_info_x('Skipping null host')
       continue
     vel_toml['forced-hosts'][host] = serv_names
+
+  for setting in VEL_PING:
+      log.debug(f"{setting}: {VEL_PING[setting]}")
+      vel_toml['ping-passthrough'][setting] = VEL_PING[setting]
+
+  for setting in VEL_PACKET:
+      log.debug(f"{setting}: {VEL_PACKET[setting]}")
+      vel_toml['packet-limiter'][setting] = VEL_PACKET[setting]
 
   for setting in VEL_ADVANCED:
     log.debug(f"{setting}: {VEL_ADVANCED[setting]}")
@@ -408,15 +418,15 @@ except Exception as e:
 
 FLOOD_DBS = {
   'sqlite': {
-    "url": "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/sqlite/build/libs/floodgate-sqlite-database.jar",
+    "url": "https://download.geysermc.org/v2/projects/floodgatedb/versions/latest/builds/latest/downloads/sqlite",
     "file": "floodgate-sqlite-database.jar"
   },
   'mysql': {
-    "url": "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/mysql/build/libs/floodgate-mysql-database.jar",
+    "url": "https://download.geysermc.org/v2/projects/floodgatedb/versions/latest/builds/latest/downloads/mysql",
     "file": "floodgate-mysql-database.jar"
   },
   'mongo': {
-    "url": "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/fix-weird-via-issue/lastSuccessfulBuild/artifact/database/mongo/build/libs/floodgate-mongo-database.jar",
+    "url": "https://download.geysermc.org/v2/projects/floodgatedb/versions/latest/builds/latest/downloads/mongodb",
     "file": "floodgate-mongo-database.jar"
   }
 }

@@ -1,5 +1,5 @@
 name: Minecraft All-Platform Velocity Proxy
-version: 2.3.27
+version: 2.4.0
 slug: mc-all-platform-velocity
 description: Proxy to allow players with any client to join the server.
 url: https://github.com/uplandjacob/upland-ha-addons/tree/main/mc-all-platform-velocity
@@ -26,7 +26,7 @@ options:
     player-info-forwarding-mode: "NONE"
     announce-forge: false
     kick-existing-players: false
-    ping-passthrough: "DISABLED"
+    sample-players-in-ping: false
     enable-player-address-logging: true
   servers: 
     - name: "main"
@@ -46,6 +46,17 @@ options:
     - hostname: "test.example.com"
       servNames:
         - "test"
+  ping-pass:
+    version: false
+    players: false
+    description: false
+    favicon : false
+    modinfo: false
+  packet-limit:
+    interval: 7
+    packets-per-second: -1
+    bytes-per-second: -1
+    decompressed-bytes-per-second: 5242880
   adv:
     compression-threshold: 256
     compression-level: -1
@@ -60,6 +71,12 @@ options:
     log-command-executions: false
     log-player-connections: true
     accepts-transfers: false
+    enable-reuse-port: false
+    command-rate-limit: 50
+    forward-commands-if-rate-limited: true
+    kick-after-rate-limited-commands: 0
+    tab-complete-rate-limit : 10
+    kick-after-rate-limited-tab-completes: 0
 
   eagConfig: 
     eagler_login_timeout: 10000
@@ -169,7 +186,7 @@ schema:
     player-info-forwarding-mode: list(NONE|LEGACY|BUNGEEGUARD|MODERN)
     announce-forge: bool
     kick-existing-players: bool
-    ping-passthrough: list(DISABLED|MODS|DESCRIPTION|ALL)
+    sample-players-in-ping: bool
     enable-player-address-logging: bool
   servers: 
     - name: str
@@ -180,6 +197,17 @@ schema:
     - hostname: str
       servNames:
         - str
+  ping-pass:
+    version: bool
+    players: bool
+    description: bool
+    favicon : bool
+    modinfo: bool
+  packet-limit:
+    interval: int
+    packets-per-second: int
+    bytes-per-second: int
+    decompressed-bytes-per-second: int
   adv:
     compression-threshold: int
     compression-level: int
@@ -194,6 +222,12 @@ schema:
     log-command-executions: bool
     log-player-connections: bool
     accepts-transfers: bool
+    enable-reuse-port: bool
+    command-rate-limit: int
+    forward-commands-if-rate-limited: bool
+    kick-after-rate-limited-commands: int
+    tab-complete-rate-limit : int
+    kick-after-rate-limited-tab-completes: int
 
   eagConfig: 
     eagler_login_timeout: int
@@ -291,7 +325,7 @@ schema:
 
 
 map:
-  - addon_config:rw
+  - app_config:rw
 
 ports:
   "25565/tcp": 25565
