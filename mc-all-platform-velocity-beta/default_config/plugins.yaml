@@ -46,8 +46,8 @@ packaged_plugins:
     enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
-    version: 2.11.2
-    build: 1235
+    version: 2.11.3
+    build: 1237
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
