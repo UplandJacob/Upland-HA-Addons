@@ -13,7 +13,7 @@ image: ghcr.io/uplandjacob/upland-ha-addons-vscode-tunnel-{arch}
 hassio_api: true
 docker_api: true
 map:
-  - type: addon_config
+  - type: app_config
     read_only: false
   - type: share
     read_only: false
@@ -21,7 +21,7 @@ map:
     read_only: false
   - type: homeassistant_config
     read_only: false
-  - type: all_addon_configs
+  - type: all_app_configs
     read_only: false
   - type: addons
     read_only: false
