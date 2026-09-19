@@ -90,7 +90,7 @@ schema:
     enable-global-linking: bool
 
 map:
-  - addon_config:rw
+  - app_config:rw
 
 ports:
   "25565/tcp": 25565
