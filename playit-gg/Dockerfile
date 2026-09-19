@@ -14,7 +14,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 # renovate: datasource=github-tags depName=playit-cloud/playit-agent versioning=loose
 ENV PLAYIT_AGENT_VERSION=v1.0.10
 # renovate: deb=curl
-ENV CURL_VERSION=8.14.1-2+deb13u4
+ENV CURL_VERSION=8.14.1-2+deb13u5
 
 # hadolint ignore=DL3008
 RUN apt-get update \
