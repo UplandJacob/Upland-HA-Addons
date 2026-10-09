@@ -1,9 +1,9 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2026.08.0
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2026.10.0
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
 
 # renovate: datasource=custom.vscode-cli depName=vscode-cli
-ARG VSCODE_CLI_VERSION=1.139.0
+ARG VSCODE_CLI_VERSION=1.141.0
 
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-tags depName=docker/cli extractVersion=^v(?<version>.*)$
-ENV DOCKER_VERSION=29.8.1
+ENV DOCKER_VERSION=29.9.0
 # renovate: deb=docker-buildx
 ENV DOCKER_BUILDX_VERSION=0.13.1+ds1-3
 # renovate: deb=bash-completion
