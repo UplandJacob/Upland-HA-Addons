@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2026.08.0
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2026.10.0
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
 
@@ -24,7 +24,7 @@ RUN apt-get update && \
     && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-releases depName=mikefarah/yq
-ENV YQ_VERSION="v4.53.6"
+ENV YQ_VERSION="v4.54.1"
 RUN ARCH="$BUILD_ARCH" && \
     [ "$BUILD_ARCH" = "aarch64" ] && ARCH="arm64"; \
     echo "ARCH = ${ARCH}" && \
