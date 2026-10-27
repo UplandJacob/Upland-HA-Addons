@@ -56,7 +56,7 @@ packaged_plugins:
     enabled: false
   xbox_broadcast:
     url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
-    build: 159
+    build: 160
     path: "Geyser-Velocity/extensions"
     file: "MCXboxBroadcastExtension.jar"
     enabled: false
@@ -78,7 +78,7 @@ packaged_plugins:
     file: "ViaVersion.jar"
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
-    version: 5.12.1
+    version: 5.12.2
     file: "ViaBackwards.jar"
   viarewind:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
