@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2026.10.0
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2026.10.3
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH
 
@@ -12,7 +12,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 # renovate: datasource=github-tags depName=playit-cloud/playit-agent versioning=loose
-ENV PLAYIT_AGENT_VERSION=v1.0.10
+ENV PLAYIT_AGENT_VERSION=v1.1.0
 # renovate: deb=curl
 ENV CURL_VERSION=8.14.1-2+deb13u5
 
