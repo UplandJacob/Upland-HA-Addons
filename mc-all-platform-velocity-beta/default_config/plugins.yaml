@@ -46,8 +46,8 @@ packaged_plugins:
     enabled: false
   geyser:
     url: "https://download.geysermc.org/v2/projects/geyser/versions/{version}/builds/{build}/downloads/velocity"
-    version: 2.12.0
-    build: 1265
+    version: 2.12.1
+    build: 1276
     file: "Geyser.jar"
   geyser_extras:
     url: "https://github.com/GeyserExtras/GeyserExtras/releases/download/{version}/GeyserExtras-Velocity.jar"
@@ -56,7 +56,7 @@ packaged_plugins:
     enabled: false
   xbox_broadcast:
     url: "https://github.com/MCXboxBroadcast/Broadcaster/releases/download/{build}/MCXboxBroadcastExtension.jar"
-    build: 159
+    build: 160
     path: "Geyser-Velocity/extensions"
     file: "MCXboxBroadcastExtension.jar"
     enabled: false
@@ -74,11 +74,11 @@ packaged_plugins:
     file: "Floodgate.jar"
   viaversion:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/{version}/PAPER/ViaVersion-{version}.jar"
-    version: 5.12.1
+    version: 5.12.2
     file: "ViaVersion.jar"
   viabackwards:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/{version}/PAPER/ViaBackwards-{version}.jar"
-    version: 5.12.1
+    version: 5.12.2
     file: "ViaBackwards.jar"
   viarewind:
     url: "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaRewind/versions/{version}/PAPER/ViaRewind-{version}.jar"
@@ -106,8 +106,8 @@ packaged_plugins:
     enabled: false
 velocity:
   url: "https://fill-data.papermc.io/v1/objects/{sha}/velocity-{version}-{build}.jar"
-  version: 4.3.0
-  build: 44
-  sha: 85be73b90f295acd8d5d45a00ad10bac791d4b72b7554172612a89565ebaaa8f
+  version: 4.3.2-SNAPSHOT
+  build: 46
+  sha: a2b59b1f68d7cff5a8b66e26de57314438c529c3debbb0c523a39b22d1d36470
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
