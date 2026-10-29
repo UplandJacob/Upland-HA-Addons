@@ -14,6 +14,7 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
 
 
 # Install packages
+# hadolint ignore=DL3008
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     lsb-release gpg curl tar && \
