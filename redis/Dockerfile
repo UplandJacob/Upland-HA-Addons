@@ -13,22 +13,10 @@ RUN if [ ! -f /bin/sh ] && [ -f /usr/bin/sh ]; then ln -s /usr/bin/sh /bin/sh; f
     if [ ! -f /bin/bash ] && [ -f /usr/bin/bash ]; then ln -s /usr/bin/bash /bin/bash; fi
 
 
-# renovate: deb=lsb-release
-ENV LSB_VERSION=12.1-1
-# renovate: deb=gpg
-ENV GPG_VERSION=2.4.7-21+deb13u1+b5
-# renovate: deb=curl
-ENV CURL_VERSION=8.14.1-2+deb13u5
-# renovate: deb=tar
-ENV TAR_VERSION=1.35+dfsg-3.1
-
 # Install packages
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
-    lsb-release=${LSB_VERSION} \
-    gpg=${GPG_VERSION} \
-    curl=${CURL_VERSION} \
-    tar=${TAR_VERSION} && \
+    lsb-release gpg curl tar && \
     rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=github-releases depName=redis/redis
