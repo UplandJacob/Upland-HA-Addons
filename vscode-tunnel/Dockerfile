@@ -1,9 +1,9 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2026.10.0
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:trixie-2026.10.3
 FROM ${BUILD_FROM}
 ARG BUILD_ARCH=amd64
 
 # renovate: datasource=custom.vscode-cli depName=vscode-cli
-ARG VSCODE_CLI_VERSION=1.143.0
+ARG VSCODE_CLI_VERSION=1.144.0
 
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
