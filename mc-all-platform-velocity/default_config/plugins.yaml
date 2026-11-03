@@ -107,7 +107,7 @@ packaged_plugins:
 velocity:
   url: "https://fill-data.papermc.io/v1/objects/{sha}/velocity-{version}-{build}.jar"
   version: 4.3.2-SNAPSHOT
-  build: 47
-  sha: 673acfb237536789280275ee96babcc0b25d4d9fc75449d34351b0da72fdb57f
+  build: 48
+  sha: 01e37982e92f78465c950ef6b5ebe9fd4f94f11a11868c95682b2ee99f7409bb
 current_installed_urls: # keeps track of the last download url of velocity and each plugin
 current_installed_files: # keeps track of the last file name each plugin for handling changing placeholders
