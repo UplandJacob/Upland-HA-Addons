@@ -45,9 +45,9 @@ jobs:
         run: |
           version=$(yq '.server.version' ${{ env.VERS_FILE }})
           echo "Server version: $version"
-          resp=$(curl --silent -X 'GET' "https://api.leafmc.one/v2/projects/leaf/versions/$version" -H 'accept: application/json')
+          resp=$(curl --silent -X 'GET' "https://dl.leafmc.one/v3/projects/leaf/versions/$version/builds/latest" -H 'accept: application/json')
           echo "$resp"
-          latestBuild=$(echo "$resp" | jq -r .builds.[-1])
+          latestBuild=$(echo "$resp" | jq -r .id)
           echo "latest build: $latestBuild"
 
           currentBuild=$(yq '.server.build' ${{ env.VERS_FILE }})
